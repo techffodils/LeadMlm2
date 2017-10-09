@@ -18,7 +18,7 @@ Class Core_Base_Controller extends CI_Controller {
 /**
   * Add Function For dispaly view
   * @date:2017-10-10 Monday
-  * @Author:Techffodils technologies LLP
+  * @Author:Techffodils technologies LLP sarun
  */
 
     function loadView() {
