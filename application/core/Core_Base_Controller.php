@@ -10,8 +10,10 @@ Class Core_Base_Controller extends CI_Controller {
         parent::__construct();
 
         $this->main->load_model();
-		$this->DATA_ARR['BASE_URL']= BASE_PATH;
+	
+	$this->DATA_ARR['BASE_URL']= BASE_PATH;
 	}
+
 		
 /**
   * Add Function For dispaly view
@@ -20,7 +22,8 @@ Class Core_Base_Controller extends CI_Controller {
  */
 
     function loadView() {
-	
+
+
        $this->DATA_ARR['js_path'] = PUBLIC_PATH;
 	   
        $mlm_user_type = 'user';

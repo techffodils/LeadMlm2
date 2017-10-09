@@ -89,7 +89,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 defined('REMOTE_IP_ADDR')        OR define('REMOTE_IP_ADDR', $_SERVER['REMOTE_ADDR']); //IP ADDRESS
 defined('SERVER_TIME')        OR define('SERVER_TIME', date('l jS \of F Y h:i:s A')); //SERVER TIME
 defined('DB_PREFIX_SYSTEM')        OR define('DB_PREFIX_SYSTEM', 'mlm_'); //TABLE PREFIX
-defined('BASE_PATH')        OR define('BASE_PATH','http://localhost/LeadMlm/'); //BASE URL
+defined('BASE_PATH')        OR define('BASE_PATH','http://localhost/WC/LeadMlm2/'); //BASE URL
 defined('NO_LOGIN_PAGES')        OR define('NO_LOGIN_PAGES', array("login", 'auth',"captcha", "backup", "time", "cron", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites")); //PAGES THAT DOESN'T NEED LOGGED IN SESSION
 defined('NO_TRANSLATION_PAGES')        OR define('NO_TRANSLATION_PAGES',array("auto_register", "captcha", "time", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites", "cron")); //PAGES THAT DOESN'T NEED TRANSLATION FILE
 defined('NO_MODEL_CLASS_PAGES')        OR define('NO_MODEL_CLASS_PAGES',array("auto_register", "time", "test_mail")); //PAGES THAT DOESN'T NEED MODEL CLASS
