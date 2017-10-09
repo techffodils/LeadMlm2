@@ -15,6 +15,11 @@ class Home extends Base_Controller{
 	*@Date 2017-10-9
 	*/
 	function index(){
+		$title="Home";
+		$this->setData('title',$title.'|'.$this->main->get_controller() .'::');
+		
+		$this->setData('header',$title);
+		
 		$this->loadView();
 	}
 }

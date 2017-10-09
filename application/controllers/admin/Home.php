@@ -10,9 +10,9 @@ class Home extends Base_Controller{
 	
 	function index(){
 		
-		
-		
-		$this->setData('site_title','Home');
+		$title="Home";
+	    $this->setData('title',$title.'|'.$this->main->get_controller() .'::');
+	
 		$this->setData('header','Home');
 		
 			$this->loadView();
