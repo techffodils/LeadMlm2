@@ -1,25 +1,35 @@
-
 <?php 
+
 
 Class Core_Base_Controller extends CI_Controller {    
 
     public $DATA_ARR;
-
+	
     function __construct() {
 
         parent::__construct();
 
         $this->main->load_model();
-		
 		$this->DATA_ARR['BASE_URL']= BASE_PATH;
-    }
+	}
+		
+/**
+  * Add Function For dispaly view
+  * @date:2017-10-10 Monday
+  * @Author:Techffodils technologies LLP
+ */
 
     function loadView() {
+	
        $this->DATA_ARR['js_path'] = PUBLIC_PATH;
+	   
        $mlm_user_type = 'user';
+	   
        if ($this->main->get_usersession('mlm_user_type') != 'user') {
            $mlm_user_type = 'admin';
        }
+		 
+	   
        if (in_array($this->main->get_controller(), COMMON_PAGES)) {
            $this->twig->display($this->main->get_controller() . '/' . $this->main->get_method() . '.twig', $this->DATA_ARR);
        } else {
@@ -27,28 +37,50 @@ Class Core_Base_Controller extends CI_Controller {
        }
    }
 
+   
+   
+   /**
+     * setDataDatas
+     * @date:2017-10-10 Monday
+	 * @Author:Techffodils technologies
+	 */
+   
+   
+   
    function setData($key, $value){
     $this->DATA_ARR[$key] = $value;
    }
-    function loadPage($msg, $page, $message_type = false, $MSG_ARR = array()) {
+   
+  
 
-        $MSG_ARR["MESSAGE"]["DETAIL"] = $msg;
-        $MSG_ARR["MESSAGE"]["TYPE"] = $message_type;
-        $MSG_ARR["MESSAGE"]["STATUS"] = true;
+  /**
+     * Add loadPage for Redirect the page
+     * @date:2017-10-10 Monday
+	 * @Author:Techffodils technologies
+	 */
+	 
+    function loadPage($msg, $page, $message_type = false, $FLASH_MSG_ARR = array()) {
 
-        $this->main->set_flashdata('MSG_ARR', $MSG_ARR);
+        $FLASH_FLASH_MSG_ARR["MESSAGE"]["DETAIL"] = $msg;
+        $FLASH_MSG_ARR["MESSAGE"]["TYPE"] = $message_type;
+        $FLASH_MSG_ARR["MESSAGE"]["STATUS"] = true;
 
-        $path = BASE_URL;
+        $this->main->set_flashdata('FLASH_MSG_ARR', $FLASH_MSG_ARR);
+
+        $root = BASE_PATH;
 
         $split_pages = explode("/", $page);
         $controller_name = $split_pages[0];
-
+		$path='';
+		//print_r(COMMON_PAGES);die;
         if (in_array($controller_name, COMMON_PAGES)) {
+			
             $path .= $page;
             redirect("$path", 'refresh');
             exit();
         } else {
             if ($this->checkSession()) {
+				
                 $user_type = $this->main->get_usersession('mlm_user_type');
                 if ($user_type == "admin" || $user_type == "employee") {
                     $path .= "admin/" . $page;
@@ -59,6 +91,7 @@ Class Core_Base_Controller extends CI_Controller {
                 exit();
             } else {
                 if (in_array($controller_name, NO_LOGIN_PAGES)) {
+					
                     $path .= $page;
                     redirect("$path", 'refresh');
                     exit();
@@ -70,21 +103,82 @@ Class Core_Base_Controller extends CI_Controller {
             }
         }
     }
-
+	
+	
+	/**
+	 Add checkSession user is logged or not
+	 @date:2017-10-10 Monday
+	 @Author:Techffodils technologies
+	 
+	*/
+	
     function checkSession() {
-        $flag = $this->main->get_usersession('is_logged_in') ? true : false;
+        
+		$flag = $this->main->get_usersession('is_logged_in') ? true : false;
+		//echo $flag;die;
         return $flag;
     }
+	
+	/**
+	    Add setData flash message  
+        @date:2017-10-10 Monday
+	    @Author:Techffodils technologies		
+	*/
+	
+	
     function set_flash_message() {
-        $FLASH_ARR_MSG = $this->main->get_flashdata('MSG_ARR');
+        $FLASH_ARR_MSG = $this->main->get_flashdata('FLASH_MSG_ARR');
         if ($FLASH_ARR_MSG) {
-            $this->set("MESSAGE_DETAILS", $FLASH_ARR_MSG["MESSAGE"]["DETAIL"]);
-            $this->set("MESSAGE_TYPE", $FLASH_ARR_MSG["MESSAGE"]["TYPE"]);
-            $this->set("MESSAGE_STATUS", $FLASH_ARR_MSG["MESSAGE"]["STATUS"]);
+            $this->setData("MESSAGE_DETAILS", $FLASH_ARR_MSG["MESSAGE"]["DETAIL"]);
+            $this->setData("MESSAGE_TYPE", $FLASH_ARR_MSG["MESSAGE"]["TYPE"]);
+            $this->setData("MESSAGE_STATUS", $FLASH_ARR_MSG["MESSAGE"]["STATUS"]);
         } else {
-            $this->set("MESSAGE_STATUS", FALSE);
-            $this->set("MESSAGE_DETAILS", FALSE);
-            $this->set("MESSAGE_TYPE", FALSE);
+            $this->setData("MESSAGE_STATUS", FALSE);
+            $this->setData("MESSAGE_DETAILS", FALSE);
+            $this->setData("MESSAGE_TYPE", FALSE);
         }
     }
+	
+	function checkAdminLogged() {
+        if ($this->checkSession()) {
+            $user_type = $this->main->get_usersession('mlm_user_type');
+            if ($user_type != "admin" && $user_type != "employee"){
+				$this->loadPage("", "../user/home");
+			}
+            
+		}else {
+           //echo "here";die;
+            $login_link = BASE_PATH . "login";
+          $this->loadPage('',$login_link);
+           
+		}
+        
+        return true;
+    }
+
+    function checkUserLogged() {
+
+        if ($this->checkSession()) {
+            $user_type = $this->main->get_usersession('mlm_user_type');
+            if ($user_type != "user") {
+                $this->loadPage("", "../admin/home");
+            }
+        } else {
+            $login_link = BASE_PATH. "login";
+            $this->loadPage('',$login_link);
+        }
+        return true;
+    }
+	
+	function checkLogged(){
+		
+        $login_link = BASE_PATH . "login";
+
+        if (!$this->checkSession()) {
+            
+            $this->loadPage('','login',true);
+        }
+        return true;
+	}
+	
 }

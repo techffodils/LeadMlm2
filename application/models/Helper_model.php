@@ -76,8 +76,7 @@ class Helper_model extends CI_Model {
         $user_id = 0;
         $this->db->select('mlm_user_id');
         $this->db->from('mlm_user');
-        $this->db->where('user_name', $username);
-        $this->db->or_where('email ',$username);
+        $this->db->where("(user_name = '$username' OR email = '$username') ");
         $this->db->limit(1);
         $query = $this->db->get();
         foreach ($query->result() as $row) {
@@ -218,7 +217,7 @@ class Helper_model extends CI_Model {
         $user_status = 'NA';
         $this->db->select("user_status");
         $this->db->from("mlm_user");
-        $this->db->where("mlm_user_id", $username);
+        $this->db->where("mlm_user_id", $user_id);
         $this->db->where("password ", $password);
         $this->db->limit(1);
         $res = $this->db->get();
