@@ -1,0 +1,307 @@
+{% include('admin/layout/header.twig')%}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">Register Field Settings <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="errorHandler alert alert-danger no-display">
+                            <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                        </div>
+                        <div class="successHandler alert alert-success no-display">
+                            <i class="fa fa-ok"></i> Your form validation is successful!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Field Name <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Required <span class="symbol required"></span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" class="grey" value="1" name="required_status" id="required_status">
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="grey" value="0" name="required_status"  id="required_status">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Placement <span class="symbol required"></span>
+                                    </label>
+                                    <select name="register_step" id="register_step" class="form-control" >
+                                        <option value="">Select Placement</option>
+                                        <option value="step1">Step-1</option>
+                                        <option value="step2">Step-2</option>
+                                        <option value="step3">Step-3</option>                                            
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                       Sort Order <span class="symbol required"></span>
+                                    </label>
+                                    <input class="form-control" type="number" name="order" id="order" placeholder="Sort Order">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Unique <span class="symbol required"></span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" class="grey" value="1" name="unique_status" id="unique_status">
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="grey" value="0" name="unique_status"  id="unique_status">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Data Type <span class="symbol required"></span>
+                            </label>
+                            <select name="register_step" id="register_step" class="form-control" >
+                                <option value="">Select Data Type</option>
+                                <option value="int">Int</option>
+                                <option value="double">Double</option>
+                                <option value="varchar">Varchar</option>    
+                                <option value="text">Text</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Data Type Max Size<span class="symbol required"></span>
+                            </label>
+                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Default Value <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Field Type <span class="symbol required"></span>
+                            </label>
+                            <select name="register_step" id="register_step" class="form-control" >
+                                <option value="">Select Field Type</option>
+                                <option value="text">Text</option>
+                                <option value="radio">Radio</option>
+                                <option value="select_box">Select Box</option>    
+                                <option value="text_area">Text Area</option>
+                            </select>
+                        </div>
+                        
+                        <div id="radio_extras">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Value 1 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Value 1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Value 2 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value2" id="radio_value2" placeholder="Value 2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="selectbox_extras">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 1 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Option 1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 2 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="select_option2" id="select_option2" placeholder="Option 2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 3 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="select_option3" id="select_option3" placeholder="Option 3">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 4 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="select_option4" id="select_option4" placeholder="Option 4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-yellow btn-block" type="submit">
+                            Add New <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </div>
+                {{ form_close()|raw }}
+            </div>
+        </div>                                    
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">Register Fields <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="sample-table-1">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                        <div class="checkbox-table">
+                            <label>
+                                <input type="checkbox" class="flat-grey selectall">
+                            </label>
+                        </div></th>
+                        <th>Domain</th>
+                        <th>Price</th>
+                        <th>Clicks</th>
+                        <th><i class="fa fa-time"></i> Update </th>
+                        <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">
+                                    <div class="checkbox-table">
+                                        <label>
+                                            <input type="checkbox" class="flat-grey foocheck">
+                                        </label>
+                                    </div></td>
+                                <td>
+                                    <a href="#">
+                                        alpha.com
+                                    </a></td>
+                                <td>$45</td>
+                                <td>3,330</td>
+                                <td>Feb 13</td>
+                                <td><span class="label label-sm label-warning">Expiring</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>                                    
+    </div>
+</div>
+
+
+
+{% include('admin/layout/footer.twig')%}

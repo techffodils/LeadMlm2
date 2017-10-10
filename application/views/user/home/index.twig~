@@ -1,6 +1,5 @@
 {% include('admin/layout/header.twig')%}
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-white">
@@ -31,6 +30,7 @@
         </div>                                    
     </div>
 </div>
+
 
 
 {% include('admin/layout/footer.twig')%}

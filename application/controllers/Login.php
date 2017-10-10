@@ -6,11 +6,15 @@ require_once 'admin/Base_Controller.php';
 
 class Login extends Base_Controller {
 
+
+
     public function index() {
-        $data = array();
         
+       $is_logged_in =false;
+	   
         $this->loadView();
     }
+	
 
     function validate_login() {
 	
@@ -59,8 +63,13 @@ class Login extends Base_Controller {
         $login_details = $this->input->post(NULL, TRUE);
         $login_details = $this->helper_model->stripTagsPost($login_details);
         $username = $login_details['username'];
-        $sha_password = hash("sha256", $password);
-        $login_result = $this->login_model->login($username, $sha_password);
+		
+		if($password!=''){
+           $sha_password = hash("sha256", $password);
+	    }
+	
+         $login_result = $this->login_model->login($username, $sha_password);
+		
         if ($login_result) {
             $this->login_model->setUserLoginSession($login_result);
             $flag = true;
@@ -69,7 +78,68 @@ class Login extends Base_Controller {
         }
         return $flag;
     }
+	
+	/**
+	*For Fogot Password Function
+	*@Author Techffodils
+	*@Date 2017-10-09
+	
+	*/
+	function forgot_password(){
+		$post_arr=$this->input->post();
+		if($post_arr&&$this->validate_email()){
+			$email=$post_arr['email'];
+			$content="Please Have a ";
+			//$link=
+			
+		}else{
+			$msg='Email filed is required';
+			$this->loadPage($msg,'login/forgot_password',FALSE);
+		}	 
+	}
+	/**
+	*For Validate Email
+	*@Author Techffodils
+	*@Date 201710-10-09
+	
+	*/
+	function validate_email(){
+	$this->form_validation->rules('email','Email','trim|xss_clean|required|callback_email_exists_or_not');
+	if($this->form_validation->run()==FLASE){
+		$msg="Email Not Exits in Our Database";
+		$this->loadPage($msg,'login/forgot_password');
+	}else{
+		return TRUE;
+	}
+	}
 
+	function email_exists_or_not($email){
+		if(!empty($email)){
+			$result=$this->login_model->checkEmailExitsOrNot($email);
+			if($result){
+				return TRUE;
+			}
+			else{
+				return FALSE;
+			}
+		}
+		
+		
+	}
+	
+	
+	function rest_password(){
+		$post_arr=$this->input->post();
+		if(!empty($post_arr)&& $this->validate_reset_password()){
+			$email=$post_arr['new_password'];
+		}
+	}
+	
+	function validate_reset_password(){
+		$this->form_validation->rules('new_passowrd','required|trim|xss_clean|match');
+	}
+	
+	
     function logout() {
 
         $user_id = $this->main->get_usersession('mlm_user_id');
@@ -81,7 +151,8 @@ class Login extends Base_Controller {
         if ($user_id) {
             $this->helper_model->insertActivity($user_id, 'logout');
         }
-        header('Location: http://localhost/WC/soft');
+	
+        $this->loadPage('','../login/index',TRUE);
     }
 
     public function session_timeout() {
