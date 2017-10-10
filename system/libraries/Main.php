@@ -9,9 +9,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 
 CREATE TABLE IF NOT EXISTS `config` (
-  `key` varchar(255) NOT NULL,
-  `value` text NOT NULL,
-  PRIMARY KEY  (`key`)
+`key` varchar(255) NOT NULL,
+`value` text NOT NULL,
+PRIMARY KEY  (`key`)
 )
 
 */
@@ -30,69 +30,68 @@ CREATE TABLE IF NOT EXISTS `config` (
 **/
 class CI_Main {
 
-    private $mlm_session;
-    private $flash_data;
+	private $mlm_session;
+	private $flash_data;
 
-     function __construct()
-    {
-        $this->ci =& get_instance();
-    
-    }
+	function __construct()
+	{
+		$this->ci =& get_instance();
 
-    function get_controller(){
-        return $this->ci->router->class;
-    }
+	}
 
-    function get_method(){
-        return $this->ci->router->method;
-    }
+	function get_controller(){
+		return $this->ci->router->class;
+	}
 
-    function get_urlfull(){
-        return $this->ci->router->class . "/" . $this->ci->router->method;
-    }
+	function get_method(){
+		return $this->ci->router->method;
+	}
 
-    function get_redirecturl(){
-        return $this->ci->router->class . "/" . $this->ci->router->method;
-    }
+	function get_urlfull(){
+		return $this->ci->router->class . "/" . $this->ci->router->method;
+	}
 
-    function get_currenturl(){
-        return $this->ci->router->class . "/" . $this->ci->router->method;
-    }
+	function get_redirecturl(){
+		return $this->ci->router->class . "/" . $this->ci->router->method;
+	}
 
-    function csrf_value(){
-       return $this->ci->security->get_csrf_hash();
-    }
+	function get_currenturl(){
+		return $this->ci->router->class . "/" . $this->ci->router->method;
+	}
 
-    function csrf_name(){
-       return $this->ci->security->get_csrf_token_name();
+	function csrf_value(){
+		return $this->ci->security->get_csrf_hash();
+	}
 
-    }
+	function csrf_name(){
+		return $this->ci->security->get_csrf_token_name();
 
-    function load_model(){
-            if (!in_array($this->ci->router->class , NO_MODEL_CLASS_PAGES)) {
-            $load_model = $this->ci->router->class . "_model";
-            $this->ci->load->model($load_model, '', TRUE);
-            $this->ci->load->model('helper_model', '', TRUE);
-        }
-    }
+	}
 
-    function get_usersession($key){
-       $this->mlm_session =  $this->ci->session->userdata('mlm_logged_arr');
-       return (isset($this->mlm_session[$key]) ? $this->mlm_session[$key] : null);
-    }
+	function load_model(){
+		if (!in_array($this->ci->router->class , NO_MODEL_CLASS_PAGES)) {
+			$load_model = $this->ci->router->class . "_model";
+			$this->ci->load->model($load_model, '', TRUE);
+		}
+	}
 
-    function set_usersession($key, $value){
-        $this->ci->session->set_userdata($key, $value);
-    }
+	function get_usersession($key){
+		$this->mlm_session =  $this->ci->session->userdata('mlm_logged_arr');
+		return (isset($this->mlm_session[$key]) ? $this->mlm_session[$key] : null);
+	}
 
-    function get_flashdata($key){
-        $this->flash_data =  $this->ci->session->flashdata($key);
-       return (isset($this->flash_data[$key]) ? $this->flash_data[$key] : null);
-    }
+	function set_usersession($key, $value){
+		$this->ci->session->set_userdata($key, $value);
+	}
 
-    function set_flashdata($key, $value){
-        $this->ci->session->set_flashdata($key, $value);
-    }
+	function get_flashdata($key){
+		$this->flash_data =  $this->ci->session->flashdata($key);
+		return (isset($this->flash_data[$key]) ? $this->flash_data[$key] : null);
+	}
+
+	function set_flashdata($key, $value){
+		$this->ci->session->set_flashdata($key, $value);
+	}
 }
 
 ?>
