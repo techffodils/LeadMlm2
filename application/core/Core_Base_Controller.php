@@ -10,6 +10,8 @@ Class Core_Base_Controller extends CI_Controller {
         parent::__construct();
 
         $this->main->load_model();
+		
+		$this->DATA_ARR['BASE_URL']= BASE_PATH;
     }
 
     function loadView() {
