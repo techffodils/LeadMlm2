@@ -24,187 +24,200 @@
             </div>
             <div class="panel-body">
                 <hr>
-                <form action="#" role="form" id="form">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="errorHandler alert alert-danger no-display">
-                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
-                            </div>
-                            <div class="successHandler alert alert-success no-display">
-                                <i class="fa fa-ok"></i> Your form validation is successful!
+                {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="errorHandler alert alert-danger no-display">
+                            <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                        </div>
+                        <div class="successHandler alert alert-success no-display">
+                            <i class="fa fa-ok"></i> Your form validation is successful!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Field Name <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Required <span class="symbol required"></span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" class="grey" value="1" name="required_status" id="required_status">
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" class="grey" value="0" name="required_status"  id="required_status">
+                                    No
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">
-                                    First Name <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Insert your First Name" class="form-control" id="firstname" name="firstname">
+
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Placement <span class="symbol required"></span>
+                                    </label>
+                                    <select name="register_step" id="register_step" class="form-control" >
+                                        <option value="">Select Placement</option>
+                                        <option value="step1">Step-1</option>
+                                        <option value="step2">Step-2</option>
+                                        <option value="step3">Step-3</option>                                            
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Last Name <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Insert your Last Name" class="form-control" id="lastname" name="lastname">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Email Address <span class="symbol required"></span>
-                                </label>
-                                <input type="email" placeholder="Text Field" class="form-control" id="email" name="email">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Password <span class="symbol required"></span>
-                                </label>
-                                <input type="password" class="form-control" name="password" id="password">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Confirm Password <span class="symbol required"></span>
-                                </label>
-                                <input type="password" class="form-control" id="password_again" name="password_again">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                       Sort Order <span class="symbol required"></span>
+                                    </label>
+                                    <input class="form-control" type="number" name="order" id="order" placeholder="Sort Order">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group connected-group">
-                                <label class="control-label">
-                                    Date of Birth <span class="symbol required"></span>
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Unique <span class="symbol required"></span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" class="grey" value="1" name="unique_status" id="unique_status">
+                                    Yes
                                 </label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <select name="dd" id="dd" class="form-control" >
-                                            <option value="">DD</option>
-                                            <option value="01">1</option>
-                                            <option value="02">2</option>
-                                            <option value="03">3</option>
-                                            <option value="04">4</option>
-                                            <option value="05">5</option>
-                                            <option value="06">6</option>
-                                            <option value="07">7</option>
-                                            <option value="08">8</option>
-                                            <option value="09">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="21">21</option>
-                                            <option value="22">22</option>
-                                            <option value="23">23</option>
-                                            <option value="24">24</option>
-                                            <option value="25">25</option>
-                                            <option value="26">26</option>
-                                            <option value="27">27</option>
-                                            <option value="28">28</option>
-                                            <option value="29">29</option>
-                                            <option value="30">30</option>
-                                            <option value="31">31</option>
-                                        </select>
+                                <label class="radio-inline">
+                                    <input type="radio" class="grey" value="0" name="unique_status"  id="unique_status">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Data Type <span class="symbol required"></span>
+                            </label>
+                            <select name="register_step" id="register_step" class="form-control" >
+                                <option value="">Select Data Type</option>
+                                <option value="int">Int</option>
+                                <option value="double">Double</option>
+                                <option value="varchar">Varchar</option>    
+                                <option value="text">Text</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Data Type Max Size<span class="symbol required"></span>
+                            </label>
+                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Default Value <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                Field Type <span class="symbol required"></span>
+                            </label>
+                            <select name="register_step" id="register_step" class="form-control" >
+                                <option value="">Select Field Type</option>
+                                <option value="text">Text</option>
+                                <option value="radio">Radio</option>
+                                <option value="select_box">Select Box</option>    
+                                <option value="text_area">Text Area</option>
+                            </select>
+                        </div>
+                        
+                        <div id="radio_extras">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Value 1 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Value 1">
                                     </div>
-                                    <div class="col-md-3">
-                                        <select name="mm" id="mm" class="form-control" >
-                                            <option value="">MM</option>
-                                            <option value="01">1</option>
-                                            <option value="02">2</option>
-                                            <option value="03">3</option>
-                                            <option value="04">4</option>
-                                            <option value="05">5</option>
-                                            <option value="06">6</option>
-                                            <option value="07">7</option>
-                                            <option value="08">8</option>
-                                            <option value="09">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" placeholder="YYYY" id="yyyy" name="yyyy" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Value 2 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value2" id="radio_value2" placeholder="Value 2">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Gender <span class="symbol required"></span>
-                                </label>
-                                <div>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="" name="gender" id="gender_female">
-                                        Female
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="" name="gender"  id="gender_male">
-                                        Male
-                                    </label>
+                        </div>
+                        
+                        <div id="selectbox_extras">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 1 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Option 1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Option 2 <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" type="text" name="select_option2" id="select_option2" placeholder="Option 2">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Zip Code <span class="symbol required"></span>
+                                           Option 3 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="zipcode" id="zipcode">
+                                        <input class="form-control" type="text" name="select_option3" id="select_option3" placeholder="Option 3">
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            City <span class="symbol required"></span>
+                                           Option 4 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control tooltips" type="text" data-original-title="We'll display it when you write reviews" data-rel="tooltip"  title="" data-placement="top" name="city" id="city">
+                                        <input class="form-control" type="text" name="select_option4" id="select_option4" placeholder="Option 4">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <hr>
-                                <label class="control-label">
-                                    <strong>Signup for Rapido Emails</strong> <span class="symbol required"></span>
-                                </label>
-                                <p>
-                                    Would you like to review Rapido emails?
-                                </p>
-                                <div>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="" name="newsletter">
-                                        No
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="" name="newsletter">
-                                        Yes
-                                    </label>
-                                </div>
-                            </div>
                         </div>
+                        
+                        
+                        
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div>
-                                <span class="symbol required"></span>Required Fields
-                                <hr>
-                            </div>
-                        </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p>
-                                By clicking REGISTER, you are agreeing to the Policy and Terms &amp; Conditions.
-                            </p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-yellow btn-block" type="submit">
-                                Register <i class="fa fa-arrow-circle-right"></i>
-                            </button>
-                        </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-yellow btn-block" type="submit">
+                            Add New <i class="fa fa-arrow-circle-right"></i>
+                        </button>
                     </div>
-                </form>
+                </div>
+                {{ form_close()|raw }}
             </div>
         </div>                                    
     </div>
