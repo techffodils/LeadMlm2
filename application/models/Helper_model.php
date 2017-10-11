@@ -6,7 +6,7 @@ class Helper_model extends CI_Model {
         parent::__construct();
     }
 
-    public function insertActivity($user_id, $activity,$data=array()) {
+    public function insertActivity($user_id, $activity, $data = array()) {
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
                         ->set('ip_address', $this->getUserIP())
@@ -267,6 +267,26 @@ class Helper_model extends CI_Model {
             $user_type = $row['user_type'];
         }
         return $user_type;
+    }
+
+    function encode($string = '') {
+        $encode_key = '';
+        if ($string != '') {
+            $encrypt_string = $this->encrpt->encode($sting);
+            $encode_key = urlencode(base64_encode($encrypt_string));
+        }
+
+        return $encode_key;
+    }
+
+    function decode($encode_data = '') {
+        $decode_key = '';
+        if ($encode_data != '') {
+            $decode_string = base64_decode(urldecode($encode_data));
+            $decode_key = $this->encrypt->decode($decode_string);
+        }
+
+        return $decode_key;
     }
 
 }
