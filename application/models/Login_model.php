@@ -1,34 +1,23 @@
 <?php
-/**
-*For Login Model
-* @author Techffodils
-* @Date:201-10-10
-*
-*
-*/
+
 class Login_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function login($username, $password) {
-		$email=$username;
-        if ($username!='' && $password!='') {
-		
-           $query=$this->db->select('mlm_user_id,user_name,user_type,mlm_user_id,email')
-			
-			->where("(user_name ='$username' OR email ='$username')")
-			->where('password', $password)
-            ->from('mlm_user')
-            ->limit(1)->get();
-			//echo $this->db->last_query();die;
+        $email = $username;
+        if ($username != '' && $password != '') {
+            $query = $this->db->select('mlm_user_id,user_name,user_type,mlm_user_id,email')
+                            ->where("(user_name ='$username' OR email ='$username')")
+                            ->where('password', $password)
+                            ->from('user')
+                            ->limit(1)->get();
         } else {
             return false;
         }
-		
         if ($query->num_rows() == 1) {
-			
             return $query->result();
         } else {
             return false;
@@ -48,18 +37,12 @@ class Login_model extends CI_Model {
         }
         $this->session->set_userdata('mlm_logged_arr', $array);
     }
-	
-	/* 
-	  For Checking Email Exits or Not
-	  @Author Techffodils
-	  @Date 2017-10-09
-	*/
-	function checkEmailExitsOrNot($email){
-		
-		$result=$this->db->select("COUNT(*) as cnt")->where('email',$email)->count_all_results();
-		return $result;
-	}
-	
+
+    function checkEmailExitsOrNot($email) {
+
+        $result = $this->db->select("COUNT(*) as cnt")->where('email', $email)->count_all_results();
+        return $result;
+    }
 
 }
 
