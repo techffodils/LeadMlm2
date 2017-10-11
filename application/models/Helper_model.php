@@ -6,16 +6,7 @@ class Helper_model extends CI_Model {
         parent::__construct();
     }
 
-<<<<<<< HEAD
-    public function insertActivity($user_id, $activity,$data) {
-        $this->db->set('mlm_user_id', $user_id);
-        $this->db->set('activity', $activity);
-        $this->db->set('ip_address', $this->getUserIP());
-        $this->db->set('data', $data);
-        $this->db->set('date', date("Y-m-d H:i:s"));
-        $result = $this->db->insert('mlm_activity');
-        return $result;
-=======
+
     public function insertActivity($user_id, $activity, $data = array()) {
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
@@ -23,7 +14,6 @@ class Helper_model extends CI_Model {
                         ->set('date', date("Y-m-d H:i:s"))
                         ->set('data', serialize($data))
                         ->insert('activity');
->>>>>>> 03048d1fab64371bcbfe72cb1764808c362fbe47
     }
 
     function getUserIP() {
@@ -296,7 +286,6 @@ class Helper_model extends CI_Model {
             $decode_string = base64_decode(urldecode($encode_data));
             $decode_key = $this->encrypt->decode($decode_string);
         }
-
         return $decode_key;
     }
 
