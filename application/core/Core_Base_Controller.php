@@ -1,69 +1,59 @@
-<?php 
+<?php
 
-
-Class Core_Base_Controller extends CI_Controller {    
+Class Core_Base_Controller extends CI_Controller {
 
     public $DATA_ARR;
-	
+
     function __construct() {
 
         parent::__construct();
 
         $this->main->load_model();
-		$this->DATA_ARR['BASE_URL']= BASE_PATH;
-        $user_type=$this->main->get_usersession('mlm_user_type');
-        if($user_type){
-                $user_menu = $this->base_model->getSideMenus($user_type);
-                $this->setData('USER_MENU',$user_menu);
+        $this->DATA_ARR['BASE_URL'] = BASE_PATH;
+        $user_type = $this->main->get_usersession('mlm_user_type');
+        if ($user_type) {
+            $user_menu = $this->base_model->getSideMenus($user_type);
+            $this->setData('USER_MENU', $user_menu);
         }
-	}
-		
-/**
-  * Add Function For dispaly view
-  * @date:2017-10-10 Monday
-  * @Author:Techffodils technologies LLP
- */
+    }
 
+    /**
+     * Add Function For dispaly view
+     * @date:2017-10-10 Monday
+     * @Author:Techffodils technologies LLP
+     */
     function loadView() {
-	
-       $this->DATA_ARR['js_path'] = PUBLIC_PATH;
-	   
-       $mlm_user_type = 'user';
-	   
-       if ($this->main->get_usersession('mlm_user_type') != 'user') {
-           $mlm_user_type = 'admin';
-       }
-		 
-	   
-       if (in_array($this->main->get_controller(), COMMON_PAGES)) {
-           $this->twig->display($this->main->get_controller() . '/' . $this->main->get_method() . '.twig', $this->DATA_ARR);
-       } else {
-           $this->twig->display("$mlm_user_type/" . $this->main->get_controller() . '/' . $this->main->get_method() . '.twig', $this->DATA_ARR);
-       }
-   }
 
-   
-   
-   /**
+        $this->DATA_ARR['js_path'] = PUBLIC_PATH;
+
+        $mlm_user_type = 'user';
+
+        if ($this->main->get_usersession('mlm_user_type') != 'user') {
+            $mlm_user_type = 'admin';
+        }
+
+
+        if (in_array($this->main->get_controller(), COMMON_PAGES)) {
+            $this->twig->display($this->main->get_controller() . '/' . $this->main->get_method() . '.twig', $this->DATA_ARR);
+        } else {
+            $this->twig->display("$mlm_user_type/" . $this->main->get_controller() . '/' . $this->main->get_method() . '.twig', $this->DATA_ARR);
+        }
+    }
+
+    /**
      * setDataDatas
      * @date:2017-10-10 Monday
-	 * @Author:Techffodils technologies
-	 */
-   
-   
-   
-   function setData($key, $value){
-    $this->DATA_ARR[$key] = $value;
-   }
-   
-  
+     * @Author:Techffodils technologies
+     */
+    function setData($key, $value) {
+        $this->DATA_ARR[$key] = $value;
+    }
 
-  /**
+    /**
      * Add loadPage for Redirect the page
      * @date:2017-10-10 Monday
-	 * @Author:Techffodils technologies
-	 */
-	 
+     * @Author:Techffodils technologies
+     */
     function loadPage($msg, $page, $message_type = false, $FLASH_MSG_ARR = array()) {
 
         $FLASH_FLASH_MSG_ARR["MESSAGE"]["DETAIL"] = $msg;
@@ -76,16 +66,16 @@ Class Core_Base_Controller extends CI_Controller {
 
         $split_pages = explode("/", $page);
         $controller_name = $split_pages[0];
-		$path='';
-		//print_r(COMMON_PAGES);die;
+        $path = '';
+        //print_r(COMMON_PAGES);die;
         if (in_array($controller_name, COMMON_PAGES)) {
-			
+
             $path .= $page;
             redirect("$path", 'refresh');
             exit();
         } else {
             if ($this->checkSession()) {
-				
+
                 $user_type = $this->main->get_usersession('mlm_user_type');
                 if ($user_type == "admin" || $user_type == "employee") {
                     $path .= "admin/" . $page;
@@ -96,7 +86,7 @@ Class Core_Base_Controller extends CI_Controller {
                 exit();
             } else {
                 if (in_array($controller_name, NO_LOGIN_PAGES)) {
-					
+
                     $path .= $page;
                     redirect("$path", 'refresh');
                     exit();
@@ -108,29 +98,25 @@ Class Core_Base_Controller extends CI_Controller {
             }
         }
     }
-	
-	
-	/**
-	 Add checkSession user is logged or not
-	 @date:2017-10-10 Monday
-	 @Author:Techffodils technologies
-	 
-	*/
-	
+
+    /**
+      Add checkSession user is logged or not
+      @date:2017-10-10 Monday
+      @Author:Techffodils technologies
+
+     */
     function checkSession() {
-        
-		$flag = $this->main->get_usersession('is_logged_in') ? true : false;
-		//echo $flag;die;
+
+        $flag = $this->main->get_usersession('is_logged_in') ? true : false;
+        //echo $flag;die;
         return $flag;
     }
-	
-	/**
-	    Add setData flash message  
-        @date:2017-10-10 Monday
-	    @Author:Techffodils technologies		
-	*/
-	
-	
+
+    /**
+      Add setData flash message
+      @date:2017-10-10 Monday
+      @Author:Techffodils technologies
+     */
     function set_flash_message() {
         $FLASH_ARR_MSG = $this->main->get_flashdata('FLASH_MSG_ARR');
         if ($FLASH_ARR_MSG) {
@@ -143,47 +129,59 @@ Class Core_Base_Controller extends CI_Controller {
             $this->setData("MESSAGE_TYPE", FALSE);
         }
     }
-	
-	function checkAdminLogged() {
-        if ($this->checkSession()) {
-            $user_type = $this->main->get_usersession('mlm_user_type');
-            if ($user_type != "admin" && $user_type != "employee"){
-				$this->loadPage("", "../user/home");
-			}
-            
-		}else {
-           //echo "here";die;
-            $login_link = BASE_PATH . "login";
-          $this->loadPage('',$login_link);
-           
-		}
-        
-        return true;
-    }
 
-    function checkUserLogged() {
+//    function checkAdminLogged() {
+//        if ($this->checkSession()) {
+//            $user_type = $this->main->get_usersession('mlm_user_type');
+//            if ($user_type != "admin" && $user_type != "employee") {
+//                $this->loadPage("", "../user/home");
+//            }
+//        } else {
+//            //echo "here";die;
+//            $login_link = BASE_PATH . "login";
+//            $this->loadPage('', $login_link);
+//        }
+//
+//        return true;
+//    }
+//
+//    function checkUserLogged() {
+//
+//        if ($this->checkSession()) {
+//            $user_type = $this->main->get_usersession('mlm_user_type');
+//            if ($user_type != "user") {
+//                $this->loadPage("", "../admin/home");
+//            }
+//        } else {
+//            $login_link = BASE_PATH . "login";
+//            $this->loadPage('', $login_link);
+//        }
+//        return true;
+//    }
 
-        if ($this->checkSession()) {
-            $user_type = $this->main->get_usersession('mlm_user_type');
-            if ($user_type != "user") {
-                $this->loadPage("", "../admin/home");
-            }
-        } else {
-            $login_link = BASE_PATH. "login";
-            $this->loadPage('',$login_link);
-        }
-        return true;
-    }
-	
-	function checkLogged(){
-		
+    function checkLogged($type="") {
+
         $login_link = BASE_PATH . "login";
 
         if (!$this->checkSession()) {
-            
-            $this->loadPage('','login',true);
+
+            $this->loadPage('', 'login', true);
+        }elseif($type!=$this->main->get_usersession('mlm_user_type')){
+            $this->loadPage('', 'home', true);
         }
         return true;
-	}
-	
+    }
+
+    function checkPages() {
+        if ($this->checkSession()) {
+            $user_type = $this->main->get_usersession('mlm_user_type');
+            if ($user_type == "user") {
+                $this->loadPage("", "../user/home");
+            }elseif($user_type == "admin"){
+                $this->loadPage("", "../user/home");
+            }
+        } 
+        return true;
+    }
+
 }

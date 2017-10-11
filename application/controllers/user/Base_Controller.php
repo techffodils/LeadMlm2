@@ -14,21 +14,10 @@ class Base_Controller extends Core_Base_Controller {
         $is_logged_in = false;
 
         if (!in_array($this->main->get_controller(), NO_LOGIN_PAGES)) {
-
-            if ($this->main->get_controller() != 'register') {
-
-                $is_logged_in = $this->checkUserLogged();
-            } else {
-
-                $is_logged_in = $this->checkLogged();
-            }
+            $is_logged_in = $this->checkLogged('user');
         } else {
-            if ($this->checkSession()) {
-                if (($this->main->get_usersession('is_logged_in'))) {
-                    if ($this->main->get_usersession('mlm_user_type') == 'user') {
-                        $this->loadPage('', 'home');
-                    }
-                }
+            if($this->main->get_controller()=="login" && $this->main->get_method() == "index"){
+                $this->checkPages();
             }
         }
     }
