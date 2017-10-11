@@ -6,10 +6,11 @@ class Helper_model extends CI_Model {
         parent::__construct();
     }
 
-    public function insertActivity($user_id, $activity) {
+    public function insertActivity($user_id, $activity,$data) {
         $this->db->set('mlm_user_id', $user_id);
         $this->db->set('activity', $activity);
         $this->db->set('ip_address', $this->getUserIP());
+        $this->db->set('data', $data);
         $this->db->set('date', date("Y-m-d H:i:s"));
         $result = $this->db->insert('mlm_activity');
         return $result;
