@@ -34,6 +34,7 @@
                             <i class="fa fa-ok"></i> Your form validation is successful!
                         </div>
                     </div>
+                    <input type='hidden' id="edited_field" name="edited_field" value="{{edited_field}}"/>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">
@@ -211,9 +212,21 @@
                 <div class="row">
                     <div class="col-md-8">
                     </div>
-                    <div class="col-md-2">
-                        <input type="submit" name="add_new" id="add_new" value="Add New" class="btn btn-yellow btn-block" />
-                    </div>
+
+                    {% if edit_status %}
+                        <div class="col-md-2">
+                            <input type="submit" name="update_cancel" id="update_cancel" value="Cancel" class="btn btn-yellow btn-block" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" name="update_field" id="update_field" value="Update" class="btn btn-yellow btn-block" />
+                        </div>
+                    {% else %}
+                        <div class="col-md-2">
+                            <input type="submit" name="add_new" id="add_new" value="Add New" class="btn btn-yellow btn-block" />
+                        </div>
+                    {% endif %}
+
+
                 </div>
                 {{ form_close()|raw }}
             </div>
@@ -222,93 +235,128 @@
 </div>
 
 
+{% if not edit_status %}
 
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-white">
-            <div class="panel-heading">
-                <h4 class="panel-title">Register Fields <span class="text-bold"></span></h4>
-                <div class="panel-tools">
-                    <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
-                            <i class="fa fa-cog"></i>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Register Fields <span class="text-bold"></span></h4>
+                    <div class="panel-tools">
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-xs btn-link panel-close" href="#">
+                            <i class="fa fa-times"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
-                        </ul>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#">
-                        <i class="fa fa-times"></i>
-                    </a>
                 </div>
-            </div>
-            <div class="panel-body">
-                <hr>
+                <div class="panel-body">
+                    <hr>
 
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="sample-table-1">
-                        <thead>
-                            <tr>
-                                <th class="center">
-                        <div class="checkbox-table">
-                            <label>
-                                <input type="checkbox" class="flat-grey selectall">
-                            </label>
-                        </div></th>
-                        <th>Domain</th>
-                        <th>Price</th>
-                        <th>Clicks</th>
-                        <th><i class="fa fa-time"></i> Update </th>
-                        <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="center">
-                                    <div class="checkbox-table">
-                                        <label>
-                                            <input type="checkbox" class="flat-grey foocheck">
-                                        </label>
-                                    </div></td>
-                                <td>
-                                    <a href="#">
-                                        alpha.com
-                                    </a></td>
-                                <td>$45</td>
-                                <td>3,330</td>
-                                <td>Feb 13</td>
-                                <td><span class="label label-sm label-warning">Expiring</span></td>
+                    <div class="table-responsive">
+                        <input type='hidden' id="soft_path" name="soft_path" value="{{BASE_URL}}"/>
+                        <table class="table table-bordered table-hover" id="sample-table-1">
+                            <thead>
+                                <tr>
+                                    <th class="center">
+                            <div class="checkbox-table">
+                                <label>
+                                    <input type="checkbox" class="flat-grey selectall">
+                                </label>
+                            </div>
+                            </th>
+                            <th>Field Name</th>
+                            <th>Status</th>
+                            <th>Required</th>
+                            <th>Unique</th>
+                            <th>Placement</th>
+                            <th>Order</th>
+                            <th>Default Value</th>
+                            <th>Action</th>
                             </tr>
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                                {% for fld in fields %}
+                                    <tr>
+                                        <td class="center">
+                                            <div class="checkbox-table">
+                                                <label>
+                                                    <input type="checkbox" class="flat-grey foocheck" id="{{ fld.id }}" name="{{ fld.id }}">
+                                                </label>
+                                            </div></td>
+                                        <td>{{ fld.field_name }}</td>
+                                        <td>{{ fld.status }}</td>
+                                        <td>
+                                            {% if fld.required_status %} 
+                                                Yes
+                                            {% else %}
+                                                No 
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if fld.unique_status %} 
+                                                Yes
+                                            {% else %}
+                                                No 
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ fld.register_step }}</td>
+                                        <td>{{ fld.order }}</td>
+                                        <td>{{ fld.default_value }}</td>
+                                        <td>
+
+
+                                            <a href="javascript:edit_prod({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:activate_prod({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
+                                            <a href="javascript:inactivate_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                            <a href="javascript:delete_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
+
+
+
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+
 
 
 
                 </div>
-
-
-
-
-            </div>
-        </div>                                    
+            </div>                                    
+        </div>
     </div>
-</div>
+    <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+    <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+
+{% endif %}
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>         
+
 
 
 
 <script>
 
     $(document).ready(function () {
-        var field_type=$('#field_type').val();
+        var field_type = $('#field_type').val();
         var data_types = $('#data_types').val();
-        
+
         if (field_type == "radio") {
             $("#radio_extras").show();
         }
@@ -316,7 +364,7 @@
         if (field_type == "select_box") {
             $("#selectbox_extras").show();
         }
-        
+
         if (data_types == "double" || data_types == "text") {
             $("#max_size_div").hide();
         }
@@ -343,6 +391,111 @@
             $("#max_size_div").hide();
         }
     });
+
+
+    function edit_prod(id)
+    {
+        var soft_path = $("#soft_path").val();
+        swal({
+            title: "Are you sure?",
+            text: "New change applicable only new registrations",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Edit it!",
+            cancelButtonText: "No, Cancel pls!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                document.location.href = soft_path + 'admin/configuration/set_register_fields/edit/' + id;
+            } else {
+                swal("Cancelled", "Your Field is safe :)", "error");
+            }
+        });
+
+        e.preventDefault();
+    }
+
+    function activate_prod(id)
+    {
+        var soft_path = $("#soft_path").val();
+        swal({
+            title: "Are you sure?",
+            text: "New change applicable only new registrations",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Activate it!",
+            cancelButtonText: "No, Cancel pls!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                document.location.href = soft_path + 'admin/configuration/set_register_fields/activate/' + id;
+            } else {
+                swal("Cancelled", "Your Field is safe :)", "error");
+            }
+        });
+
+        e.preventDefault();
+    }
+
+
+    function inactivate_prod(id)
+    {
+        var soft_path = $("#soft_path").val();
+        swal({
+            title: "Are you sure?",
+            text: "New change applicable only new registrations",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Inactivate it!",
+            cancelButtonText: "No, Cancel pls!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                document.location.href = soft_path + 'admin/configuration/set_register_fields/inactivate/' + id;
+            } else {
+                swal("Cancelled", "Your Field is safe :)", "error");
+            }
+        });
+
+        e.preventDefault();
+    }
+
+
+    function delete_prod(id)
+    {
+        var soft_path = $("#soft_path").val();
+        swal({
+            title: "Are you sure?",
+            text: "New change applicable only new registrations",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete it!",
+            cancelButtonText: "No, Cancel pls!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                document.location.href = soft_path + 'admin/configuration/set_register_fields/delete/' + id;
+            } else {
+                swal("Cancelled", "Your Field is safe :)", "error");
+            }
+        });
+
+        e.preventDefault();
+    }
+
+
 </script>
 
 
