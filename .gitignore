@@ -31,3 +31,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 application/views/admin/home/index.twig
 application/core/Core_Base_Controller.php
+application/core/Core_Base_Controller.php~
+application/core/Core_Base_Controller.php~
+application/views/admin/layout/header.twig~
+application/views/admin/layout/header.twig~
+application/core/Core_Base_Controller.php~
