@@ -20,7 +20,9 @@ class Member extends Base_Controller {
             $pass_password = $this->input->post('pass_password');
             $pass_re_enter_password = $this->input->post('pass_re_enter_password');
             if ($pass_password == $pass_re_enter_password) {
-                
+                $pass_user_id = $this->helper_model->userNameToID($pass_user_name);
+                $this->helper_model->insertActivity($pass_user_id, 'change_password_admin', 'change user password from admin');
+                $this->member_model->updateUserName($pass_user_id, $pass_password);
             }
         }
         if ($this->input->post('submit_username') && $this->validate_change_username()) {
@@ -31,9 +33,12 @@ class Member extends Base_Controller {
             $uname_new_username = $this->input->post('uname_new_username');
             $uname_re_entry_username = $this->input->post('uname_re_entry_username');
             if ($uname_new_username == $uname_re_entry_username) {
-                
+                $uname_user_id = $this->helper_model->userNameToID($uname_user_name);
+                $this->helper_model->insertActivity($uname_user_id, 'change_username_admin', 'change user name from admin');
+                $this->member_model->updateUserName($uname_user_id, $uname_new_username);
             }
         }
+        
         if ($this->input->post('submit_transation')) {
             $tab3 = 'active';
             $tab1 = $tab2 = '';
@@ -42,9 +47,9 @@ class Member extends Base_Controller {
             $tran_pass_password = $this->input->post('tran_pass_password');
             $tran_pass_re_enter_password = $this->input->post('tran_pass_re_enter_password');
             if ($tran_pass_password == $tran_pass_re_enter_password) {
-                $user_user_id = $this->helper_model->userNameToID($user_name);
-                $this->helper_model->insertActivity($user_user_id, 'change_password_admin', 'change password from admin');
-                $this->member_model->updatePassword($user_name, $password);
+                $tran_user_id = $this->helper_model->userNameToID($tran_user_name);
+                $this->helper_model->insertActivity($tran_user_id, 'change_transation_password_admin', 'change Transation password from admin');
+                $this->member_model->updateTranPassword($tran_user_id, $tran_pass_password);
             }
         }
 

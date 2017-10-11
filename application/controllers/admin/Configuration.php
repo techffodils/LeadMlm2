@@ -15,11 +15,9 @@ class Configuration extends Base_Controller {
                 if ($res) {
                     $res = $this->configuration_model->addNewRegistrationField($post);
                     if ($res) {
-<<<<<<< HEAD
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'new_registration_field_added');
-=======
+
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'new_registration_field_added',$post);
->>>>>>> 03048d1fab64371bcbfe72cb1764808c362fbe47
+
                         $this->session->unset_userdata('post_data');
                         $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
                     } else {
