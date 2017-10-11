@@ -15,7 +15,7 @@ class Configuration extends Base_Controller {
                 if ($res) {
                     $res = $this->configuration_model->addNewRegistrationField($post);
                     if ($res) {
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'new_registration_field_added');
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'new_registration_field_added',$post);
                         $this->session->unset_userdata('post_data');
                         $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
                     } else {
@@ -39,9 +39,10 @@ class Configuration extends Base_Controller {
         if ($field_id && $action) {//update new fields
             if ($this->configuration_model->checkFieldEligibility($field_id)) {
                 if ($action == 'activate') {
+                    $actived_field['id']=$field_id;
                     $res = $this->configuration_model->changeFieldStatus($field_id, 'active');
                     if ($res) {
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_activated');
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_activated',$actived_field);
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
                         $this->loadPage('', 'configuration/set_register_fields', FALSE);
@@ -49,7 +50,8 @@ class Configuration extends Base_Controller {
                 } elseif ($action == 'inactivate') {
                     $this->configuration_model->changeFieldStatus($field_id, 'inactive');
                     if ($res) {
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_inactivated');
+                        $inactivated_data['id']=$field_id;
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_inactivated',$inactivated_data);
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
                         $this->loadPage('', 'configuration/set_register_fields', FALSE);
@@ -57,7 +59,8 @@ class Configuration extends Base_Controller {
                 } elseif ($action == 'delete') {
                     $this->configuration_model->changeFieldStatus($field_id, 'deleted');
                     if ($res) {
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_deleted');
+                        $deletedted_data['id']=$field_id;
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_deleted',$deletedted_data);
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
                         $this->loadPage('', 'configuration/set_register_fields', FALSE);
@@ -86,7 +89,7 @@ class Configuration extends Base_Controller {
                     if ($upd_res) {
                         $res = $this->configuration_model->updateRegistrationField($post);
                         if ($res) {
-                            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_updated');
+                            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_updated',$post);
                             $this->loadPage('Registration Field Updated Successfully', 'configuration/set_register_fields', True);
                         } else {
                             $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
