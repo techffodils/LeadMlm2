@@ -11,6 +11,11 @@ Class Core_Base_Controller extends CI_Controller {
 
         $this->main->load_model();
 		$this->DATA_ARR['BASE_URL']= BASE_PATH;
+        $user_type=$this->main->get_usersession('mlm_user_type');
+        if($user_type){
+                $user_menu = $this->base_model->getSideMenus($user_type);
+                $this->setData('USER_MENU',$user_menu);
+        }
 	}
 		
 /**
