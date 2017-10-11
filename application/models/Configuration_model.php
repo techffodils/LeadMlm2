@@ -94,6 +94,7 @@ class Configuration_model extends CI_Model {
     function changeFieldStatus($id, $status) {
         return $this->db->set('status ', "$status")
                         ->where('editable_status ', 1)
+                         ->where('id ', $id)
                         ->update('register_fields');
     }
 

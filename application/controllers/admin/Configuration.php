@@ -55,7 +55,7 @@ class Configuration extends Base_Controller {
                         $this->loadPage('', 'configuration/set_register_fields', FALSE);
                     }
                 } elseif ($action == 'delete') {
-                    $this->configuration_model->changeFieldStatus($field_id, 'delete');
+                    $this->configuration_model->changeFieldStatus($field_id, 'deleted');
                     if ($res) {
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_deleted');
                         $this->loadPage('', 'configuration/set_register_fields', True);
