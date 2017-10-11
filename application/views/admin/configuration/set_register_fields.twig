@@ -39,7 +39,7 @@
                             <label class="control-label">
                                 Field Name <span class="symbol required"></span>
                             </label>
-                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name">
+                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
                         </div>
 
                         <div class="form-group">
@@ -52,7 +52,7 @@
                                     Yes
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" class="grey" value="0" name="required_status"  id="required_status">
+                                    <input type="radio" {% if post_data.required_status==0 %} checked="checked" {% endif %} class="grey" value="0" name="required_status"  id="required_status">
                                     No
                                 </label>
                             </div>
@@ -68,18 +68,18 @@
                                     </label>
                                     <select name="register_step" id="register_step" class="form-control" >
                                         <option value="">Select Placement</option>
-                                        <option value="step1">Step-1</option>
-                                        <option value="step2">Step-2</option>
-                                        <option value="step3">Step-3</option>                                            
+                                        <option value="step1" {% if post_data.register_step=="step1" %} selected {% endif %}>Step-1</option>
+                                        <option value="step2" {% if post_data.register_step=="step2" %} selected {% endif %}>Step-2</option>
+                                        <option value="step3" {% if post_data.register_step=="step3" %} selected {% endif %}>Step-3</option>                                            
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">
-                                       Sort Order <span class="symbol required"></span>
+                                        Sort Order <span class="symbol required"></span>
                                     </label>
-                                    <input class="form-control" type="number" name="order" id="order" placeholder="Sort Order">
+                                    <input class="form-control" type="number" name="order" id="order" value="{{ post_data.order }}" placeholder="Sort Order">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                     Yes
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" class="grey" value="0" name="unique_status"  id="unique_status">
+                                    <input type="radio" class="grey" value="0" {% if post_data.unique_status==0 %} checked="checked" {% endif %} name="unique_status"  id="unique_status">
                                     Yes
                                 </label>
                             </div>
@@ -103,83 +103,83 @@
                             <label class="control-label">
                                 Data Type <span class="symbol required"></span>
                             </label>
-                            <select name="register_step" id="register_step" class="form-control" >
+                            <select name="data_types" id="data_types" class="form-control" >
                                 <option value="">Select Data Type</option>
-                                <option value="int">Int</option>
-                                <option value="double">Double</option>
-                                <option value="varchar">Varchar</option>    
-                                <option value="text">Text</option>
+                                <option value="int" {% if post_data.data_types=="int" %} selected {% endif %}>Int</option>
+                                <option value="double" {% if post_data.data_types=="double" %} selected {% endif %}>Double</option>
+                                <option value="varchar" {% if post_data.data_types=="varchar" %} selected {% endif %}>Varchar</option>    
+                                <option value="text" {% if post_data.data_types=="text" %} selected {% endif %}>Text</option>
                             </select>
                         </div>
                     </div>
-                    
-                    
+
+
                     <div class="col-md-6">
-                        
-                        <div class="form-group">
+
+                        <div class="form-group" id="max_size_div">
                             <label class="control-label">
                                 Data Type Max Size<span class="symbol required"></span>
                             </label>
-                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size">
+                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">
                                 Default Value <span class="symbol required"></span>
                             </label>
-                            <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value">
+                            <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value" value="{{ post_data.default_value }}" >
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">
                                 Field Type <span class="symbol required"></span>
                             </label>
-                            <select name="register_step" id="register_step" class="form-control" >
+                            <select name="field_type" id="field_type" class="form-control field_type" >
                                 <option value="">Select Field Type</option>
-                                <option value="text">Text</option>
-                                <option value="radio">Radio</option>
-                                <option value="select_box">Select Box</option>    
-                                <option value="text_area">Text Area</option>
+                                <option value="text" {% if post_data.field_type=="text" %} selected {% endif %}>Text</option>
+                                <option value="radio" {% if post_data.field_type=="radio" %} selected {% endif %}>Radio</option>
+                                <option value="select_box" {% if post_data.field_type=="select_box" %} selected {% endif %}>Select Box</option>    
+                                <option value="text_area" {% if post_data.field_type=="text_area" %} selected {% endif %}>Text Area</option>
                             </select>
                         </div>
-                        
-                        <div id="radio_extras">
+
+                        <div id="radio_extras" style="display:none">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Value 1 <span class="symbol required"></span>
+                                            Value 1 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Value 1">
+                                        <input class="form-control" type="text" name="radio_value1" id="radio_value1" value="{{ post_data.radio_value1 }}" placeholder="Value 1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Value 2 <span class="symbol required"></span>
+                                            Value 2 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="radio_value2" id="radio_value2" placeholder="Value 2">
+                                        <input class="form-control" type="text" name="radio_value2" id="radio_value2" value="{{ post_data.radio_value2 }}" placeholder="Value 2">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div id="selectbox_extras">
+
+                        <div id="selectbox_extras" style="display:none">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Option 1 <span class="symbol required"></span>
+                                            Option 1 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="radio_value1" id="radio_value2" placeholder="Option 1">
+                                        <input class="form-control" type="text" name="select_option1" id="select_option1" placeholder="Option 1" value="{{ post_data.select_option1 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Option 2 <span class="symbol required"></span>
+                                            Option 2 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option2" id="select_option2" placeholder="Option 2">
+                                        <input class="form-control" type="text" name="select_option2" id="select_option2" placeholder="Option 2" value="{{ post_data.select_option2 }}">
                                     </div>
                                 </div>
                             </div>
@@ -187,34 +187,32 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Option 3 <span class="symbol required"></span>
+                                            Option 3 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option3" id="select_option3" placeholder="Option 3">
+                                        <input class="form-control" type="text" name="select_option3" id="select_option3" placeholder="Option 3" value="{{ post_data.select_option3 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                           Option 4 <span class="symbol required"></span>
+                                            Option 4 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option4" id="select_option4" placeholder="Option 4">
+                                        <input class="form-control" type="text" name="select_option4" id="select_option4" placeholder="Option 4" value="{{ post_data.select_option4 }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-8">
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-yellow btn-block" type="submit">
-                            Add New <i class="fa fa-arrow-circle-right"></i>
-                        </button>
+                        <input type="submit" name="add_new" id="add_new" value="Add New" class="btn btn-yellow btn-block" />
                     </div>
                 </div>
                 {{ form_close()|raw }}
@@ -301,7 +299,51 @@
         </div>                                    
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>         
 
+
+
+<script>
+
+    $(document).ready(function () {
+        var field_type=$('#field_type').val();
+        var data_types = $('#data_types').val();
+        
+        if (field_type == "radio") {
+            $("#radio_extras").show();
+        }
+
+        if (field_type == "select_box") {
+            $("#selectbox_extras").show();
+        }
+        
+        if (data_types == "double" || data_types == "text") {
+            $("#max_size_div").hide();
+        }
+    });
+
+    $('#field_type').change(function () {
+        $("#radio_extras").hide();
+        $("#selectbox_extras").hide();
+        var type = $(this).val();
+
+        if (type == "radio") {
+            $("#radio_extras").show();
+        }
+
+        if (type == "select_box") {
+            $("#selectbox_extras").show();
+        }
+    });
+
+    $('#data_types').change(function () {
+        var type = $(this).val();
+        $("#max_size_div").show();
+        if (type == "double" || type == "text") {
+            $("#max_size_div").hide();
+        }
+    });
+</script>
 
 
 {% include('admin/layout/footer.twig')%}
