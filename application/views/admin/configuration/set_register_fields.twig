@@ -235,7 +235,7 @@
 </div>
 
 
-{% if not edit_status %}
+{% if not edit_status and fields|length %}
 
     <div class="row">
         <div class="col-md-12">
@@ -317,18 +317,16 @@
                                         <td>
                                             {% if fld.editable_status %} 
                                                 <a href="javascript:edit_prod({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-
                                                 {% if fld.status=='active' %} 
                                                     <a href="javascript:inactivate_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
-
                                                 {% else %}
                                                     <a href="javascript:activate_prod({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
-
                                                 {% endif %}
                                                 <a href="javascript:delete_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
-                                                {% else %}
+                                            {% else %}
                                                 No access
                                             {% endif %}
+
 
 
                                         </td>

@@ -6,6 +6,7 @@ class Helper_model extends CI_Model {
         parent::__construct();
     }
 
+
     public function insertActivity($user_id, $activity, $data = array()) {
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
@@ -285,7 +286,6 @@ class Helper_model extends CI_Model {
             $decode_string = base64_decode(urldecode($encode_data));
             $decode_key = $this->encrypt->decode($decode_string);
         }
-
         return $decode_key;
     }
 

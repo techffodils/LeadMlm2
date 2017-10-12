@@ -189,7 +189,7 @@ class Configuration_model extends CI_Model {
                         ->set('select_option3', $data['select_option3'])
                         ->set('select_option4', $data['select_option4'])
                         ->where('id', $data['edited_field'])
-                        ->update('register_fields');
+                        ->update('register_fields'); 
     }
 
 }
