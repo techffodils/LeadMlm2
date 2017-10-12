@@ -21,26 +21,14 @@ class Cron_job_model extends CI_Model {
                         ->update('cron_job');
     }
 
-    function generateBackup($insert_id, $compression = true) {
-        $this->load->model("backup_model");
-        return $this->backup_model->generateBackup($insert_id, $compression);
-    }
-
-    function deleteOlderBackup($day) {
-        $deleting_day = date('Y-m-d', strtotime("-$day days"));
-        $query = $this->db->select("data")
-                ->from("cron_job")
-                ->where("cron_job", 'db_backup')
-                ->like('date', $deleting_day)
-                ->get();
-        foreach ($query->result() as $row) {
-            $filename = $row->data;
-            $path = FCPATH . "application/backup/" . $filename;
-            if ($filename != '' && file_exists($path) && is_file($path)) {
-                unlink($path);
-            }
+    function generateBackup($insert_id, $backup_type = '',$backup_deletion_period='30') {
+        $compression = FALSE;
+        if ($backup_type == 'zip') {
+            $compression = TRUE;
         }
-        return TRUE;
+        $this->load->model("backup_model");
+        $this->backup_model->deleteOlderBackup($backup_deletion_period);
+        return $this->backup_model->generateBackup($insert_id, $compression);
     }
 
 }

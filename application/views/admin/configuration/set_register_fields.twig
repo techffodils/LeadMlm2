@@ -215,14 +215,23 @@
 
                     {% if edit_status %}
                         <div class="col-md-2">
-                            <input type="submit" name="update_cancel" id="update_cancel" value="Cancel" class="btn btn-yellow btn-block" />
+                            <button type="submit"class="btn btn-primary" name="update_cancel" id="update_cancel" value="Cancel">
+                                Cancel
+                            </button>
+{#                            <input type="submit" name="update_cancel" id="update_cancel" value="Cancel" class="btn btn-yellow btn-block" />#}
                         </div>
                         <div class="col-md-2">
-                            <input type="submit" name="update_field" id="update_field" value="Update" class="btn btn-yellow btn-block" />
+                            <button type="submit"class="btn btn-primary" name="update_field" id="update_field" value="Update">
+                                Update
+                            </button>
+{#                            <input type="submit" name="update_field" id="update_field" value="Update" class="btn btn-yellow btn-block" />#}
                         </div>
                     {% else %}
                         <div class="col-md-2">
-                            <input type="submit" name="add_new" id="add_new" value="Add New" class="btn btn-yellow btn-block" />
+                            <button type="submit"class="btn btn-primary" name="add_new" id="add_new" value="Add New">
+                                Add New
+                            </button>
+{#                            <input type="submit" name="add_new" id="add_new" value="Add New" class="btn btn-yellow btn-block" />#}
                         </div>
                     {% endif %}
 

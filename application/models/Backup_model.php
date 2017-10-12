@@ -148,5 +148,29 @@ class Backup_model extends CI_Model {
             return 0;
         }
     }
+    
+    function deleteOlderBackup($day) {
+        $deleting_day = date('Y-m-d', strtotime("-$day days"));
+        $query = $this->db->select("id,data")
+                ->from("cron_job")
+                ->where("cron_job", 'db_backup')
+                ->where("file_status !=", 'deleted')
+                ->where('date <=', $deleting_day)
+                ->get();
+        foreach ($query->result() as $row) {
+            $filename = $row->data;
+            $cron_job_id=$row->id;
+            $path = FCPATH . "application/backup/" . $filename;
+            if ($filename != '' && file_exists($path) && is_file($path)) {
+                unlink($path);
+                
+                $this->db->set('file_status ', "deleted")
+                        ->where('id ', "$cron_job_id")
+                        ->update('cron_job');
+            }
+        }
+        return TRUE;
+    }
+    
 
 }
