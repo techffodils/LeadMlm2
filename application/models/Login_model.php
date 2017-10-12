@@ -38,7 +38,7 @@ class Login_model extends CI_Model {
         $this->session->set_userdata('mlm_logged_arr', $array);
     }
 
-    	/* 
+    /* 
 	  For Checking Email Exits or Not
 	  @Author Techffodils
 	  @Date 2017-10-09
