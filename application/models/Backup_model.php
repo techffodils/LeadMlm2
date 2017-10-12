@@ -3,18 +3,10 @@
 class Backup_model extends CI_Model {
 
     function dbBackup() {
-        $this->load->model("cron_job_model");
-        if (isset($this->dbvars->backup_type)) {
-            $backup_type = $this->dbvars->backup_type;
-        } else {
-            $backup_type = $this->dbvars->backup_type = '';
-        }
-
-        if (isset($this->dbvars->backup_deletion_period)) {
-            $backup_deletion_period = $this->dbvars->backup_deletion_period;
-        } else {
-            $backup_deletion_period = $this->dbvars->backup_deletion_period = '30';
-        }
+        $this->load->model("cron_job_model");        
+        $backup_type = $this->dbvars->BACKUP_TYPE;
+        $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD;
+        
         
         $insert_id = $this->cron_job_model->insertCronJobHistory('db_backup','Admin');
         

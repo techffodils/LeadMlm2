@@ -71,7 +71,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <label class="switch">
-                                                            <input type="checkbox" {% if pm.status == "active" %} checked {% endif %} id="togBtn" onchange='changePaymentStatus("{{ pm.code }}",this)'>
+                                                            <input type="checkbox" {% if pm.status == "active" %} checked {% endif %} id="togBtn" onchange='changePaymentStatus("{{ pm.code }}", this)'>
                                                             <div class="slider round">
                                                                 <span class="on">ON</span>
                                                                 <span class="off">OFF</span>
@@ -88,20 +88,98 @@
                                         <h3 class="margin-bottom-15"> Bonuses</h3>
                                         <br>
 
-                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
-                                        and referral marketing, is a controversial marketing strategy for the sale 
-                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
-                                        workforce (also called participants, and variously known as "salespeople
+                                        {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                                        <div class="form-horizontal">                                            
+                                            {% if mlm_plan == "Binary" %} 
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Pairing Bonus
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="number" name="pair_bonus" id="pair_bonus" value="{{ pair_bonus }}">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Referal Bonus
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" type="number" name="referal_bonus" id="referal_bonus" value="{{ referal_bonus }}">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <button type="submit"class="btn btn-primary" value="bonus_settings" name="bonus_settings">
+                                                        Update <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_close()|raw }}
+
+
+
                                     </div>
                                 </div>
                                 <div class="tab-pane {{tab3}}" id="plan_tab3" style="padding: 65px;">
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                         <h3 class="margin-bottom-15">Username Settings</h3>
                                         <br>
-                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
-                                        and referral marketing, is a controversial marketing strategy for the sale 
-                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
-                                        workforce (also called participants, and variously known as "salespeople
+                                        {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                                        <div class="form-horizontal">                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Username Type
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <select name="username_type" id="username_type" class="form-control field_type" >
+                                                        <option value="">Select Username Type</option>
+                                                        <option value="statis" {% if username_type=="statis" %} selected {% endif %}>Static</option>
+                                                        <option value="dynamic" {% if username_type=="dynamic" %} selected {% endif %}>Dynamic</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Username Prefix
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" type="text" name="username_prefix" id="username_prefix" maxlength="4" value="{{ username_prefix }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Username Size
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" min="5" max="15" type="number" name="username_size" id="username_size" value="{{ username_size }}">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <button type="submit"class="btn btn-primary" value="username_settings" name="username_settings">
+                                                        Update <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_close()|raw }}
                                     </div>
                                 </div>
 
@@ -109,10 +187,38 @@
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                         <h3 class="margin-bottom-15">Registration Model</h3>
                                         <br>
-                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
-                                        and referral marketing, is a controversial marketing strategy for the sale 
-                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
-                                        workforce (also called participants, and variously known as "salespeople
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Form Type
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <label class="switch">
+                                                        <input type="checkbox" {% if register_form_type == "single" %} checked {% endif %} id="togBtn" onchange='changeRegisterForm(this)'>
+                                                        <div class="slider round">
+                                                            <span class="on">Single</span>
+                                                            <span class="off">Multiple</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">
+                                                    Field Configuration
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <label class="switch">
+                                                        <input type="checkbox" {% if register_field_configuration == "active" %} checked {% endif %} id="togBtn" onchange='changeFieldConfigStatus(this)'>
+                                                        <div class="slider round">
+                                                            <span class="on">ON</span>
+                                                            <span class="off">OFF</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -120,25 +226,11 @@
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                         <h3 class="margin-bottom-15">Depth & Width</h3>
                                         <br>
-                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
-                                        and referral marketing, is a controversial marketing strategy for the sale 
-                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
-                                        workforce (also called participants, and variously known as "salespeople
+
+
+
                                     </div>
                                 </div>
-
-                                <div class="tab-pane {{tab6}}" id="plan_tab6" style="padding: 65px;">
-                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Databases</h3>
-                                        <br>
-                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
-                                        and referral marketing, is a controversial marketing strategy for the sale 
-                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
-                                        workforce (also called participants, and variously known as "salespeople
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -231,27 +323,113 @@
 </style>
 
 <script>
-
-    function changePaymentStatus(payment_code,element)
+    function changePaymentStatus(payment_code, element)
     {
-        alert(payment_code);
-        if(element.checked){
-            var status="active";
-        }else{
-            var status="inactive";
+        if (element.checked) {
+            var status = "active";
+        } else {
+            var status = "inactive";
         }
-        $.ajax ({
+        $.ajax({
             url: "admin/configuration/change_payment_status",
-            data: { payment_code : payment_code , status : status },
-            success: function( result ) {
-                if(result=="yes"){
-                    alert(1);
-                }else{
-                    alert(2);
+            data: {payment_code: payment_code, status: status},
+            success: function (result) {
+                if (result == "yes") {
+                    var status = "success";
+                    var msg = "Payment Status Changed";
+                    var title = "Success";
+                    show_notification(status, title, msg);
+                } else {
+                    var status = "error";
+                    var msg = "Updation Failed";
+                    var title = "Failed";
+                    show_notification(status, title, msg);
                 }
             }
         });
     }
-</script>
 
+
+    function changeFieldConfigStatus(element)
+    {
+        if (element.checked) {
+            var status = "active";
+        } else {
+            var status = "inactive";
+        }
+        $.ajax({
+            url: "admin/configuration/change_reg_field_status",
+            data: {status: status},
+            success: function (result) {
+                if (result == "yes") {
+                    var status = "success";
+                    var msg = "Payment Status Changed";
+                    var title = "Success";
+                    show_notification(status, title, msg);
+                } else {
+                    var status = "error";
+                    var msg = "Updation Failed";
+                    var title = "Failed";
+                    show_notification(status, title, msg);
+                }
+            }
+        });
+    }
+    
+    
+    function changeRegisterForm(element)
+    {
+        if (element.checked) {
+            var status = "single";
+        } else {
+            var status = "multiple";
+        }
+        $.ajax({
+            url: "admin/configuration/change_register_form_type",
+            data: {status: status},
+            success: function (result) {
+                if (result == "yes") {
+                    var status = "success";
+                    var msg = "Payment Status Changed";
+                    var title = "Success";
+                    show_notification(status, title, msg);
+                } else {
+                    var status = "error";
+                    var msg = "Updation Failed";
+                    var title = "Failed";
+                    show_notification(status, title, msg);
+                }
+            }
+        });
+    }
+    
+    
+
+    function show_notification(status, title, msg) {
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var toastIndex = toastCount++;
+        toastr.options = {
+            closeButton: $('#closeButton').prop('checked'),
+            debug: $('#debugInfo').prop('checked'),
+            positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
+            onclick: null
+        };
+
+        $("#toastrOptions").text("Command: toastr["
+                + status
+                + "](\""
+                + msg
+                + (title ? "\", \"" + title : '')
+                + "\")\n\ntoastr.options = "
+                + JSON.stringify(toastr.options, null, 2)
+                );
+
+        var $toast = toastr[status](msg, title); // Wire up an event handler to a button in the toast, if it exists
+
+    }
+
+
+</script>
 {% include('admin/layout/footer.twig')%}

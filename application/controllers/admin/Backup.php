@@ -7,12 +7,12 @@ require_once 'Base_Controller.php';
 class Backup extends Base_Controller {
 
     function index() {
-        $backup_type = $this->dbvars->backup_type;
-        $backup_deletion_period = $this->dbvars->backup_deletion_period;
+        $backup_type = $this->dbvars->BACKUP_TYPE;
+        $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD;
         if ($this->input->post('db_settings') && $this->validate_db_settings()) {
             $post = $this->input->post();
-            $backup_deletion_period = $this->dbvars->backup_deletion_period = $post['backup_deletion_period'];
-            $backup_type = $this->dbvars->backup_type = $post['backup_type'];
+            $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD = $post['backup_deletion_period'];
+            $backup_type = $this->dbvars->BACKUP_TYPE = $post['backup_type'];
 
             if ($this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'db_backup_settings_changed', $post)) {
                 $this->backup_model->deleteOlderBackup($backup_deletion_period);

@@ -6,7 +6,6 @@ require_once 'Base_Controller.php';
 class Configuration extends Base_Controller {
 
     public function set_register_fields($action = '', $field_id = '') {
-        $res = $this->configuration_model->checkTable('sdfsd');
         $error_array = $post = array();
         if ($this->input->post('add_new')) {//add new fields
             $post = $this->input->post();
@@ -16,7 +15,7 @@ class Configuration extends Base_Controller {
                     $res = $this->configuration_model->addNewRegistrationField($post);
                     if ($res) {
 
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'new_registration_field_added',$post);
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'new_registration_field_added', $post);
 
                         $this->session->unset_userdata('post_data');
                         $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
@@ -42,10 +41,10 @@ class Configuration extends Base_Controller {
             if ($this->configuration_model->checkFieldEligibility($field_id)) {
                 if ($action == 'activate') {
 
-                    $actived_field['id']=$field_id;
+                    $actived_field['id'] = $field_id;
                     $res = $this->configuration_model->changeFieldStatus($field_id, 'active');
                     if ($res) {
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_activated',$actived_field);
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_activated', $actived_field);
 
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
@@ -55,8 +54,8 @@ class Configuration extends Base_Controller {
                     $this->configuration_model->changeFieldStatus($field_id, 'inactive');
                     if ($res) {
 
-                        $inactivated_data['id']=$field_id;
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_inactivated',$inactivated_data);
+                        $inactivated_data['id'] = $field_id;
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_inactivated', $inactivated_data);
 
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
@@ -66,8 +65,8 @@ class Configuration extends Base_Controller {
 
                     $this->configuration_model->changeFieldStatus($field_id, 'deleted');
                     if ($res) {
-                        $deletedted_data['id']=$field_id;
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_deleted',$deletedted_data);
+                        $deletedted_data['id'] = $field_id;
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_deleted', $deletedted_data);
 
                         $this->loadPage('', 'configuration/set_register_fields', True);
                     } else {
@@ -88,17 +87,17 @@ class Configuration extends Base_Controller {
             $post = $this->input->post();
             if ($this->configuration_model->checkFieldEligibility($post['edited_field'])) {
                 if ($this->validate_field_updation()) {
-                    $old_name=$this->configuration_model->getFieldOldName($post['edited_field']);
-                    if($this->configuration_model->checkTable($old_name)){
-                        $upd_res = $this->configuration_model->alterDbField($post['field_name'], $post['data_types'], $post['data_type_max_size'],$old_name);
-                    }else{
+                    $old_name = $this->configuration_model->getFieldOldName($post['edited_field']);
+                    if ($this->configuration_model->checkTable($old_name)) {
+                        $upd_res = $this->configuration_model->alterDbField($post['field_name'], $post['data_types'], $post['data_type_max_size'], $old_name);
+                    } else {
                         $upd_res = $this->configuration_model->createDbField($post['field_name'], $post['data_types'], $post['data_type_max_size']);
-                    }                    
+                    }
                     if ($upd_res) {
                         $res = $this->configuration_model->updateRegistrationField($post);
                         if ($res) {
 
-                            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'),'registration_field_updated',$post);
+                            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_updated', $post);
 
                             $this->loadPage('Registration Field Updated Successfully', 'configuration/set_register_fields', True);
                         } else {
@@ -107,7 +106,7 @@ class Configuration extends Base_Controller {
                     } else {
                         $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
                     }
-                } else {                    
+                } else {
                     $this->loadPage('Validation Error', 'configuration/set_register_fields', FALSE);
                 }
             } else {
@@ -200,17 +199,54 @@ class Configuration extends Base_Controller {
         }
         return $flag;
     }
-    
-    
-    public function plan_settings() {
-        $tab1='active';
-        $tab2=$tab3=$tab3=$tab4=$tab5=$tab6='';
+
+    public function plan_settings() {         
+        $tab1 = 'active';
+        $tab2 = $tab3 = $tab3 = $tab4 = $tab5 = $tab6 = '';
+
+        $payment_method = $this->configuration_model->getAllPaymentMethods();
+
+        $mlm_plan = $this->dbvars->MLM_PLAN;
         
-        $payment_method=$this->configuration_model->getAllPaymentMethods();
+        if ($this->input->post('bonus_settings') && $this->validate_bonus_settings($mlm_plan)) {
+            $tab2 = 'active';
+            $tab1  = $tab3 = $tab4 = $tab5 = $tab6 = '';
+            $post = $this->input->post();
+            $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
+            $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];
+            $this->loadPage('Bonus Settings Changed', 'configuration/plan_settings', TRUE);
+        }
+
+        if ($this->input->post('username_settings') && $this->validate_username_settings()) {
+            $tab3 = 'active';
+            $tab1  = $tab2 = $tab4 = $tab5 = $tab6 = '';
+            $post = $this->input->post();
+            $this->dbvars->USERNAME_TYPE=$post['username_type'];
+            $this->dbvars->USERNAME_PREFIX=$post['username_prefix'];
+            $this->dbvars->USERNAME_SIZE=$post['username_size'];
+            $this->loadPage('Username Settings Changed', 'configuration/plan_settings', TRUE);
+        }
+//        $error_array = $this->form_validation->error_array();
+//        print_r($error_array);die();
+        $pair_bonus = $this->dbvars->PAIR_BONUS;
+        $referal_bonus = $this->dbvars->REFEAL_BONUS;
+        $username_type= $this->dbvars->USERNAME_TYPE;
+        $username_prefix=$this->dbvars->USERNAME_PREFIX;
+        $username_size=$this->dbvars->USERNAME_SIZE;
+        $register_form_type=$this->dbvars->REGISTER_FORM_TYPE;
+        $register_field_configuration=$this->dbvars->REGISTER_FIELD_CONFIGURATION;
         
-        
+        $this->setData('register_form_type', $register_form_type);
+        $this->setData('register_field_configuration', $register_field_configuration);
         
         $this->setData('payment_method', $payment_method);
+        $this->setData('mlm_plan', $mlm_plan);
+        $this->setData('pair_bonus', $pair_bonus);
+        $this->setData('referal_bonus', $referal_bonus);
+        $this->setData('username_type', $username_type);
+        $this->setData('username_prefix', $username_prefix);
+        $this->setData('username_size', $username_size);
+
         $this->setData('tab1', $tab1);
         $this->setData('tab2', $tab2);
         $this->setData('tab3', $tab3);
@@ -219,17 +255,59 @@ class Configuration extends Base_Controller {
         $this->setData('tab6', $tab6);
         $this->loadView();
     }
+
+    function validate_bonus_settings($mlm_plan) {
+        $this->form_validation->set_rules('referal_bonus', 'referal_bonus', 'required|is_natural');
+        if($mlm_plan=="Binary"){
+            $this->form_validation->set_rules('pair_bonus', 'pair_bonus', 'required|is_natural');
+        }
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+        $validation = $this->form_validation->run();
+        return $validation;
+    }
     
+    function validate_username_settings() {
+        $this->form_validation->set_rules('username_type', 'username_type', 'required');
+        $this->form_validation->set_rules('username_prefix', 'username_prefix', 'max_length[4]');
+        $this->form_validation->set_rules('username_size', 'username_size', 'required|is_natural|numeric|greater_than[4]|less_than[16]');
+        
+        $this->form_validation->set_error_delimiters('<li>', '</li>');
+        $validation = $this->form_validation->run();
+        return $validation;
+    }
+
     function change_payment_status() {
-        $payment_code=$this->input->get('payment_code');
-        $status=$this->input->get('status');
-        if($payment_code && $status){
-            $res=$this->configuration_model->changePaymentStatus($payment_code,$status);
-            if($res){
-                echo 'yes';exit;
+        $payment_code = $this->input->get('payment_code');
+        $status = $this->input->get('status');
+        if ($payment_code && $status) {
+            $res = $this->configuration_model->changePaymentStatus($payment_code, $status);
+            if ($res) {
+                echo 'yes';
+                exit;
             }
         }
         echo 'no';
     }
-
+    
+    function change_reg_field_status() {
+        $status = $this->input->get('status');
+        if ($status=='active' || $status=='inactive') {
+            $this->dbvars->REGISTER_FIELD_CONFIGURATION=$status;
+                echo 'yes';
+                exit;
+            
+        }
+        echo 'no';
+    }
+    
+    function change_register_form_type() {
+        $status = $this->input->get('status');
+        if ($status=='single' || $status=='multiple') {
+            $this->dbvars->REGISTER_FORM_TYPE=$status;
+                echo 'yes';
+                exit;
+            
+        }
+        echo 'no';
+    }
 }
