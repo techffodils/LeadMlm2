@@ -1,0 +1,257 @@
+{% include('admin/layout/header.twig')%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">Backup <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- start: FAQ -->
+                        <div class="tabbable tabs-left faq">
+                            <ul id="myTab3" class="nav nav-tabs">
+                                <li class="{{tab1}}">
+                                    <a href="#plan_tab1" data-toggle="tab">
+                                        <i class="fa fa-gears"> </i>Payment Methods 
+                                    </a>
+                                </li>
+                                <li class="{{tab2}}">
+                                    <a href="#plan_tab2" data-toggle="tab">
+                                        <i class="fa fa-fire"> </i> Bonuses
+                                    </a>
+                                </li>
+                                <li class="{{tab3}}">
+                                    <a href="#plan_tab3" data-toggle="tab">
+                                        <i class="fa fa-database"> </i> Username Settings
+                                    </a>
+                                </li>
+
+                                <li class="{{tab4}}">
+                                    <a href="#plan_tab4" data-toggle="tab">
+                                        <i class="fa fa-database"> </i> Registration Model
+                                    </a>
+                                </li>
+
+                                <li class="{{tab5}}">
+                                    <a href="#plan_tab5" data-toggle="tab">
+                                        <i class="fa fa-database"> </i> Depth & Width
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane {{tab1}}" id="plan_tab1" style="padding: 65px;">
+                                    <div id="accordion" class="panel-group accordion accordion-custom accordion-teal">
+
+                                        <h3 class="margin-bottom-5">Payment Methods </h3>
+                                        <br>
+                                        <div class="form-horizontal">
+                                            {% for pm in payment_method %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        {{ pm.code }}
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <label class="switch">
+                                                            <input type="checkbox" {% if pm.status == "active" %} checked {% endif %} id="togBtn" onchange='changePaymentStatus("{{ pm.code }}",this)'>
+                                                            <div class="slider round">
+                                                                <span class="on">ON</span>
+                                                                <span class="off">OFF</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane {{tab2}}" id="plan_tab2" style="padding: 65px;">
+                                    <div id="accordion2" class="panel-group accordion accordion-custom accordion-teal">
+                                        <h3 class="margin-bottom-15"> Bonuses</h3>
+                                        <br>
+
+                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
+                                        and referral marketing, is a controversial marketing strategy for the sale 
+                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
+                                        workforce (also called participants, and variously known as "salespeople
+                                    </div>
+                                </div>
+                                <div class="tab-pane {{tab3}}" id="plan_tab3" style="padding: 65px;">
+                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
+                                        <h3 class="margin-bottom-15">Username Settings</h3>
+                                        <br>
+                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
+                                        and referral marketing, is a controversial marketing strategy for the sale 
+                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
+                                        workforce (also called participants, and variously known as "salespeople
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane {{tab4}}" id="plan_tab4" style="padding: 65px;">
+                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
+                                        <h3 class="margin-bottom-15">Registration Model</h3>
+                                        <br>
+                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
+                                        and referral marketing, is a controversial marketing strategy for the sale 
+                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
+                                        workforce (also called participants, and variously known as "salespeople
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane {{tab5}}" id="plan_tab5" style="padding: 65px;">
+                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
+                                        <h3 class="margin-bottom-15">Depth & Width</h3>
+                                        <br>
+                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
+                                        and referral marketing, is a controversial marketing strategy for the sale 
+                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
+                                        workforce (also called participants, and variously known as "salespeople
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane {{tab6}}" id="plan_tab6" style="padding: 65px;">
+                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
+                                        <h3 class="margin-bottom-15">Databases</h3>
+                                        <br>
+                                        Multi-level marketing (MLM) also called pyramid selling, network marketing,
+                                        and referral marketing, is a controversial marketing strategy for the sale 
+                                        of products and/or services where the revenue of the MLM company is derived from a non-salaried 
+                                        workforce (also called participants, and variously known as "salespeople
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>                               
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 90px;
+        height: 34px;
+    }
+
+    .switch input {display:none;}
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #8B91A0;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #5bc0de;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .on
+    {
+        display: none;
+    }
+
+    .on, .off
+    {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked+ .slider .on
+    {display: block;}
+
+    input:checked + .slider .off
+    {display: none;}
+
+    /*--------- END --------*/
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;}
+</style>
+
+<script>
+
+    function changePaymentStatus(payment_code,element)
+    {
+        alert(payment_code);
+        if(element.checked){
+            var status="active";
+        }else{
+            var status="inactive";
+        }
+        $.ajax ({
+            url: "admin/configuration/change_payment_status",
+            data: { payment_code : payment_code , status : status },
+            success: function( result ) {
+                if(result=="yes"){
+                    alert(1);
+                }else{
+                    alert(2);
+                }
+            }
+        });
+    }
+</script>
+
+{% include('admin/layout/footer.twig')%}

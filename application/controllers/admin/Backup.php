@@ -7,18 +7,8 @@ require_once 'Base_Controller.php';
 class Backup extends Base_Controller {
 
     function index() {
-        if (isset($this->dbvars->backup_type)) {
-            $backup_type = $this->dbvars->backup_type;
-        } else {
-            $backup_type = $this->dbvars->backup_type = '';
-        }
-
-        if (isset($this->dbvars->backup_deletion_period)) {
-            $backup_deletion_period = $this->dbvars->backup_deletion_period;
-        } else {
-            $backup_deletion_period = $this->dbvars->backup_deletion_period = '30';
-        }
-
+        $backup_type = $this->dbvars->backup_type;
+        $backup_deletion_period = $this->dbvars->backup_deletion_period;
         if ($this->input->post('db_settings') && $this->validate_db_settings()) {
             $post = $this->input->post();
             $backup_deletion_period = $this->dbvars->backup_deletion_period = $post['backup_deletion_period'];

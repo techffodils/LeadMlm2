@@ -191,5 +191,27 @@ class Configuration_model extends CI_Model {
                         ->where('id', $data['edited_field'])
                         ->update('register_fields'); 
     }
+    
+    function getAllPaymentMethods() {
+        $data = array();
+        $res = $this->db->select("id,code,payment_method,status")
+                ->from("payment_methods")
+                ->get();
+        $i = 0;
+        foreach ($res->result() as $row) {
+            $data[$i]['id'] = $row->id;
+            $data[$i]['payment_method'] = $row->payment_method;
+            $data[$i]['code'] = $row->code;
+            $data[$i]['status'] = $row->status;
+            $i++;
+        }
+        return $data;
+    }
+    
+    function changePaymentStatus($code, $status) {
+        return $this->db->set('status ', "$status")
+                        ->where('code ', $code)
+                        ->update('payment_methods');
+    }
 
 }

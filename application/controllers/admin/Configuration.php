@@ -200,5 +200,36 @@ class Configuration extends Base_Controller {
         }
         return $flag;
     }
+    
+    
+    public function plan_settings() {
+        $tab1='active';
+        $tab2=$tab3=$tab3=$tab4=$tab5=$tab6='';
+        
+        $payment_method=$this->configuration_model->getAllPaymentMethods();
+        
+        
+        
+        $this->setData('payment_method', $payment_method);
+        $this->setData('tab1', $tab1);
+        $this->setData('tab2', $tab2);
+        $this->setData('tab3', $tab3);
+        $this->setData('tab4', $tab4);
+        $this->setData('tab5', $tab5);
+        $this->setData('tab6', $tab6);
+        $this->loadView();
+    }
+    
+    function change_payment_status() {
+        $payment_code=$this->input->get('payment_code');
+        $status=$this->input->get('status');
+        if($payment_code && $status){
+            $res=$this->configuration_model->changePaymentStatus($payment_code,$status);
+            if($res){
+                echo 'yes';exit;
+            }
+        }
+        echo 'no';
+    }
 
 }
