@@ -126,18 +126,21 @@
                                                         <th>Download Link</th>
                                                         <th>Done By</th>
                                                         <th>Date</th>
-                                                        <th>File</th>
-{#                                                        <th>Full Path</th>                                                       #}
+                                                        <th>Filename</th>
+                                                            {#                                                        <th>Full Path</th>                                                       #}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {% for bp in backups %}
                                                         <tr>
-                                                            <td>Download</td>
+                                                            <td><a href="admin/backup/download_db/{{ bp.file_name }}" download="proposed_file_name">
+                                                                    <i class="fa fa-download fa-fw"></i>Download
+                                                                </a>
+                                                            </td>
                                                             <td>{{ bp.done_by }}</td>
                                                             <td>{{ bp.date }}</td>
                                                             <td>{{ bp.file_name }}</td>
-{#                                                            <td>{{ bp.full_path }}</td>#}
+                                                            {#                                                            <td>{{ bp.full_path }}</td>#}
                                                         </tr>
                                                     {% endfor %}                                                    
                                                 </tbody>
@@ -163,7 +166,7 @@
             success: function (response) {
                 var res = $.parseJSON(response);
                 if (res.response == 'yes') {
-                    $('#sample-table-1 tr:first').after('<tr><td>'+res.download+'</td><td>'+res.done_by+'</td><td>'+res.date+'</td><td>'+res.file+'</td></tr>');
+                    $('#sample-table-1 tr:first').after('<tr><td>' + res.download + '</td><td>' + res.done_by + '</td><td>' + res.date + '</td><td>' + res.file + '</td></tr>');
                     swal("Success!", "Backup Generated Successfully", "success");
                 } else {
                     swal("Failed", "Backup Generation Failed", "error");
@@ -173,9 +176,9 @@
 
     }
 
-    $("#myTab3").on("click", function () {
-
-        alert("tab no 2 is clicked....");
-    });
+    {#$('a').click(function (e) {
+        e.preventDefault();  //stop the browser from following
+        window.location.href = 'uploads/file.doc';
+    });#}
 </script>
 {% include('admin/layout/footer.twig')%}

@@ -31,8 +31,8 @@ class Backup extends Base_Controller {
                 $this->loadPage('Failed To Update', 'backup', False);
             }
         }
-        $backups=$this->backup_model->getLastBackups();
-        
+        $backups = $this->backup_model->getLastBackups();
+
         $tab1 = 'active';
         $tab2 = $tab3 = '';
         $this->setData('tab1', $tab1);
@@ -53,21 +53,30 @@ class Backup extends Base_Controller {
     }
 
     function db_backup() {
-        $res=$this->backup_model->dbBackup();
+        $res = $this->backup_model->dbBackup();
         if ($res) {
-            $data['response']='yes';            
-            $data['done_by']='Admin';
-            $data['date']=date("Y-m-d H:i:s");
-            $data['file']=$res;
-            $data['download']="download";
-            $data['link']=FCPATH . "application/backup/".$res;
+            $data['response'] = 'yes';
+            $data['done_by'] = 'Admin';
+            $data['date'] = date("Y-m-d H:i:s");
+            $data['file'] = $res;
+            $path = "admin/backup/download_db/" . $res;
+            $data['download'] = '<a href="' . $path . '"><i class="fa fa-download fa-fw"></i>Download</a>';
+
             echo json_encode($data);
         } else {
-            $data['response']='no';
-            $data['fff']='asd';
+            $data['response'] = 'no';
+            $data['fff'] = 'asd';
             echo json_encode($data);
         }
         exit;
+    }
+
+    function download_db($file_name = "") {
+        if ($file_name) {
+            $path = FCPATH . "application/backup/" . $file_name;
+            $this->load->helper('download');
+            force_download($path, NULL);
+        }
     }
 
 }

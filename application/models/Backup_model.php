@@ -220,7 +220,6 @@ class Backup_model extends CI_Model {
             $data[$slno]['date'] = $row->date;
             $data[$slno]['file_name'] = $row->data;
             $data[$slno]['done_by'] = $row->done_by;
-            $data[$slno]['full_path'] = FCPATH . "application/backup/".$row->data;
             $slno++;
         }
         return $data;
