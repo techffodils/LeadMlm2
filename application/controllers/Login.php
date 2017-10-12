@@ -177,7 +177,6 @@ class Login extends Base_Controller {
 		
 	
 	
-	
     function logout() {
 
         $user_id = $this->main->get_usersession('mlm_user_id');
