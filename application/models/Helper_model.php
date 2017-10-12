@@ -270,24 +270,28 @@ class Helper_model extends CI_Model {
         return $user_type;
     }
 
-    function encode($string = '') {
-        $encode_key = '';
-        if ($string != '') {
-            $encrypt_string = $this->encrypt->encode($string);
-            $encode_key = urlencode(base64_encode($encrypt_string));
-        }
-
-        return $encode_key;
-    }
-
-    function decode($encode_data = '') {
-        $decode_key = '';
-        if ($encode_data != '') {
-            $decode_string = base64_decode(urldecode($encode_data));
-            $decode_key = $this->encrypt->decode($decode_string);
-        }
-        return $decode_key;
-    }
+  /*for encryption data and decryption done here
+	*/
+	function encode($string=''){
+		$encode_key='';
+		if($string!=''){
+			$encrypt_string=$this->encrypt->encode($string);
+		    $encode_key=urlencode(base64_encode($encrypt_string));
+		}
+		
+		return $encode_key;
+	}
+	
+	function decode($encode_data=''){
+		$decode_key='';
+		if($encode_data!=''){
+			$decode_string=base64_decode(urldecode($encode_data));
+		    $decode_key=$this->encrypt->decode($decode_string);
+		}
+		
+		return $decode_key;
+		
+	}
 
 }
 
