@@ -29,5 +29,10 @@ class Cron_Job extends Base_Controller {
             echo 'Failed';
         }
     }
+    
+    function test() {
+        echo 'yes';exit;
+    }
+    
 
 }

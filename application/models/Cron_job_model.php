@@ -6,9 +6,10 @@ class Cron_job_model extends CI_Model {
         parent::__construct();
     }
 
-    function insertCronJobHistory($cron_job) {
+    function insertCronJobHistory($cron_job,$done_by="Cron Job") {
         $this->db->set('cron_job', $cron_job)
                 ->set('status', 'Started')
+                ->set('done_by', $done_by)
                 ->set('ip', $this->helper_model->getUserIP())
                 ->set('date', date("Y-m-d H:i:s"))
                 ->insert('cron_job');

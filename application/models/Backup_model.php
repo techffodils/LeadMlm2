@@ -2,6 +2,37 @@
 
 class Backup_model extends CI_Model {
 
+    function dbBackup() {
+        $this->load->model("cron_job_model");
+        if (isset($this->dbvars->backup_type)) {
+            $backup_type = $this->dbvars->backup_type;
+        } else {
+            $backup_type = $this->dbvars->backup_type = '';
+        }
+
+        if (isset($this->dbvars->backup_deletion_period)) {
+            $backup_deletion_period = $this->dbvars->backup_deletion_period;
+        } else {
+            $backup_deletion_period = $this->dbvars->backup_deletion_period = '30';
+        }
+        
+        $insert_id = $this->cron_job_model->insertCronJobHistory('db_backup','Admin');
+        
+        $compression = FALSE;
+        if ($backup_type == 'zip') {
+            $compression = TRUE;
+        }
+        $this->backup_model->deleteOlderBackup($backup_deletion_period);
+        $res =  $this->backup_model->generateBackup($insert_id, $compression);
+        
+        if ($res) {
+            $this->cron_job_model->updateCronJobHistory($insert_id, 'Success');
+        } else {
+            $this->cron_job_model->updateCronJobHistory($insert_id, 'Failed');
+        }
+        return $res;
+    }
+
     function generateBackup($insert_id, $compression = true) {
         $db_hostname = $this->db->hostname;
         $db_username = $this->db->username;
@@ -143,12 +174,12 @@ class Backup_model extends CI_Model {
             $this->db->set('data ', $file);
             $this->db->where('id ', "$cron_job_id");
             $query = $this->db->update('cron_job');
-            return $nowtimename;
+            return $file;
         } else {
             return 0;
         }
     }
-    
+
     function deleteOlderBackup($day) {
         $deleting_day = date('Y-m-d', strtotime("-$day days"));
         $query = $this->db->select("id,data")
@@ -159,11 +190,11 @@ class Backup_model extends CI_Model {
                 ->get();
         foreach ($query->result() as $row) {
             $filename = $row->data;
-            $cron_job_id=$row->id;
+            $cron_job_id = $row->id;
             $path = FCPATH . "application/backup/" . $filename;
             if ($filename != '' && file_exists($path) && is_file($path)) {
                 unlink($path);
-                
+
                 $this->db->set('file_status ', "deleted")
                         ->where('id ', "$cron_job_id")
                         ->update('cron_job');
@@ -171,6 +202,28 @@ class Backup_model extends CI_Model {
         }
         return TRUE;
     }
-    
 
+    function getLastBackups(){
+        $data = array();
+        $res = $this->db->select("id,date,data,done_by")
+                ->from("cron_job")
+                ->where("cron_job", 'db_backup')
+                ->where("file_status !=", 'deleted')
+                ->where("status", 'Success')
+                ->order_by("id", "desc")
+                ->limit(10)
+                ->get();
+        $slno=1;
+        foreach ($res->result() as $row) {
+            $data[$slno]['slno'] = $slno;
+            $data[$slno]['id'] = $row->id;
+            $data[$slno]['date'] = $row->date;
+            $data[$slno]['file_name'] = $row->data;
+            $data[$slno]['done_by'] = $row->done_by;
+            $data[$slno]['full_path'] = FCPATH . "application/backup/".$row->data;
+            $slno++;
+        }
+        return $data;
+    
+    }
 }

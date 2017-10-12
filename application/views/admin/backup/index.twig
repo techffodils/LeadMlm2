@@ -30,17 +30,17 @@
                             <ul id="myTab3" class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a href="#backup_tab1" data-toggle="tab">
-                                        <i class="fa fa-user"></i>Backup Settings 
+                                        <i class="fa fa-gears"> </i>Backup Settings 
                                     </a>
                                 </li>
                                 <li class="{{tab2}}">
                                     <a href="#backup_tab2" data-toggle="tab">
-                                        <i class="fa fa-lock"></i> DataBase Backup
+                                        <i class="fa fa-fire"> </i> DataBase Backup
                                     </a>
                                 </li>
                                 <li class="{{tab3}}">
                                     <a href="#backup_tab3" data-toggle="tab">
-                                        <i class="fa fa-lock"></i> Databases
+                                        <i class="fa fa-database"> </i> Databases
                                     </a>
                                 </li>
 
@@ -105,10 +105,10 @@
                                                     Click Backup Button For backup Current Database or Click the View button to Find Existing Backups
                                                 </p>
                                                 <p>
-                                                    <a href="#" class="btn btn-yellow tab-pane" id="backup_tab3">
+                                                    <a href="#" class="btn btn-yellow tab-pane">
                                                         View
                                                     </a>
-                                                    <a href="#" class="btn btn-light-grey">
+                                                    <a href="javascript:generate_backup()" class="btn btn-light-grey">
                                                         Backup
                                                     </a>
                                                 </p>
@@ -120,24 +120,28 @@
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                         <h3 class="margin-bottom-15">Databases</h3>
                                         <div class="form-horizontal">
-                                            <div class="alert alert-block alert-warning fade in">
-                                                <button data-dismiss="alert" class="close" type="button">
-                                                    ×
-                                                </button>
-                                                <h4 class="alert-heading"><i class="fa fa-exclamation"></i> Warning!</h4>
-                                                <p>
-                                                    Duis mollis, est non commodo luctus,
-                                                    nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-                                                </p>
-                                                <p>
-                                                    <a href="#" class="btn btn-yellow">
-                                                        Take this action
-                                                    </a>
-                                                    <a href="#" class="btn btn-light-grey">
-                                                        Or do this
-                                                    </a>
-                                                </p>
-                                            </div>
+                                            <table class="table table-bordered table-hover" id="sample-table-1">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Download Link</th>
+                                                        <th>Done By</th>
+                                                        <th>Date</th>
+                                                        <th>File</th>
+{#                                                        <th>Full Path</th>                                                       #}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for bp in backups %}
+                                                        <tr>
+                                                            <td>Download</td>
+                                                            <td>{{ bp.done_by }}</td>
+                                                            <td>{{ bp.date }}</td>
+                                                            <td>{{ bp.file_name }}</td>
+{#                                                            <td>{{ bp.full_path }}</td>#}
+                                                        </tr>
+                                                    {% endfor %}                                                    
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -149,5 +153,29 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+<script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+<script>
+    function generate_backup()
+    {
+        $.ajax({
+            url: 'admin/backup/db_backup',
+            success: function (response) {
+                var res = $.parseJSON(response);
+                if (res.response == 'yes') {
+                    $('#sample-table-1 tr:first').after('<tr><td>'+res.download+'</td><td>'+res.done_by+'</td><td>'+res.date+'</td><td>'+res.file+'</td></tr>');
+                    swal("Success!", "Backup Generated Successfully", "success");
+                } else {
+                    swal("Failed", "Backup Generation Failed", "error");
+                }
+            }
+        });
+
+    }
+
+    $("#myTab3").on("click", function () {
+
+        alert("tab no 2 is clicked....");
+    });
+</script>
 {% include('admin/layout/footer.twig')%}

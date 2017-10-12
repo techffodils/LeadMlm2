@@ -273,7 +273,7 @@
 
 
                     <div class="table-responsive">
-                        <input type='hidden' id="soft_path" name="soft_path" value="{{BASE_URL}}"/>
+{#                        <input type='hidden' id="soft_path" name="soft_path" value="{{BASE_URL}}"/>#}
                         <table class="table table-bordered table-hover" id="sample-table-1">
                             <thead>
                                 <tr>
@@ -360,11 +360,6 @@
     <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 
 {% endif %}
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>         
-
-
-
-
 <script>
 
     $(document).ready(function () {
@@ -409,7 +404,6 @@
 
     function edit_prod(id)
     {
-        var soft_path = $("#soft_path").val();
         swal({
             title: "Are you sure?",
             text: "New change applicable only new registrations",
@@ -423,7 +417,7 @@
         },
         function (isConfirm) {
             if (isConfirm) {
-                document.location.href = soft_path + 'admin/configuration/set_register_fields/edit/' + id;
+                document.location.href = 'admin/configuration/set_register_fields/edit/' + id;
             } else {
                 swal("Cancelled", "Your Field is safe :)", "error");
             }
@@ -434,7 +428,6 @@
 
     function activate_prod(id)
     {
-        var soft_path = $("#soft_path").val();
         swal({
             title: "Are you sure?",
             text: "New change applicable only new registrations",
@@ -448,7 +441,7 @@
         },
         function (isConfirm) {
             if (isConfirm) {
-                document.location.href = soft_path + 'admin/configuration/set_register_fields/activate/' + id;
+                document.location.href = 'admin/configuration/set_register_fields/activate/' + id;
             } else {
                 swal("Cancelled", "Your Field is safe :)", "error");
             }
@@ -460,7 +453,6 @@
 
     function inactivate_prod(id)
     {
-        var soft_path = $("#soft_path").val();
         swal({
             title: "Are you sure?",
             text: "New change applicable only new registrations",
@@ -474,7 +466,7 @@
         },
         function (isConfirm) {
             if (isConfirm) {
-                document.location.href = soft_path + 'admin/configuration/set_register_fields/inactivate/' + id;
+                document.location.href = 'admin/configuration/set_register_fields/inactivate/' + id;
             } else {
                 swal("Cancelled", "Your Field is safe :)", "error");
             }
@@ -486,7 +478,6 @@
 
     function delete_prod(id)
     {
-        var soft_path = $("#soft_path").val();
         swal({
             title: "Are you sure?",
             text: "New change applicable only new registrations",
@@ -500,7 +491,7 @@
         },
         function (isConfirm) {
             if (isConfirm) {
-                document.location.href = soft_path + 'admin/configuration/set_register_fields/delete/' + id;
+                document.location.href = 'admin/configuration/set_register_fields/delete/' + id;
             } else {
                 swal("Cancelled", "Your Field is safe :)", "error");
             }
