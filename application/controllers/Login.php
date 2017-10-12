@@ -86,16 +86,27 @@ class Login extends Base_Controller {
 	
 	*/
 	function forgot_password(){
-		$post_arr=$this->input->post();
-		if($post_arr&&$this->validate_email()){
+	    $post_arr=$this->input->post();
+		if($this->input->post()&&$this->validate_email()){
 			$email=$post_arr['email'];
-			$content="Please Have a ";
-			//$link=
+			 if($this->login_model->checkEmailExitsOrNot($email)){
+				 $mlm_user_id=$this->login_model->getMlmEmailToUserId($email);
+				 $result=$this->login_model->sendPasswordResetLink($email,$mlm_user_id,'password reset');
+				 if($result){
+					 $msg="Please check the you email we send a Password Reset Forwarded";
+					 $this->loadPage('','login/forgot_password',true);
+				 }else{
+					 $msg="Failed to send email";
+					 $this->loadPage('','login/forgot_password',false);
+				 }
+				 
+			 }else{
+				 $msg="You have entered Email Doesnt Exists";
+				 $this->loadPage($msg,'login/forgot_password',FLASE);
+			 }
 			
-		}else{
-			$msg='Email filed is required';
-			$this->loadPage($msg,'login/forgot_password',FALSE);
-		}	 
+		}
+	$this->loadView();
 	}
 	/**
 	*For Validate Email
@@ -104,40 +115,67 @@ class Login extends Base_Controller {
 	
 	*/
 	function validate_email(){
-	$this->form_validation->rules('email','Email','trim|xss_clean|required|callback_email_exists_or_not');
-	if($this->form_validation->run()==FLASE){
-		$msg="Email Not Exits in Our Database";
-		$this->loadPage($msg,'login/forgot_password');
-	}else{
-		return TRUE;
-	}
+	    $this->form_validation->set_rules('email','Email','trim|required|valid_email|callback_email_exists_or_not');
+	    $validate_form = $this->form_validation->run();
+        return  $validate_form;
 	}
 
 	function email_exists_or_not($email){
-		if(!empty($email)){
-			$result=$this->login_model->checkEmailExitsOrNot($email);
-			if($result){
-				return TRUE;
-			}
-			else{
-				return FALSE;
-			}
-		}
-		
-		
+		$flag=false;
+		$result=$this->login_model->checkEmailExitsOrNot($email);
+	    if($result>0){
+			 $flag=true;
+		}else{
+			 $flag= false;
+		 }
+		 return $flag;
 	}
 	
 	
-	function rest_password(){
-		$post_arr=$this->input->post();
-		if(!empty($post_arr)&& $this->validate_reset_password()){
-			$email=$post_arr['new_password'];
+	/**
+	For Reset Password
+	*/
+	
+	function reset_password($encrypt_key=""){
+
+		$title="Reset Password";
+		$this->setData("title",$this->main->get_controller().'|'.$this->main->get_method());
+		$userid=$this->helper_model->decode($encrypt_key);
+		
+		$this->setData('user_id',$userid);
+		
+		if($this->input->post('submit')=='Reset'&& $this->validate_reset_password()){
+			
+			
+			$post_arr=$this->input->post();
+			
+			$new_password=$post_arr['new_password'];
+			$password = hash("sha256", $new_password);
+			$userid=$post_arr['user_id'];
+			$result=$this->login_model->resetPassword($password,$userid);
+			$this->helper_model->insertActivity($userid,'Reset password');
+			if($result){
+				$msg="Password Reset Successfully we send and email to you";
+				$this->loadPage('','login',true);
+				
+			}else{
+				$msg="Faled to Reset Passwords";
+				$this->loadPage('','login/forgot_password',true);
+			}	
 		}
+		
+		$this->loadView();
 	}
 	
 	function validate_reset_password(){
-		$this->form_validation->rules('new_passowrd','required|trim|xss_clean|match');
+		$this->form_validation->set_rules('new_password','New Password','required|trim|min_length[6]');
+		$this->form_validation->set_rules('confirm_password','Confirm Password','required|trim|min_length[6]|matches[new_password]');
+		$validate_form = $this->form_validation->run();
+		
+        return $validate_form;
 	}
+		
+	
 	
 	
     function logout() {
