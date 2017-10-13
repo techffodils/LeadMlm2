@@ -363,6 +363,10 @@ class Configuration extends Base_Controller {
         $error_array = $post = array();
         $langs = $this->configuration_model->getLanguages();
         $curns = $this->configuration_model->getCurrencies();
+        $default_currency=$this->dbvars->DEFAULT_CURRENCY_CODE;
+        $default_currency_symbol=$this->configuration_model->getCurrencySymbol($default_currency);
+        $this->setData('default_currency', $default_currency);
+        $this->setData('default_currency_symbol', $default_currency_symbol);
         $this->setData('langs', $langs);
         $this->setData('curns', $curns);
         $this->loadView();
@@ -375,7 +379,7 @@ class Configuration extends Base_Controller {
             $flag=0;
             if($status=='active')
                 $flag=1;            
-            if($this->configuration_model->changeLanguageStatus($lang_id,$status)){
+            if($this->configuration_model->changeLanguageStatus($lang_id,$flag)){
                 echo 'yes';
                 exit;
             }            

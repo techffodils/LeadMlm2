@@ -216,7 +216,7 @@ class Configuration_model extends CI_Model {
 
     function getCurrencies() {
         $data = array();
-        $res = $this->db->select("id,currency_code,currency_name,status,symbol_left,symbol_right")
+        $res = $this->db->select("id,currency_code,currency_name,status,icon,currency_ratio")
                 ->from("currencies")
                 ->get();
         $i = 0;
@@ -225,8 +225,8 @@ class Configuration_model extends CI_Model {
             $data[$i]['code'] = $row->currency_code;
             $data[$i]['name'] = $row->currency_name;
             $data[$i]['status'] = $row->status;
-            $data[$i]['symbol_left'] = $row->symbol_left;
-            $data[$i]['symbol_right'] = $row->symbol_right;
+            $data[$i]['icon'] = $row->icon;
+            $data[$i]['currency_ratio'] = (float)$row->currency_ratio;
             $i++;
         }
         return $data;
@@ -260,5 +260,18 @@ class Configuration_model extends CI_Model {
                          ->where('id ', $id)
                         ->update('languages');
     }
+    
+    public function getCurrencySymbol($code) {
+        $field_name = '';
+        $query = $this->db->select('icon')
+                ->from('currencies')
+                ->where('currency_code', $code)
+                ->get();
+        foreach ($query->result() as $row) {
+            $icon = $row->icon;
+        }
+        return $icon;
+    }
+    
     
 }
