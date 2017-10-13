@@ -1,0 +1,137 @@
+{% include('admin/layout/header.twig')%}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Languages & Currencies
+
+                    <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                
+                <div class="row">                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Field Name <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group" id="max_size_div">
+                            <label class="control-label">
+                                Data Type Max Size<span class="symbol required"></span>
+                            </label>
+                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                                    
+    </div>
+</div>
+                        
+<style>                               
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 90px;
+        height: 34px;
+    }
+
+    .switch input {display:none;}
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #8B91A0;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #5bc0de;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .on
+    {
+        display: none;
+    }
+
+    .on, .off
+    {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked+ .slider .on
+    {display: block;}
+
+    input:checked + .slider .off
+    {display: none;}
+
+    /*--------- END --------*/
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;}
+</style>
+{% include('admin/layout/footer.twig')%}
