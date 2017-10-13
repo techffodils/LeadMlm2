@@ -20,5 +20,13 @@ class Home extends Base_Controller{
 	      $this->loadView();
 	}
 	
-	
+	    
+    
+    function changeThemeSettings(){
+        
+        $data = json_decode(stripslashes($this->input->post('result')),true);
+        $user_id=$this->main->get_usersession('mlm_user_id');
+        echo $this->home_model->themeChange($data,$user_id);
+        exit();
+    }
 }

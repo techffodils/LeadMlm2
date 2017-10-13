@@ -1086,9 +1086,12 @@ var Main = function() {
         setSideBarStyle();
         setFooterStyle();
         setBoxedBackgrounds();
+
+
     };
 
     var setColorScheme = function() {
+//sree
         $('.icons-color a').on('click', function() {
             $('.icons-color img').each(function() {
                 $(this).removeClass('active');
@@ -1098,7 +1101,7 @@ var Main = function() {
                 $('#skin_color').next('style').remove();
                 $('#skin_color').attr("rel", "stylesheet");
 
-            }
+            }          
             $('#skin_color').attr("href", "assets/css/themes/theme-" + $(this).attr('id') + ".css");
             switch ($(this).attr('id')) {
                 case "style3":
@@ -1274,6 +1277,7 @@ var Main = function() {
     //function to save user settings
     var runSaveSetting = function() {
         $('.save_style').on('click', function() {
+            
             var espressoSetting = new Object;
             if ($body.hasClass('layout-boxed')) {
                 espressoSetting.layoutBoxed = true;
@@ -1306,23 +1310,43 @@ var Main = function() {
             };
             espressoSetting.skinClass = $('#skin_color').attr('href');
 
-            $.cookie("espresso-setting", JSON.stringify(espressoSetting));
+
+            //alert(JSON.stringify(espressoSetting));
+            //$.cookie("espresso-setting", JSON.stringify(espressoSetting));     
+            //save user settings
+
+            //sree
 
             var el = $('#style_selector_container');
-            el.block({
-                overlayCSS: {
-                    backgroundColor: '#000'
+            $.ajax({
+                type: 'POST',
+                url: 'admin/home/changeThemeSettings',
+                data: JSON.stringify(espressoSetting),
+                beforeSend: function() {
+                    el.block({
+                        overlayCSS: {
+                            backgroundColor: '#000'
+                        },
+                        message: '<i class="fa fa-spinner fa-spin"></i>',
+                        css: {
+                            border: 'none',
+                            color: '#fff',
+                            background: 'none'
+                        }
+                    });
                 },
-                message: '<i class="fa fa-spinner fa-spin"></i>',
-                css: {
-                    border: 'none',
-                    color: '#fff',
-                    background: 'none'
-                }
+                success: function(data) {
+                    el.unblock();
+                },
+                error: function(xhr) { // if error occured
+                    alert("Error occured.please try again");
+                },
+                complete: function() {
+                    el.unblock();
+                },
+                dataType: 'json'
             });
-            window.setTimeout(function() {
-                el.unblock();
-            }, 1000);
+
         });
     };
     //function to load user settings
@@ -1424,14 +1448,14 @@ var Main = function() {
         init: function() {
             runWIndowResize();
             runInit();
-            runQuickChat();
+           // runQuickChat();
             runToggleSideBars();
             runStyleSelector();
             runElementsPosition();
             runToDoAction();
             runNavigationMenu();
             runGoTop();
-            setSearchMenu();
+           // setSearchMenu();
             runModuleTools();
             runDropdownEnduring();
             runTooltips();
@@ -1442,7 +1466,7 @@ var Main = function() {
             runShowTab();
             runCustomCheck();
             runColorPalette();
-            runSaveSetting();
+          //  runSaveSetting();
             runCustomSetting();
             runStatusButton();
             runCheckAll();
@@ -1455,6 +1479,7 @@ var Main = function() {
             runMsViewport();
             runTimeStamp();
             documentEvents();
+           
         }
     };
 }();
