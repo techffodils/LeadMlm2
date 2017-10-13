@@ -358,5 +358,11 @@ class Configuration extends Base_Controller {
         }
         echo 'no';
     }
+    
+    public function multiple_options($action = '', $field_id = '') {
+        $error_array = $post = array();
+        
+        $this->loadView();
+    }
 
 }
