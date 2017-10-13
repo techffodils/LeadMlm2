@@ -14,8 +14,18 @@ Class Core_Base_Controller extends CI_Controller {
         $this->DATA_ARR['BASE_URL'] = BASE_PATH;
         $user_type = $this->main->get_usersession('mlm_user_type');
         if ($user_type) {
-            $user_menu = $this->base_model->getSideMenus($user_type);
-            $this->setData('USER_MENU', $user_menu);
+			$currenturl     = $this->main->get_currenturl('mlm_user_type');
+			$user_id        = $this->main->get_usersession('mlm_user_id');
+
+			$user_menu      = $this->base_model->getSideMenus($user_type);
+			$script_files   = $this->base_model->loadPageScript($currenturl);
+			$theam_details  = $this->base_model->getTheamDetails($user_id);
+			$language_details     = $this->setLanguageDetails($user_id,$user_type);
+			$currency_details     = $this->setCurrencyDetails($user_id,$user_type);
+
+			$this->setData('USER_MENU', $user_menu);
+			$this->setData('SCRIPT_FILES', $script_files);
+			$this->setData('THEAM', $theam_details);
         }
     }
 
@@ -160,6 +170,17 @@ Class Core_Base_Controller extends CI_Controller {
 //        }
 //        return true;
 //    }
+			function setNotificationMessage() {
+
+
+				$FLASH_MSG_ARR=$this->main->get_flashdata('FLASH_MSG_ARR');
+				
+				if ($FLASH_MSG_ARR) {
+					$this->setData("MESSAGE_DETAILS", $FLASH_MSG_ARR);
+				} else {
+				 $this->setData("MESSAGE_DETAILS", null);
+			 }
+		 }
 
     function checkLogged($type="") {
 
@@ -193,5 +214,88 @@ Class Core_Base_Controller extends CI_Controller {
 	function set_header_lang(){
 		$this->DATA_ARR['HEADER_DATA']=$this->BREADCRUM_DATA;
 	}
+
+
+
+function setCurrencyDetails($user_id,$user_type) {
+				if ($user_id) {
+
+						//$currency_status = $this->base_model->getCurrencyStatus();
+
+					$currency_status = true;
+
+					if ($currency_status) {
+
+					 if ($this->session->userdata("mlm_data_currency")) {
+
+						$mlm_currency = $this->session->userdata("mlm_data_currency");
+
+						$this->setData('MLM_CURRENCY_VALUE',  $mlm_currency['currency_ratio']);
+						$this->setData('MLM_CURRENCY_NAME',  $mlm_currency['currency_name']);
+						$this->setData('MLM_CURRENCY_CODE',  $mlm_currency['currency_code']);
+						$this->setData('MLM_CURRENCY_LEFT',  $mlm_currency['symbol_left']);
+						$this->setData('MLM_CURRENCY_RIGHT',  $mlm_currency['symbol_right']);
+						$this->setData('MLM_CURRENCY_ICON',  $mlm_currency['icon']);
+						$this->setData('MLM_CURRENCY_LIST',  $mlm_currency['currency_list']);
+
+					}else{
+
+						if($user_type =='employee'){
+							$user_id = $this->base_model->getAdminUserId();
+						}
+
+								$mlm_currency = $this->base_model->getCurrencyDetails($user_id);//load from golbal
+
+
+								$currency_list = $this->base_model->getAllCurrency();
+
+								$this->setData('MLM_CURRENCY_VALUE',  $mlm_currency['currency_ratio']);
+								$this->setData('MLM_CURRENCY_NAME',  $mlm_currency['currency_name']);
+								$this->setData('MLM_CURRENCY_CODE',  $mlm_currency['currency_code']);
+								$this->setData('MLM_CURRENCY_LEFT',  $mlm_currency['symbol_left']);
+								$this->setData('MLM_CURRENCY_RIGHT',  $mlm_currency['symbol_right']);
+								$this->setData('MLM_CURRENCY_ICON',  $mlm_currency['icon']);
+								$this->setData('MLM_CURRENCY_LIST',  $currency_list);
+
+							}
+						}
+					}
+					return 1;
+				}
+
+				function setLanguageDetails($user_id,$user_type) {
+					if ($user_id) {
+						//$language_status = $this->base_model->getLanguageStatus();
+						$language_status = true;
+						if ($language_status) {
+
+						 if ($this->session->userdata("mlm_data_language")) {
+
+							$mlm_language = $this->session->userdata("mlm_data_language");
+							$this->setData('MLM_LANG_FLAG',  $mlm_language['lang_flag']);
+							$this->setData('MLM_LANG_NAME',  $mlm_language['lang_name']);
+							$this->setData('MLM_LANG_ENG_NAME',  $mlm_language['lang_name']);
+							$this->setData('MLM_LANG_LIST',  $mlm_language['lang_list']);
+
+						}else{
+
+							if($user_type =='employee'){
+									$user_id = $this->base_model->getAdminUserId();
+							}
+
+							$mlm_language = $this->base_model->getLanguageDetails($user_id);
+
+							$lang_list = $this->base_model->getAllLanguages();
+
+							$this->setData('MLM_LANG_FLAG',  $mlm_language['lang_flag']);
+							$this->setData('MLM_LANG_NAME',  $mlm_language['lang_name']);
+							$this->setData('MLM_LANG_ENG_NAME',  $mlm_language['lang_name']);
+							$this->setData('MLM_LANG_LIST',  $lang_list);
+
+						}
+					}
+				}
+				return 1;
+			}
 
 }

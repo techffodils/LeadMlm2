@@ -9,7 +9,7 @@
 							<i class="fa fa-bars"></i>
 						</a>
 						<!-- start: LOGO -->
-						<a class="navbar-brand" href="index.html">
+						<a class="navbar-brand" href="home">
 							<img src="assets/images/logo.png" alt="Rapido"/>
 						</a>
 						<!-- end: LOGO -->
@@ -17,9 +17,51 @@
 					<div class="topbar-tools">
 						<!-- start: TOP NAVIGATION MENU -->
 						<ul class="nav navbar-right">
+
+
+<!-- start: CURRENCY -->
+							<li class="dropdown current-user">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;" title="Change System Currency">
+
+								  <i class="fa fa-usd"></i>
+								  <!-- <img src="assets/images/avatar-1-small.jpg" class="img-circle" alt="">-->
+								  <span class="username hidden-xs">USD</span> <i class="fa fa-caret-down hidden-xs "></i>
+								</a>
+								<ul class="dropdown-menu dropdown-dark">
+
+									{% for CURRENCY  in  MLM_CURRENCY_LIST  %}
+										<li>
+											<a href="">
+												<i class="fa {{CURRENCY.icon}}"></i> - {{CURRENCY.currency_name}}
+											</a>
+										</li>
+									{% endfor %}
+									
+								</ul>
+							</li>
+<!-- end: CURRENCY  -->
+<!-- start: LANGUAGE -->
+							<li class="dropdown current-user">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;"  title="Change System Language">
+								  <img src="assets/images/flags-iso/shiny/24/IN.png" class="img-circle" alt="">
+								  <span class="username hidden-xs">English</span> <i class="fa fa-caret-down hidden-xs "></i>
+								</a>
+								<ul class="dropdown-menu dropdown-dark">
+									{% for LANGUAGE  in  MLM_LANG_LIST  %}
+										<li>
+											<a href="">
+												{{LANGUAGE.lang_name}} 
+												<!-- <img src="assets/images/flags-iso/flat/16/IN.png" class="pull-right"> -->
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</li>
+<!-- end: LANGUAGE  -->
+
 							<!-- start: USER DROPDOWN -->
 							<li class="dropdown current-user">
-								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;">
 									<img src="assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Peter Clark</span> <i class="fa fa-caret-down "></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
@@ -42,9 +84,8 @@
 							</li>
 							<!-- end: USER DROPDOWN -->
 							<li class="right-menu-toggle">
-								<a href="#" class="sb-toggle-right">
+								<a href="javascript:;" class="sb-toggle-right">
 									<i class="fa fa-globe toggle-icon"></i> <i class="fa fa-caret-right"></i> 
-									<!--<span class="notifications-count badge badge-default hide"> 3</span>-->
 								</a>
 							</li>
 						</ul>

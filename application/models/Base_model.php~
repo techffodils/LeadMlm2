@@ -120,7 +120,7 @@ class Base_model extends CI_Model {
 						
 
 		if($query->num_rows() >0 ){
-			//$script_array = $this->base_model->loadScript($query->row()->id);
+			$script_array = $this->base_model->loadScript($query->row()->id);
 		}
 
 		return $script_array;

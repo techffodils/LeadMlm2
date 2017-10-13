@@ -13,6 +13,9 @@ class Base_Controller extends Core_Base_Controller {
                 $this->checkPages();
             }
         }
+
+
+        $this->setNotificationMessage();
     }
 
 }
