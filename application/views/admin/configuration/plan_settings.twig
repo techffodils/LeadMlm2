@@ -461,12 +461,17 @@
                 if (result == "yes") {
                     if (status == "active") {
                         var msg = "Configured Registration Enabled";
+                        var flag = "success";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
                     } else {
                         var msg = "Configured Registration Disabled";
+                        var flag = "error";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    
                     }
-                    var flag = "success";
-                    var title = "Success";
-                    show_notification(flag, title, msg);
+                    
                 } else {
                     var flag = "error";
                     var msg = "Updation Failed";
