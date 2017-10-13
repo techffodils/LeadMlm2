@@ -11,7 +11,10 @@ class Member extends Base_Controller {
 
         $title = "Account Setting";
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
-        $this->setData('header', 'Account Setting');
+        $this->BREADCRUM_DATA=array('page_title'=>$title,'page_sub_title'=>$title,'page_header'=>$title,'page_header_small'=>$title);
+		
+		$this->set_header_lang();
+		
         if ($this->input->post('submit_password') && $this->validate_change_password()) {
             $tab1 = 'active';
             $tab2 = $tab3 = '';
