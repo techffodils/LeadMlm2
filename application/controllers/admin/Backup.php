@@ -45,6 +45,7 @@ class Backup extends Base_Controller {
     function db_backup() {
         $res = $this->backup_model->dbBackup();
         if ($res) {
+            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'db_backup_created');
             $data['response'] = 'yes';
             $data['done_by'] = 'Admin';
             $data['date'] = date("Y-m-d H:i:s");
@@ -55,7 +56,6 @@ class Backup extends Base_Controller {
             echo json_encode($data);
         } else {
             $data['response'] = 'no';
-            $data['fff'] = 'asd';
             echo json_encode($data);
         }
         exit;

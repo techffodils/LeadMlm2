@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Backup <span class="text-bold"></span></h4>
+                <h4 class="panel-title">Plan Settings <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -30,32 +30,40 @@
                             <ul id="myTab3" class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a href="#plan_tab1" data-toggle="tab">
-                                        <i class="fa fa-gears"> </i>Payment Methods 
+                                        <i class="fa fa-credit-card"> </i>Payment Methods 
                                     </a>
                                 </li>
                                 <li class="{{tab2}}">
                                     <a href="#plan_tab2" data-toggle="tab">
-                                        <i class="fa fa-fire"> </i> Bonuses
+                                        <i class="fa fa-money"> </i> Bonuses
                                     </a>
                                 </li>
                                 <li class="{{tab3}}">
                                     <a href="#plan_tab3" data-toggle="tab">
-                                        <i class="fa fa-database"> </i> Username Settings
+                                        <i class="fa fa-user"> </i> Username Settings
                                     </a>
                                 </li>
 
                                 <li class="{{tab4}}">
                                     <a href="#plan_tab4" data-toggle="tab">
-                                        <i class="fa fa-database"> </i> Registration Model
+                                        <i class="fa fa-bars"> </i> Registration Model
                                     </a>
                                 </li>
+                                {% if mlm_plan == "Matrix" %} 
+                                    <li class="{{tab5}}">
+                                        <a href="#plan_tab5" data-toggle="tab">
+                                            <i class="fa fa-arrows"> </i> Depth & Width
+                                        </a>
+                                    </li>
+                                {% endif %}
 
-                                <li class="{{tab5}}">
-                                    <a href="#plan_tab5" data-toggle="tab">
-                                        <i class="fa fa-database"> </i> Depth & Width
-                                    </a>
-                                </li>
-
+                                {% if mlm_plan == "BINARY" %} 
+                                    <li class="{{tab6}}">
+                                        <a href="#plan_tab6" data-toggle="tab">
+                                            <i class="fa fa-balance-scale"> </i> User Position
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane {{tab1}}" id="plan_tab1" style="padding: 65px;">
@@ -90,7 +98,7 @@
 
                                         {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
                                         <div class="form-horizontal">                                            
-                                            {% if mlm_plan == "Binary" %} 
+                                            {% if mlm_plan == "BINARY" %} 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
                                                         Pairing Bonus
@@ -222,15 +230,96 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane {{tab5}}" id="plan_tab5" style="padding: 65px;">
-                                    <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Depth & Width</h3>
-                                        <br>
+                                {% if mlm_plan == "Matrix" %} 
+                                    <div class="tab-pane {{tab5}}" id="plan_tab5" style="padding: 65px;">
+                                        <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
+                                            <h3 class="margin-bottom-15">Depth & Width</h3>
+                                            <br>
+
+                                            {{ form_open('', ' id="depth_width_form" name="depth_width_form"')|raw }}
+                                            <div class="form-horizontal">   
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Depth
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" min="1" max="10" type="number" name="matrix_depth" id="matrix_depth" value="{{ matrix_depth }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Width
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" min="1" max="10" type="number" name="matrix_width" id="matrix_width" value="{{ matrix_width }}">
+                                                    </div>
+                                                </div>
 
 
 
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <button type="submit"class="btn btn-primary" value="matrix_settings" name="matrix_settings">
+                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_close()|raw }}
+
+
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
+
+
+                                {% if mlm_plan == "BINARY" %} 
+                                    <div class="tab-pane {{tab6}}" id="plan_tab6" style="padding: 65px;">
+                                        <div id="accordion6" class="panel-group accordion accordion-custom accordion-teal">
+                                            <h3 class="margin-bottom-15">User Position</h3>
+                                            <br>
+
+                                            {{ form_open('', ' id="user_position_form" name="user_position_form"')|raw }}
+                                            <div class="form-horizontal">   
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Leg
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <select name="register_leg" id="register_leg" class="form-control field_type" >
+                                                            <option value="">Select Leg</option>
+                                                            <option value="dynamic" {% if register_leg=="dynamic" %} selected {% endif %}>Dynamic</option>
+                                                            <option value="balanced" {% if register_leg=="balanced" %} selected {% endif %}>Balanced</option>
+                                                            <option value="left" {% if register_leg=="left" %} selected {% endif %}>Left</option>
+                                                            <option value="right" {% if register_leg=="right" %} selected {% endif %}>Right</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <button type="submit"class="btn btn-primary" value="leg_settings" name="leg_settings">
+                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_close()|raw }}
+
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+
                             </div>
                         </div>
                     </div>
@@ -335,15 +424,23 @@
             data: {payment_code: payment_code, status: status},
             success: function (result) {
                 if (result == "yes") {
-                    var status = "success";
-                    var msg = "Payment Status Changed";
-                    var title = "Success";
-                    show_notification(status, title, msg);
+                    if (status == "active") {
+                        var msg = payment_code + " Activated";
+                        var flag = "success";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    } else {
+                        var flag = "error";
+                        var msg = payment_code + " Inactivated";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    }
+
                 } else {
-                    var status = "error";
+                    var flag = "error";
                     var msg = "Updation Failed";
                     var title = "Failed";
-                    show_notification(status, title, msg);
+                    show_notification(flag, title, msg);
                 }
             }
         });
@@ -362,21 +459,25 @@
             data: {status: status},
             success: function (result) {
                 if (result == "yes") {
-                    var status = "success";
-                    var msg = "Payment Status Changed";
+                    if (status == "active") {
+                        var msg = "Configured Registration Enabled";
+                    } else {
+                        var msg = "Configured Registration Disabled";
+                    }
+                    var flag = "success";
                     var title = "Success";
-                    show_notification(status, title, msg);
+                    show_notification(flag, title, msg);
                 } else {
-                    var status = "error";
+                    var flag = "error";
                     var msg = "Updation Failed";
                     var title = "Failed";
-                    show_notification(status, title, msg);
+                    show_notification(flag, title, msg);
                 }
             }
         });
     }
-    
-    
+
+
     function changeRegisterForm(element)
     {
         if (element.checked) {
@@ -389,21 +490,25 @@
             data: {status: status},
             success: function (result) {
                 if (result == "yes") {
-                    var status = "success";
-                    var msg = "Payment Status Changed";
+                    if (status == "single") {
+                        var msg = "Single Step Registration Enabled";
+                    } else {
+                        var msg = "Multiple Step Registration Enabled";
+                    }
+                    var flag = "success";
                     var title = "Success";
-                    show_notification(status, title, msg);
+                    show_notification(flag, title, msg);
                 } else {
-                    var status = "error";
-                    var msg = "Updation Failed";
+                    var flag = "error";
+                    var msg = "Updation To Failed";
                     var title = "Failed";
-                    show_notification(status, title, msg);
+                    show_notification(flag, title, msg);
                 }
             }
         });
     }
-    
-    
+
+
 
     function show_notification(status, title, msg) {
         var i = -1;
