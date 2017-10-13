@@ -269,37 +269,23 @@
 
 
                     <div class="table-responsive">
-                        {#                        <input type='hidden' id="soft_path" name="soft_path" value="{{BASE_URL}}"/>#}
                         <table class="table table-bordered table-hover" id="sample-table-1">
                             <thead>
-                                <tr>
-                                    <th class="center">
-                            <div class="checkbox-table">
-                                <label>
-                                    <input type="checkbox" class="flat-grey selectall">
-                                </label>
-                            </div>
-                            </th>
-                            <th>Field Name</th>
-                            <th>Status</th>
-                            <th>Required</th>
-                            <th>Unique</th>
-                            <th>Placement</th>
-                            <th>Order</th>
-                            <th>Default Value</th>
-                            <th>Action</th>
-                            </tr>
+                                <tr>                                    
+                                    <th>Field Name</th>
+                                    <th>Status</th>
+                                    <th>Required</th>
+                                    <th>Unique</th>
+                                    <th>Placement</th>
+                                    <th>Order</th>
+                                    <th>Default Value</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
 
                                 {% for fld in fields %}
-                                    <tr>
-                                        <td class="center">
-                                            <div class="checkbox-table">
-                                                <label>
-                                                    <input type="checkbox" class="flat-grey foocheck" id="{{ fld.id }}" name="{{ fld.id }}">
-                                                </label>
-                                            </div></td>
+                                    <tr>                                        
                                         <td>{{ fld.field_name }}</td>
                                         <td>{{ fld.status }}</td>
                                         <td>
