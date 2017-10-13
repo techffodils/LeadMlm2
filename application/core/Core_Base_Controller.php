@@ -3,12 +3,14 @@
 Class Core_Base_Controller extends CI_Controller {
 
     public $DATA_ARR;
+	public $BREADCRUM_DATA;
 
     function __construct() {
 
         parent::__construct();
 
         $this->main->load_model();
+		$this->BREADCRUM_DATA;
         $this->DATA_ARR['BASE_URL'] = BASE_PATH;
         $user_type = $this->main->get_usersession('mlm_user_type');
         if ($user_type) {
@@ -183,5 +185,13 @@ Class Core_Base_Controller extends CI_Controller {
         } 
         return true;
     }
+	
+	function set_breadcrumbs($set_key, $set_value) {
+        $this->DATA_ARR[$set_key] = $set_value;
+    }
+	
+	function set_header_lang(){
+		$this->DATA_ARR['HEADER_DATA']=$this->BREADCRUM_DATA;
+	}
 
 }
