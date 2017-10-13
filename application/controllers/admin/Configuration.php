@@ -359,10 +359,43 @@ class Configuration extends Base_Controller {
         echo 'no';
     }
     
-    public function multiple_options($action = '', $field_id = '') {
+    public function multiple_options() {
         $error_array = $post = array();
-        
+        $langs = $this->configuration_model->getLanguages();
+        $curns = $this->configuration_model->getCurrencies();
+        $this->setData('langs', $langs);
+        $this->setData('curns', $curns);
         $this->loadView();
+    }
+    
+    public function change_language_status() {
+        $lang_id = $this->input->get('lang_id');
+        $status = $this->input->get('status');
+        if ($lang_id && $status) {
+            $flag=0;
+            if($status=='active')
+                $flag=1;            
+            if($this->configuration_model->changeLanguageStatus($lang_id,$status)){
+                echo 'yes';
+                exit;
+            }            
+        }
+        echo 'no';
+    }
+    
+    public function change_currency_status() {
+        $currency_id = $this->input->get('currency_id');
+        $status = $this->input->get('status');
+        if ($currency_id && $status) {
+            $flag=0;
+            if($status=='active')
+                $flag=1;            
+            if($this->configuration_model->changeCurrencyStatus($currency_id,$flag)){
+                echo 'yes';
+                exit;
+            }            
+        }
+        echo 'no';
     }
 
 }

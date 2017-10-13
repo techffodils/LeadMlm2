@@ -214,4 +214,51 @@ class Configuration_model extends CI_Model {
                         ->update('payment_methods');
     }
 
+    function getCurrencies() {
+        $data = array();
+        $res = $this->db->select("id,currency_code,currency_name,status,symbol_left,symbol_right")
+                ->from("currencies")
+                ->get();
+        $i = 0;
+        foreach ($res->result() as $row) {
+            $data[$i]['id'] = $row->id;
+            $data[$i]['code'] = $row->currency_code;
+            $data[$i]['name'] = $row->currency_name;
+            $data[$i]['status'] = $row->status;
+            $data[$i]['symbol_left'] = $row->symbol_left;
+            $data[$i]['symbol_right'] = $row->symbol_right;
+            $i++;
+        }
+        return $data;
+    }
+    
+    function changeCurrencyStatus($id, $status) {
+        return $this->db->set('status ', "$status")
+                         ->where('id ', $id)
+                        ->update('currencies');
+    }
+
+    function getLanguages() {
+        
+        $data = array();
+        $res = $this->db->select("id,lang_code,lang_name,status")
+                ->from("languages")
+                ->get();
+        $i = 0;
+        foreach ($res->result() as $row) {
+            $data[$i]['id'] = $row->id;
+            $data[$i]['code'] = $row->lang_code;
+            $data[$i]['name'] = $row->lang_name;
+            $data[$i]['status'] = $row->status;
+            $i++;
+        }
+        return $data;
+    }
+    
+    function changeLanguageStatus($id, $status) {
+        return $this->db->set('status ', "$status")
+                         ->where('id ', $id)
+                        ->update('languages');
+    }
+    
 }

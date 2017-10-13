@@ -27,24 +27,58 @@
             </div>
             <div class="panel-body">
                 <hr>
-                
                 <div class="row">                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">
-                                Field Name <span class="symbol required"></span>
-                            </label>
-                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
+                    <div class="col-md-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                    <label class="col-sm-7 control-label">
+                                        <h6 align="left">AVAILABLE LANGUAGES</h6><br>
+                                    </label>
+                            </div>
+                            
+                            {% for l in langs %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        {{ l.name }}
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <label class="switch">
+                                            <input type="checkbox" {% if l.status == "active" %} checked {% endif %} id="togBtn" onchange='changeLanguageStatus("{{ l.id }}", this)'>
+                                            <div class="slider round">
+                                                <span class="on">ON</span>
+                                                <span class="off">OFF</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
 
-
-                    <div class="col-md-6">
-                        <div class="form-group" id="max_size_div">
-                            <label class="control-label">
-                                Data Type Max Size<span class="symbol required"></span>
-                            </label>
-                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
+                        
+                    <div class="col-md-7">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                    <label class="col-sm-7 control-label">
+                                        <h6 align="left">AVAILABLE CURRENCIES</h6><br> 
+                                    </label>
+                            </div>
+                            {% for c in curns %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        {{ c.name }} ( {{ c.symbol_left }} {{ c.symbol_right }})
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <label class="switch">
+                                            <input type="checkbox" {% if c.status == "active" %} checked {% endif %} id="togBtn" onchange='changeCurrencyStatus("{{ c.id }}", this)'>
+                                            <div class="slider round">
+                                                <span class="on">ON</span>
+                                                <span class="off">OFF</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -52,7 +86,7 @@
         </div>                                    
     </div>
 </div>
-                        
+
 <style>                               
     .switch {
         position: relative;
@@ -134,4 +168,99 @@
     .slider.round:before {
         border-radius: 50%;}
 </style>
+<script>
+    function changeLanguageStatus(lang_id, element)
+    {
+        if (element.checked) {
+            var status = "active";
+        } else {
+            var status = "inactive";
+        }
+        $.ajax({
+            url: "admin/configuration/change_language_status",
+            data: {lang_id: lang_id, status: status},
+            success: function (result) {
+                if (result == "yes") {
+                    if (status == "active") {
+                        var msg = "Language Activated";
+                        var flag = "success";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    } else {
+                        var flag = "error";
+                        var msg = "Language Inactivated";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    }
+
+                } else {
+                    var flag = "error";
+                    var msg = "Updation Failed";
+                    var title = "Failed";
+                    show_notification(flag, title, msg);
+                }
+            }
+        });
+    }
+
+
+    function changeCurrencyStatus(currency_id, element)
+    {
+        if (element.checked) {
+            var status = "active";
+        } else {
+            var status = "inactive";
+        }
+        $.ajax({
+            url: "admin/configuration/change_currency_status",
+            data: {currency_id: currency_id, status: status},
+            success: function (result) {
+                if (result == "yes") {
+                    if (status == "active") {
+                        var msg = "Currency Activated";
+                        var flag = "success";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    } else {
+                        var flag = "error";
+                        var msg = "Currency Inactivated";
+                        var title = "Success";
+                        show_notification(flag, title, msg);
+                    }
+
+                } else {
+                    var flag = "error";
+                    var msg = "Updation Failed";
+                    var title = "Failed";
+                    show_notification(flag, title, msg);
+                }
+            }
+        });
+    }
+
+    function show_notification(status, title, msg) {
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var toastIndex = toastCount++;
+        toastr.options = {
+            closeButton: $('#closeButton').prop('checked'),
+            debug: $('#debugInfo').prop('checked'),
+            positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
+            onclick: null
+        };
+
+        $("#toastrOptions").text("Command: toastr["
+                + status
+                + "](\""
+                + msg
+                + (title ? "\", \"" + title : '')
+                + "\")\n\ntoastr.options = "
+                + JSON.stringify(toastr.options, null, 2)
+                );
+
+        var $toast = toastr[status](msg, title); // Wire up an event handler to a button in the toast, if it exists
+
+    }
+</script>
 {% include('admin/layout/footer.twig')%}
