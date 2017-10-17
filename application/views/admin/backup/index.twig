@@ -159,21 +159,5 @@
 </div>
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
-<script>
-    function generate_backup()
-    {
-        $.ajax({
-            url: 'admin/backup/db_backup',
-            success: function (response) {
-                var res = $.parseJSON(response);
-                if (res.response == 'yes') {
-                    $('#sample-table-1 tr:first').after('<tr><td>' + res.download + '</td><td>' + res.done_by + '</td><td>' + res.date + '</td><td>' + res.file + '</td></tr>');
-                    swal("Success!", "Backup Generated Successfully", "success");
-                } else {
-                    swal("Failed", "Backup Generation Failed", "error");
-                }
-            }
-        });
-    }
-</script>
+<script src="assets/js/backup.js"></script>
 {% include('admin/layout/footer.twig')%}
