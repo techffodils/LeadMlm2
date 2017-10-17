@@ -185,7 +185,7 @@
                                         <td>
                                             <a href="javascript:edit_prod({{ pro.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
                                                 {% if pro.status=='1' %} 
-                                                <a href="javascript:inactivate_prod({{ pro.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                                <a href="javascript:inactivate_prod({{ pro.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
                                                 {% else %}
                                                 <a href="javascript:activate_prod({{ pro.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
                                                 {% endif %}
