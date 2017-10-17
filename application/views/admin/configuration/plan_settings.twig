@@ -104,7 +104,7 @@
                                                         Pairing Bonus
                                                     </label>
                                                     <div class="col-sm-4">
-                                                        <input class="form-control" type="number" name="pair_bonus" id="pair_bonus" value="{{ pair_bonus }}">
+                                                        <input class="form-control" min="0" type="number" name="pair_bonus" id="pair_bonus" value="{{ pair_bonus }}">
                                                     </div>
                                                 </div>
                                             {% endif %}
@@ -331,11 +331,11 @@
 <link rel="stylesheet" href="assets/css/multiple_options.css">
 <script src="assets/js/plan_settings.js"></script>
 <script>
-    $(document).ready(function () {
-        valBonusSettings();
-        valUsernameSettings();
-        valLegSettings();
-        valMatrixSettings();
-    });
+                                                            $(document).ready(function () {
+                                                                valBonusSettings();
+                                                                valUsernameSettings();
+                                                                valLegSettings();
+                                                                valMatrixSettings();
+                                                            });
 </script>
 {% include('admin/layout/footer.twig')%}

@@ -279,7 +279,7 @@ class Configuration extends Base_Controller {
 
     function change_bonus_settings() {
         $post = $this->input->get();
-        if ($post['referal_bonus']) {
+        if ($post['referal_bonus']>=0) {
             if ($this->dbvars->MLM_PLAN == "BINARY")
                 $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
             $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];

@@ -156,10 +156,12 @@ var valBonusSettings = function () {
         rules: {
             pair_bonus: {
                 required: true,
-                number: true
+                number: true,
+                min:0
             }, referal_bonus: {
                 required: true,
-                number: true
+                number: true,
+                min:0
             }
         },
         messages: {
@@ -241,7 +243,7 @@ var valUsernameSettings = function () {
             }, username_size: {
                 required: true,
                 number: true,
-                maxlength:10
+                max:10
             },username_prefix:{
                 maxlength:4
             }
