@@ -2,8 +2,11 @@
 
 class Base_model extends CI_Model {
 
+      public $BREAD_CRUMBS;
 	public function __construct() {
 		parent::__construct();
+		$this->BREAD_CRUMBS=array();
+		$this->main->load_model();
 	}
 
 
@@ -213,6 +216,68 @@ class Base_model extends CI_Model {
 		}
 		return $theam;
 	}
+	
+	/**
+	For setting up the breadcrumbs
+	@Author:LeadMlm
+	@Date:2017-10-14
+	@Day Saturday
+	*/
+	function getBreadCrubms(){
+		$user_type="admin";
+		$menu=$this->db->select("id, name,link, icon, order, lock,target,root_id")
+		->where("status",1)
+		->where("root_id",'#')
+		->where($user_type.'_permission',1)
+		->order_by("order")
+		->get("menus");
+
+        $pages=array();$i=$current_path=0;
+		foreach($menu->result_array() as $row){
+
+		    //$sub_menu =($row['link'] == '#')?$this->getSubMenu($row['id'],$user_type):null;  
+	        //spit the row link and then First one  controller and second one method so changed to page title
+	        if($this->main->get_method()!='index'){
+	        	$current_path=$this->main->get_controller().'/'.$this->main->get_method();
+	        }else{
+	        	$current_path=$this->main->get_controller();
+	        }
+
+	        if($current_path==$row['link']){
+
+		       if($row['root_id'] == '#'){
+		    	   $this->BREAD_CRUMBS['page_title']=$row['name'];
+		          }
+
+           	  $this->BREAD_CRUMBS['page_sub_title']=strtolower($row['name']);
+           	  $this->BREAD_CRUMBS['page_header']=$row['name'];
+           	  $this->BREAD_CRUMBS['page_sub_header']=$this->getSubTitle($row['id']);
+             }
+           	 $i++;
+
+           }
+           return $this->BREAD_CRUMBS;
+		}
+
+
+/**
+For getting the sub title
+
+@Author :LeadMlm
+@Date :2017-10-17
+@Name: LeadMlm
+
+*/
+     function getSubTitle($root_id)
+      {
+	     $name='';
+	     $variable=$this->db->select('name')->from('menus')->where('root_id',$root_id)->get();
+	     foreach ($variable->result() as $value) {
+		        $name=$value->name;
+	        }
+	    return $name;
+
+     }
 }
 
 ?>
