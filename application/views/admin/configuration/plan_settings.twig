@@ -49,7 +49,7 @@
                                         <i class="fa fa-bars"> </i> Registration Model
                                     </a>
                                 </li>
-                                {% if mlm_plan == "Matrix" %} 
+                                {% if mlm_plan == "MATRIX" %} 
                                     <li class="{{tab5}}">
                                         <a href="#plan_tab5" data-toggle="tab">
                                             <i class="fa fa-arrows"> </i> Depth & Width
@@ -96,7 +96,7 @@
                                         <h3 class="margin-bottom-15"> Bonuses</h3>
                                         <br>
 
-                                        {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                                        {{ form_open('', ' id="bonus_form" name="bonus_form"')|raw }}
                                         <div class="form-horizontal">                                            
                                             {% if mlm_plan == "BINARY" %} 
                                                 <div class="form-group">
@@ -141,7 +141,7 @@
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                         <h3 class="margin-bottom-15">Username Settings</h3>
                                         <br>
-                                        {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                                        {{ form_open('', ' id="username_form" name="username_form"')|raw }}
                                         <div class="form-horizontal">                                            
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
@@ -230,7 +230,7 @@
                                     </div>
                                 </div>
 
-                                {% if mlm_plan == "Matrix" %} 
+                                {% if mlm_plan == "MATRIX" %} 
                                     <div class="tab-pane {{tab5}}" id="plan_tab5" style="padding: 65px;">
                                         <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
                                             <h3 class="margin-bottom-15">Depth & Width</h3>
@@ -330,4 +330,12 @@
 </div>
 <link rel="stylesheet" href="assets/css/multiple_options.css">
 <script src="assets/js/plan_settings.js"></script>
+<script>
+    $(document).ready(function () {
+        valBonusSettings();
+        valUsernameSettings();
+        valLegSettings();
+        valMatrixSettings();
+    });
+</script>
 {% include('admin/layout/footer.twig')%}

@@ -82,7 +82,7 @@
 
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <button type="submit"class="btn btn-primary" value="db_settings" name="db_settings">
+                                                    <button type="submit" class="btn btn-primary" value="db_settings" name="db_settings">
                                                         Update <i class="fa fa-arrow-circle-right"></i>
                                                     </button>
                                                 </div>
@@ -160,4 +160,10 @@
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/backup.js"></script>
+
+<script>
+    $(document).ready(function () {
+        valBackup();
+    });
+</script>
 {% include('admin/layout/footer.twig')%}

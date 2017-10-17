@@ -208,42 +208,40 @@ class Configuration extends Base_Controller {
             $this->session->set_userdata('plan_active_tab', 'tab1');
         }
 
-
-        $payment_method = $this->configuration_model->getAllPaymentMethods();
-
         $mlm_plan = $this->dbvars->MLM_PLAN;
 
-        if ($this->input->post('bonus_settings') && $this->validate_bonus_settings($mlm_plan)) {
-            $this->session->set_userdata('plan_active_tab', 'tab2');
-            $post = $this->input->post();
-            if ($this->dbvars->MLM_PLAN == "BINARY")
-                $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
-            $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];
-            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-            $this->loadPage('Bonus Settings Changed', 'configuration/plan_settings', TRUE);
-        }elseif ($this->input->post('username_settings') && $this->validate_username_settings()) {
-            $this->session->set_userdata('plan_active_tab', 'tab3');
-            $post = $this->input->post();
-            $this->dbvars->USERNAME_TYPE = $post['username_type'];
-            $this->dbvars->USERNAME_PREFIX = $post['username_prefix'];
-            $this->dbvars->USERNAME_SIZE = $post['username_size'];
-            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-            $this->loadPage('Username Settings Changed', 'configuration/plan_settings', TRUE);
-        } elseif ($this->input->post('matrix_settings') && $this->validate_matrix_settings()) {
-            $this->session->set_userdata('plan_active_tab', 'tab5');
-            $post = $this->input->post();
-            $this->dbvars->MATRIX_WIDTH = $post['matrix_width'];
-            $this->dbvars->MATRIX_DEPTH = $post['matrix_depth'];
-            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-            $this->loadPage('Depth & Width Changed', 'configuration/plan_settings', TRUE);
-        } elseif ($this->input->post('leg_settings') && $this->validate_leg_settings()) {
-            $this->session->set_userdata('plan_active_tab', 'tab6');
-            $post = $this->input->post();
-            $this->dbvars->REGISTER_LEG = $post['register_leg'];
-            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-            $this->loadPage('User Position Changed', 'configuration/plan_settings', TRUE);
-        }
+//        if ($this->input->post('bonus_settings') && $this->validate_bonus_settings($mlm_plan)) {
+//            $this->session->set_userdata('plan_active_tab', 'tab2');
+//            $post = $this->input->post();
+//            if ($this->dbvars->MLM_PLAN == "BINARY")
+//                $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
+//            $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];
+//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+//            $this->loadPage('Bonus Settings Changed', 'configuration/plan_settings', TRUE);
+//        }elseif ($this->input->post('username_settings') && $this->validate_username_settings()) {
+//            $this->session->set_userdata('plan_active_tab', 'tab3');
+//            $post = $this->input->post();
+//            $this->dbvars->USERNAME_TYPE = $post['username_type'];
+//            $this->dbvars->USERNAME_PREFIX = $post['username_prefix'];
+//            $this->dbvars->USERNAME_SIZE = $post['username_size'];
+//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+//            $this->loadPage('Username Settings Changed', 'configuration/plan_settings', TRUE);
+//        } elseif ($this->input->post('matrix_settings') && $this->validate_matrix_settings()) {
+//            $this->session->set_userdata('plan_active_tab', 'tab5');
+//            $post = $this->input->post();
+//            $this->dbvars->MATRIX_WIDTH = $post['matrix_width'];
+//            $this->dbvars->MATRIX_DEPTH = $post['matrix_depth'];
+//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+//            $this->loadPage('Depth & Width Changed', 'configuration/plan_settings', TRUE);
+//        } elseif ($this->input->post('leg_settings') && $this->validate_leg_settings()) {
+//            $this->session->set_userdata('plan_active_tab', 'tab6');
+//            $post = $this->input->post();
+//            $this->dbvars->REGISTER_LEG = $post['register_leg'];
+//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+//            $this->loadPage('User Position Changed', 'configuration/plan_settings', TRUE);
+//        }
 
+        $payment_method = $this->configuration_model->getAllPaymentMethods();
 
         $pair_bonus = $this->dbvars->PAIR_BONUS;
         $referal_bonus = $this->dbvars->REFEAL_BONUS;
@@ -252,8 +250,8 @@ class Configuration extends Base_Controller {
         $username_size = $this->dbvars->USERNAME_SIZE;
         $register_form_type = $this->dbvars->REGISTER_FORM_TYPE;
         $register_field_configuration = $this->dbvars->REGISTER_FIELD_CONFIGURATION;
-        $matrix_depth = $this->dbvars->MATRIX_WIDTH;
-        $matrix_width = $this->dbvars->MATRIX_DEPTH;
+        $matrix_depth = $this->dbvars->MATRIX_DEPTH;
+        $matrix_width = $this->dbvars->MATRIX_WIDTH;
         $register_leg = $this->dbvars->REGISTER_LEG;
 
         $this->setData('register_leg', $register_leg);
@@ -277,6 +275,68 @@ class Configuration extends Base_Controller {
         $this->setData('tab6', $tab6);
         $this->setData($this->session->userdata('plan_active_tab'), 'active');
         $this->loadView();
+    }
+
+    function change_bonus_settings() {
+        $post = $this->input->get();
+        if ($post['referal_bonus']) {
+            if ($this->dbvars->MLM_PLAN == "BINARY")
+                $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
+            $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];
+            $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+            if ($res) {
+                echo 'yes';
+                exit;
+            }
+        }
+        echo 'no';
+        exit;
+    }
+
+    function change_username_settings() {
+        $post = $this->input->get();
+        if ($post['username_type'] && $post['username_size'] && $post['username_prefix']) {
+            $this->dbvars->USERNAME_TYPE = $post['username_type'];
+            $this->dbvars->USERNAME_PREFIX = $post['username_prefix'];
+            $this->dbvars->USERNAME_SIZE = $post['username_size'];
+            $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+            if ($res) {
+                echo 'yes';
+                exit;
+            }
+        }
+        echo 'no';
+        exit;
+    }
+
+    function change_leg_settings() {
+        $post = $this->input->get();
+        if ($post['register_leg']) {
+            $this->dbvars->REGISTER_LEG = $post['register_leg'];
+            $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+            if ($res) {
+                echo 'yes';
+                exit;
+            }
+        }
+        echo 'no';
+        exit;
+    }
+
+    function change_matrix_settings() {
+
+        $post = $this->input->get();
+        if ($post['matrix_width'] && $post['matrix_depth']) {
+            $this->dbvars->MATRIX_WIDTH = $post['matrix_width'];
+            $this->dbvars->MATRIX_DEPTH = $post['matrix_depth'];
+            $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
+            if ($res) {
+                echo 'yes';
+                exit;
+            }
+        }
+        echo 'no';
+        exit;
     }
 
     function validate_bonus_settings($mlm_plan) {
