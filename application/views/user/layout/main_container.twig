@@ -37,7 +37,7 @@
 						<div class="toolbar row">
 							<div class="col-sm-6 hidden-xs">
 								<div class="page-header">
-									<h1>{{header}}<small>subtitle here</small></h1>
+									<h1>{{pages['page_title']}}<small>{{pages['page_sub_title']}}</small></h1>
 								</div>
 							</div>
 							<div class="col-sm-6 col-xs-12">
@@ -174,12 +174,12 @@
 							<div class="col-md-12">
 								<ol class="breadcrumb">
 									<li>
-										<a href="#">
-											Dashboard
+										<a href="{{BASE_URL}}{{pages['page_header']}}">
+											{{pages['page_header']}}
 										</a>
 									</li>
 									<li class="active">
-										Invoice
+										{{pages['page_sub_header']}}
 									</li>
 								</ol>
 							</div>
