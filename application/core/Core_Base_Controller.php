@@ -27,6 +27,7 @@ Class Core_Base_Controller extends CI_Controller {
 			$this->setData('SCRIPT_FILES', $script_files);
 			$this->setData('THEAM', $theam_details);
         }
+	    $this->DATA_ARR['pages']=$this->base_model->getBreadCrubms();
     }
 
     /**
