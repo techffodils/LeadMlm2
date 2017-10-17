@@ -1,0 +1,208 @@
+{% include('admin/layout/header.twig')%}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Add Product
+
+                    <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Product Name
+                        </label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="product_name" id="product_name" placeholder='enter your product name' value="{{ product_name }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Amount
+                        </label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="number" name="product_amount" id="product_amount" value="{{ product_amount }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Product Value
+                        </label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="number" name="product_pv" id="product_pv" value="{{ product_pv }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Product Code
+                        </label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="product_code" id="product_code" value="{{ product_code }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Recurring Mode
+                        </label>
+                        <div class="col-sm-4">
+                            <select name="recurring_type" id="recurring_type" class="form-control" >
+                                <option value="">Select Recurring Mode</option>
+                                <option value="monthly" {% if recurring_type=="monthly" %} selected {% endif %}>Monthly</option>
+                                <option value="yearly" {% if recurring_type=="yearly" %} selected {% endif %}>Yearly</option>                                            
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Product Type
+                        </label>
+                        <div class="col-sm-4">
+                            <select name="product_type" id="product_type" class="form-control" >
+                                <option value="">Select Recurring Mode</option>
+                                <option value="register" {% if product_type=="register" %} selected {% endif %}>Register</option>
+                                <option value="repurchase" {% if recurring_type=="repurchase" %} selected {% endif %}>Repurchase</option>                                            
+                                <option value="both" {% if recurring_type=="both" %} selected {% endif %}>Both</option>                                            
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                        </label>
+                        <div class="col-sm-4">
+                            <button type="submit"class="btn btn-primary" value="bonus_settings" name="bonus_settings">
+                                Add <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_close()|raw }}
+            </div>
+        </div>                                    
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Added Products
+
+                    <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="sample-table-1">
+                        <thead>
+                            <tr>
+                                <th>SlNo</th>
+                                <th>Product Name</th>
+                                <th>Product Code</th>
+                                <th>Amount</th>
+                                <th>Product Value</th>
+                                <th>Recurring</th>
+                                <th>Action</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for fld in fields %}
+                                <tr>
+                                    <td>{{ fld.field_name }}</td>
+                                    <td>{{ fld.status }}</td>
+                                    <td>
+                                        {% if fld.required_status %} 
+                                            Yes
+                                        {% else %}
+                                            No 
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if fld.unique_status %} 
+                                            Yes
+                                        {% else %}
+                                            No 
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ fld.register_step }}</td>
+                                    <td>{{ fld.order }}</td>
+                                    <td>{{ fld.default_value }}</td>
+                                    <td>
+                                        {% if fld.editable_status %} 
+                                            <a href="javascript:edit_prod({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                                {% if fld.status=='active' %} 
+                                                <a href="javascript:inactivate_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                                {% else %}
+                                                <a href="javascript:activate_prod({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
+                                                {% endif %}
+                                            <a href="javascript:delete_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
+                                            {% else %}
+                                            No access
+                                        {% endif %}
+
+
+
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+        </div>                                    
+    </div>
+</div>
+
+
+{% include('admin/layout/footer.twig')%}
