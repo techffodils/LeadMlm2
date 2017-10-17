@@ -262,7 +262,7 @@ class Configuration_model extends CI_Model {
     }
     
     public function getCurrencySymbol($code) {
-        $field_name = '';
+        $icon = '';
         $query = $this->db->select('icon')
                 ->from('currencies')
                 ->where('currency_code', $code)
