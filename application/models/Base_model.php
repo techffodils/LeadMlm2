@@ -223,8 +223,7 @@ class Base_model extends CI_Model {
 	@Date:2017-10-14
 	@Day Saturday
 	*/
-	function getBreadCrubms(){
-		$user_type="admin";
+	function getBreadCrubms($user_type){
 		$menu=$this->db->select("id, name,link, icon, order, lock,target,root_id")
 		->where("status",1)
 		->where("root_id",'#')
