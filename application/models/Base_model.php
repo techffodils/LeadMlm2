@@ -196,25 +196,27 @@ class Base_model extends CI_Model {
 		return $data;
 	}
 
-	public function getTheamDetails($user_id){
+	public function getThemeDetails($user_id){
 
-		$theam = array(
+		$theme = array(
 						'color_scheama' =>'theme_default',
 						'body_class' =>'header-fixed footer-default'
 					);
 
 		
 		$query = $this->db->select("color_scheama,layout,header,footer")
-						->where("id",$user_id)
+						->where("user_id",$user_id)
 						->limit(1)
-						->get("theam_settings");
+						->get("theme_settings");
+
+
 		if($query->num_rows() > 0 ){			
 			foreach ($query->result_array() as $row) {
-				$theam['color_scheama']  =  $row['color_scheama'];
-				$theam['body_class']  =  $row['header'].' '.$row['footer'].' '.$row['layout'];
+				$theme['color_scheama']  =  $row['color_scheama'];
+				$theme['body_class']  =  $row['header'].' '.$row['footer'].' '.$row['layout'];
 			}
 		}
-		return $theam;
+		return $theme;
 	}
 	
 	/**
@@ -224,7 +226,7 @@ class Base_model extends CI_Model {
 	@Day Saturday
 	*/
 	function getBreadCrubms($user_type){
-		$menu=$this->db->select("id, name,link, icon, order, lock,target,root_id")
+		$menu=$this->db->select("id, name,link, icon, order,lock,target,root_id")
 		->where("status",1)
 		->where("root_id",'#')
 		->where($user_type.'_permission',1)

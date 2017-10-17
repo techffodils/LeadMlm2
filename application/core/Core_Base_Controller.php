@@ -7,27 +7,34 @@ Class Core_Base_Controller extends CI_Controller {
 
     function __construct() {
 
+
         parent::__construct();
 
         $this->main->load_model();
-		$this->BREADCRUM_DATA;
+        $this->BREADCRUM_DATA;
         $this->DATA_ARR['BASE_URL'] = BASE_PATH;
         $user_type = $this->main->get_usersession('mlm_user_type');
+
+
         if ($user_type) {
-			$currenturl     = $this->main->get_currenturl('mlm_user_type');
-			$user_id        = $this->main->get_usersession('mlm_user_id');
 
-			$user_menu      = $this->base_model->getSideMenus($user_type);
-			$script_files   = $this->base_model->loadPageScript($currenturl);
-			$theam_details  = $this->base_model->getTheamDetails($user_id);
-			$language_details     = $this->setLanguageDetails($user_id,$user_type);
-			$currency_details     = $this->setCurrencyDetails($user_id,$user_type);
 
-			$this->setData('USER_MENU', $user_menu);
-			$this->setData('SCRIPT_FILES', $script_files);
-			$this->setData('THEAM', $theam_details);
+            $currenturl     = $this->main->get_currenturl('mlm_user_type');
+            $user_id        = $this->main->get_usersession('mlm_user_id');
+  
+            $user_menu      = $this->base_model->getSideMenus($user_type);
+            $script_files   = $this->base_model->loadPageScript($currenturl);
+            $theme_details  = $this->base_model->getThemeDetails($user_id);
+            $language_details     = $this->setLanguageDetails($user_id,$user_type);
+
+            $currency_details     = $this->setCurrencyDetails($user_id,$user_type);
+
+            $this->setData('USER_MENU', $user_menu);
+            $this->setData('SCRIPT_FILES', $script_files);
+            $this->setData('THEME', $theme_details);
+            $this->DATA_ARR['pages']=$this->base_model->getBreadCrubms($this->main->get_usersession('mlm_user_type'));
         }
-	    $this->DATA_ARR['pages']=$this->base_model->getBreadCrubms($this->main->get_usersession('mlm_user_type'));
+       
     }
 
     /**
