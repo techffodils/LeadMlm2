@@ -6,7 +6,9 @@ require_once 'Base_Controller.php';
 class Configuration extends Base_Controller {
 
     public function set_register_fields($action = '', $field_id = '') {
-        $error_array = $post = array();
+        $error_array = $post = $post_data = array();
+        if ($this->session->userdata('post_data') != null)
+            $post_data = $this->session->userdata('post_data');
         if ($this->input->post('add_new')) {//add new fields
             $post = $this->input->post();
             if ($this->validate_field_addition()) {
@@ -32,7 +34,7 @@ class Configuration extends Base_Controller {
             }
         }
 
-        $post_data = $this->session->userdata('post_data');
+
 
 
         $edit_status = FALSE;
@@ -358,46 +360,46 @@ class Configuration extends Base_Controller {
         }
         echo 'no';
     }
-    
+
     public function multiple_options() {
         $error_array = $post = array();
         $langs = $this->configuration_model->getLanguages();
         $curns = $this->configuration_model->getCurrencies();
-        $default_currency=$this->dbvars->DEFAULT_CURRENCY_CODE;
-        $default_currency_symbol=$this->configuration_model->getCurrencySymbol($default_currency);
+        $default_currency = $this->dbvars->DEFAULT_CURRENCY_CODE;
+        $default_currency_symbol = $this->configuration_model->getCurrencySymbol($default_currency);
         $this->setData('default_currency', $default_currency);
         $this->setData('default_currency_symbol', $default_currency_symbol);
         $this->setData('langs', $langs);
         $this->setData('curns', $curns);
         $this->loadView();
     }
-    
+
     public function change_language_status() {
         $lang_id = $this->input->get('lang_id');
         $status = $this->input->get('status');
         if ($lang_id && $status) {
-            $flag=0;
-            if($status=='active')
-                $flag=1;            
-            if($this->configuration_model->changeLanguageStatus($lang_id,$flag)){
+            $flag = 0;
+            if ($status == 'active')
+                $flag = 1;
+            if ($this->configuration_model->changeLanguageStatus($lang_id, $flag)) {
                 echo 'yes';
                 exit;
-            }            
+            }
         }
         echo 'no';
     }
-    
+
     public function change_currency_status() {
         $currency_id = $this->input->get('currency_id');
         $status = $this->input->get('status');
         if ($currency_id && $status) {
-            $flag=0;
-            if($status=='active')
-                $flag=1;            
-            if($this->configuration_model->changeCurrencyStatus($currency_id,$flag)){
+            $flag = 0;
+            if ($status == 'active')
+                $flag = 1;
+            if ($this->configuration_model->changeCurrencyStatus($currency_id, $flag)) {
                 echo 'yes';
                 exit;
-            }            
+            }
         }
         echo 'no';
     }

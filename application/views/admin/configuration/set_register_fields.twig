@@ -307,13 +307,13 @@
                                         <td>{{ fld.default_value }}</td>
                                         <td>
                                             {% if fld.editable_status %} 
-                                                <a href="javascript:edit_prod({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                                <a href="javascript:edit_field({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
                                                     {% if fld.status=='active' %} 
-                                                    <a href="javascript:inactivate_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                                    <a href="javascript:inactivate_field({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
                                                     {% else %}
-                                                    <a href="javascript:activate_prod({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
+                                                    <a href="javascript:activate_field({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
                                                     {% endif %}
-                                                <a href="javascript:delete_prod({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
+                                                <a href="javascript:delete_field({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
                                                 {% else %}
                                                 No access
                                             {% endif %}
@@ -338,152 +338,8 @@
             </div>                                    
         </div>
     </div>
-    <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
-    <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
-
 {% endif %}
-<script>
-
-    $(document).ready(function () {
-        var field_type = $('#field_type').val();
-        var data_types = $('#data_types').val();
-
-        if (field_type == "radio") {
-            $("#radio_extras").show();
-        }
-
-        if (field_type == "select_box") {
-            $("#selectbox_extras").show();
-        }
-
-        if (data_types == "double" || data_types == "text") {
-            $("#max_size_div").hide();
-        }
-    });
-
-    $('#field_type').change(function () {
-        $("#radio_extras").hide();
-        $("#selectbox_extras").hide();
-        var type = $(this).val();
-
-        if (type == "radio") {
-            $("#radio_extras").show();
-        }
-
-        if (type == "select_box") {
-            $("#selectbox_extras").show();
-        }
-    });
-
-    $('#data_types').change(function () {
-        var type = $(this).val();
-        $("#max_size_div").show();
-        if (type == "double" || type == "text") {
-            $("#max_size_div").hide();
-        }
-    });
-
-
-    function edit_prod(id)
-    {
-        swal({
-            title: "Are you sure?",
-            text: "New change applicable only new registrations",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Edit it!",
-            cancelButtonText: "No, Cancel pls!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                document.location.href = 'admin/configuration/set_register_fields/edit/' + id;
-            } else {
-                swal("Cancelled", "Your Field is safe :)", "error");
-            }
-        });
-
-        e.preventDefault();
-    }
-
-    function activate_prod(id)
-    {
-        swal({
-            title: "Are you sure?",
-            text: "New change applicable only new registrations",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Activate it!",
-            cancelButtonText: "No, Cancel pls!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                document.location.href = 'admin/configuration/set_register_fields/activate/' + id;
-            } else {
-                swal("Cancelled", "Your Field is safe :)", "error");
-            }
-        });
-
-        e.preventDefault();
-    }
-
-
-    function inactivate_prod(id)
-    {
-        swal({
-            title: "Are you sure?",
-            text: "New change applicable only new registrations",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Inactivate it!",
-            cancelButtonText: "No, Cancel pls!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                document.location.href = 'admin/configuration/set_register_fields/inactivate/' + id;
-            } else {
-                swal("Cancelled", "Your Field is safe :)", "error");
-            }
-        });
-
-        e.preventDefault();
-    }
-
-
-    function delete_prod(id)
-    {
-        swal({
-            title: "Are you sure?",
-            text: "New change applicable only new registrations",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete it!",
-            cancelButtonText: "No, Cancel pls!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                document.location.href = 'admin/configuration/set_register_fields/delete/' + id;
-            } else {
-                swal("Cancelled", "Your Field is safe :)", "error");
-            }
-        });
-
-        e.preventDefault();
-    }
-
-
-</script>
-
-
+<link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+<script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+<script src="assets/js/set_register_fields.js"></script>
 {% include('admin/layout/footer.twig')%}
