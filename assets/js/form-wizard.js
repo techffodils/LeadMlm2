@@ -1,7 +1,7 @@
 var FormWizard = function () {
 	"use strict";
     var wizardContent = $('#wizard');
-    var wizardForm = $('#form');
+    var wizardForm = $('#multiple_step_form');
     var numberOfSteps = $('.swMain > ul > li').length;
     var initWizard = function () {
         // function to initiate Wizard Form
@@ -52,6 +52,9 @@ var FormWizard = function () {
             },
             ignore: ':hidden',
             rules: {
+                sponser_name:{
+                    required: true
+                },
                 username: {
                     minlength: 4,
                     required: true

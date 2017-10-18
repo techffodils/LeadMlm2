@@ -29,8 +29,25 @@
 //ALTER TABLE `mlm_user` DROP `mlm_user_id`;
 
 
+//CREATE TABLE IF NOT EXISTS `mlm_register_history` (
+//  `id` int(30) NOT NULL AUTO_INCREMENT,
+//  `mlm_user_id` int(30) NOT NULL,
+//  `register_type` varchar(30) NOT NULL,
+//  `payment_type` varchar(30) NOT NULL,
+//  `date` datetime NOT NULL,
+//  `user_details` text NOT NULL,
+//  PRIMARY KEY (`id`)
+//) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+//ALTER TABLE `mlm_user_details` CHANGE `district` `zip_code` VARCHAR( 10 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ;
 
+//ALTER TABLE `mlm_user_details` ADD `gender` VARCHAR( 10 ) NOT NULL ;
+
+//ALTER TABLE `mlm_user_details` ADD `phone_number` DOUBLE NOT NULL ;
+
+//ALTER TABLE `mlm_user_details`
+//  DROP `address_2`,
+//  DROP `ip`;
 
 
 

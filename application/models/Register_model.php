@@ -10,16 +10,23 @@ class Register_model extends CI_Model {
         $entry=FALSE;
         $add_user=$this->addToUsers($user_details);
         if($add_user){
-            $user_details=$this->insertUserDetails($add_user,$user_details);
+            $ud=$this->insertUserDetails($add_user,$user_details);
             $entry=$this->insertUsersEntry($add_user);
         }
         
         if($entry){
-            $user_details['new_user_id']=$add_user;
+            $user_details['new_user_id']=$add_user;            
+            if($register_type=='multiple_step'){
+                $this->updateUserDetails($add_user,$user_details);
+            }elseif($register_type=='advanced'){
+                $this->updateUserDetails($add_user,$user_details);
+            }
             $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'user_registered',$user_details);
+            $this->insertRegisterHistory($add_user,$register_type, $user_details);
             //Commission
             
             //Register Mails
+            
         }
         return $entry;
     }
@@ -48,13 +55,6 @@ class Register_model extends CI_Model {
     public function insertUserDetails($user_id,$user_details) {
         $res=$this->db->set('mlm_user_id ', $user_id)
                 ->set('first_name', $user_details['first_name'])
-                //->set('last_name ', $user_details['last_name'])
-                //->set('address_1', $user_details['address_1'])
-                //->set('address_2', $user_details['address_2'])
-               // ->set('city', $user_details['city'])
-               // ->set('district ', $user_details['district'])
-               // ->set('state_id', $user_details['state_id'])
-               // ->set('country_id', $user_details['country_id'])
                 ->set('date_of_joining', $user_details['date_of_joining'])
                 ->insert('user_details');
 
@@ -63,6 +63,21 @@ class Register_model extends CI_Model {
         }
         return false;
     }
+    
+    public function updateUserDetails($user_id,$user_details) {
+        return $this->db->set('first_name', $user_details['first_name'])
+                ->set('last_name ', $user_details['last_name'])
+                ->set('address_1', $user_details['address'])
+                ->set('city', $user_details['city'])
+                ->set('state_id', $user_details['state_id'])
+                ->set('country_id', $user_details['country_id'])
+                ->set('zip_code', $user_details['zip_code'])
+                ->set('gender', $user_details['gender'])
+                ->set('phone_number', $user_details['phone_number'])
+                ->where('mlm_user_id',$user_id)
+                ->update('user_details');
+    }
+    
     public function insertUsersEntry($user_id) {
         $user_balance=$this->db->set('mlm_user_id ', $user_id)
                 ->set('balance_amount', 0)
@@ -77,6 +92,15 @@ class Register_model extends CI_Model {
         }
         return FALSE;
         
+    }
+    
+    public function insertRegisterHistory($add_user,$register_type, $user_details){
+        $this->db->set('mlm_user_id ', $add_user)
+                ->set('register_type', $register_type)
+                ->set('user_details ', serialize($user_details))
+                ->set('date', $user_details['date_of_joining'])
+                ->set('payment_type',$user_details['payment_type'])
+                ->insert('register_history');
     }
     
 
