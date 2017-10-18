@@ -26,6 +26,7 @@
 //INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Product Management', 'product/product_management', '#', 'fa fa-tags', '1', '0', '1', '8', NULL, '1', '0');    
 
 //ALTER TABLE `mlm_products` ADD `images` TEXT NOT NULL AFTER `product_type` ;
+//ALTER TABLE `mlm_user` DROP `mlm_user_id`;
 
 
 

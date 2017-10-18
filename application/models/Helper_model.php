@@ -136,6 +136,19 @@ class Helper_model extends CI_Model {
         }
         return $email_id;
     }
+    
+    public function getUserIdFromEmailId($email) {
+        $user_id = NULL;
+        $query = $this->db->select("mlm_user_id")
+                        ->from("user")
+                        ->where("email", $email)
+                        ->limit(1)
+                        ->get();
+        foreach ($query->result() as $row) {
+            $user_id = $row->mlm_user_id;
+        }
+        return $user_id;
+    }
 
     public function isUserAvailable($user_id) {
         $flag = false;
