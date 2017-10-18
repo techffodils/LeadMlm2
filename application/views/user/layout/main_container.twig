@@ -178,9 +178,11 @@
 											{{pages['page_header']}}
 										</a>
 									</li>
+                                                                        {% if(pages['page_sub_header']!='') %}
 									<li class="active">
 										{{pages['page_sub_header']}}
 									</li>
+                                                                        {% endif %}
 								</ol>
 							</div>
 						</div>
