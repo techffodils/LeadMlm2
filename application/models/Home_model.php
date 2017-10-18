@@ -13,7 +13,7 @@ class Home_model extends CI_Model {
 				      ->set('header',$data["headerDefault"])
 				      ->set('footer',$data["footerDefault"])
 				      ->where('user_id',$user_id)
-				      ->update('theam_settings');
+				      ->update('theme_settings');
 	 return $res;
     }
 
