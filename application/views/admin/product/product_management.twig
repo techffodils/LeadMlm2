@@ -105,9 +105,9 @@
                                     <img src="assets/images/products/{{ imgs.file_name }}" alt="Smiley face" height="42" width="42"> 
                                 </div>
                                 <div class="col-sm-2">
-                                    <div onclick="changeValue({{imgs.id}},1)">
-                                    <img src="assets/images/delete.png" alt="Smiley face" height="15" width="15"> Remove
-                                </div>
+                                    <div onclick="changeValue({{imgs.id}}, 1)">
+                                        <img src="assets/images/delete.png" alt="Smiley face" height="15" width="15"> Remove
+                                    </div>
                                 </div>
                             </div>
 
@@ -121,18 +121,32 @@
                         <label class="col-sm-3 control-label">
                             Product Image
                         </label>
-                        <div class="col-sm-3">
-                            <input type="file" id="images" name="images[]" size="20" />
+                        <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail"><img src="assets/images/products/our-products.png" alt="">
+                            </div>
+                            <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                            <div class="user-edit-image-buttons">
+                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                    <input type="file" id="images" name="images[]"/>
+                                </span>
+                                <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
+                                    <i class="fa fa-times"></i> Remove
+                                </a>
+                            </div>
                         </div>
+
                         <div class="col-sm-2" id="more_upload">
                             <span class="btn btn-success fileinput-button" data-placement="top" data-original-title="Add"> 
                                 <i class="glyphicon glyphicon-plus"></i> 
                             </span>
                         </div>
+
                     </div>
 
+
+
                     <div id="file_div">
-                        
+
                     </div>
 
                     <div class="form-group">
@@ -256,17 +270,16 @@
 <script>
     $(document).ready(function () {
         $('#more_upload').click(function (e) {
-            $('#file_div').append(' <div class="form-group" id="file_div"><label class="col-sm-3 control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Product Image</label><div class="col-sm-4"><input type="file" id="images" name="images[]" size="20" /></div></div>');
+            $('#file_div').append('<div class="form-group"><label class="col-sm-3 control-label">Product Image</label><div class="fileupload fileupload-new col-sm-3" data-provides="fileupload"><div class="fileupload-new thumbnail"><img src="assets/images/products/our-products.png" alt=""></div><div class="fileupload-preview fileupload-exists thumbnail"></div><div class="user-edit-image-buttons"><span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span><input type="file" id="images" name="images[]"/></span><a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload"><i class="fa fa-times"></i> Remove</a></div></div></div>');
         });
     });
-    
-    function changeValue(input_field,value){
-        var field='#product_delete_status_'+input_field;
+
+    function changeValue(input_field, value) {
+        var field = '#product_delete_status_' + input_field;
         $(field).val(1);
-        
-        var field_div='#file_div_'+input_field;
+
+        var field_div = '#file_div_' + input_field;
         $(field_div).hide();
     }
-
 </script>
 {% include('admin/layout/footer.twig')%}
