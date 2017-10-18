@@ -15,6 +15,8 @@ class Register_model extends CI_Model {
         }
         
         if($entry){
+            $user_details['new_user_id']=$add_user;
+            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'user_registered',$user_details);
             //Commission
             
             //Register Mails

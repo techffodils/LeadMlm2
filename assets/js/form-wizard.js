@@ -53,7 +53,7 @@ var FormWizard = function () {
             ignore: ':hidden',
             rules: {
                 username: {
-                    minlength: 2,
+                    minlength: 4,
                     required: true
                 },
                 email: {
@@ -64,16 +64,16 @@ var FormWizard = function () {
                     minlength: 6,
                     required: true
                 },
-                password_again: {
+                confirm_password: {
                     required: true,
                     minlength: 5,
                     equalTo: "#password"
                 },
-                full_name: {
+                first_name: {
                     required: true,
                     minlength: 2,
                 },
-                phone: {
+                phone_number: {
                     required: true
                 },
                 gender: {
@@ -88,21 +88,20 @@ var FormWizard = function () {
                 country: {
                     required: true
                 },
-                card_name: {
-                    required: true
+                zip_code:{
+                    digits: true,
+                    maxlength: 7
                 },
                 card_number: {
                     minlength: 16,
                     maxlength: 16,
-                    required: true
                 },
                 card_cvc: {
                     digits: true,
-                    required: true,
                     minlength: 3,
                     maxlength: 4
                 },
-                card_expiry_yyyy: "cardExpiry",
+                //card_expiry_yyyy: "cardExpiry",
                 payment: {
                     required: true,
                     minlength: 1
@@ -167,9 +166,8 @@ var FormWizard = function () {
     };
     var onFinish = function (obj, context) {
         if (validateAllSteps()) {
-            alert('form submit function');
             $('.anchor').children("li").last().children("a").removeClass('wait').removeClass('selected').addClass('done').children('.stepNumber').addClass('animated tada');
-            //wizardForm.submit();
+            wizardForm.submit();
         }
     };
     var validateSteps = function (stepnumber, nextstep) {

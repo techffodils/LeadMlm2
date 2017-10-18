@@ -17,6 +17,29 @@ class Register extends Base_Controller {
             $user_details['district'] = '';
             $user_details['state_id'] = '';
             $user_details['country_id'] = '';
+            $user_details['register_type'] = 'single_step';
+            $res = $this->register_model->addUser($user_details['register_type'], $user_details);
+            if ($res) {
+                $this->loadPage('User Registered Successfully', 'register/single_step', True);
+            } else {
+                $this->loadPage('Failed To Register', 'register/single_step', FALSE);
+            }
+        }
+        $this->loadView();
+    }
+    
+    public function multiple_step() {
+        if ($this->input->post('add_user') && $this->validate_single_step_registration()) {
+            $user_details = $this->input->post();
+            $user_details['date_of_joining'] = date('Y-m-d H:i:s');
+            $user_details['register_by'] = 'free_join';
+            $user_details['last_name'] = '';
+            $user_details['address_1'] = '';
+            $user_details['address_2'] = '';
+            $user_details['city'] = '';
+            $user_details['district'] = '';
+            $user_details['state_id'] = '';
+            $user_details['country_id'] = '';
             $res = $this->register_model->addUser('single_step', $user_details);
             if ($res) {
                 $this->loadPage('User Registered Successfully', 'register/single_step', True);
@@ -26,6 +49,7 @@ class Register extends Base_Controller {
         }
         $this->loadView();
     }
+    
 
     public function validate_single_step_registration() {
         $this->form_validation->set_rules('sponser_name', 'sponser_name', 'required|callback_validate_sponsor|trim');
