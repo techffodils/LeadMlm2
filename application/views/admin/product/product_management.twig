@@ -31,7 +31,7 @@
             </div>
             <div class="panel-body">
                 <hr>
-                {{ form_open('', ' id="add_product_form" name="add_product_form"')|raw }}
+                {{ form_open_multipart('', ' id="add_product_form" name="add_product_form"')|raw }}
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Amount<span class="symbol required"></span>
+                            Product Amount<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="product_amount" id="product_amount" placeholder='enter your product amount' value="{{ product.product_amount }}">
@@ -92,6 +92,44 @@
                             </select>
                         </div>
                     </div>
+
+                    {% if edit_flag %} 
+                        {% for imgs in product.files %}
+
+                            <div class="form-group" id="file_div_{{imgs.id}}">
+                                <label class="col-sm-3 control-label">     
+                                    Product Image
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" name="product_delete_status_{{imgs.id}}" id="product_delete_status_{{imgs.id}}" value="0" />
+                                    <img src="assets/images/products/{{ imgs.file_name }}" alt="Smiley face" height="42" width="42"> 
+                                </div>
+                                <div onclick="changeValue({{imgs.id}},1)">
+                                    <img src="assets/images/delete.png" alt="Smiley face" height="15" width="15"> Remove
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+
+
+                    <div class="form-group" id="file_div">
+                        <label class="col-sm-3 control-label">
+                            Product Image
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="file" id="images" name="images[]" size="20" />
+                        </div>
+                        <div id="more_upload">
+                            <span class="btn btn-success fileinput-button" data-placement="top" data-original-title="Add"> 
+                                <i class="glyphicon glyphicon-plus"></i> 
+                            </span>
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
@@ -211,5 +249,20 @@
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/product_management.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#more_upload').click(function (e) {
+            $('#file_div').append(' <div class="form-group"  id="file_div" style="vertical-align: top;"><label class="col-sm-3 control-label"> Product Image<span class="symbol required"></span></label><div class="col-sm-4"><input type="file" id="images" name="images[]" size="20" /></div></div>');
+        });
+    });
+    
+    function changeValue(input_field,value){
+        var field='#product_delete_status_'+input_field;
+        $(field).val(1);
+        
+        var field_div='#file_div_'+input_field;
+        $(field_div).hide();
+    }
 
+</script>
 {% include('admin/layout/footer.twig')%}
