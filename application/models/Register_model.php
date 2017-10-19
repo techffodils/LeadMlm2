@@ -19,7 +19,7 @@ class Register_model extends CI_Model {
             if($register_type=='multiple_step'){
                 $this->updateUserDetails($add_user,$user_details);
             }elseif($register_type=='advanced'){
-                $this->updateUserDetails($add_user,$user_details);
+                $this->updateAdvancedUserDetails($add_user,$user_details);
             }
             $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'user_registered',$user_details);
             $this->insertRegisterHistory($add_user,$register_type, $user_details);
@@ -102,6 +102,65 @@ class Register_model extends CI_Model {
                 ->set('date', $user_details['date_of_joining'])
                 ->set('payment_type',$user_details['payment_type'])
                 ->insert('register_history');
+    }
+    
+    
+    function getAllRegFields() {
+        $data = array();
+        $data['step-1']=$data['step-2']=$data['step-3']=array();
+        $query = $this->db->select("*")
+                ->from("register_fields")
+                ->where("status", 'active')
+                ->order_by('register_step','ASC')
+                ->order_by('order','ASC')                
+                ->get();
+        $i = 0;        
+        foreach ($query->result_array() as $row) {
+            $data[$row['register_step']][$i] = $row;            
+            $i++;
+        }
+        return $data;
+    }
+    
+    public function updateAdvancedUserDetails($user_id,$user_details) {
+        $res=0;
+        $new=$this->getAllNewRegFields();
+        if(count($new)){
+            foreach ($new as $fld) {
+                if($this->checkTable($fld)){
+                    $this->db->set($fld, $user_details[$fld]);
+                }
+            }
+            $this->db->where('mlm_user_id',$user_id);
+            $res=$this->db->update('user_details');
+        }
+        return $res;
+    }
+    
+    function checkTable($field) {
+        $res = 0;
+        $columns = $this->db->list_fields('user_details');
+        foreach ($columns AS $key => $value) {
+            if ($value == $field) {
+                $res = 1;
+            }
+        }
+        return $res;
+    }
+    
+    function getAllNewRegFields() {
+        $data = array();        
+        $query = $this->db->select("field_name")
+                ->from("register_fields")
+                ->where("status", 'active')
+                ->where("editable_status", '1')
+                ->get();
+        $i = 0;        
+        foreach ($query->result_array() as $row) {
+            $data[$i] = $row['field_name'];            
+            $i++;
+        }
+        return $data;
     }
     
 

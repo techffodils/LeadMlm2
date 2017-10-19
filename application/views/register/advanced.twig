@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                {{ form_open('', ' class="smart-wizard form-horizontal" id="multiple_step_form" name="multiple_step_form"')|raw }}
+                {{ form_open('', ' class="smart-wizard form-horizontal" id="advance_form" name="advance_form"')|raw }}
                 <div id="wizard" class="swMain">
                     <ul>
                         <li>
@@ -88,31 +88,52 @@
                     </div>
                     <div id="step-1">
                         <h2 class="StepTitle">Sponsor Information</h2>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                sponser_name <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="sponser_name" name="sponser_name" value="{{ register_data.sponser_name}}" placeholder="Sponsor Name">
-                                {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} {% endif %}
-                                
-                                
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="checkbox" {% if register_data.sponser_name %} checked {% endif %} class="grey agree" id="agree" name="agree">
-                                    I agree to the Terms of Service and Privacy Policy
-                                {% if register_error.agree is defined %}<code> {{ register_error.agree}} {% endif %}    
-                                    
-                            </div>
-                        </div>
-                        
-                        
+
+{% for fld in fields['step-1'] %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+        </label>
+        <div class="col-sm-7">
+            
+            {% if fld.field_type=='radio' %}
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value1}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value2}}
+                </label>                                    
+            {% elseif fld.field_type=='select_box' %}
+
+                <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    <option value="">Select a {{ fld.field_name }}</option>
+                    <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
+                    <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
+                    <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
+                    <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                </select>       
+            {% elseif fld.field_type=='text_area' %}
+                <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    {{ register_data[fld.field_name] }}
+                </textarea> 
+            {% elseif fld.field_type=='password' %}
+                <input type="password" id="{{ fld.field_name }}" name="{{ fld.field_name }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% elseif fld.field_type=='checkbox' %}
+                <input type="checkbox" class="grey agree" id="{{ fld.field_name }}" name="{{ fld.field_name }}" >
+                I agree to the Terms of Service and Privacy Policy
+            {% elseif fld.field_type=='text' %}
+                <input type="text" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{ register_data[fld.field_name] }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% endif %}
+            {% if register_error[fld.field_name] is defined %}<code> {{ register_error[fld.field_name] }} </code> {% endif %}
+        </div>
+    </div>
+{% endfor %}
+
+
 
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-offset-8">
@@ -124,146 +145,54 @@
                     </div>
                     <div id="step-2">
                         <h2 class="StepTitle">Personal Information</h2>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Username <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="username" name="username" value="{{ register_data.username}}" placeholder="Username">
-                            {% if register_error.username is defined %}<code> {{ register_error.username}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Email <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="email" class="form-control" id="email" name="email" value="{{ register_data.email}}" placeholder="Email">
-                            {% if register_error.email is defined %}<code> {{ register_error.email}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Password <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="password">
-                            {% if register_error.password is defined %}<code> {{ register_error.password}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Confirm Password <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="confirm_password">
-                            {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}} {% endif %} 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                first_name <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ register_data.first_name}}" placeholder="first_name">
-                            {% if register_error.first_name is defined %}<code> {{ register_error.first_name }} {% endif %} 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                last_name 
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ register_data.last_name}}" placeholder="last_name">
-                            {% if register_error.last_name is defined %}<code> {{ register_error.last_name}} {% endif %} 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Phone Number <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ register_data.phone_number}}" placeholder="Phone Number">
-                            {% if register_error.phone_number is defined %}<code> {{ register_error.phone_number}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Gender <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <label class="radio-inline">
-                                    <input type="radio" {% if register_data.gender=='f' %} checked {% endif %} class="grey" value="f" name="gender"  id="gender_female" >
-                                    Female
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" class="grey" {% if register_data.gender=='m' %} checked {% endif %} value="m" name="gender"  id="gender_male">
-                                    Male
-                                </label>
-                                {% if register_error.gender is defined %}<code> {{ register_error.gender}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Address <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="address" name="address" value="{{ register_data.address}}" placeholder="Address">
-                            {% if register_error.address is defined %}<code> {{ register_error.address}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Country <span class="symbol required"></span>
-                            </label>
-                            <div class="col-sm-7">
-                                <select class="form-control" id="country" name="country">
-                                    <option value="">Select a country</option>
-                                    <option value="1" {% if register_data.country=='1' %} selected {% endif %}>Country 1</option>
-                                    <option value="2" {% if register_data.country=='2' %} selected {% endif %}>Country 2</option>
-                                    <option value="3" {% if register_data.country=='3' %} selected {% endif %}>Country 3</option>
-                                </select>
-                                {% if register_error.country is defined %}<code> {{ register_error.country}} {% endif %} 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                State 
-                            </label>
-                            <div class="col-sm-7">
-                                <select class="form-control" id="state" name="state">
-                                    <option value="">Select a state</option>
-                                    <option value="1" {% if register_data.state=='3' %} selected {% endif %}>State 1</option>
-                                    <option value="2" {% if register_data.state=='3' %} selected {% endif %}>state 2</option>
-                                    <option value="3" {% if register_data.state=='3' %} selected {% endif %}>state 3</option>
-                                </select>
-                                {% if register_error.state is defined %}<code> {{ register_error.state}} {% endif %} 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                City
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="city" name="city" value="{{ register_data.city}}" placeholder="city">
-                            {% if register_error.city is defined %}<code> {{ register_error.city}} {% endif %} 
-                            </div>
-                        </div>
+{% for fld in fields['step-2'] %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+        </label>
+        <div class="col-sm-7">
+            
+            {% if fld.field_type=='radio' %}
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value1}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value2}}
+                </label>                                    
+            {% elseif fld.field_type=='select_box' %}
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Zip Code
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ register_data.zip_code}}" placeholder="zip_code">
-                            {% if register_error.zip_code is defined %}<code> {{ register_error.zip_code}} {% endif %} 
-                            </div>
-                        </div>
+                <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    <option value="">Select a {{ fld.field_name }}</option>
+                    <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
+                    <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
+                    <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
+                    <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                </select>       
+            {% elseif fld.field_type=='text_area' %}
+                <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    {{ register_data[fld.field_name] }}
+                </textarea> 
+            {% elseif fld.field_type=='password' %}
+                <input type="password" id="{{ fld.field_name }}" name="{{ fld.field_name }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% elseif fld.field_type=='checkbox' %}
+                <input type="checkbox" class="grey agree" id="{{ fld.field_name }}" name="{{ fld.field_name }}" >
+                I agree to the Terms of Service and Privacy Policy
+            {% elseif fld.field_type=='text' %}
+                <input type="text" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{ register_data[fld.field_name] }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% endif %}
+            {% if register_error[fld.field_name] is defined %}<code> {{ register_error[fld.field_name] }} </code> {% endif %}
+        </div>
+    </div>
+{% endfor %}                       
 
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-offset-3">
@@ -280,64 +209,52 @@
                     </div>
                     <div id="step-3">
                         <h2 class="StepTitle">Billing Information</h2>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Card Holder Name
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="card_name" name="card_name" value="{{ register_data.card_name}}" placeholder="Text Field">
-                            {% if register_error.card_name is defined %}<code> {{ register_error.card_name}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Card Number
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="card_number" name="card_number" value="{{ register_data.card_number}}" placeholder="Text Field">
-                            {% if register_error.card_number is defined %}<code> {{ register_error.card_number}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                CVC 
-                            </label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="card_cvc" name="card_cvc" value="{{ register_data.card_cvc}}" placeholder="Text Field">
-                            {% if register_error.card_cvc is defined %}<code> {{ register_error.card_cvc}} {% endif %} 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Expiration(MM/YYYY)
-                            </label>
-                            <div class="col-sm-4">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <select class="form-control" id="card_expiry_mm" name="card_expiry_mm">
-                                            <option value="">MM</option>
-                                            <option value="01" {% if register_data.card_expiry_mm=='01' %} selected {% endif %}>1</option>
-                                            <option value="02" {% if register_data.card_expiry_mm=='02' %} selected {% endif %}>2</option>
-                                            <option value="03" {% if register_data.card_expiry_mm=='03' %} selected {% endif %}>3</option>
-                                            <option value="04" {% if register_data.card_expiry_mm=='04' %} selected {% endif %}>4</option>
-                                            <option value="05" {% if register_data.card_expiry_mm=='05' %} selected {% endif %}>5</option>
-                                            <option value="06" {% if register_data.card_expiry_mm=='06' %} selected {% endif %}>6</option>
-                                            <option value="07" {% if register_data.card_expiry_mm=='07' %} selected {% endif %}>7</option>
-                                            <option value="08" {% if register_data.card_expiry_mm=='08' %} selected {% endif %}>8</option>
-                                            <option value="09" {% if register_data.card_expiry_mm=='09' %} selected {% endif %}>9</option>
-                                            <option value="10" {% if register_data.card_expiry_mm=='10' %} selected {% endif %}>10</option>
-                                            <option value="11" {% if register_data.card_expiry_mm=='11' %} selected {% endif %}>11</option>
-                                            <option value="12" {% if register_data.card_expiry_mm=='12' %} selected {% endif %}>12</option>
-                                        </select>
-                                        {% if register_error.card_expiry_mm is defined %}<code> {{ register_error.card_expiry_mm}} {% endif %} 
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="card_expiry_yyyy" id="card_expiry_yyyy" value="{{ register_data.card_expiry_yyyy}}" placeholder="YYYY">
-                                    {% if register_error.card_expiry_yyyy is defined %}<code> {{ register_error.card_expiry_yyyy}} {% endif %} 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+{% for fld in fields['step-3'] %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+        </label>
+        <div class="col-sm-7">
+            
+            {% if fld.field_type=='radio' %}
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value1}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
+                        {{fld.radio_value2}}
+                </label>                                    
+            {% elseif fld.field_type=='select_box' %}
+
+                <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    <option value="">Select a {{ fld.field_name }}</option>
+                    <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
+                    <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
+                    <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
+                    <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                </select>       
+            {% elseif fld.field_type=='text_area' %}
+                <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
+                    {{ register_data[fld.field_name] }}
+                </textarea> 
+            {% elseif fld.field_type=='password' %}
+                <input type="password" id="{{ fld.field_name }}" name="{{ fld.field_name }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% elseif fld.field_type=='checkbox' %}
+                <input type="checkbox" class="grey agree" id="{{ fld.field_name }}" name="{{ fld.field_name }}" >
+                I agree to the Terms of Service and Privacy Policy
+            {% elseif fld.field_type=='text' %}
+                <input type="text" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{ register_data[fld.field_name] }}" class="form-control"  {% if fld.required_status %} required {% endif %}>
+                
+            {% endif %}
+            {% if register_error[fld.field_name] is defined %}<code> {{ register_error[fld.field_name] }} </code> {% endif %}
+        </div>
+    </div>
+{% endfor %}                        
+                        
+                        
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-offset-3">
                                 <button class="btn btn-light-grey back-step btn-block">
@@ -353,7 +270,7 @@
                     </div>
                     <div id="step-4">
                         <h2 class="StepTitle">Payment Options</h2>
-                        
+
 
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-offset-8">
@@ -373,12 +290,12 @@
     </div>
     {% include('admin/layout/footer.twig')%}
     <script src="assets/plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
-    <script src="assets/js/form-wizard.js"></script>
+    <script src="assets/js/advanced_form-wizard.js"></script>
 
     <script>
         jQuery(document).ready(function () {
             Main.init();
             SVExamples.init();
-            FormWizard.init();
+            AdvanceWizard.init();
         });
     </script>

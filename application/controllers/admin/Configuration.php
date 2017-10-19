@@ -30,6 +30,7 @@ class Configuration extends Base_Controller {
             } else {
                 $this->session->set_userdata('post_data', $post);
                 $error_array = $this->form_validation->error_array();
+                print_r($error_array);die();
                 $this->loadPage('Validation Error', 'configuration/set_register_fields', FALSE);
             }
         }
@@ -134,11 +135,11 @@ class Configuration extends Base_Controller {
         $this->form_validation->set_rules('field_name', 'field_name', 'required|callback_validate_field|trim');
         $this->form_validation->set_rules('required_status', 'required_status', 'required');
         $this->form_validation->set_rules('register_step', 'register_step', 'required');
-        $this->form_validation->set_rules('order', 'order', 'requiredrequired|is_natural|numeric|greater_than[0]');
+        $this->form_validation->set_rules('order', 'order', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('unique_status', 'unique_status', 'required');
         $this->form_validation->set_rules('data_types', 'data_types', 'required');
         if ($this->input->post('data_types') != 'double' && $this->input->post('data_types') != 'text') {
-            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'requiredrequired|is_natural|numeric|greater_than[0]');
+            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'required|numeric|greater_than[0]');
         }
 
         $this->form_validation->set_rules('field_type', 'field_type', 'required');

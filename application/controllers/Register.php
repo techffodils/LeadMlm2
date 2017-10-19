@@ -63,7 +63,7 @@ class Register extends Base_Controller {
 
     public function advanced() {
         $register_data = array();
-die('Incomplete');
+        $fields=$this->register_model->getAllRegFields();
         if ($this->input->post('add_user') && $this->validate_registration('advanced')) {
             $user_details = $this->input->post();
             $user_details['date_of_joining'] = date('Y-m-d H:i:s');
@@ -81,7 +81,7 @@ die('Incomplete');
         }
         if ($this->session->userdata('advanced_post') != null)
             $register_data = $this->session->userdata('advanced_post');
-
+        $this->setData('fields', $fields);
         $this->setData('register_data', $register_data);
         $this->setData('register_error', $this->form_validation->error_array());
         $this->loadView();
