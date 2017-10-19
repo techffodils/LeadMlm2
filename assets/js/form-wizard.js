@@ -119,6 +119,8 @@ var FormWizard = function () {
                 first_name: {
                     required: true,
                     minlength: 2,
+                }, agree: {
+                    required: true
                 },
                 phone_number: {
                     required: true
@@ -127,8 +129,6 @@ var FormWizard = function () {
                     required: true
                 },
                 address: {
-                    required: true
-                }, agree: {
                     required: true
                 },
                 country: {
