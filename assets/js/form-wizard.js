@@ -84,9 +84,8 @@ var FormWizard = function () {
                 },
                 address: {
                     required: true
-                },
-                city: {
-                    required: true
+                },agree:{
+                    required:true
                 },
                 country: {
                     required: true
