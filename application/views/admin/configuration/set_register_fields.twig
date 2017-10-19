@@ -68,9 +68,9 @@
                                     </label>
                                     <select name="register_step" id="register_step" class="form-control" >
                                         <option value="">Select Placement</option>
-                                        <option value="step-1" {% if post_data.register_step=="step1" %} selected {% endif %}>Step-1</option>
-                                        <option value="step-2" {% if post_data.register_step=="step2" %} selected {% endif %}>Step-2</option>
-                                        <option value="step-3" {% if post_data.register_step=="step3" %} selected {% endif %}>Step-3</option>                                            
+                                        <option value="step-1" {% if post_data.register_step=="step-1" %} selected {% endif %}>Step-1</option>
+                                        <option value="step-2" {% if post_data.register_step=="step-2" %} selected {% endif %}>Step-2</option>
+                                        <option value="step-3" {% if post_data.register_step=="step-3" %} selected {% endif %}>Step-3</option>                                            
                                     </select>
                                 </div>
                             </div>
@@ -118,14 +118,14 @@
 
                         <div class="form-group" id="max_size_div">
                             <label class="control-label">
-                                Data Type Max Size<span class="symbol required"></span>
+                                Data Type Max Size
                             </label>
                             <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
                         </div>
 
                         <div class="form-group">
                             <label class="control-label">
-                                Default Value <span class="symbol required"></span>
+                                Default Value 
                             </label>
                             <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value" value="{{ post_data.default_value }}" >
                         </div>
@@ -150,7 +150,7 @@
                                         <label class="control-label">
                                             Value 1 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="radio_value1" id="radio_value1" value="{{ post_data.radio_value1 }}" placeholder="Value 1">
+                                        <input class="form-control" required  type="text" name="radio_value1" id="radio_value1" value="{{ post_data.radio_value1 }}" placeholder="Value 1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -158,7 +158,7 @@
                                         <label class="control-label">
                                             Value 2 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="radio_value2" id="radio_value2" value="{{ post_data.radio_value2 }}" placeholder="Value 2">
+                                        <input class="form-control" required type="text" name="radio_value2" id="radio_value2" value="{{ post_data.radio_value2 }}" placeholder="Value 2">
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                                         <label class="control-label">
                                             Option 1 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option1" id="select_option1" placeholder="Option 1" value="{{ post_data.select_option1 }}">
+                                        <input class="form-control" required type="text" name="select_option1" id="select_option1" placeholder="Option 1" value="{{ post_data.select_option1 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -179,7 +179,7 @@
                                         <label class="control-label">
                                             Option 2 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option2" id="select_option2" placeholder="Option 2" value="{{ post_data.select_option2 }}">
+                                        <input class="form-control" required type="text" name="select_option2" id="select_option2" placeholder="Option 2" value="{{ post_data.select_option2 }}">
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                                         <label class="control-label">
                                             Option 3 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option3" id="select_option3" placeholder="Option 3" value="{{ post_data.select_option3 }}">
+                                        <input class="form-control" required type="text" name="select_option3" id="select_option3" placeholder="Option 3" value="{{ post_data.select_option3 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -197,7 +197,7 @@
                                         <label class="control-label">
                                             Option 4 <span class="symbol required"></span>
                                         </label>
-                                        <input class="form-control" type="text" name="select_option4" id="select_option4" placeholder="Option 4" value="{{ post_data.select_option4 }}">
+                                        <input class="form-control" required type="text" name="select_option4" id="select_option4" placeholder="Option 4" value="{{ post_data.select_option4 }}">
                                     </div>
                                 </div>
                             </div>
@@ -213,11 +213,11 @@
                     </div>
 
                     {% if edit_status %}
-                        <div class="col-md-2">
+                        {#<div class="col-md-2">
                             <button type="submit"class="btn btn-primary" name="update_cancel" id="update_cancel" value="Cancel">
                                 Cancel <i class="fa fa-arrow-circle-right"></i>
                             </button>
-                        </div>
+                        </div>#}
                         <div class="col-md-2">
                             <button type="submit"class="btn btn-primary" name="update_field" id="update_field" value="Update">
                                 Update <i class="fa fa-arrow-circle-right"></i>
@@ -343,3 +343,85 @@
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/set_register_fields.js"></script>
 {% include('admin/layout/footer.twig')%}
+<script>
+    jQuery(document).ready(function () {
+        SVExamples.init();
+        validate_add_field();
+    });
+
+    var validate_add_field = function () {
+        var form = $('#add_field_form');
+        var errorHandler2 = $('.errorHandler', form);
+        var successHandler2 = $('.successHandler', form);
+        form.validate({
+            errorElement: "span", // contain the error msg in a small tag
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) { // render error placement for each input type
+                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
+                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
+                } else if (element.hasClass("ckeditor")) {
+                    error.appendTo($(element).closest('.form-group'));
+                } else {
+                    error.insertAfter(element)// for other inputs, just perform default behavior
+                }
+            },
+            ignore: ':hidden',
+            rules: {
+                field_name: {
+                    required: true,
+                    minlength: 3
+                },
+                required_status: {
+                    required: true
+                },
+                register_step: {
+                    required: true
+                },
+                order: {
+                    required: true
+                },
+                unique_status: {
+                    required: true
+                },
+                data_types: {
+                    required: true
+                },
+                data_type_max_size: {
+                    required: true
+                },
+                field_type: {
+                    required: true
+                },
+            },
+            messages: {
+                field_name: "Please enter Field Name"
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit
+                successHandler2.hide();
+                errorHandler2.show();
+            },
+            highlight: function (element) {
+                $(element).closest('.help-block').removeClass('valid');// display OK icon
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
+                // add the Bootstrap error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element).closest('.form-group').removeClass('has-error');
+                // set error class to the control group
+            },
+            success: function (label, element) {
+                label.addClass('help-block valid');
+                // mark the current input as valid and display OK icon
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
+            },
+            submitHandler: function (form) {
+                successHandler2.show();
+                errorHandler2.hide();
+                
+                form.submit();
+
+            }
+        });
+    };
+
+</script>
