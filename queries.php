@@ -52,6 +52,13 @@
 
 
 
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Single Step', 'register/single_step', '3', 'fa-random', '1', '1', '1', '1', NULL, '1', '0');
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Multiple Step', 'register/multiple_step', '3', 'fa-random', '1', '1', '1', '2', NULL, '1', '0');
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Multiple Step', 'register/advanced', '3', 'fa-random', '1', '1', '1', '3', NULL, '1', '0');
+
+
+
+
 
 
 

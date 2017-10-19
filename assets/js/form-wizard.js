@@ -1,5 +1,5 @@
 var FormWizard = function () {
-	"use strict";
+    "use strict";
     var wizardContent = $('#wizard');
     var wizardForm = $('#multiple_step_form');
     var numberOfSteps = $('.swMain > ul > li').length;
@@ -18,16 +18,17 @@ var FormWizard = function () {
     var animateBar = function (val) {
         if ((typeof val == 'undefined') || val == "") {
             val = 1;
-        };
-        
+        }
+        ;
+
         var valueNow = Math.floor(100 / numberOfSteps * val);
         $('.step-bar').css('width', valueNow + '%');
     };
     var validateCheckRadio = function (val) {
-        $("input[type='radio'], input[type='checkbox']").on('ifChecked', function(event) {
-			$(this).parent().closest(".has-error").removeClass("has-error").addClass("has-success").find(".help-block").remove().end().find('.symbol').addClass('ok');
-		});
-    };    
+        $("input[type='radio'], input[type='checkbox']").on('ifChecked', function (event) {
+            $(this).parent().closest(".has-error").removeClass("has-error").addClass("has-success").find(".help-block").remove().end().find('.symbol').addClass('ok');
+        });
+    };
     var initValidator = function () {
         $.validator.addMethod("cardExpiry", function () {
             //if all values are selected
@@ -37,6 +38,46 @@ var FormWizard = function () {
                 return false;
             }
         }, 'Please select a month and year');
+
+        $.validator.addMethod("validUsername", function () {
+            var isSuccess = false;
+            $.ajax({url: "register/validate_username",
+                data: {username: $("#username").val()},
+                async: false,
+                success:
+                        function (msg) {
+                            isSuccess = msg === "yes" ? true : false
+                        }
+            });
+            return isSuccess;            
+        }, "Sorry, Username Not Available");
+        
+        $.validator.addMethod("validSponsor", function () {
+            var isSuccess = false;
+            $.ajax({url: "register/validate_sponsor",
+                data: {username: $("#sponser_name").val()},
+                async: false,
+                success:
+                        function (msg) {
+                            isSuccess = msg === "yes" ? true : false
+                        }
+            });
+            return isSuccess;            
+        }, "Sorry, Invalid Sponsorname");
+        
+        $.validator.addMethod("valiEmail", function () {
+            var isSuccess = false;
+            $.ajax({url: "register/valid_email",
+                data: {email: $("#email").val()},
+                async: false,
+                success:
+                        function (msg) {
+                            isSuccess = msg === "yes" ? true : false
+                        }
+            });
+            return isSuccess;            
+        }, "Sorry, Email Not Available");
+
         $.validator.setDefaults({
             errorElement: "span", // contain the error msg in a span tag
             errorClass: 'help-block',
@@ -52,14 +93,17 @@ var FormWizard = function () {
             },
             ignore: ':hidden',
             rules: {
-                sponser_name:{
+                sponser_name: {
+                    validSponsor:true,
                     required: true
                 },
                 username: {
+                    validUsername: true,
                     minlength: 4,
-                    required: true
+                    required: true,
                 },
                 email: {
+                    valiEmail: true,
                     required: true,
                     email: true
                 },
@@ -84,13 +128,13 @@ var FormWizard = function () {
                 },
                 address: {
                     required: true
-                },agree:{
-                    required:true
+                }, agree: {
+                    required: true
                 },
                 country: {
                     required: true
                 },
-                zip_code:{
+                zip_code: {
                     digits: true,
                     maxlength: 7
                 },
@@ -103,7 +147,7 @@ var FormWizard = function () {
                     minlength: 3,
                     maxlength: 4
                 },
-                //card_expiry_yyyy: "cardExpiry",
+                card_expiry_yyyy: "cardExpiry",
                 payment: {
                     required: true,
                     minlength: 1
@@ -145,10 +189,10 @@ var FormWizard = function () {
         });
     };
     var onShowStep = function (obj, context) {
-    	if(context.toStep == numberOfSteps){
-    		$('.anchor').children("li:nth-child(" + context.toStep + ")").children("a").removeClass('wait');
+        if (context.toStep == numberOfSteps) {
+            $('.anchor').children("li:nth-child(" + context.toStep + ")").children("a").removeClass('wait');
             displayConfirm();
-    	}
+        }
         $(".next-step").unbind("click").click(function (e) {
             e.preventDefault();
             wizardContent.smartWizard("goForward");
@@ -174,29 +218,30 @@ var FormWizard = function () {
     };
     var validateSteps = function (stepnumber, nextstep) {
         var isStepValid = false;
-        
-        
+
+
         if (numberOfSteps >= nextstep && nextstep > stepnumber) {
-        	
+
             // cache the form element selector
             if (wizardForm.valid()) { // validate the form
                 wizardForm.validate().focusInvalid();
-                for (var i=stepnumber; i<=nextstep; i++){
-        		$('.anchor').children("li:nth-child(" + i + ")").not("li:nth-child(" + nextstep + ")").children("a").removeClass('wait').addClass('done').children('.stepNumber').addClass('animated tada');
-        		}
+                for (var i = stepnumber; i <= nextstep; i++) {
+                    $('.anchor').children("li:nth-child(" + i + ")").not("li:nth-child(" + nextstep + ")").children("a").removeClass('wait').addClass('done').children('.stepNumber').addClass('animated tada');
+                }
                 //focus the invalid fields
                 animateBar(nextstep);
                 isStepValid = true;
                 return true;
-            };
+            }
+            ;
         } else if (nextstep < stepnumber) {
-        	for (i=nextstep; i<=stepnumber; i++){
-        		$('.anchor').children("li:nth-child(" + i + ")").children("a").addClass('wait').children('.stepNumber').removeClass('animated tada');
-        	}
-            
+            for (i = nextstep; i <= stepnumber; i++) {
+                $('.anchor').children("li:nth-child(" + i + ")").children("a").addClass('wait').children('.stepNumber').removeClass('animated tada');
+            }
+
             animateBar(nextstep);
             return true;
-        } 
+        }
     };
     var validateAllSteps = function () {
         var isStepValid = true;

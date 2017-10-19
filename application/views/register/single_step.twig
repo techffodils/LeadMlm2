@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <hr>
 
-                <div class="box-register" style="background: #FFFFFF;border-radius: 5px;">
+                <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
                     {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
                     <div class="errorHandler alert alert-danger no-display">
                         <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
@@ -32,22 +32,28 @@
                     <fieldset>
                         <div class="form-group">
                             <span class="input-icon">
-                                <input type="text" class="form-control" name="sponser_name" id="sponser_name" placeholder="Sponser Name">
+                                <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="Sponser Name">
                                 <i class="fa fa-user-plus"></i> 
                             </span>
+
+                                {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
                         </div>
                         <div class="form-group">
                             <span class="input-icon">
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+                                <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="Username">
                                 <i class="fa fa-user"></i> 
                             </span>
+
+                            {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
                         </div>
 
                         <div class="form-group">
                             <span class="input-icon">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="Email">
                                 <i class="fa fa-envelope"></i> 
                             </span>
+
+                            {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %} 
                         </div>
 
                         <div class="form-group">
@@ -55,21 +61,28 @@
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 <i class="fa fa-lock"></i>
                             </span>
+
+                            {% if register_error.password is defined %}<code> {{ register_error.password}}</code> {% endif %} 
                         </div>
                         <div class="form-group ">
                             <span class="input-icon">
                                 <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
-                                <i class="fa fa-lock"></i> </span>
+                                <i class="fa fa-lock"></i> 
+                            </span>
+
+                            {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}}</code> {% endif %} 
                         </div>
-                        
+
 
                         <div class="form-group">
                             <span class="input-icon">
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name">
+                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="First Name">
                                 <i class="fa fa-text-width"></i> 
                             </span>
+
+                            {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
                         </div>
-                        
+
 
                         <div class="form-group">
                             <div>
@@ -78,6 +91,7 @@
                                     I agree to the Terms of Service and Privacy Policy
                                 </label>
                             </div>
+                            {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
                         </div>
                     </fieldset>
                     <div class="form-group">

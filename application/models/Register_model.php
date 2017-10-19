@@ -34,10 +34,11 @@ class Register_model extends CI_Model {
     public function addToUsers($user_details) {
         $sponsor_id=$this->helper_model->userNameToID($user_details['sponser_name']);
         $father_id=$this->helper_model->userNameToID($user_details['sponser_name']);
+        $password=hash("sha256", $user_details['password']);
         $position='';
         $res=$this->db->set('user_name ', $user_details['username'])
                 ->set('email', $user_details['email'])
-                ->set('password ', $user_details['password'])
+                ->set('password ', $password)
                 ->set('user_type', 'user')
                 ->set('father_id ', $father_id)
                 ->set('sponsor_id', $sponsor_id)
