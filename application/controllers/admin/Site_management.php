@@ -100,8 +100,6 @@ class Site_management extends Base_Controller {
         $result = $this->form_validation->run();
         if ($result == FALSE) {
             $error = validation_errors();
-            print_r($error);
-            die;
             $msg = "Please Have look Form Contain Some error";
             $this->loadPage($msg, 'site_management/site_configuration', FALSE);
         } else {
