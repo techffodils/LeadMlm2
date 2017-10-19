@@ -40,6 +40,7 @@
                                 Field Name <span class="symbol required"></span>
                             </label>
                             <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
+                        {% if error.field_name is defined %}<code> {{ error.field_name}}</code> {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -55,6 +56,7 @@
                                     <input type="radio" {% if post_data.required_status==0 %} checked="checked" {% endif %} class="grey" value="0" name="required_status"  id="required_status">
                                     No
                                 </label>
+                                    {% if error.required_status is defined %}<code> {{ error.required_status}}</code> {% endif %}
                             </div>
                         </div>
 
@@ -72,6 +74,7 @@
                                         <option value="step-2" {% if post_data.register_step=="step-2" %} selected {% endif %}>Step-2</option>
                                         <option value="step-3" {% if post_data.register_step=="step-3" %} selected {% endif %}>Step-3</option>                                            
                                     </select>
+                                    {% if error.register_step is defined %}<code> {{ error.register_step}}</code> {% endif %}
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -80,6 +83,7 @@
                                         Sort Order <span class="symbol required"></span>
                                     </label>
                                     <input class="form-control" type="number" name="order" id="order" value="{{ post_data.order }}" placeholder="Sort Order">
+                                {% if error.order is defined %}<code> {{ error.order}}</code> {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -97,6 +101,7 @@
                                     <input type="radio" class="grey" value="0" {% if post_data.unique_status==0 %} checked="checked" {% endif %} name="unique_status"  id="unique_status">
                                     Yes
                                 </label>
+                                    {% if error.unique_status is defined %}<code> {{ error.unique_status}}</code> {% endif %}
                             </div>
                         </div>
                         <div class="form-group">
@@ -110,6 +115,7 @@
                                 <option value="varchar" {% if post_data.data_types=="varchar" %} selected {% endif %}>Varchar</option>    
                                 <option value="text" {% if post_data.data_types=="text" %} selected {% endif %}>Text</option>
                             </select>
+                            {% if error.data_types is defined %}<code> {{ error.data_types}}</code> {% endif %}
                         </div>
                     </div>
 
@@ -121,6 +127,7 @@
                                 Data Type Max Size
                             </label>
                             <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
+                        {% if error.data_type_max_size is defined %}<code> {{ error.data_type_max_size}}</code> {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -128,6 +135,7 @@
                                 Default Value 
                             </label>
                             <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value" value="{{ post_data.default_value }}" >
+                        {% if error.default_value is defined %}<code> {{ error.default_value}}</code> {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -141,6 +149,7 @@
                                 <option value="select_box" {% if post_data.field_type=="select_box" %} selected {% endif %}>Select Box</option>    
                                 <option value="text_area" {% if post_data.field_type=="text_area" %} selected {% endif %}>Text Area</option>
                             </select>
+                            {% if error.field_type is defined %}<code> {{ error.field_type}}</code> {% endif %}
                         </div>
 
                         <div id="radio_extras" style="display:none">
@@ -151,6 +160,7 @@
                                             Value 1 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required  type="text" name="radio_value1" id="radio_value1" value="{{ post_data.radio_value1 }}" placeholder="Value 1">
+                                    {% if error.radio_value1 is defined %}<code> {{ error.radio_value1}}</code> {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -159,6 +169,7 @@
                                             Value 2 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="radio_value2" id="radio_value2" value="{{ post_data.radio_value2 }}" placeholder="Value 2">
+                                    {% if error.radio_value2 is defined %}<code> {{ error.radio_value2}}</code> {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -172,6 +183,7 @@
                                             Option 1 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option1" id="select_option1" placeholder="Option 1" value="{{ post_data.select_option1 }}">
+                                    {% if error.select_option1 is defined %}<code> {{ error.select_option1}}</code> {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -180,6 +192,7 @@
                                             Option 2 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option2" id="select_option2" placeholder="Option 2" value="{{ post_data.select_option2 }}">
+                                    {% if error.select_option2 is defined %}<code> {{ error.select_option2}}</code> {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -190,6 +203,7 @@
                                             Option 3 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option3" id="select_option3" placeholder="Option 3" value="{{ post_data.select_option3 }}">
+                                    {% if error.select_option3 is defined %}<code> {{ error.select_option3}}</code> {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -198,6 +212,7 @@
                                             Option 4 <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option4" id="select_option4" placeholder="Option 4" value="{{ post_data.select_option4 }}">
+                                    {% if error.select_option4 is defined %}<code> {{ error.select_option4}}</code> {% endif %}
                                     </div>
                                 </div>
                             </div>

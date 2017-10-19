@@ -39,6 +39,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="product_name" id="product_name" placeholder='enter your product name' value="{{ product.product_name }}">
+                        {% if error.product_name is defined %}<code> {{ error.product_name}}</code> {% endif %}
                         </div>
                     </div>
 
@@ -48,6 +49,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="product_amount" id="product_amount" placeholder='enter your product amount' value="{{ product.product_amount }}">
+                        {% if error.product_amount is defined %}<code> {{ error.product_amount}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
@@ -56,6 +58,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="product_pv" id="product_pv" placeholder='enter your product pv' value="{{ product.product_pv }}">
+                        {% if error.product_pv is defined %}<code> {{ error.product_pv}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,6 +67,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="product_code" id="product_code"  placeholder='enter your product code' value="{{ product.product_code }}">
+                        {% if error.product_code is defined %}<code> {{ error.product_code}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
@@ -76,6 +80,7 @@
                                 <option value="monthly" {% if product.recurring_type=="monthly" %} selected {% endif %}>Monthly</option>
                                 <option value="yearly" {% if product.recurring_type=="yearly" %} selected {% endif %}>Yearly</option>                                            
                             </select>
+                        {% if error.recurring_type is defined %}<code> {{ error.recurring_type}}</code> {% endif %}
                         </div>
                     </div>
 
@@ -90,6 +95,7 @@
                                 <option value="repurchase" {% if product.product_type=="repurchase" %} selected {% endif %}>Repurchase</option>                                            
                                 <option value="both" {% if product.product_type=="both" %} selected {% endif %}>Both</option>                                            
                             </select>
+                        {% if error.product_type is defined %}<code> {{ error.product_type}}</code> {% endif %}
                         </div>
                     </div>
 
