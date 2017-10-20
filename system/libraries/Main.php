@@ -59,6 +59,12 @@ class CI_Main {
 		return $this->ci->router->class . "/" . $this->ci->router->method;
 	}
 
+	function get_currentheadurl(){
+
+		return str_replace('user/', '', str_replace('admin/', '', str_replace(base_url(), '', current_url())));
+		
+	}
+
 	function csrf_value(){
 		return $this->ci->security->get_csrf_hash();
 	}

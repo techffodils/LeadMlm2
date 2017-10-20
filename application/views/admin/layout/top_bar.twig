@@ -19,19 +19,18 @@
 						<ul class="nav navbar-right">
 
 
-<!-- start: CURRENCY -->
+							<!-- start: CURRENCY -->
 							<li class="dropdown current-user">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;" title="Change System Currency">
 
-								  <i class="fa fa-usd"></i>
-								  <!-- <img src="assets/images/avatar-1-small.jpg" class="img-circle" alt="">-->
-								  <span class="username hidden-xs">USD</span> <i class="fa fa-caret-down hidden-xs "></i>
+								  <i class="fa {{MLM_CURRENCY_ICON}}"></i>
+								  <span class="username hidden-xs">{{MLM_CURRENCY_CODE}}</span> <i class="fa fa-caret-down hidden-xs "></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 
 									{% for CURRENCY  in  MLM_CURRENCY_LIST  %}
-										<li>
-											<a href="">
+										<li onclick="switchCurrency('{{CURRENCY.currency_code}}');">
+											<a href="javascript:;">
 												<i class="fa {{CURRENCY.icon}}"></i> - {{CURRENCY.currency_name}}
 											</a>
 										</li>
@@ -39,17 +38,17 @@
 									
 								</ul>
 							</li>
-<!-- end: CURRENCY  -->
-<!-- start: LANGUAGE -->
+							<!-- end: CURRENCY  -->
+							<!-- start: LANGUAGE -->
 							<li class="dropdown current-user">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;"  title="Change System Language">
-								  <img src="assets/images/flags-iso/shiny/24/IN.png" class="img-circle" alt="">
-								  <span class="username hidden-xs">English</span> <i class="fa fa-caret-down hidden-xs "></i>
+								  <img src="assets/images/flags-iso/shiny/24/{{MLM_LANG_FLAG}}" class="img-circle" alt="">
+								  <span class="username hidden-xs">{{MLM_LANG_NAME}}</span> <i class="fa fa-caret-down hidden-xs "></i>
 								</a>
-								<ul class="dropdown-menu dropdown-dark">
+								<ul class="dropdown-menu dropdown-dark" >
 									{% for LANGUAGE  in  MLM_LANG_LIST  %}
-										<li>
-											<a href="">
+										<li onclick="switchLanguage('{{LANGUAGE.lang_code}}');">
+											<a href="javascript:;">
 												{{LANGUAGE.lang_name}} 
 												<!-- <img src="assets/images/flags-iso/flat/16/IN.png" class="pull-right"> -->
 											</a>
@@ -57,12 +56,12 @@
 									{% endfor %}
 								</ul>
 							</li>
-<!-- end: LANGUAGE  -->
+							<!-- end: LANGUAGE  -->
 
 							<!-- start: USER DROPDOWN -->
 							<li class="dropdown current-user ">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;">
-									<img src="assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Peter Clark</span> <i class="fa fa-caret-down "></i>
+									<img src="assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Peter Clark</span> <i class="fa fa-caret-down  hidden-xs"></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>

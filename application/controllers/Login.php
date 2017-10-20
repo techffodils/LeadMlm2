@@ -181,9 +181,10 @@ class Login extends Base_Controller {
 
         $user_id = $this->main->get_usersession('mlm_user_id');
         foreach ($this->session->userdata as $key => $value) {
-            if (strpos($key, 'mlm_') === 0) {
-                $this->session->unset_userdata($key);
-            }
+
+	        if (strpos($key, 'mlm_') === 0) {
+	            $this->session->unset_userdata($key);
+	        }
         }
         if ($user_id) {
             $this->helper_model->insertActivity($user_id, 'logout');

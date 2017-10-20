@@ -219,17 +219,17 @@
   /* line 182, ../sass/partials/_responsive.scss */
   .dropdown-messages {
     right: auto !important;
-    left: -110px !important;
+    left: -205px !important;
   }
   /* line 185, ../sass/partials/_responsive.scss */
   .dropdown-messages:before {
     right: auto !important;
-    left: 144px !important;
+    left: 235px !important;
   }
   /* line 189, ../sass/partials/_responsive.scss */
   .dropdown-messages:after {
     right: auto !important;
-    left: 145px !important;
+    left: 236px !important;
   }
 
   /* line 195, ../sass/partials/_responsive.scss */

@@ -2749,6 +2749,8 @@ td.small-width {
   top: -10px;
   left: 1px;
 }
+
+
 /* line 34, ../sass/partials/_dropdown-menu.scss */
 .dropdown-menu.dropdown-dark.pull-right:after {
   left: auto;
@@ -8041,4 +8043,12 @@ body.error-full-page {
 /* line 22, ../sass/partials/_mobile.scss */
 .isMobile ul.main-navigation-menu li:not(.open) a:hover {
   background: inherit !important;
+}
+
+
+@media (max-width: 991px) {
+ .dropdown-menu.dropdown-dark:after {
+    left: 104px !important;
+  }
+
 }
