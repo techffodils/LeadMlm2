@@ -26,14 +26,38 @@
 //INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Product Management', 'product/product_management', '#', 'fa fa-tags', '1', '0', '1', '8', NULL, '1', '0');    
 
 //ALTER TABLE `mlm_products` ADD `images` TEXT NOT NULL AFTER `product_type` ;
+//ALTER TABLE `mlm_user` DROP `mlm_user_id`;
+
+
+//CREATE TABLE IF NOT EXISTS `mlm_register_history` (
+//  `id` int(30) NOT NULL AUTO_INCREMENT,
+//  `mlm_user_id` int(30) NOT NULL,
+//  `register_type` varchar(30) NOT NULL,
+//  `payment_type` varchar(30) NOT NULL,
+//  `date` datetime NOT NULL,
+//  `user_details` text NOT NULL,
+//  PRIMARY KEY (`id`)
+//) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+//ALTER TABLE `mlm_user_details` CHANGE `district` `zip_code` VARCHAR( 10 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ;
+
+//ALTER TABLE `mlm_user_details` ADD `gender` VARCHAR( 10 ) NOT NULL ;
+
+//ALTER TABLE `mlm_user_details` ADD `phone_number` DOUBLE NOT NULL ;
+
+//ALTER TABLE `mlm_user_details`
+//  DROP `address_2`,
+//  DROP `ip`;
 
 
 
 
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Single Step', 'register/single_step', '3', 'fa-random', '1', '1', '1', '1', NULL, '1', '0');
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Multiple Step', 'register/multiple_step', '3', 'fa-random', '1', '1', '1', '2', NULL, '1', '0');
+//INSERT INTO `lead_mlm`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Advanced', 'register/advanced', '3', 'fa-random', '1', '1', '1', '3', NULL, '1', '0');
 
 
 
-
-
+//INSERT INTO `lead_soft`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Reset', 'reset/clean', '#', 'fa-refresh', '1', '0', '1', '10', NULL, '1', '0');
 
 

@@ -1,7 +1,7 @@
-var FormWizard = function () {
+var AdvanceWizard = function () {
     "use strict";
     var wizardContent = $('#wizard');
-    var wizardForm = $('#multiple_step_form');
+    var wizardForm = $('#advance_form');
     var numberOfSteps = $('.swMain > ul > li').length;
     var initWizard = function () {
         // function to initiate Wizard Form
@@ -121,36 +121,6 @@ var FormWizard = function () {
                     minlength: 2,
                 }, agree: {
                     required: true
-                },
-                phone_number: {
-                    required: true
-                },
-                gender: {
-                    required: true
-                },
-                address: {
-                    required: true
-                },
-                country: {
-                    required: true
-                },
-                zip_code: {
-                    digits: true,
-                    maxlength: 7
-                },
-                card_number: {
-                    minlength: 16,
-                    maxlength: 16,
-                },
-                card_cvc: {
-                    digits: true,
-                    minlength: 3,
-                    maxlength: 4
-                },
-                card_expiry_yyyy: "cardExpiry",
-                payment: {
-                    required: true,
-                    minlength: 1
                 }
             },
             messages: {

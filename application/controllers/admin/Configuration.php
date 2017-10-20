@@ -9,40 +9,31 @@ class Configuration extends Base_Controller {
         $error_array = $post = $post_data = array();
         if ($this->session->userdata('post_data') != null)
             $post_data = $this->session->userdata('post_data');
-        if ($this->input->post('add_new')) {//add new fields
+        if ($this->input->post('add_new') && $this->validate_field_addition()) {//add new fields
             $post = $this->input->post();
-            if ($this->validate_field_addition()) {
-                $res = $this->configuration_model->createDbField($post['field_name'], $post['data_types'], $post['data_type_max_size']);
+            $res = $this->configuration_model->createDbField($post['field_name'], $post['data_types'], $post['data_type_max_size']);
+            if ($res) {
+                $res = $this->configuration_model->addNewRegistrationField($post);
                 if ($res) {
-                    $res = $this->configuration_model->addNewRegistrationField($post);
-                    if ($res) {
-
-                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'new_registration_field_added', $post);
-
-                        $this->session->unset_userdata('post_data');
-                        $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
-                    } else {
-                        $this->loadPage('New Field Creation Failed', 'configuration/set_register_fields', FALSE);
-                    }
+                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'new_registration_field_added', $post);
+                    $this->session->unset_userdata('post_data');
+                    $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
                 } else {
                     $this->loadPage('New Field Creation Failed', 'configuration/set_register_fields', FALSE);
                 }
             } else {
-                $this->session->set_userdata('post_data', $post);
-                $error_array = $this->form_validation->error_array();
-                $this->loadPage('Validation Error', 'configuration/set_register_fields', FALSE);
+                $this->loadPage('New Field Creation Failed', 'configuration/set_register_fields', FALSE);
             }
         }
-
-
-
+        
+        if ($this->session->userdata('post_data') != null)
+            $post_data = $this->session->userdata('post_data');
 
         $edit_status = FALSE;
         $editable_fields = array();
         if ($field_id && $action) {//update new fields
             if ($this->configuration_model->checkFieldEligibility($field_id)) {
                 if ($action == 'activate') {
-
                     $actived_field['id'] = $field_id;
                     $res = $this->configuration_model->changeFieldStatus($field_id, 'active');
                     if ($res) {
@@ -85,31 +76,27 @@ class Configuration extends Base_Controller {
             }
         }
 
-        if ($this->input->post('update_field')) {//add new fields
+        if ($this->input->post('update_field') && $this->validate_field_updation()) {//add new fields
             $post = $this->input->post();
             if ($this->configuration_model->checkFieldEligibility($post['edited_field'])) {
-                if ($this->validate_field_updation()) {
-                    $old_name = $this->configuration_model->getFieldOldName($post['edited_field']);
-                    if ($this->configuration_model->checkTable($old_name)) {
-                        $upd_res = $this->configuration_model->alterDbField($post['field_name'], $post['data_types'], $post['data_type_max_size'], $old_name);
-                    } else {
-                        $upd_res = $this->configuration_model->createDbField($post['field_name'], $post['data_types'], $post['data_type_max_size']);
-                    }
-                    if ($upd_res) {
-                        $res = $this->configuration_model->updateRegistrationField($post);
-                        if ($res) {
+                $old_name = $this->configuration_model->getFieldOldName($post['edited_field']);
+                if ($this->configuration_model->checkTable($old_name)) {
+                    $upd_res = $this->configuration_model->alterDbField($post['field_name'], $post['data_types'], $post['data_type_max_size'], $old_name);
+                } else {
+                    $upd_res = $this->configuration_model->createDbField($post['field_name'], $post['data_types'], $post['data_type_max_size']);
+                }
+                if ($upd_res) {
+                    $res = $this->configuration_model->updateRegistrationField($post);
+                    if ($res) {
 
-                            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_updated', $post);
+                        $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_updated', $post);
 
-                            $this->loadPage('Registration Field Updated Successfully', 'configuration/set_register_fields', True);
-                        } else {
-                            $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
-                        }
+                        $this->loadPage('Registration Field Updated Successfully', 'configuration/set_register_fields', True);
                     } else {
                         $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
                     }
                 } else {
-                    $this->loadPage('Validation Error', 'configuration/set_register_fields', FALSE);
+                    $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
                 }
             } else {
                 $this->loadPage('This Field Can not be Edited', 'configuration/set_register_fields', FALSE);
@@ -122,7 +109,7 @@ class Configuration extends Base_Controller {
         }
         $fields = $this->configuration_model->getAllRegFields();
 
-
+        $this->setData('error', $this->form_validation->error_array());
         $this->setData('fields', $fields);
         $this->setData('post_data', $post_data);
         $this->setData('edit_status', $edit_status);
@@ -131,14 +118,15 @@ class Configuration extends Base_Controller {
     }
 
     function validate_field_addition() {
+        $this->session->set_userdata('post_data', $this->input->post());
         $this->form_validation->set_rules('field_name', 'field_name', 'required|callback_validate_field|trim');
         $this->form_validation->set_rules('required_status', 'required_status', 'required');
         $this->form_validation->set_rules('register_step', 'register_step', 'required');
-        $this->form_validation->set_rules('order', 'order', 'requiredrequired|is_natural|numeric|greater_than[0]');
+        $this->form_validation->set_rules('order', 'order', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('unique_status', 'unique_status', 'required');
         $this->form_validation->set_rules('data_types', 'data_types', 'required');
         if ($this->input->post('data_types') != 'double' && $this->input->post('data_types') != 'text') {
-            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'requiredrequired|is_natural|numeric|greater_than[0]');
+            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'required|numeric|greater_than[0]');
         }
 
         $this->form_validation->set_rules('field_type', 'field_type', 'required');
@@ -161,11 +149,11 @@ class Configuration extends Base_Controller {
         $this->form_validation->set_rules('field_name', 'field_name', 'required|callback_validate_field_update|trim');
         $this->form_validation->set_rules('required_status', 'required_status', 'required');
         $this->form_validation->set_rules('register_step', 'register_step', 'required');
-        $this->form_validation->set_rules('order', 'order', 'requiredrequired|is_natural|numeric|greater_than[0]');
+        $this->form_validation->set_rules('order', 'order', 'required|is_natural|numeric|greater_than[0]');
         $this->form_validation->set_rules('unique_status', 'unique_status', 'required');
         $this->form_validation->set_rules('data_types', 'data_types', 'required');
         if ($this->input->post('data_types') != 'double' && $this->input->post('data_types') != 'text') {
-            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'requiredrequired|is_natural|numeric|greater_than[0]');
+            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'required|is_natural|numeric|greater_than[0]');
         }
 
         $this->form_validation->set_rules('field_type', 'field_type', 'required');
@@ -279,7 +267,7 @@ class Configuration extends Base_Controller {
 
     function change_bonus_settings() {
         $post = $this->input->get();
-        if ($post['referal_bonus']>=0) {
+        if ($post['referal_bonus'] >= 0) {
             if ($this->dbvars->MLM_PLAN == "BINARY")
                 $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
             $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];

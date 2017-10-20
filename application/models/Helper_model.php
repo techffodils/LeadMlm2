@@ -8,6 +8,9 @@ class Helper_model extends CI_Model {
 
 
     public function insertActivity($user_id, $activity, $data = array()) {
+        if(!$user_id){
+            return FALSE;
+        }
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
                         ->set('ip_address', $this->getUserIP())
@@ -136,6 +139,19 @@ class Helper_model extends CI_Model {
         }
         return $email_id;
     }
+    
+    public function getUserIdFromEmailId($email) {
+        $user_id = NULL;
+        $query = $this->db->select("mlm_user_id")
+                        ->from("user")
+                        ->where("email", $email)
+                        ->limit(1)
+                        ->get();
+        foreach ($query->result() as $row) {
+            $user_id = $row->mlm_user_id;
+        }
+        return $user_id;
+    }
 
     public function isUserAvailable($user_id) {
         $flag = false;
@@ -159,13 +175,13 @@ class Helper_model extends CI_Model {
 
     public function getAdminId() {
         $user_id = NULL;
-        $query = $this->db->select('mlm_user_d')
+        $query = $this->db->select('mlm_user_id')
                         ->from('user')
                         ->where('user_type', 'admin')
                         ->limit(1)
-                ->db->get();
+                        ->get();
         foreach ($query->result() as $row) {
-            $user_id = $row->mlm_user_d;
+            $user_id = $row->mlm_user_id;
         }
         return $user_id;
     }
@@ -287,6 +303,19 @@ class Helper_model extends CI_Model {
             $decode_key = $this->encrypt->decode($decode_string);
         }
         return $decode_key;
+    }
+    
+    public function getUserBalance($user_id) {
+        $balance_amount = 0;
+        $query = $this->db->select('balance_amount')
+                ->from('user_balance')
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->get();
+        foreach ($query->result() as $row) {
+            $balance_amount = $row->balance_amount;
+        }
+        return $balance_amount;
     }
 
 }
