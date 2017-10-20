@@ -1,0 +1,341 @@
+{% include('admin/layout/header.twig')%}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">E-Pin Management <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+
+
+                <div class="panel panel-white panel-tabs">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">E-Pin <span class="text-bold">Tabs</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#epin_tab1">
+                                        Allocate Pins
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#epin_tab2">
+                                        Pin Requests
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#epin_tab3">
+                                        Active Pins
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#epin_tab4">
+                                        Used Pins
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="epin_tab1" class="tab-pane fade in active">
+
+                                    {{ form_open('', ' id="allocate_pin" name="allocate_pin"')|raw }}
+                                    <div class="form-horizontal">                                            
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Username
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" type="text" name="username" id="username">
+                                                {% if pin_error.username is defined %}<code> {{ pin_error.username}} </code> {% endif %} 
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Pin Amount
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" type="number" name="pin_amount" id="pin_amount">
+                                                {% if pin_error.pin_amount is defined %}<code> {{ pin_error.pin_amount}} </code> {% endif %} 
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Pin Count
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" type="number" name="pin_count" id="pin_count">
+                                                {% if pin_error.pin_count is defined %}<code> {{ pin_error.pin_count}} </code> {% endif %} 
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Expiry Date
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group">
+                                                    <input name="expiry_date" id="expiry_date" type="text" data-date-format="yyyy--mm-dd" data-date-viewmode="years" class="form-control date-picker">
+                                                    <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                                                </div>
+                                                {% if pin_error.expiry_date is defined %}<code> {{ pin_error.expiry_date}} </code> {% endif %} 
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <button type="submit"class="btn btn-primary" value="add_pin" name="add_pin">
+                                                    Update <i class="fa fa-arrow-circle-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{ form_close()|raw }}
+
+                                </div>
+                                <div id="epin_tab2" class="tab-pane fade">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="sample-table-1">
+                                            <thead>
+                                                <tr>                                    
+                                                    <th>SlNo</th>
+                                                    <th>Username</th>
+                                                    <th>User Balance</th>
+                                                    <th>Pin Amount</th>
+                                                    <th>Pin Count</th>
+                                                    <th>Requested Date</th>
+                                                    <th>Expiry Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for pr in pin_request %}
+                                                    <tr>                                        
+                                                        <td>{{ pr.slno }}</td>
+                                                        <td>{{ pr.username }}</td>
+                                                        <td>{{ pr.user_balance }}</td>
+                                                        <td>{{ pr.amount }}</td>
+                                                        <td>{{ pr.count }}</td>
+                                                        <td>{{ pr.date }}</td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input name="expiry_date_{{ pr.id }}" id="expiry_date_{{ pr.id }}" type="text" data-date-format="yyyy--mm-dd" data-date-viewmode="years" class="form-control date-picker">
+                                                                <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+
+
+                                                            </div>
+                                                            <span name="expiry_error_{{ pr.id }}" id="expiry_error_{{ pr.id }}" style="color: #a94442;"></span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:confirm_request({{ pr.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Confirm">
+                                                                <i class="glyphicon glyphicon-ok-sign"></i>
+                                                            </a>
+
+                                                            <a href="javascript:cancel_request({{ pr.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="Cancel">
+                                                                <i class="fa fa-trash fa fa-white"></i>
+                                                            </a>
+
+
+
+
+                                                        </td>
+
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+
+                                </div>
+                                <div id="epin_tab3" class="tab-pane fade">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="sample-table-1">
+                                            <thead>
+                                                <tr>                                    
+                                                    <th>SlNo</th>
+                                                    <th>Username</th>
+                                                    <th>Pin Number</th>
+                                                    <th>Pin Amount</th>
+                                                    <th>Balance Amount</th>
+                                                    <th>Allocate Date</th>
+                                                    <th>Expiry Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for ap in active_pin %}
+                                                    <tr>                                        
+                                                        <td>{{ ap.slno }}</td>
+                                                        <td>{{ ap.username }}</td>
+                                                        <td>{{ ap.pin_number }}</td>
+                                                        <td>{{ ap.allocate_amount }}</td>
+                                                        <td>{{ ap.balance_amount }}</td>
+                                                        <td>{{ ap.allocate_date }}</td>
+                                                        <td>{{ ap.expiry_date }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                                <div id="epin_tab4" class="tab-pane fade">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="sample-table-1">
+                                            <thead>
+                                                <tr>                                    
+                                                    <th>SlNo</th>
+                                                    <th>Allocated User</th>
+                                                    <th>Pin Number</th>
+                                                    <th>Pin Amount</th>
+                                                    <th>Balance Amount</th>
+                                                    <th>Used For</th>
+                                                    <th>Used By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for up in used_pin %}
+                                                    <tr>                                        
+                                                        <td>{{ up.slno }}</td>
+                                                        <td>{{ up.username }}</td>
+                                                        <td>{{ up.pin_number }}</td>
+                                                        <td>{{ up.allocate_amount }}</td>
+                                                        <td>{{ up.balance_amount }}</td>
+                                                        <td>{{ up.used_for }}</td>
+                                                        <td>{{ up.used_by }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>                                    
+    </div>
+</div>
+{% include('admin/layout/footer.twig')%}
+<link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+<script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        //SVExamples.init();
+        FormElements.init();
+    });
+
+    function cancel_request(id) {
+        var are_you_sure = 'Are you sure?';
+        var text = "There is no Undo";
+        var confirm = "Yes, Delete it!";
+        var cancel = "No, Cancel pls!";
+        var canceled = "Cancelled";
+        var cancel_msg = "Your Request is safe :)";
+        swal({
+            title: are_you_sure,
+            text: text,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: confirm,
+            cancelButtonText: cancel,
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                document.location.href = 'admin/epin/epin_management/cancel/' + id;
+            } else {
+                swal(canceled, cancel_msg, "error");
+            }
+        });
+
+        e.preventDefault();
+    }
+
+    function confirm_request(id) {
+        var error_msg = 'This Field Is Required';
+        var are_you_sure = 'Are you sure?';
+        var text = "There is no Undo";
+        var confirm = "Yes, Confirm it!";
+        var cancel = "No, Cancel pls!";
+        var canceled = "Cancelled";
+        var cancel_msg = "Your Request is safe :)";
+        var field = "#expiry_date_" + id;
+        var error_span = "#expiry_error_" + id;
+        if ($(field).val()) {
+            $(error_span).html("");
+            swal({
+                title: are_you_sure,
+                text: text,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: confirm,
+                cancelButtonText: cancel,
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    document.location.href = 'admin/epin/epin_management/confirm/' + id + '/' + $(field).val();
+                } else {
+                    swal(canceled, cancel_msg, "error");
+                }
+            });
+
+            e.preventDefault();
+        } else {
+            $(error_span).html(error_msg);
+        }
+    }
+</script>
