@@ -1,122 +1,146 @@
-{% include('admin/layout/header.twig')%}
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-white">
-            <div class="panel-heading">
-                <h4 class="panel-title">Single Step Registration <span class="text-bold"></span></h4>
-                <div class="panel-tools">
-                    <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
-                            <i class="fa fa-cog"></i>
+{% if loggeg_user %}
+    {% include('admin/layout/header.twig')%}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Single Step Registration <span class="text-bold"></span></h4>
+                    <div class="panel-tools">
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-xs btn-link panel-close" href="#">
+                            <i class="fa fa-times"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
-                        </ul>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#">
-                        <i class="fa fa-times"></i>
-                    </a>
+                </div>
+                <div class="panel-body">
+                    <hr>
+
+                    <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
+{% else %}
+    {% include('layout/header.twig')%}
+    <div class="row">
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+            <div class="logo">
+                <img src="assets/images/logo.png">
+            </div>
+            <!-- start: LOGIN BOX -->
+            <div class="box-login">
+                <h3>Sign in to your account</h3>
+                <p>
+                    Single Step Registration
+                </p>
+{% endif %}
+
+                                {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
+                                <div class="errorHandler alert alert-danger no-display">
+                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                </div>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="Sponser Name">
+                                            <i class="fa fa-user-plus"></i> 
+                                        </span>
+
+                                        {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="Username">
+                                            <i class="fa fa-user"></i> 
+                                        </span>
+
+                                        {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="Email">
+                                            <i class="fa fa-envelope"></i> 
+                                        </span>
+
+                                        {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %} 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+
+                                        {% if register_error.password is defined %}<code> {{ register_error.password}}</code> {% endif %} 
+                                    </div>
+                                    <div class="form-group ">
+                                        <span class="input-icon">
+                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                                            <i class="fa fa-lock"></i> 
+                                        </span>
+
+                                        {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}}</code> {% endif %} 
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="First Name">
+                                            <i class="fa fa-text-width"></i> 
+                                        </span>
+
+                                        {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="agree" class="checkbox-inline">
+                                                <input type="checkbox" class="grey agree" id="agree" name="agree">
+                                                I agree to the Terms of Service and Privacy Policy
+                                            </label>
+                                        </div>
+                                        {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <button type="submit"class="btn btn-primary" value="add_user" name="add_user">
+                                            Register <i class="fa fa-arrow-circle-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {{ form_close()|raw }}                   
+
+
+{% if loggeg_user %}
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <hr>
-
-                <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
-                    {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
-                    <div class="errorHandler alert alert-danger no-display">
-                        <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
-                    </div>
-                    <fieldset>
-                        <div class="form-group">
-                            <span class="input-icon">
-                                <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="Sponser Name">
-                                <i class="fa fa-user-plus"></i> 
-                            </span>
-
-                            {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
-                        </div>
-                        <div class="form-group">
-                            <span class="input-icon">
-                                <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="Username">
-                                <i class="fa fa-user"></i> 
-                            </span>
-
-                            {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
-                        </div>
-
-                        <div class="form-group">
-                            <span class="input-icon">
-                                <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="Email">
-                                <i class="fa fa-envelope"></i> 
-                            </span>
-
-                            {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %} 
-                        </div>
-
-                        <div class="form-group">
-                            <span class="input-icon">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                                <i class="fa fa-lock"></i>
-                            </span>
-
-                            {% if register_error.password is defined %}<code> {{ register_error.password}}</code> {% endif %} 
-                        </div>
-                        <div class="form-group ">
-                            <span class="input-icon">
-                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
-                                <i class="fa fa-lock"></i> 
-                            </span>
-
-                            {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}}</code> {% endif %} 
-                        </div>
-
-
-                        <div class="form-group">
-                            <span class="input-icon">
-                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="First Name">
-                                <i class="fa fa-text-width"></i> 
-                            </span>
-
-                            {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
-                        </div>
-
-
-                        <div class="form-group">
-                            <div>
-                                <label for="agree" class="checkbox-inline">
-                                    <input type="checkbox" class="grey agree" id="agree" name="agree">
-                                    I agree to the Terms of Service and Privacy Policy
-                                </label>
-                            </div>
-                            {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
-                        </div>
-                    </fieldset>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-
-                        </label>
-                        <div class="col-sm-4">
-                            <button type="submit"class="btn btn-primary" value="add_user" name="add_user">
-                                Register <i class="fa fa-arrow-circle-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    {{ form_close()|raw }}                   
-                </div>
+        </div>                                    
+    </div>
+    {% include('admin/layout/footer.twig')%}
+{% else %}                
             </div>
         </div>
-    </div>                                    
-</div>
+    </div>
+    {% include('layout/footer.twig')%}
+{% endif %}
 
-
-{% include('admin/layout/footer.twig')%}
 <script>
     jQuery(document).ready(function () {
-        SVExamples.init();
+        //SVExamples.init();
         valSingleStep();
     });
 
@@ -146,7 +170,7 @@
         });
         return isSuccess;
     }, "Sorry, Invalid Sponsorname");
-    
+
     $.validator.addMethod("valiEmail", function () {
         var isSuccess = false;
         $.ajax({url: "register/valid_email",
@@ -179,7 +203,7 @@
             ignore: "",
             rules: {
                 sponser_name: {
-                    validSponsor:true,
+                    validSponsor: true,
                     required: true
                 },
                 username: {

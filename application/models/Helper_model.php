@@ -8,6 +8,9 @@ class Helper_model extends CI_Model {
 
 
     public function insertActivity($user_id, $activity, $data = array()) {
+        if(!$user_id){
+            return FALSE;
+        }
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
                         ->set('ip_address', $this->getUserIP())
