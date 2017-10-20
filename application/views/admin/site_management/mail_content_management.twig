@@ -1,0 +1,277 @@
+{# empty Twig template #}
+{% include('admin/layout/header.twig')%}
+
+<div class="row">
+    <div class="col-sm-12">
+        <!-- start: INLINE TABS PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">{{title}} <span class="text-bold">Tabs</span></h4>
+                <div class="panel-tools">										
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#"> <i class="fa fa-refresh"></i> <span>Refresh</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> <span>Configurations</span></a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#"> <i class="fa fa-expand"></i> <span>Fullscreen</span></a>
+                            </li>										
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#"> <i class="fa fa-times"></i> </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabbable">
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#myTab_example1" data-toggle="tab">
+                                        <i class="green fa fa-user-plus"></i> Registration Content
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#myTab_example2" data-toggle="tab">
+                                        <i class="green fa fa-unlock"></i> Password Recovery
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#myTab_example3" data-toggle="tab">
+                                        <i class="green fa fa-bank"></i> Payout Content
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="myTab_example1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="panel-body">
+                                                <div class="tab-pane fade in active" id='#myTab2_example1'>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">{{page_header}} <span class="text-bold">Tabs</span></h4>
+                                                    </div>
+                                                    <div class="tabbable">
+                                                        <ul class="nav nav-tabs">
+                                                            {% set i=1 %}
+                                                            {% set status='' %}
+                                                            {% for user in data %}
+
+                                                                <input type='hidden' name='lang_code'id='lang_code' value='{{user.id}}'>
+                                                                {% if user.lang_code==default_lang %}
+                                                                    {% set status='active' %}
+
+                                                                {% else%}
+                                                                    {% set status='' %}
+                                                                {% endif  %}
+                                                                <li class="{{status}}">
+                                                                    <a data-toggle="tab" href="#panel_tab_example{{user.lang_code}}">
+                                                                        {{user.lang_name}}
+                                                                    </a>
+                                                                </li>
+                                                                {% set i=i+1 %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            {% for users in data %}
+
+                                                                {% if users.lang_code==default_lang %}
+                                                                    {% set active='active' %}
+
+                                                                {% else %}
+                                                                    {% set active=''%}
+                                                                {%  endif %}
+
+                                                                <div id="panel_tab_example{{users.lang_code}}" class="tab-pane fade in {{active}}">
+                                                                    {{form_open("","method='post' name='mail_content_form' id='mail_content_form'")|raw}}
+                                                                    <input type="hidden" name="lang_id" id="lang_id" value="{{users.lang_id}}"/>
+                                                                    <div class="form-horizontal">
+                                                                        <div class='form-group'>
+                                                                            <label class="col-sm-1 control-label">Subject<i class='symbol required'></i>:</label>
+                                                                            <div class='col-sm-4'>
+                                                                                <input type='text' name='subject_{{users.lang_code}}' id='subject_{{users.lang_code}}' value="{{users.subject}}">
+                                                                                <span class="error">{{ form_error.subject }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class='form-group'>
+                                                                            <label class="col-sm-1 control-label">Content<i class='symbol required'></i>:</label>
+                                                                            <div class="col-sm-10">
+                                                                                <textarea class="ckeditor"  rows="5" cols="15" name='content_{{users.lang_code}}' id='content_{{users.lang_code}}'>{{users.content}}</textarea>
+                                                                                <span class="error">{{ form_error.content }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class='form-action'>
+                                                                            <div class="col-sm-offset-4">
+                                                                                <button type='submit' name='btn_submit' id='btn_submit' class='btn btn-primary'>Update <i class='fa fa-check-circle'></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                        {{form_close()|raw}}
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">
+                                                                            </label>
+                                                                            <div class="col-sm-9">
+                                                                                <label>:</label>
+                                                                                <ul style="list-style: none; font-weight: bold;">
+                                                                                    <li>{literal}{fullname}{/literal}</li>
+                                                                                    <li>{literal}{username}{/literal}</li>
+                                                                                    <li>{literal}{company_name}{/literal}</li>
+                                                                                    <li>{literal}{company_address}{/literal}</li>
+                                                                                    <li>{literal}{sponsor_username}{/literal}</li>
+                                                                                    <li>{literal}{payment_type}{/literal}</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end: PANLEL TABS -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="myTab_example2">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="panel-body">
+                                                <div class="tab-pane fade in active" id='#myTab2_example2'>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">{{page_title}} <span class="text-bold">Tabs</span></h4>
+                                                    </div>
+                                                    <div class="tabbable">
+                                                        <ul class="nav nav-tabs">
+                                                            {% set i=1 %}
+                                                            {% set status='' %}
+                                                            {% for detail in password_reset  %}
+
+                                                                <input type='hidden' name='lang_code'id='lang_code' value='{{detail.lang_id}}'>
+                                                                {% if detail.lang_code==default_lang %}
+                                                                    {% set status='active' %}
+
+                                                                {% else%}
+                                                                    {% set status='' %}
+                                                                {% endif  %}
+                                                                <li class="{{status}}">
+                                                                    <a data-toggle="tab" href="#panel_tab_example_{{detail.lang_code}}">
+                                                                        {{detail.lang_name}}
+                                                                    </a>
+                                                                </li>
+                                                                {% set i=i+1 %}
+                                                            {% endfor %}
+                                                        </ul>
+
+
+                                                        <div class="tab-content">
+                                                            {% for datas in password_reset %}
+                                                                {% if datas.lang_code==default_lang %}
+                                                                    {% set active='active' %}
+                                                                {% else %}
+                                                                    {% set active=''%}
+                                                                {%  endif %}
+                                                                <div id="panel_tab_example_{{datas.lang_code}}" class="tab-pane fade in {{active}}">
+                                                                    {{form_open("","method='post' name='mail_content_form' id='mail_content_form'")|raw}}
+                                                                    <input type="hidden" name="lang_id" id="lang_id" value="{{datas.lang_id}}"/>
+                                                                    <div class="form-horizontal">
+                                                                        <div class='form-group'>
+                                                                            <label class="col-sm-1 control-label">Subject<i class='symbol required'></i>:</label>
+                                                                            <div class='col-sm-4'>
+                                                                                <input type='text' name='subject_{{datas.lang_code}}' id='subject_{{datas.lang_code}}' value="{{datas.subject}}" >
+                                                                                <span class="error">{{ form_error.subject }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class='form-group'>
+                                                                            <label class="col-sm-1 control-label">Content<i class='symbol required'></i>:</label>
+                                                                            <div class="col-sm-10">
+                                                                                <textarea class="ckeditor"  rows="5" cols="15" name='content_{{datas.lang_code}}' id='content_{{datas.lang_code}}'>{{datas.content}}</textarea>
+                                                                                <span class="error">{{ form_error.content }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class='form-action'>
+                                                                            <div class="col-sm-offset-4">
+                                                                                <button type='submit' name='btn_submit' id='btn_submit' class='btn btn-primary'>Update <i class='fa fa-check-circle'></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                        {{form_close()|raw}}
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">
+                                                                            </label>
+                                                                            <div class="col-sm-9">
+                                                                                <label>:</label>
+                                                                                <ul style="list-style: none; font-weight: bold;">
+                                                                                    <li>{literal}{fullname}{/literal}</li>
+                                                                                    <li>{literal}{username}{/literal}</li>
+                                                                                    <li>{literal}{company_name}{/literal}</li>
+                                                                                    <li>{literal}{company_address}{/literal}</li>
+                                                                                    <li>{literal}{sponsor_username}{/literal}</li>
+                                                                                    <li>{literal}{payment_type}{/literal}</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end: PANLEL TABS -->
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="myTab_example3">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- end: INLINE TABS PANEL -->
+    </div>
+</div>
+
+
+{% include('admin/layout/footer.twig')%}
+<script src="assets/plugins/ckeditor/ckeditor.js"></script>
+<script src="assets/js/mail_content.js"></script>
+{#<script type='text/javascript'>
+    $(document).ready(function () {
+    $("#btn_submit").click(function () {
+    var path_url = BASE_URL + 'admin/site_management/mail_content_management';
+            var content = $('#mail_content_form').formSerialize();
+            var id = $("#lang_code").val();
+            alert(id);
+            alert('content');
+            $.ajax({
+            post:
+                    url: path_url,
+                    data: {id: id, content: content},
+                    success:function(){
+                    alert(success);
+                    }
+            });
+    });
+    });
+</script>#}
