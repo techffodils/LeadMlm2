@@ -119,13 +119,16 @@ class Site_management extends Base_Controller {
 
         $avail_lang = $this->site_management_model->getAllLangauage();
         $subject = $content = $lang_id = '';
-        foreach ($avail_lang as $row){
-        $mail_content_detials = $this->site_management_model->getAllMailContentDetails($row['lang_id']);
-        $this->setData('mail_content', $mail_content_detials);
-        
+        $array_arr = $details = array();
+        $i = 0;
+        foreach ($avail_lang as $row) {
+            $mail_content_detials = $this->site_management_model->getAllMailContentDetails($row['lang_id']);
+            foreach ($mail_content_detials as $row) {
+                array_push($array_arr, $row);
+            }
+            $i++;
         }
-        
-        
+       
         $default_lang = 'en';
 
         if ($this->input->post()) {
@@ -158,7 +161,8 @@ class Site_management extends Base_Controller {
         $this->setData('page_title', "Password Recovery Content");
         $this->setData('title', "MailContent");
         $this->setData('data', $avail_lang);
-        $this->setData('mail_content', $mail_content_detials);
+        $this->setData('key', $array_arr);
+
 
         $this->loadView();
     }
