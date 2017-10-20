@@ -172,13 +172,13 @@ class Helper_model extends CI_Model {
 
     public function getAdminId() {
         $user_id = NULL;
-        $query = $this->db->select('mlm_user_d')
+        $query = $this->db->select('mlm_user_id')
                         ->from('user')
                         ->where('user_type', 'admin')
                         ->limit(1)
-                ->db->get();
+                        ->get();
         foreach ($query->result() as $row) {
-            $user_id = $row->mlm_user_d;
+            $user_id = $row->mlm_user_id;
         }
         return $user_id;
     }

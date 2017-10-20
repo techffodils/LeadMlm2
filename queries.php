@@ -58,7 +58,6 @@
 
 
 
-
-
+//INSERT INTO `lead_soft`.`mlm_menus` (`id`, `name`, `link`, `root_id`, `icon`, `admin_permission`, `user_permission`, `employee_permission`, `order`, `target`, `status`, `lock`) VALUES (NULL, 'Reset', 'reset/clean', '#', 'fa-refresh', '1', '0', '1', '10', NULL, '1', '0');
 
 
