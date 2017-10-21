@@ -97,11 +97,14 @@
                                         <br>
 
                                         {{ form_open('', ' id="bonus_form" name="bonus_form"')|raw }}
-                                        <div class="form-horizontal">                                            
+                                        <div class="form-horizontal">         
+                                            <div class="errorHandler alert alert-danger no-display">
+                                                <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                            </div>
                                             {% if mlm_plan == "BINARY" %} 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Pairing Bonus
+                                                        Pairing Bonus <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="0" type="number" name="pair_bonus" id="pair_bonus" value="{{ pair_bonus }}">
@@ -110,7 +113,7 @@
                                             {% endif %}
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Referal Bonus
+                                                    Referal Bonus <span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" type="number" name="referal_bonus" id="referal_bonus" value="{{ referal_bonus }}">
@@ -143,9 +146,12 @@
                                         <br>
                                         {{ form_open('', ' id="username_form" name="username_form"')|raw }}
                                         <div class="form-horizontal">                                            
+                                            <div class="errorHandler alert alert-danger no-display">
+                                                <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                            </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Username Type
+                                                    Username Type <span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select name="username_type" id="username_type" class="form-control field_type" >
@@ -166,7 +172,7 @@
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Username Size
+                                                    Username Size <span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" min="5" max="15" type="number" name="username_size" id="username_size" value="{{ username_size }}">
@@ -237,10 +243,13 @@
                                             <br>
 
                                             {{ form_open('', ' id="depth_width_form" name="depth_width_form"')|raw }}
-                                            <div class="form-horizontal">   
+                                            <div class="form-horizontal"> 
+                                                <div class="errorHandler alert alert-danger no-display">
+                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Depth
+                                                        Depth <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="1" max="10" type="number" name="matrix_depth" id="matrix_depth" value="{{ matrix_depth }}">
@@ -249,7 +258,7 @@
 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Width
+                                                        Width <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="1" max="10" type="number" name="matrix_width" id="matrix_width" value="{{ matrix_width }}">
@@ -285,10 +294,13 @@
                                             <br>
 
                                             {{ form_open('', ' id="user_position_form" name="user_position_form"')|raw }}
-                                            <div class="form-horizontal">   
+                                            <div class="form-horizontal"> 
+                                                <div class="errorHandler alert alert-danger no-display">
+                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Leg
+                                                        Leg <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <select name="register_leg" id="register_leg" class="form-control field_type" >
