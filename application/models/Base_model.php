@@ -294,7 +294,7 @@ function getUrlId($currenturl)
 	if($variable->num_rows() > 0) {
 
 		if($variable->row()->root_id != '#'){
-			$url_ids = $this->getRootMenus($variable->rows()->root_id,$url_ids);	
+			$url_ids = $this->getRootMenus($variable->row()->root_id,$url_ids);	
 		}
 		array_push($url_ids, $variable->row()->root_id);	
 		array_push($url_ids, $variable->row()->id);
@@ -311,7 +311,7 @@ function getRootMenus($root_id,$url_ids)
 						->get();
 
 	if($variable->num_rows() > 0) {
-		array_push($url_ids, $variable->rows()->root_id);
+		array_push($url_ids, $variable->row()->root_id);
 	}
 	return $url_ids;
 }
