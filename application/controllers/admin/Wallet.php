@@ -66,7 +66,7 @@ class Wallet extends Base_Controller {
 
         $active_tab = '';
         if ($this->session->userdata('active_fund_tab') != null) {
-            $tab1 = $tab2 = $tab3  = '';
+            $tab1 = $tab2 = $tab3 = '';
             $active_tab = $this->session->userdata('active_fund_tab');
         }
 
@@ -110,6 +110,18 @@ class Wallet extends Base_Controller {
         }
         $this->form_validation->set_message('validate_username', 'Please enter a valid Username.');
         return $flag;
+    }
+
+    function get_user_balance() {
+        if ($this->input->get('username')) {
+            $user_id = $this->helper_model->userNameToID($this->input->get('username'));
+            if ($user_id) {
+                $balance = $this->helper_model->getUserBalance($user_id);
+                echo $balance;
+                exit();
+            }
+        }
+        echo '';
     }
 
 }

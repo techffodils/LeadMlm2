@@ -63,7 +63,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" id="user_balance_add_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
                                                 User Balance
                                             </label>
@@ -110,7 +110,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" id="user_balance_ded_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
                                                 User Balance
                                             </label>
@@ -157,12 +157,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" id="from_user_balance_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
                                                 User Balance
                                             </label>
                                             <div class="col-sm-3">
-                                                <input readonly class="form-control" type="text" id="user_balance_from">                                                
+                                                <input readonly class="form-control" type="text" id="from_user_balance">                                                
                                             </div>
                                         </div>
 
@@ -177,12 +177,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" id="to_user_balance_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
                                                 User Balance
                                             </label>
                                             <div class="col-sm-3">
-                                                <input readonly class="form-control" type="text" id="user_balance_to">                                                
+                                                <input readonly class="form-control" type="text" id="to_user_balance">                                                
                                             </div>
                                         </div>
 
@@ -234,6 +234,75 @@
         validate_trans_fund();
     });
 
+    $("#username_add").blur(function () {
+        $.ajax({url: "admin/wallet/get_user_balance",
+            data: {username: $("#username_add").val()},
+            async: false,
+            success: function (msg) {
+                if (msg >= 0) {
+                    $("#user_balance_add_div").show();
+                    $("#user_balance_add").val(msg);
+                } else {
+                    $("#user_balance_add_div").hide();
+                    $("#user_balance_add").val('0');
+                }
+            }
+        });
+    });
+
+
+    $("#username_ded").blur(function () {
+        $.ajax({url: "admin/wallet/get_user_balance",
+            data: {username: $("#username_ded").val()},
+            async: false,
+            success: function (msg) {
+                if (msg >= 0) {
+                    $("#user_balance_ded_div").show();
+                    $("#user_balance_ded").val(msg);
+                } else {
+                    $("#user_balance_ded_div").hide();
+                    $("#user_balance_ded").val('0');
+                }
+            }
+        });
+    });
+
+
+    $("#from_username").blur(function () {
+        $.ajax({url: "admin/wallet/get_user_balance",
+            data: {username: $("#from_username").val()},
+            async: false,
+            success: function (msg) {
+                if (msg >= 0) {
+                    $("#from_user_balance_div").show();
+                    $("#from_user_balance").val(msg);
+                } else {
+                    $("#from_user_balance_div").hide();
+                    $("#from_user_balance").val('0');
+                }
+            }
+        });
+    });
+
+
+    $("#to_username").blur(function () {
+        $.ajax({url: "admin/wallet/get_user_balance",
+            data: {username: $("#to_username").val()},
+            async: false,
+            success: function (msg) {
+                if (msg >= 0) {
+                    $("#to_user_balance_div").show();
+                    $("#to_user_balance").val(msg);
+                } else {
+                    $("#to_user_balance_div").hide();
+                    $("#to_user_balance").val('0');
+                }
+            }
+        });
+    });
+
+
+
     $.validator.addMethod("validUsername1", function () {
         var isSuccess = false;
         $.ajax({url: "register/validate_sponsor",
@@ -273,6 +342,18 @@
         return isSuccess;
     }, "Sorry, Invalid Username");
 
+    $.validator.addMethod("validUsername4", function () {
+        var isSuccess = false;
+        $.ajax({url: "register/validate_sponsor",
+            data: {username: $("#to_username").val()},
+            async: false,
+            success:
+                    function (msg) {
+                        isSuccess = msg === "yes" ? true : false
+                    }
+        });
+        return isSuccess;
+    }, "Sorry, Invalid Username");
 
     var validate_add_fund = function () {
         var form = $('#add_fund_form');
@@ -416,7 +497,7 @@
                     minlength: 3
                 },
                 to_username: {
-                    validUsername: true,
+                    validUsername4: true,
                     required: true,
                     minlength: 3
                 },

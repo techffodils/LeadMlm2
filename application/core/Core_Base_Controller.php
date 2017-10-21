@@ -307,16 +307,16 @@ function setCurrencyDetails() {
 		if($this->session->userdata('mlm_site_info')  != null){
 			$site_info  = $this->session->userdata('mlm_site_info');
 		}else{
-			$site_info  = $this->base_model->getSiteInfo();
+			$site_info  = array();//$this->base_model->getSiteInfo();
 			$this->session->set_userdata('mlm_site_info',$site_info);
 		}
 		
-		$this->setData('COMPANY_NAME', $site_info['company_name']);
-		$this->setData('COMPANY_LOGO', $site_info['company_logo']);
-		$this->setData('COMPANY_FAV_ICON', $site_info['company_fav_icon']);
-		$this->setData('COMPANY_ADDRESS', $site_info['company_address']);
-		$this->setData('COMPANY_EMAIL', $site_info['company_email']);
-		$this->setData('COMPANY_PHONE', $site_info['company_phone']);
+		$this->setData('COMPANY_NAME', "");
+		$this->setData('COMPANY_LOGO', "");
+		$this->setData('COMPANY_FAV_ICON', "");
+		$this->setData('COMPANY_ADDRESS', "");
+		$this->setData('COMPANY_EMAIL', "");
+		$this->setData('COMPANY_PHONE', "");
 
 		return 1;
 	}
