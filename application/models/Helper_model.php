@@ -293,6 +293,19 @@ class Helper_model extends CI_Model {
         }
         return $decode_key;
     }
+    
+    public function getUserBalance($user_id) {
+        $balance_amount = 0;
+        $query = $this->db->select('balance_amount')
+                ->from('user_balance')
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->get();
+        foreach ($query->result() as $row) {
+            $balance_amount = $row->balance_amount;
+        }
+        return $balance_amount;
+    }
 
 }
 
