@@ -311,6 +311,48 @@ class Helper_model extends CI_Model {
         $d = DateTime::createFromFormat('Y-m-d', $date);
         return $d && $d->format('Y-m-d') === $date;
     }
+    
+    
+    public function insertWalletDetails($user_id,$type='credit',$amount='0',$wallet_type){
+        if($amount>0 && ($type=='credit' || $type=='debit') ){
+            $res = $this->db->set('mlm_user_id', $user_id)
+                        ->set('type', $type)
+                        ->set('amount', $amount)
+                        ->set('wallet_type', $wallet_type)
+                        ->set('date', date("Y-m-d H:i:s"))
+                        ->insert('wallet_details');
+            if($res){
+                if($type=='credit'){
+                    $this->addBalance($user_id,$amount);
+                }elseif($type=='debit'){
+                    $this->deductBalance($user_id,$amount);
+                }
+                return TRUE;
+            }
+        }
+        return FALSE;        
+        
+    }
+    
+    public function addBalance($user_id, $amount) {
+        $this->db->set('balance_amount', 'ROUND(balance_amount +' . $amount . ',8)', FALSE);
+        $this->db->set('total_amount', 'ROUND(total_amount +' . $amount . ',8)', FALSE);
+        $this->db->where('mlm_user_id', $user_id);
+        $this->db->limit(1);
+        $res = $this->db->update('user_balance');
+
+        return $res;
+    }
+    
+    public function deductBalance($user_id, $amount) {
+        $this->db->set('balance_amount', 'ROUND(balance_amount -' . $amount . ',8)', FALSE);
+        $this->db->set('released_amount', 'ROUND(released_amount +' . $amount . ',8)', FALSE);
+        $this->db->where('mlm_user_id', $user_id);
+        $this->db->limit(1);
+        $res = $this->db->update('user_balance');
+
+        return $res;
+    }
 
 }
 
