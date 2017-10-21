@@ -28,13 +28,18 @@ class Epin extends Base_Controller {
                 $data = $this->epin_model->getRequestData($request_id);
                 if ($data) {
                     $data['expiry_date'] = $expiry_date;
-                    $res = $this->epin_model->addPinToUser($data);
-                    if ($res) {
-                        $this->epin_model->updateRequestStatus($request_id, 'confirmed');
-                        $this->helper_model->insertActivity($user_id, 'pin_requested_confirmed', $data);
-                        $this->loadPage('Request Confirmed', 'epin/epin_management', TRUE);
-                    } else {
-                        $this->loadPage('Failed To Confirm', 'epin/epin_management', FALSE);
+                    if($this->epin_model->checkUserBalance($data)) {
+                        $res = $this->epin_model->addPinToUser($data);
+                        if ($res) {
+                            $this->helper_model->insertWalletDetails($data['user_id'],'debit',$data['pin_amount']*$data['pin_count'],'pin_purchased');
+                            $this->epin_model->updateRequestStatus($request_id, 'confirmed');
+                            $this->helper_model->insertActivity($user_id, 'pin_requested_confirmed', $data);
+                            $this->loadPage('Request Confirmed', 'epin/epin_management', TRUE);
+                        } else {
+                            $this->loadPage('Failed To Confirm', 'epin/epin_management', FALSE);
+                        }
+                    }else{
+                        $this->loadPage('Insufficient Balance', 'epin/epin_management', FALSE);
                     }
                 } else {
                     $this->loadPage('Invalid Request', 'epin/epin_management', FALSE);
