@@ -56,6 +56,9 @@
 
                                     {{ form_open('', ' id="pin_request" name="pin_request"')|raw }}
                                     <div class="form-horizontal">
+                                        <div class="errorHandler alert alert-danger no-display">
+                                            <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
                                                 Pin Amount
@@ -202,7 +205,7 @@
 
 <script>
     jQuery(document).ready(function () {
-        validate_add_request();        
+        validate_add_request();
     });
     var validate_add_request = function () {
         var form = $('#pin_request');
@@ -217,12 +220,12 @@
                 } else if (element.hasClass("ckeditor")) {
                     error.appendTo($(element).closest('.form-group'));
                 } else {
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());                    
+                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
                 }
             },
             ignore: ':hidden',
             rules: {
-                 pin_amount: {
+                pin_amount: {
                     required: true,
                     number: true,
                     min: 1
@@ -233,7 +236,6 @@
                 },
             },
             messages: {
-                
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
                 successHandler2.hide();
@@ -256,11 +258,11 @@
             submitHandler: function (form) {
                 successHandler2.show();
                 errorHandler2.hide();
-                
+
                 form.submit();
 
             }
         });
     };
-    
-    <script>
+
+    < script >
