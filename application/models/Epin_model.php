@@ -84,6 +84,7 @@ class Epin_model extends CI_Model {
         $data['inactive'] =$data['active']= array();
         $res = $this->db->select("mlm_user_id,pin_number,allocate_amount,balance_amount,allocate_date,expiry_date,status,used_by,used_for")
                 ->from("pin_numbers")
+                ->where('mlm_user_id !=',0)
                 ->get();
         $i =$j= 0;
         foreach ($res->result() as $row) {

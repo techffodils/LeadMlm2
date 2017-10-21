@@ -306,6 +306,11 @@ class Helper_model extends CI_Model {
         }
         return $balance_amount;
     }
+    
+    function validateDate($date) {
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        return $d && $d->format('Y-m-d') === $date;
+    }
 
 }
 

@@ -155,7 +155,7 @@ class Reset_model extends CI_Model {
         $res = $this->db->select("*")
                 ->from("user_details")
                 ->where("mlm_user_id", $user_id)
-                ->limit(1);
+                ->limit(1)
                 ->get();
         foreach ($res->result_array() as $row) {
             $data[] = $row;
