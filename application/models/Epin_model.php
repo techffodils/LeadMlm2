@@ -111,4 +111,14 @@ class Epin_model extends CI_Model {
         return $data;
     }
     
+    public function checkUserBalance($data){
+        $amount_needed=$data['pin_amount']*$data['pin_count'];
+        $user_balance=$this->helper_model->getUserBalance($data['user_id']);
+        if($user_balance>=$amount_needed){
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+    
 }
