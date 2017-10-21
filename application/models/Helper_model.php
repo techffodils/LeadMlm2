@@ -351,6 +351,19 @@ class Helper_model extends CI_Model {
 
         return $res;
     }
+    
+    
+    public function getTransactionPassword($user_id) {
+        $tran_password = NULL;
+        $query = $this->db->select('tran_password')
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->get('user');
+        foreach ($query->result() as $row) {
+            $tran_password = $row->tran_password;
+        }
+        return $tran_password;
+    }
 
 }
 
