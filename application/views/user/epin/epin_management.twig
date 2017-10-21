@@ -54,7 +54,7 @@
                             <div class="tab-content">
                                 <div id="epin_tab1" class="tab-pane fade in active">
 
-                                    {{ form_open('', ' id="pin_request" name="pin_request"')|raw }}
+                                    {{ form_open('', ' id="pin_request_form" name="pin_request_form"')|raw }}
                                     <div class="form-horizontal">
                                         <div class="errorHandler alert alert-danger no-display">
                                             <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
@@ -207,8 +207,8 @@
     jQuery(document).ready(function () {
         validate_add_request();
     });
-    var validate_add_request = function () {
-        var form = $('#pin_request');
+    var validate_add_request = function () {       
+        var form = $('#pin_request_form');
         var errorHandler2 = $('.errorHandler', form);
         var successHandler2 = $('.successHandler', form);
         form.validate({
@@ -265,4 +265,4 @@
         });
     };
 
-    < script >
+</script>
