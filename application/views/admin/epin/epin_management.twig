@@ -57,7 +57,10 @@
                                 <div id="epin_tab1" class="tab-pane fade in {{tab1}}">
 
                                     {{ form_open('', ' id="allocate_pin" name="allocate_pin"')|raw }}
-                                    <div class="form-horizontal">                                            
+                                    <div class="form-horizontal">  
+                                        <div class="errorHandler alert alert-danger no-display">
+                                            <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
                                                 Username
