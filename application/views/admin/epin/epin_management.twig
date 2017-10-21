@@ -254,10 +254,23 @@
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script>
     jQuery(document).ready(function () {
-        validate_add_pin();        
+        validate_add_pin();
     });
 
-var validate_add_pin = function () {
+    $.validator.addMethod("validUsername", function () {
+        var isSuccess = false;
+        $.ajax({url: "register/validate_sponsor",
+            data: {username: $("#username").val()},
+            async: false,
+            success:
+                    function (msg) {
+                        isSuccess = msg === "yes" ? true : false
+                    }
+        });
+        return isSuccess;
+    }, "Sorry, Invalid Username");
+
+    var validate_add_pin = function () {
         var form = $('#allocate_pin');
         var errorHandler2 = $('.errorHandler', form);
         var successHandler2 = $('.successHandler', form);
@@ -270,12 +283,13 @@ var validate_add_pin = function () {
                 } else if (element.hasClass("ckeditor")) {
                     error.appendTo($(element).closest('.form-group'));
                 } else {
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());                    
+                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
                 }
             },
             ignore: ':hidden',
             rules: {
                 username: {
+                    validUsername: true,
                     required: true,
                     minlength: 3
                 },
@@ -294,7 +308,6 @@ var validate_add_pin = function () {
                 }
             },
             messages: {
-                
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
                 successHandler2.hide();
@@ -317,13 +330,13 @@ var validate_add_pin = function () {
             submitHandler: function (form) {
                 successHandler2.show();
                 errorHandler2.hide();
-                
+
                 form.submit();
 
             }
         });
     };
-    
+
     function cancel_request(id) {
         var are_you_sure = 'Are you sure?';
         var text = "There is no Undo";
