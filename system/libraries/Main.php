@@ -36,6 +36,7 @@ class CI_Main {
 	function __construct()
 	{
 		$this->ci =& get_instance();
+		$this->load_model();
 
 	}
 
@@ -74,13 +75,6 @@ class CI_Main {
 
 	}
 
-	function load_model(){
-		if (!in_array($this->ci->router->class , NO_MODEL_CLASS_PAGES)) {
-			$load_model = $this->ci->router->class . "_model";
-			$this->ci->load->model($load_model, '', TRUE);
-		}
-	}
-
 	function get_usersession($key){
 		$this->mlm_session =  $this->ci->session->userdata('mlm_logged_arr');
 		return (isset($this->mlm_session[$key]) ? $this->mlm_session[$key] : null);
@@ -98,6 +92,20 @@ class CI_Main {
 	function set_flashdata($key, $value){
 		$this->ci->session->set_flashdata($key, $value);
 	}
+
+
+	// auto loada methods -- DHC
+
+	function load_model(){
+		if (!in_array($this->ci->router->class , NO_MODEL_CLASS_PAGES)) {
+			$load_model = $this->ci->router->class . "_model";
+			$this->ci->load->model($load_model, '', TRUE);
+		}
+	}
+
+
+	
+
 }
 
 ?>

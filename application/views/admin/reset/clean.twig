@@ -1,0 +1,115 @@
+{% include('admin/layout/header.twig')%}
+
+<div id="js_messages" style="display: none;"> 
+    <span id="are_you_sure"> Are you sure?</span>
+    <span id="all_data_will_be_lost"> All data will be lost, There is no Undo</span>
+    <span id="clean_it"> Yes, Clean it!</span>
+    <span id="no_cancel">No, Cancel pls!</span>
+    <span id="success"> Success!</span>
+    <span id="success_msg">Resetted Successfully</span>
+    <span id="failed">Failed!</span>
+    <span id="failed_msg">Resetted Failed</span>
+    <span id="canceled"> Cancelled</span>
+    <span id="cancel_msg"> Reset Canceled :)</span>
+
+
+    <input type="hidden" id="path_root" name="path_root" value="{$PATH_TO_ROOT_DOMAIN}">
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">Reset Your System <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                <div class="alert alert-block alert-warning fade in">
+                    <button data-dismiss="alert" class="close" type="button">
+                        ×
+                    </button>
+                    <h4 class="alert-heading"><i class="fa fa-exclamation"></i> Warning!</h4>
+                    <p>
+                        Click The Clean button For Wipe Out Your Entire System, 
+                        There is no Undo. This Option Only Available Before the System is Live :) .
+                    </p>
+                    <p>
+
+                        <button type="" class="btn btn-yellow" name="wipe_data" id="wipe_data">
+                            Clean <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>                                    
+</div>
+{% include('admin/layout/footer.twig')%}
+<link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+<script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+<script>
+
+    $("#wipe_data").click(function () {
+        var are_you_sure = $('#are_you_sure').html();
+        var all_data_will_be_lost = $('#all_data_will_be_lost').html();
+        var clean_it = $('#clean_it').html();
+        var no_cancel = $('#no_cancel').html();
+        var success = $('#success').html();
+        var success_msg = $('#success_msg').html();
+        var failed = $('#failed').html();
+        var failed_msg = $('#failed_msg').html();
+        var canceled = $('#canceled').html();
+        var cancel_msg = $('#cancel_msg').html();
+        
+        swal({
+            title: are_you_sure,
+            text: all_data_will_be_lost,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: clean_it,
+            cancelButtonText: no_cancel,
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: "admin/reset/wipe",
+                    data: {wipe_status: 1},
+                    success: function (result) {
+                        if (result == "yes") {
+                            swal(success, success_msg, "success");
+                        } else {
+                            swal(failed, failed_msg, "error");
+                        }
+                    }
+                });
+
+            } else {
+                swal(canceled, cancel_msg, "error");
+            }
+        });
+
+        e.preventDefault();
+    });
+
+</script>
+

@@ -39,6 +39,7 @@ class Product_model extends CI_Model {
         $res = $this->db->select("id,status,product_name,images,product_amount,product_pv,product_code,recurring_type,product_type")
                 ->from("products")
                 ->where('id', $prod_id)
+                ->limit(1)
                 ->get();
         foreach ($res->result() as $row) {
             $data['id'] = $row->id;

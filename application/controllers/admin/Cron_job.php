@@ -36,25 +36,4 @@ class Cron_Job extends Base_Controller {
         }
     }
 
-    function dbvars() {
-        $this->dbvars->ADMIN_THEME_FOLDER='';
-        $this->dbvars->TABLE_PREFIX='mlm_';
-        
-        $this->dbvars->BACKUP_TYPE = 'zip'; //zip,sql
-        $this->dbvars->BACKUP_DELETION_PERIOD = '30';
-        $this->dbvars->MLM_PLAN = 'BINARY'; //MATRIX,UNILEVEL,DONATION,INVESTMENT,MONOLINE,GENERATION
-        $this->dbvars->USERNAME_TYPE = 'static'; //dynamic
-        $this->dbvars->USERNAME_PREFIX = 'lead';
-        $this->dbvars->REGISTER_FORM_TYPE = 'multiple';
-        $this->dbvars->REGISTER_FIELD_CONFIGURATION = 'active';
-        $this->dbvars->PAIR_BONUS = 10;
-        $this->dbvars->REFEAL_BONUS = 25;
-        $this->dbvars->MATRIX_WIDTH = 3;
-        $this->dbvars->MATRIX_DEPTH = 3;
-        $this->dbvars->REGISTER_LEG = 'dynamic'; //balanced,left,right
-        $this->dbvars->MULTI_CURRENCY_STATUS = 'active'; //inactive
-        
-        
-    }
-
 }

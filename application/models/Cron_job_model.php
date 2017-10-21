@@ -112,29 +112,6 @@ class Cron_job_model extends CI_Model {
                         ->update('currencies');
     }
 
-//    public function UpdateCurrencyRates($default_currency) {
-////http://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html#dev
-//        $this->resetAllConversionStatus($default_currency);
-//        
-//        $XMLContent = file("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
-//
-//        foreach ($XMLContent as $line) {
-//            if (preg_match("/currency='([[:alpha:]]+)'/", $line, $currencyCode)) {
-//                if (preg_match("/rate='([[:graph:]]+)'/", $line, $rate)) {
-//                    echo'1&euro;=' . $rate[1] . ' ' . $currencyCode[1] . '<br/>';
-//                    $this->db->set('conversion_status ', "yes")
-//                            ->set('currency_ratio ', $rate[1])
-//                            ->where('currency_code', $currencyCode[1])
-//                            ->update('currencies');
-//                }
-//            }
-//        }
-////https://currencylayer.com/documentation
-////https://1forge.com/account/my-services
-////https://forex.1forge.com/1.0.1/convert?from=USD&to=EUR&quantity=1&api_key=qheLAUnWBrKiFFrL8IkpIqFWWJm7HARR    
-// 
-//        
-//    }
 
 }
 

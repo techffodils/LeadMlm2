@@ -9,44 +9,38 @@ class Product extends Base_Controller {
         $product = array();
         if ($this->session->userdata('product_post_data') != null)
             $product = $this->session->userdata('product_post_data');
-        if ($this->input->post('add_product')) {
+        if ($this->input->post('add_product') && $this->validate_add_product()) {
             $post = $this->input->post();
-            if ($this->validate_add_product()) {
+            $config['upload_path'] = FCPATH . 'assets/images/products/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 10000;
+            $config['max_width'] = 2048;
+            $config['max_height'] = 2048;
+            $this->load->library('upload', $config);
 
-                $config['upload_path'] = FCPATH . 'assets/images/products/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = 10000;
-                $config['max_width'] = 2048;
-                $config['max_height'] = 2048;
-                $this->load->library('upload', $config);
+            $upload_data = array();
 
-                $upload_data=array();
-                
-                $files = $_FILES;
-                $cpt = count($_FILES['images']['name']);
-                for ($i = 0; $i < $cpt; $i++) {
-                    $_FILES['userfile']['name'] = $files['images']['name'][$i];
-                    $_FILES['userfile']['type'] = $files['images']['type'][$i];
-                    $_FILES['userfile']['tmp_name'] = $files['images']['tmp_name'][$i];
-                    $_FILES['userfile']['error'] = $files['images']['error'][$i];
-                    $_FILES['userfile']['size'] = $files['images']['size'][$i];
+            $files = $_FILES;
+            $cpt = count($_FILES['images']['name']);
+            for ($i = 0; $i < $cpt; $i++) {
+                $_FILES['userfile']['name'] = $files['images']['name'][$i];
+                $_FILES['userfile']['type'] = $files['images']['type'][$i];
+                $_FILES['userfile']['tmp_name'] = $files['images']['tmp_name'][$i];
+                $_FILES['userfile']['error'] = $files['images']['error'][$i];
+                $_FILES['userfile']['size'] = $files['images']['size'][$i];
 
-                    $this->upload->initialize($config);
-                    if ($this->upload->do_upload()) {
-                        $upload_data[] =$this->upload->data();
-                    } 
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload()) {
+                    $upload_data[] = $this->upload->data();
                 }
-                $res = $this->product_model->addProduct($post, $upload_data);
-                if ($res) {
-                    $this->session->unset_userdata('product_post_data');
-                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_added', $post);
-                    $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
-                } else {
-                    $this->loadPage('Failed To Add', 'product/product_management', False);
-                }
+            }
+            $res = $this->product_model->addProduct($post, $upload_data);
+            if ($res) {
+                $this->session->unset_userdata('product_post_data');
+                $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_added', $post);
+                $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
             } else {
-                $this->session->set_userdata('product_post_data', $post);
-                $this->loadPage('Validation Error', 'product/product_management', False);
+                $this->loadPage('Failed To Add', 'product/product_management', False);
             }
         }
 
@@ -91,59 +85,54 @@ class Product extends Base_Controller {
             $this->loadPage('Product Update Canceled', 'product/product_management', TRUE);
         }
 
-        if ($this->input->post('update_product')) {
+        if ($this->input->post('update_product') && $this->validate_add_product()) {
             $post = $this->input->post();
-            if ($this->validate_add_product()) {
-                $config['upload_path'] = FCPATH . 'assets/images/products/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = 10000;
-                $config['max_width'] = 2048;
-                $config['max_height'] = 2048;
-                $this->load->library('upload', $config);
+            $config['upload_path'] = FCPATH . 'assets/images/products/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 10000;
+            $config['max_width'] = 2048;
+            $config['max_height'] = 2048;
+            $this->load->library('upload', $config);
 
-                $edited_id=$post['edited_id'];
-                $existing_files=$this->product_model->getAllExistingfiles($edited_id);
-                $upload_data=array();
-                $ef_count=0;
-                foreach ($existing_files as $ef){
-                    if(!$post['product_delete_status_'.$ef['id']]){
-                        $upload_data[$ef_count]=$ef;
-                        $ef_count++;
-                    }
-                }                
-                
-                $files = $_FILES;
-                $cpt = count($_FILES['images']['name']);
-                for ($i = 0; $i < $cpt; $i++) {
-                    $_FILES['userfile']['name'] = $files['images']['name'][$i];
-                    $_FILES['userfile']['type'] = $files['images']['type'][$i];
-                    $_FILES['userfile']['tmp_name'] = $files['images']['tmp_name'][$i];
-                    $_FILES['userfile']['error'] = $files['images']['error'][$i];
-                    $_FILES['userfile']['size'] = $files['images']['size'][$i];
+            $edited_id = $post['edited_id'];
+            $existing_files = $this->product_model->getAllExistingfiles($edited_id);
+            $upload_data = array();
+            $ef_count = 0;
+            foreach ($existing_files as $ef) {
+                if (!$post['product_delete_status_' . $ef['id']]) {
+                    $upload_data[$ef_count] = $ef;
+                    $ef_count++;
+                }
+            }
 
-                    $this->upload->initialize($config);
-                    if ($this->upload->do_upload()) {
-                        $upload_data[$ef_count] =$this->upload->data();
-                        $ef_count++;
-                    } 
+            $files = $_FILES;
+            $cpt = count($_FILES['images']['name']);
+            for ($i = 0; $i < $cpt; $i++) {
+                $_FILES['userfile']['name'] = $files['images']['name'][$i];
+                $_FILES['userfile']['type'] = $files['images']['type'][$i];
+                $_FILES['userfile']['tmp_name'] = $files['images']['tmp_name'][$i];
+                $_FILES['userfile']['error'] = $files['images']['error'][$i];
+                $_FILES['userfile']['size'] = $files['images']['size'][$i];
+
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload()) {
+                    $upload_data[$ef_count] = $this->upload->data();
+                    $ef_count++;
                 }
-                
-                $res = $this->product_model->updateProduct($post,$upload_data);
-                if ($res) {
-                    $this->session->unset_userdata('product_post_data');
-                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_updated', $post);
-                    $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
-                } else {
-                    $this->loadPage('Failed To Add', 'product/product_management', False);
-                }
+            }
+
+            $res = $this->product_model->updateProduct($post, $upload_data);
+            if ($res) {
+                $this->session->unset_userdata('product_post_data');
+                $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_updated', $post);
+                $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
             } else {
-                $this->session->set_userdata('product_post_data', $post);
-                $this->loadPage('Validation Error', 'product/product_management', False);
+                $this->loadPage('Failed To Add', 'product/product_management', False);
             }
         }
 
         $all_products = $this->product_model->getAllProducts();
-
+        $this->setData('error', $this->form_validation->error_array());
         $this->setData('product_id', $product_id);
         $this->setData('edit_flag', $edit_flag);
         $this->setData('product', $product);
@@ -152,6 +141,7 @@ class Product extends Base_Controller {
     }
 
     function validate_add_product() {
+        $this->session->set_userdata('product_post_data', $this->input->post());
         $this->form_validation->set_rules('product_name', 'product_name', 'required');
         $this->form_validation->set_rules('product_amount', 'product_amount', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('product_pv', 'product_pv', 'required|numeric|greater_than[0]');

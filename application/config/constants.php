@@ -93,7 +93,7 @@ defined('DB_PREFIX_SYSTEM')        OR define('DB_PREFIX_SYSTEM', 'mlm_'); //TABL
 
 defined('BASE_PATH')        OR define('BASE_PATH',($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://".$_SERVER['SERVER_NAME'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME'])); //BASE URL
 
-defined('NO_LOGIN_PAGES')        OR define('NO_LOGIN_PAGES', array("login", 'auth',"captcha", "backup", "time", "cron", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites")); //PAGES THAT DOESN'T NEED LOGGED IN SESSION
+defined('NO_LOGIN_PAGES')        OR define('NO_LOGIN_PAGES', array("login","register", 'auth',"captcha", "backup", "time", "cron", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites")); //PAGES THAT DOESN'T NEED LOGGED IN SESSION
 defined('NO_TRANSLATION_PAGES')        OR define('NO_TRANSLATION_PAGES',array("auto_register", "captcha", "time", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites", "cron")); //PAGES THAT DOESN'T NEED TRANSLATION FILE
 defined('NO_MODEL_CLASS_PAGES')        OR define('NO_MODEL_CLASS_PAGES',array("auto_register", "time", "test_mail")); //PAGES THAT DOESN'T NEED MODEL CLASS
 defined('DEFAULT_MODEL_CLASS_PAGES')        OR define('DEFAULT_MODEL_CLASS_PAGES',array("helper_model")); //FOR LOADING DEFAULT MODELS

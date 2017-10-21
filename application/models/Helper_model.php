@@ -8,6 +8,9 @@ class Helper_model extends CI_Model {
 
 
     public function insertActivity($user_id, $activity, $data = array()) {
+        if(!$user_id){
+            return FALSE;
+        }
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
                         ->set('ip_address', $this->getUserIP())
@@ -56,9 +59,9 @@ class Helper_model extends CI_Model {
     public function getUserFullName($user_id) {
         $user_full_name = 'NA';
         $query = $this->db->select('first_name,last_name ')
-                ->from('user_details')
-                ->where('mlm_user_d ', "$user_id")
-                ->get();
+                ->where('mlm_user_d ', $user_id)
+                ->limit(1)
+                ->get('user_details');
         foreach ($query->result() as $val) {
             $user_full_name = $val->first_name . " " . $val->last_name;
         }
@@ -74,10 +77,9 @@ class Helper_model extends CI_Model {
     public function userNameToID($username) {
         $user_id = 0;
         $query = $this->db->select('mlm_user_id')
-                ->from('user')
                 ->where("(user_name = '$username' OR email = '$username') ")
                 ->limit(1)
-                ->get();
+                ->get('user');
         foreach ($query->result() as $row) {
             $user_id = $row->mlm_user_id;
         }
@@ -87,10 +89,9 @@ class Helper_model extends CI_Model {
     public function IdToUserName($user_id) {
         $user_name = NULL;
         $query = $this->db->select('user_name')
-                ->from('user')
                 ->where('mlm_user_id', $user_id)
                 ->limit(1)
-                ->get();
+                ->get('user');
         foreach ($query->result() as $row) {
             $user_name = $row->user_name;
         }
@@ -100,10 +101,9 @@ class Helper_model extends CI_Model {
     public function getFatherId($user_id) {
         $father_id = NULL;
         $query = $this->db->select('father_id')
-                ->from('user')
                 ->where('mlm_user_id', $user_id)
                 ->limit(1)
-                ->get();
+                ->get('user');
         foreach ($query->result() as $row) {
             $father_id = $row->father_id;
         }
@@ -113,10 +113,9 @@ class Helper_model extends CI_Model {
     public function getSponsorId($user_id) {
         $sponsor_id = NULL;
         $query = $this->db->select('sponsor_id')
-                ->from('user')
                 ->where('mlm_user_id', $user_id)
                 ->limit(1)
-                ->get();
+                ->get('user');
 
         foreach ($query->result() as $row) {
             $sponsor_id = $row->sponsor_id;
@@ -127,14 +126,25 @@ class Helper_model extends CI_Model {
     public function getUserEmailId($user_id) {
         $email_id = NULL;
         $query = $this->db->select("email")
-                        ->from("user")
                         ->where("mlm_user_id", $user_id)
                         ->limit(1)
-                ->db->get();
+                        ->get("user");
         foreach ($query->result() as $row) {
             $email_id = $row->email;
         }
         return $email_id;
+    }
+    
+    public function getUserIdFromEmailId($email) {
+        $user_id = NULL;
+        $query = $this->db->select("mlm_user_id")
+                        ->where("email", $email)
+                        ->limit(1)
+                        ->get("user");
+        foreach ($query->result() as $row) {
+            $user_id = $row->mlm_user_id;
+        }
+        return $user_id;
     }
 
     public function isUserAvailable($user_id) {
@@ -159,13 +169,12 @@ class Helper_model extends CI_Model {
 
     public function getAdminId() {
         $user_id = NULL;
-        $query = $this->db->select('mlm_user_d')
-                        ->from('user')
+        $query = $this->db->select('mlm_user_id')
                         ->where('user_type', 'admin')
                         ->limit(1)
-                ->db->get();
+                        ->get('user');
         foreach ($query->result() as $row) {
-            $user_id = $row->mlm_user_d;
+            $user_id = $row->mlm_user_id;
         }
         return $user_id;
     }
@@ -173,9 +182,8 @@ class Helper_model extends CI_Model {
     public function getAdminUsername() {
         $user_name = NULL;
         $query = $this->db->select('user_name')
-                ->from('user')
                 ->where('user_type', "admin")
-                ->get();
+                ->from('user');
         foreach ($query->result() as $row) {
             $user_name = $row->user_name;
         }
@@ -185,10 +193,9 @@ class Helper_model extends CI_Model {
     public function getAdminPassword() {
         $password = NULL;
         $query = $this->db->select("password")
-                ->from("user")
                 ->where("user_type", 'admin')
                 ->limit(1)
-                ->get();
+                ->get("user");
         foreach ($query->result() as $row) {
             $password = $row->password;
         }
@@ -198,10 +205,9 @@ class Helper_model extends CI_Model {
     public function getUserPassword($user_id) {
         $password = NULL;
         $query = $this->db->select("password")
-                ->from("user")
                 ->where("mlm_user_id", $user_id)
                 ->limit(1)
-                ->get();
+                ->get("user");
         foreach ($query->result() as $row) {
             $password = $row->password;
         }
@@ -211,11 +217,10 @@ class Helper_model extends CI_Model {
     public function getUserLoginStatus($user_id, $password) {
         $user_status = 'NA';
         $query = $this->db->select("user_status")
-                ->from("user")
                 ->where("mlm_user_id", $user_id)
                 ->where("password ", $password)
                 ->limit(1)
-                ->get();
+                ->get("user");
         foreach ($query->result() as $row) {
             $user_status = $row->user_status;
         }
@@ -225,9 +230,9 @@ class Helper_model extends CI_Model {
     public function getJoiningDate($user_id) {
         $date_of_joining = NULL;
         $query = $this->db->select("date")
-                ->from("user")
                 ->where("mlm_user_d", $user_id)
-                ->get();
+                ->limit(1)
+                ->get("user");
         foreach ($query->result() as $row) {
             $date_of_joining = $row->date;
         }
@@ -237,10 +242,9 @@ class Helper_model extends CI_Model {
     public function getUserRank($user_id) {
         $rank = NULL;
         $query = $this->db->select('user_rank_id')
-                ->from("user")
                 ->where("mlm_user_d", $user_id)
                 ->limit(1)
-                ->get();
+                ->get("user");
         foreach ($query->result() as $row) {
             $rank = $row->user_rank_id;
         }
@@ -250,9 +254,9 @@ class Helper_model extends CI_Model {
     public function getReferalCount($sponsor_id) {
         $count = NULL;
         $query = $this->db->select("COUNT(*) AS cnt")
-                ->from("user")
                 ->where('sponsor_id', $sponsor_id)
-                ->get();
+                 ->limit(1)
+                ->get("user");
         foreach ($query->result() as $row) {
             $count = $row->cnt;
         }
@@ -262,8 +266,9 @@ class Helper_model extends CI_Model {
     public function getUserType($user_id) {
         $user_type = "";
         $query = $this->db->select('user_type')
-                ->from("user")
-                ->where("mlm_user_d", $user_id);
+                ->where("mlm_user_d", $user_id)
+                ->limit(1)
+                ->from("user");
         foreach ($query->result_array() as $row) {
             $user_type = $row['user_type'];
         }
