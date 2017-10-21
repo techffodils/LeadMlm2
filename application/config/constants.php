@@ -101,7 +101,7 @@ defined('DIR_CONFIG')        OR define('DIR_CONFIG', 'C:/xampp/htdocs/WC/soft/sy
 //echo BASE_URL;die;
 defined('PUBLIC_PATH')        OR define('PUBLIC_PATH', BASE_PATH . 'view_loader'); //PUBLIC_PATH
 defined('COMMON_PAGES')        OR define('COMMON_PAGES', array("login",'auth', "register", "Register", "auto_register", "captcha", "time", "social_invites", "crm", "repurchase", "company_register")); //PUBLIC_PATH
-defined('NO_LANGUAGE_PAGES')        OR define('NO_LANGUAGE_PAGES', array('login')); //PUBLIC_PATH
+defined('NO_LANGUAGE_PAGES')        OR define('NO_LANGUAGE_PAGES', array('login','register')); //PUBLIC_PATH
 /*
 | Custom Public Variables
 */
