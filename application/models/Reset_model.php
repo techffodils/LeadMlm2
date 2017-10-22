@@ -107,13 +107,22 @@ class Reset_model extends CI_Model {
         //Resett All Config Variables
         $this->dbvars->MLM_PLAN = 'BINARY'; //MATRIX,UNILEVEL,DONATION,INVESTMENT,MONOLINE,GENERATION
         $this->dbvars->MAINTENANCE_MODE = 0;
-        $this->dbvars->DEFAULT_CURRENCY_CODE = 'usd';
-        $this->dbvars->DEFAULT_LANGUAGE_CODE = 'en';
+        $this->dbvars->DEFAULT_CURRENCY_CODE = 'USD';
+        $this->dbvars->DEFAULT_CURRENCY_ICON = 'fa-usd';
+        $this->dbvars->DEFAULT_CURRENCY_NAME = 'Doller';
+        $this->dbvars->DEFAULT_CURRENCY_VALUE = 1;
+        $this->dbvars->DEFAULT_SYMBOL_LEFT = '$';
+        $this->dbvars->DEFAULT_SYMBOL_RIGHT = '';
 
-        $this->dbvars->ADMIN_THEME_FOLDER = 'asset';
+        $this->dbvars->LANG_FLAG = 'IN.png';
+        $this->dbvars->LANG_ID= 1;
+        $this->dbvars->LANG_NAME = 'English';
+        $this->dbvars->LANG_COD 'en';
+
         $this->dbvars->TABLE_PREFIX = 'mlm_';
-        $this->dbvars->MULTI_CURRENCY_STATUS = '1'; //0
-        $this->dbvars->MULTI_LANGUAGE_STATUS = '1'; //0
+
+        $this->dbvars->MULTI_CURRENCY_STATUS = 1; //0
+        $this->dbvars->MULTI_LANGUAGE_STATUS = 1; //0
         //Backup
         $this->dbvars->BACKUP_TYPE = 'zip'; //zip,sql
         $this->dbvars->BACKUP_DELETION_PERIOD = '30';
@@ -132,7 +141,14 @@ class Reset_model extends CI_Model {
         $this->dbvars->MATRIX_WIDTH = 3;
         $this->dbvars->MATRIX_DEPTH = 3;
 
-        return TRUE;
+        $this->dbvars->ADMIN_USER_ID = $this->helper_model->getAdminId();
+        $this->dbvars->ADMIN_USER_ID = 'admin';
+
+        $this->dbvars->BLOCK_LOGIN =0;
+        $this->dbvars->BLOCK_REGISTER =0;
+        $this->dbvars->MAINTENANCE_MODE =0;
+
+        return 1;
     }
 
     function getAdminDetails() {

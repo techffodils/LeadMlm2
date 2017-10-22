@@ -29,11 +29,11 @@ class Base_model extends CI_Model {
 		$menu_array = array();
 		$i=0;
 		$res = $this->db->select("id, name, link, icon, order, lock, target")
-						->where("status",1)
-						->where("root_id",'#')
-						->where($user_type.'_permission',1)
-						->order_by("order")
-						->get("menus");
+		->where("status",1)
+		->where("root_id",'#')
+		->where($user_type.'_permission',1)
+		->order_by("order")
+		->get("menus");
 
 		foreach ($res->result_array() as $row) {
 			
@@ -65,8 +65,6 @@ class Base_model extends CI_Model {
 		->where($user_type.'_permission',1)
 		->order_by("order")
 		->get("menus");
-
-
 
 
 		foreach ($res->result_array() as $row) {
@@ -119,9 +117,9 @@ class Base_model extends CI_Model {
 
 		$script_array = array();
 		$query = $this->db->select("id")
-						->where("link",$currenturl)
-						->limit(1)
-						->get("menus");
+		->where("link",$currenturl)
+		->limit(1)
+		->get("menus");
 		
 		if($query->num_rows() >0 ){
 			$script_array = $this->script_model->loadScript($query->row()->id);
@@ -135,10 +133,10 @@ class Base_model extends CI_Model {
 	public function getAdminUserId(){
 
 		$query = $this->db->select("id")
-						->where("user_type",'admin')
-						->limit(1)
-						->get("user");
-						
+		->where("user_type",'admin')
+		->limit(1)
+		->get("user");
+
 		return $query->row()->id;
 
 	}
@@ -146,13 +144,12 @@ class Base_model extends CI_Model {
 	public function getCurrencyDetails($user_id){
 		$data = array();
 		$query = $this->db->select("cu.currency_ratio,cu.currency_name,cu.currency_code,cu.symbol_left,cu.symbol_right,cu.icon")
-						->from("user as us")
-						->join("currencies as cu",'cu.id = us.currency','inner')
-						->where("us.mlm_user_id",$user_id)
-						->limit(1)
-						->get();
+		->from("user as us")
+		->join("currencies as cu",'cu.id = us.currency','inner')
+		->where("us.mlm_user_id",$user_id)
+		->limit(1)
+		->get();
 
-		//echo $query->db->last_query();die();
 		foreach ($query->result_array() as $row) {
 			$data = $row;
 		}
@@ -163,11 +160,11 @@ class Base_model extends CI_Model {
 	public function getLanguageDetails($user_id){
 		$data = array();
 		$query = $this->db->select("la.lang_name,la.lang_eng_name,la.lang_code,la.lang_flag")
-							->from("user as us")
-							->join("languages as la",'la.id = us.language','inner')
-							->where("us.mlm_user_id",$user_id)
-							->limit(1)
-							->get();
+		->from("user as us")
+		->join("languages as la",'la.id = us.language','inner')
+		->where("us.mlm_user_id",$user_id)
+		->limit(1)
+		->get();
 
 		foreach ($query->result_array() as $row) {
 			$data = $row;
@@ -240,11 +237,11 @@ class Base_model extends CI_Model {
 
 	function getBreadCrubms($user_type){
 		$menu=$this->db->select("id, name,link, icon, order,lock,target,root_id")
-						->where("status",1)
-						->where("root_id",'#')
-						->where($user_type.'_permission',1)
-						->order_by("order")
-						->get("menus");
+		->where("status",1)
+		->where("root_id",'#')
+		->where($user_type.'_permission',1)
+		->order_by("order")
+		->get("menus");
 
 		$pages=array();
 		$i=$current_path=0;
@@ -286,10 +283,10 @@ function getUrlId($currenturl)
 {
 	$url_ids = array();
 	$variable = $this->db->select('id,root_id')
-						->where('link',$currenturl)
-						->from('menus')
-						->limit('1')
-						->get();
+	->where('link',$currenturl)
+	->from('menus')
+	->limit('1')
+	->get();
 
 	if($variable->num_rows() > 0) {
 
@@ -305,10 +302,10 @@ function getUrlId($currenturl)
 function getRootMenus($root_id,$url_ids)
 {
 	$variable = $this->db->select('root_id')
-						->where('id',$root_id)
-						->from('menus')
-						->limit('1')
-						->get();
+	->where('id',$root_id)
+	->from('menus')
+	->limit('1')
+	->get();
 
 	if($variable->num_rows() > 0) {
 		array_push($url_ids, $variable->rows()->root_id);
@@ -328,6 +325,51 @@ function getSubTitle($root_id)
 
 }
 
+
+function getSiteInfo()
+{
+	$data = array();
+	$query = $this->db->select('*')
+					  ->get('site_info');
+		
+	foreach ($query->result_array() as $row) {
+		$data =  $row;
+	}
+	return $data;
+}
+
+function checkMenuPermitted($user_type,$currenturl)
+{
+
+	$status = false;
+	$res = $this->db->select('status')
+					->where('link',$currenturl)
+					->where($user_type.'_permission',1)
+					->get('menus');
+
+	if($res->num_rows() > 0){
+		 $status = $res->row()->status;
+	}
+
+	return $status;
+}
+
+
+function checkMenuLocked($user_type,$currenturl)
+{
+
+	$lock = false;
+	$res = $this->db->select('lock')
+					->where('link',$currenturl)
+					->where($user_type.'_permission',1)
+					->get('menus');
+
+	if($res->num_rows() > 0){
+		 $lock = $res->row()->lock;
+	}
+
+	return $lock;
+}
 }
 
 ?>

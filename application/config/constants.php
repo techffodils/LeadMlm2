@@ -97,8 +97,6 @@ defined('NO_LOGIN_PAGES')        OR define('NO_LOGIN_PAGES', array("login","regi
 defined('NO_TRANSLATION_PAGES')        OR define('NO_TRANSLATION_PAGES',array("auto_register", "captcha", "time", "fix_issues", "fix_issues_current", "test_mail", "oc_register", "social_invites", "cron")); //PAGES THAT DOESN'T NEED TRANSLATION FILE
 defined('NO_MODEL_CLASS_PAGES')        OR define('NO_MODEL_CLASS_PAGES',array("auto_register", "time", "test_mail")); //PAGES THAT DOESN'T NEED MODEL CLASS
 defined('DEFAULT_MODEL_CLASS_PAGES')        OR define('DEFAULT_MODEL_CLASS_PAGES',array("helper_model")); //FOR LOADING DEFAULT MODELS
-defined('DIR_CONFIG')        OR define('DIR_CONFIG', 'C:/xampp/htdocs/WC/soft/system/config/'); //CONFIG PATH
-//echo BASE_URL;die;
 defined('PUBLIC_PATH')        OR define('PUBLIC_PATH', BASE_PATH . 'view_loader'); //PUBLIC_PATH
 defined('COMMON_PAGES')        OR define('COMMON_PAGES', array("login",'auth', "register", "Register", "auto_register", "captcha", "time", "social_invites", "crm", "repurchase", "company_register")); //PUBLIC_PATH
 defined('NO_LANGUAGE_PAGES')        OR define('NO_LANGUAGE_PAGES', array('login')); //PUBLIC_PATH

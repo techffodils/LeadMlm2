@@ -11,7 +11,6 @@ class Login extends Base_Controller {
     public function index() {
         
        $is_logged_in =false;
-	   
         $this->loadView();
     }
 	
@@ -20,7 +19,7 @@ class Login extends Base_Controller {
 	
         $post_data = $this->input->post();
 		
-        $this->form_validation->set_rules('username', 'User Name', 'required|strip_tags|min_length[3]|max_length[30]|htmlentities'); //callback checking required
+        $this->form_validation->set_rules('username', 'User Name', 'required|strip_tags|min_length[3]|max_length[30]|htmlentities');
         $this->form_validation->set_rules('password', 'Password', 'required|callback_check_login'); //For PAsswprd
         if ($this->form_validation->run()) {
             $user_id = $this->main->get_usersession('mlm_user_id');

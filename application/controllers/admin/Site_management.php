@@ -76,6 +76,19 @@ class Site_management extends Base_Controller {
 
             $result = $this->site_management_model->updateSiteInformation($company_name, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
             if ($result) {
+
+                $site_info= array(
+
+                    'company_name' =>$company_name,
+                    'company_logo' =>$logo_name,
+                    'company_fav_icon' =>$fav_icon,
+                    'company_address' => $company_address,
+                    'company_email' =>$company_email,
+                    'company_phone' =>$company_phone
+                );
+                
+                $this->session->set_userdata('mlm_site_info',$site_info);
+
                 $data = serialize($this->input->post());
                 $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'Site Information Updated', $data);
                 $msg = "Successfully Updated Site Information";

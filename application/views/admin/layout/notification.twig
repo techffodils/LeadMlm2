@@ -1,44 +1,36 @@
 
-{% if MESSAGE_DETAILS is defined %}
-	{% if MESSAGE_DETAILS.type == 'danger'  %}
-
+{% if FLASH_MESSAGE_DETAILS is defined %}
+	{% if FLASH_MESSAGE_TYPE == 'danger'  %}
 	
 <div class="alert alert-block alert-danger fade in" id="message_box">
 	<button data-dismiss="alert" class="close" type="button">
 		&times;
 	</button>
-	<h4 class="alert-heading"><i class="fa fa-times"></i> Error!</h4>
-
-
-	{% elseif  MESSAGE_DETAILS.type == 'info'  %}
-
+	<!-- <h4 class="alert-heading"><i class="fa fa-times"></i> Error!</h4> -->
+	{% elseif  FLASH_MESSAGE_TYPE == 'info'  %}
 	
 <div class="alert alert-block alert-info fade in" id="message_box">
 	<button data-dismiss="alert" class="close" type="button">
 		&times;
 	</button>
-		<h4 class="alert-heading"><i class="fa fa-info"></i> Info!</h4>
-	{% elseif  MESSAGE_DETAILS.type == 'warning'  %}
+	<!-- <h4 class="alert-heading"><i class="fa fa-info"></i> Info!</h4> -->
+	{% elseif  FLASH_MESSAGE_TYPE == 'warning'  %}
 
-	
 <div class="alert alert-block alert-warning fade in" id="message_box">
 	<button data-dismiss="alert" class="close" type="button">
 		&times;
 	</button>
-	<h4 class="alert-heading"><i class="fa fa-exclamation"></i> Warning!</h4>
-
+	<!-- <h4 class="alert-heading"><i class="fa fa-exclamation"></i> Warning!</h4> -->
 	{% else %}
-	
 	
 <div class="alert alert-block alert-success fade in" id="message_box">
 	<button data-dismiss="alert" class="close" type="button">
 		&times;
 	</button>
-	<h4 class="alert-heading"><i class="fa fa-check"></i> Success!</h4>
-	
+    <!-- <h4 class="alert-heading"><i class="fa fa-check"></i> Success!</h4> -->	
 	{% endif %}
 	<p>
-		{{ MESSAGE_DETAILS.msg }}
+		{{ FLASH_MESSAGE_DETAILS }}
 	</p>  
 </div>
 

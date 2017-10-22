@@ -53,24 +53,16 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
+$route['(\w{2})/(.*)'] = '$2';
+$route['(\w{2})'] = $route['default_controller'];
+
 /*$route['^en/(.+)$'] = "$1";
 $route['^fr/(.+)$'] = "$1";
-$route['^es/(.+)$'] = "$1";
+$route['^es/(.+)$'] = "$1";*/
 
 // '/en' and '/fr' URIs -> use default controller
 
-$route['^en$'] = $route['default_controller'];
+/*$route['^en$'] = $route['default_controller'];
 $route['^fr$'] = $route['default_controller'];
 $route['^es$'] = $route['default_controller'];*/
-/*$route['(\w{2})/(.*)'] = '$2';
-$route['(\w{2})'] = $route['default_controller'];*/
-
-$route['^en/(.+)$'] = "$1";
-$route['^fr/(.+)$'] = "$1";
-$route['^es/(.+)$'] = "$1";
-
-// '/en' and '/fr' URIs -> use default controller
-
-$route['^en$'] = $route['default_controller'];
-$route['^fr$'] = $route['default_controller'];
-$route['^es$'] = $route['default_controller'];
