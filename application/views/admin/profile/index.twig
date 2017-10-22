@@ -63,13 +63,50 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Modal Header</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Change Cover Pic</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Change Cover Pic</p>
+
+                                {{ form_open_multipart('', ' id="cover_form" name="cover_form"')|raw }}
+                                <div class="form-horizontal">         
+                                    <div class="errorHandler alert alert-danger no-display">
+                                        <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">
+                                            Select Image
+                                        </label>
+                                        <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
+                                            <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_cover }}" alt="">
+                                            </div>
+                                            <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                                            <div class="user-edit-image-buttons">
+                                                <span class="btn btn-azure btn-file">
+                                                    <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
+                                                    <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                                    <input type="file" id="cover_pic" name="cover_pic"/>
+                                                </span>
+                                                <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
+                                                    <i class="fa fa-times"></i> Remove
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">  
+                                        <label class="col-sm-3 control-label">
+
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <button type="submit" class="btn btn-primary" value="cover_update" name="cover_update">
+                                                Update <i class="fa fa-arrow-circle-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_close()|raw }}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
 
