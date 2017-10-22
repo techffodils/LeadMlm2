@@ -39,6 +39,7 @@ class Register_model extends CI_Model {
         $res=$this->db->set('user_name ', $user_details['username'])
                 ->set('email', $user_details['email'])
                 ->set('password ', $password)
+                ->set('tran_password','qweqwe')
                 ->set('user_type', 'user')
                 ->set('father_id ', $father_id)
                 ->set('sponsor_id', $sponsor_id)

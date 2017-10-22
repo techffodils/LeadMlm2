@@ -6,9 +6,8 @@ class Helper_model extends CI_Model {
         parent::__construct();
     }
 
-
     public function insertActivity($user_id, $activity, $data = array()) {
-        if(!$user_id){
+        if (!$user_id) {
             return FALSE;
         }
         return $this->db->set('mlm_user_id', $user_id)
@@ -126,21 +125,21 @@ class Helper_model extends CI_Model {
     public function getUserEmailId($user_id) {
         $email_id = NULL;
         $query = $this->db->select("email")
-                        ->where("mlm_user_id", $user_id)
-                        ->limit(1)
-                        ->get("user");
+                ->where("mlm_user_id", $user_id)
+                ->limit(1)
+                ->get("user");
         foreach ($query->result() as $row) {
             $email_id = $row->email;
         }
         return $email_id;
     }
-    
+
     public function getUserIdFromEmailId($email) {
         $user_id = NULL;
         $query = $this->db->select("mlm_user_id")
-                        ->where("email", $email)
-                        ->limit(1)
-                        ->get("user");
+                ->where("email", $email)
+                ->limit(1)
+                ->get("user");
         foreach ($query->result() as $row) {
             $user_id = $row->mlm_user_id;
         }
@@ -170,9 +169,9 @@ class Helper_model extends CI_Model {
     public function getAdminId() {
         $user_id = NULL;
         $query = $this->db->select('mlm_user_id')
-                        ->where('user_type', 'admin')
-                        ->limit(1)
-                        ->get('user');
+                ->where('user_type', 'admin')
+                ->limit(1)
+                ->get('user');
         foreach ($query->result() as $row) {
             $user_id = $row->mlm_user_id;
         }
@@ -255,7 +254,7 @@ class Helper_model extends CI_Model {
         $count = NULL;
         $query = $this->db->select("COUNT(*) AS cnt")
                 ->where('sponsor_id', $sponsor_id)
-                 ->limit(1)
+                ->limit(1)
                 ->get("user");
         foreach ($query->result() as $row) {
             $count = $row->cnt;
@@ -293,7 +292,7 @@ class Helper_model extends CI_Model {
         }
         return $decode_key;
     }
-    
+
     public function getUserBalance($user_id) {
         $balance_amount = 0;
         $query = $this->db->select('balance_amount')
@@ -305,6 +304,65 @@ class Helper_model extends CI_Model {
             $balance_amount = $row->balance_amount;
         }
         return $balance_amount;
+    }
+
+    function validateDate($date) {
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        return $d && $d->format('Y-m-d') === $date;
+    }
+
+    public function insertWalletDetails($user_id, $type = 'credit', $amount = '0', $wallet_type, $from_user = 0) {
+        if ($amount > 0 && ($type == 'credit' || $type == 'debit')) {
+            $res = $this->db->set('mlm_user_id', $user_id)
+                    ->set('type', $type)
+                    ->set('amount', $amount)
+                    ->set('wallet_type', $wallet_type)
+                    ->set('date', date("Y-m-d H:i:s"))
+                    ->set('from_user', $from_user)
+                    ->insert('wallet_details');
+            if ($res) {
+                if ($type == 'credit') {
+                    $this->addBalance($user_id, $amount);
+                } elseif ($type == 'debit') {
+                    $this->deductBalance($user_id, $amount);
+                }
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    public function addBalance($user_id, $amount) {
+        $this->db->set('balance_amount', 'ROUND(balance_amount +' . $amount . ',8)', FALSE);
+        $this->db->set('total_amount', 'ROUND(total_amount +' . $amount . ',8)', FALSE);
+        $this->db->where('mlm_user_id', $user_id);
+        $this->db->limit(1);
+        $res = $this->db->update('user_balance');
+
+        return $res;
+    }
+
+    public function deductBalance($user_id, $amount) {
+        $this->db->set('balance_amount', 'ROUND(balance_amount -' . $amount . ',8)', FALSE);
+        $this->db->set('released_amount', 'ROUND(released_amount +' . $amount . ',8)', FALSE);
+        $this->db->where('mlm_user_id', $user_id);
+        $this->db->limit(1);
+        $res = $this->db->update('user_balance');
+
+        return $res;
+    }
+    
+    
+    public function getTransactionPassword($user_id) {
+        $tran_password = NULL;
+        $query = $this->db->select('tran_password')
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->get('user');
+        foreach ($query->result() as $row) {
+            $tran_password = $row->tran_password;
+        }
+        return $tran_password;
     }
 
 }
