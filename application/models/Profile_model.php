@@ -57,5 +57,13 @@ class Profile_model extends CI_Model {
         return $res;
         
     }
+    
+    function updateUserCover($user_id, $file) {
+        $res=$this->db->set('user_cover ', $file['upload_data']['file_name'])
+                ->where('mlm_user_id ', "$user_id")
+                ->update('user_details');
+        return $res;
+        
+    }
 
 }
