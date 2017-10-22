@@ -92,6 +92,11 @@ class Reset_model extends CI_Model {
         if (in_array($dbprefix . 'wallet_transfer', $tables)) {
             $this->db->truncate('wallet_transfer');
         }
+        
+        if (in_array($dbprefix . 'user_files', $tables)) {
+            $this->db->truncate('user_files');
+        }
+        
         return TRUE;
     }
 
