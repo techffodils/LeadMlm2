@@ -16,6 +16,10 @@ class Product extends Base_Controller {
             $config['max_size'] = 10000;
             $config['max_width'] = 2048;
             $config['max_height'] = 2048;
+            
+            $new_name = 'pro_'.time();
+            $config['file_name'] = $new_name;
+            
             $this->load->library('upload', $config);
 
             $upload_data = array();

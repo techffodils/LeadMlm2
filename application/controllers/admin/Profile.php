@@ -14,9 +14,28 @@ class Profile extends Base_Controller {
             $res = $this->profile_model->updateUserProfile($user_id, $post);
             if ($res) {
                 $this->helper_model->insertActivity($user_id, 'profile_updated', $post);
-                //$this->loadPage('Profile Updated Successfully', 'profile/index', TRUE);
+                $this->loadPage('Profile Updated Successfully', 'profile/index', TRUE);
             } else {
-                //$this->loadPage('Profile Updation Failed', 'profile/index', False);
+                $this->loadPage('Profile Updation Failed', 'profile/index', False);
+            }
+        }
+
+        if ($this->input->post('dp_update')) {
+            $config['upload_path'] = FCPATH . 'assets/images/users/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 10000;
+            $config['max_width'] = 2048;
+            $config['max_height'] = 2048;
+            $new_name = 'dp_'.time();
+            $config['file_name'] = $new_name;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('prof_pic')) {
+                $error = array('error' => $this->upload->display_errors());
+                $this->loadPage('Profile Pic Updation Failed', 'profile/index', FALSE);
+            } else {
+                $data = array('upload_data' => $this->upload->data());
+                $this->profile_model->updateUserPic($user_id,$data);
+                $this->loadPage('Profile Pic Updated', 'profile/index', TRUE);
             }
         }
 
