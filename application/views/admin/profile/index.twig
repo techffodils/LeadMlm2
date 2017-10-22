@@ -24,20 +24,6 @@
             </div>
             <div class="panel-body">
                 <hr>
-                {#<div class="row">
-                    <div class="fb-profile">
-                        <img align="left" class="fb-image-lg" src="assets/images/users/{{ user_details.user_cover }}"/>
-                        <img align="left" class="fb-image-profile thumbnail" src="assets/images/users/{{ user_details.user_dp }}"/>
-                        <div class="fb-profile-text">
-                            <h1>{{ user_details.user_name }}</h1>
-                        </div>
-                    </div>                    
-                </div>#}
-
-
-
-
-
                 <div class="row">
                     <div class="fb-profile">
                         <div class="show-image">
@@ -57,8 +43,6 @@
                     </div>                    
                 </div>
 
-
-
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -68,51 +52,81 @@
                             </div>
                             <div class="modal-body">
 
-                                {{ form_open_multipart('', ' id="cover_form" name="cover_form"')|raw }}
-                                <div class="form-horizontal">         
-                                    <div class="errorHandler alert alert-danger no-display">
-                                        <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
-                                    </div>                                    
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">
-                                            Select Image
-                                        </label>
-                                        <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_cover }}" alt="">
-                                            </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail"></div>
-                                            <div class="user-edit-image-buttons">
-                                                <span class="btn btn-azure btn-file">
-                                                    <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
-                                                    <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
-                                                    <input type="file" id="cover_pic" name="cover_pic"/>
-                                                </span>
-                                                <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                                    <i class="fa fa-times"></i> Remove
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">  
-                                        <label class="col-sm-3 control-label">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#cover_tab1">
+                                                Add New
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#cover_tab2">
+                                                Select Old
+                                            </a>
+                                        </li>                                    
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="cover_tab1" class="tab-pane fade in active">
+                                            {{ form_open_multipart('', ' id="cover_form" name="cover_form"')|raw }}
+                                            <div class="form-horizontal">         
+                                                <div class="errorHandler alert alert-danger no-display">
+                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                </div>                                    
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Select Image
+                                                    </label>
+                                                    <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
+                                                        <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_cover }}" alt="">
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                                                        <div class="user-edit-image-buttons">
+                                                            <span class="btn btn-azure btn-file">
+                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                                                <input type="file" id="cover_pic" name="cover_pic"/>
+                                                            </span>
+                                                            <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
+                                                                <i class="fa fa-times"></i> Remove
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">  
+                                                    <label class="col-sm-3 control-label">
 
-                                        </label>
-                                        <div class="col-sm-4">
-                                            <button type="submit" class="btn btn-primary" value="cover_update" name="cover_update">
-                                                Update <i class="fa fa-arrow-circle-right"></i>
-                                            </button>
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <button type="submit" class="btn btn-primary" value="cover_update" name="cover_update">
+                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_close()|raw }}
+                                        </div>
+                                        <div id="cover_tab2" class="tab-pane fade">
+
+                                            <div class="row">
+                                                {% for uco in user_cov %}
+                                                    <div class="col-sm-3">
+                                                        <span align="center" onclick="setCover({{ uco.id }});"> Set This </span>
+                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
+                                                    </div>
+
+
+                                                {% endfor %}   
+
+                                            </div>                                    
                                         </div>
                                     </div>
                                 </div>
-                                {{ form_close()|raw }}
                             </div>
                             <div class="modal-footer">
                             </div>
                         </div>
-
                     </div>
                 </div>
-
 
                 <div id="myModal2" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -123,103 +137,79 @@
                             </div>
                             <div class="modal-body">
 
-                                {{ form_open_multipart('', ' id="dp_form" name="dp_form"')|raw }}
-                                <div class="form-horizontal">         
-                                    <div class="errorHandler alert alert-danger no-display">
-                                        <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
-                                    </div>                                    
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">
-                                            Select Image
-                                        </label>
-                                        <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_dp }}" alt="">
-                                            </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail"></div>
-                                            <div class="user-edit-image-buttons">
-                                                <span class="btn btn-azure btn-file">
-                                                    <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
-                                                    <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
-                                                    <input type="file" id="prof_pic" name="prof_pic"/>
-                                                </span>
-                                                <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                                    <i class="fa fa-times"></i> Remove
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">  
-                                        <label class="col-sm-3 control-label">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#dp_tab1">
+                                                Add New
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#dp_tab2">
+                                                Select Old
+                                            </a>
+                                        </li>                                    
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="dp_tab1" class="tab-pane fade in active">
+                                            {{ form_open_multipart('', ' id="dp_form" name="dp_form"')|raw }}
+                                            <div class="form-horizontal">         
+                                                <div class="errorHandler alert alert-danger no-display">
+                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                </div>                                    
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Select Image
+                                                    </label>
+                                                    <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
+                                                        <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_dp }}" alt="">
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                                                        <div class="user-edit-image-buttons">
+                                                            <span class="btn btn-azure btn-file">
+                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                                                <input type="file" id="prof_pic" name="prof_pic"/>
+                                                            </span>
+                                                            <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
+                                                                <i class="fa fa-times"></i> Remove
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">  
+                                                    <label class="col-sm-3 control-label">
 
-                                        </label>
-                                        <div class="col-sm-4">
-                                            <button type="submit" class="btn btn-primary" value="dp_update" name="dp_update">
-                                                Update <i class="fa fa-arrow-circle-right"></i>
-                                            </button>
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <button type="submit" class="btn btn-primary" value="dp_update" name="dp_update">
+                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_close()|raw }}
+                                        </div>
+                                        <div id="dp_tab2" class="tab-pane fade">
+
+                                            <div class="row">
+                                                {% for udp in user_dps %}
+                                                    <div class="col-sm-3">
+                                                        <span align="center" onclick="setCover({{ udp.id }});"> Set This </span>
+                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ udp.file }}" class="img-responsive" > 
+                                                    </div>
+                                                {% endfor %}   
+                                            </div>                                    
                                         </div>
                                     </div>
                                 </div>
-                                {{ form_close()|raw }}
                             </div>
                             <div class="modal-footer">
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
-
-
-                <style>
-                    div.show-image {
-                        position: relative;
-                        margin:5px;
-                    }
-                    div.show-image:hover img{
-                        opacity:0.75;
-                    }
-                    div.show-image:hover button {
-                        display: block;
-                    }
-                    div.show-image button {
-                        position:absolute;
-                        display:none;
-                    }
-                    div.show-image button.update {
-                        top:0;
-                        left:0;
-                    }
-
-
-
-                    div.show-image2 {
-                        position: relative;
-                        margin:5px;
-                    }
-                    div.show-image2:hover img{
-                        //opacity:0.5;
-                    }
-                    div.show-image2:hover button {
-                        display: block;
-                    }
-                    div.show-image2 button {
-                        position:absolute;
-                        display:none;
-                    }
-                    div.show-image2 button.update2 {
-                        top:136px;
-                        left:83px;
-                    }
-
-
-
-                </style>
-
-
-
                 <hr>
-
                 <div class="row">
                     <div class="col-sm-5 col-md-4">
                         <div class="user-left">                            
@@ -325,10 +315,6 @@
                                     </div>
                                     {% if profile_error.dob is defined %}<code> {{ profile_error.dob}} </code> {% endif %} 
                                 </div>
-
-
-
-
                                 <div class="form-group">
                                     <label class="control-label">
                                         Gender <span class="symbol required"></span>
@@ -345,8 +331,6 @@
                                     </div>
                                     {% if profile_error.gender is defined %}<code> {{ profile_error.gender}} </code> {% endif %} 
                                 </div>
-
-
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -396,8 +380,6 @@
                                     <input type="text" value="{{ user_details.zipcode }}" placeholder="Insert your Zip Code" class="form-control" id="zipcode" name="zipcode">
                                     {% if profile_error.zipcode is defined %}<code> {{ profile_error.zipcode}} </code> {% endif %} 
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="row">
@@ -409,7 +391,6 @@
                                 </button>
                             </div>
                         </div>
-
                         {{ form_close()|raw }} 
                     </div>
                 </div>
@@ -417,12 +398,52 @@
         </div>
     </div>
 </div>
-
-
 {% include('admin/layout/footer.twig')%}
-
 <link rel="stylesheet" href="assets/plugins/datepicker/css/datepicker.css">
 <style>
+    div.show-image {
+        position: relative;
+        margin:5px;
+    }
+    div.show-image:hover img{
+        opacity:0.75;
+    }
+    div.show-image:hover button {
+        display: block;
+    }
+    div.show-image button {
+        position:absolute;
+        display:none;
+    }
+    div.show-image button.update {
+        top:0;
+        left:0;
+    }
+
+
+
+    div.show-image2 {
+        position: relative;
+        margin:5px;
+    }
+    div.show-image2:hover img{
+        //opacity:0.5;
+    }
+    div.show-image2:hover button {
+        display: block;
+    }
+    div.show-image2 button {
+        position:absolute;
+        display:none;
+    }
+    div.show-image2 button.update2 {
+        top:136px;
+        left:83px;
+    }
+
+
+
+
     .fb-profile img.fb-image-lg{
         z-index: 0;
         width: 100%;  
@@ -463,7 +484,17 @@
 <script src="assets/js/form-elements.js"></script>
 
 <script>
-    $(document).ready(function () {
-        FormElements.init();
-    });
+                                                            $(document).ready(function () {
+                                                                FormElements.init();
+                                                            });
+
+                                                            function setCover(id) {
+                                                                $.ajax({url: "admin/profile/reset_user_file",
+                                                                    data: {id: id},
+                                                                    async: false,
+                                                                    success: function (msg) {
+                                                                        location.reload();
+                                                                    }
+                                                                });
+                                                            }
 </script>
