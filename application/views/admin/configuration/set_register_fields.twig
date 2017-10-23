@@ -374,13 +374,13 @@
         </div>
     </div>
 {% endif %}
+{% include('admin/layout/footer.twig')%}
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/set_register_fields.js"></script>
-{% include('admin/layout/footer.twig')%}
 <script>
     jQuery(document).ready(function () {
-        SVExamples.init();
+        //SVExamples.init();
         validate_add_field();
     });
 </script>
