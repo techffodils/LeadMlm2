@@ -21,9 +21,9 @@ class Register extends Base_Controller {
             $user_details['register_type'] = 'single_step';
             $res = $this->register_model->addUser($user_details['register_type'], $user_details);
             if ($res) {
-                $this->loadPage('User Registered Successfully', 'register/single_step');
+                $this->loadPage(lang('register_success'), 'register/single_step');
             } else {
-                $this->loadPage('Failed To Register', 'register/single_step', 'danger');
+                $this->loadPage(lang('register_failed'), 'register/single_step', 'danger');
             }
         }
         $register_data=array();
@@ -49,9 +49,9 @@ class Register extends Base_Controller {
             $res = $this->register_model->addUser('multiple_step', $user_details);
             if ($res) {
                 $this->session->unset_userdata('multiple_step_post');
-                $this->loadPage('User Registered Successfully', 'register/multiple_step', True);
+                $this->loadPage(lang('register_success'), 'register/multiple_step');
             } else {                
-                $this->loadPage('Failed To Register', 'register/multiple_step', FALSE);
+                $this->loadPage(lang('register_failed'), 'register/multiple_step', 'danger');
             }
         }
         if ($this->session->userdata('multiple_step_post') != null)
@@ -75,9 +75,9 @@ class Register extends Base_Controller {
             $res = $this->register_model->addUser('advanced', $user_details);
             if ($res) {
                 $this->session->unset_userdata('advanced_post');
-                $this->loadPage('User Registered Successfully', 'register/advanced', True);
+                $this->loadPage(lang('register_success'), 'register/advanced');
             } else {                
-                $this->loadPage('Failed To Register', 'register/advanced', FALSE);
+                $this->loadPage(lang('register_failed'), 'register/advanced', 'danger');
             }
         }
         if ($this->session->userdata('advanced_post') != null)
