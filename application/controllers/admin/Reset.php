@@ -8,6 +8,10 @@ class Reset extends Base_Controller {
     public function clean() {
         $this->loadView();
     }
+    
+    public function reset_dbvars() {
+        $res=$this->reset_model->resetDbVars();
+    }
 
     public function wipe() {
         if ($this->input->get('wipe_status')) {

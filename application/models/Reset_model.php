@@ -3,16 +3,16 @@
 class Reset_model extends CI_Model {
 
     function wipeOutAllData() {
-        $res=$this->cleanAllTables();
-        if($res){
+        $res = $this->cleanAllTables();
+        if ($res) {
             $this->resetDbVars();
             return $res;
         }
     }
 
     function cleanAllTables() {
-        
-        
+
+
         $tables = array();
         $database_name = $this->db->database;
         $dbprefix = $this->db->dbprefix;
@@ -23,11 +23,12 @@ class Reset_model extends CI_Model {
             $tables[] = $rows['TABLE_NAME'];
         }
 
-
-        $user_details = $this->getAdminDetails();
         $admin_id = $this->helper_model->getAdminId();
-               
-        
+
+        $user_details = $this->getAdminDetails($admin_id);
+
+
+
         if (in_array($dbprefix . 'user', $tables)) {
             $this->db->truncate('user');
             $user = $dbprefix . "user";
@@ -37,6 +38,7 @@ class Reset_model extends CI_Model {
 
         if (in_array($dbprefix . 'user_details', $tables)) {
             $user_data = $this->getUserData($admin_id);
+            $user_data['mlm_user_id']=$admin_id;
             $this->db->truncate('user_details');
             $this->db->insert('user_details', $user_data);
         }
@@ -90,20 +92,25 @@ class Reset_model extends CI_Model {
         if (in_array($dbprefix . 'wallet_transfer', $tables)) {
             $this->db->truncate('wallet_transfer');
         }
+        
+        if (in_array($dbprefix . 'user_files', $tables)) {
+            $this->db->truncate('user_files');
+        }
+        
         return TRUE;
     }
 
     function resetDbVars() {
         //Unset all Config Variables
         $query = $this->db->select('key')
-                        ->from('config')
-                        ->get();
+                ->from('config')
+                ->get();
         foreach ($query->result() as $row) {
             $key = $row->key;
             $this->dbvars->__unset($key);
         }
         $this->db->truncate('config');
-        
+
         //Resett All Config Variables
         $this->dbvars->MLM_PLAN = 'BINARY'; //MATRIX,UNILEVEL,DONATION,INVESTMENT,MONOLINE,GENERATION
         $this->dbvars->MAINTENANCE_MODE = 0;
@@ -140,6 +147,10 @@ class Reset_model extends CI_Model {
         $this->dbvars->REFEAL_BONUS = 25;
         $this->dbvars->MATRIX_WIDTH = 3;
         $this->dbvars->MATRIX_DEPTH = 3;
+        
+        $this->dbvars->MULTI_LANG_STATUS=1;
+        $this->dbvars->LANG_NAME='english';
+        $this->dbvars->LANG_FLAG='US.png';
 
         $this->dbvars->ADMIN_USER_ID = $this->helper_model->getAdminId();
         $this->dbvars->ADMIN_USER_ID = 'admin';
@@ -154,12 +165,12 @@ class Reset_model extends CI_Model {
         return 1;
     }
 
-    function getAdminDetails() {
+    function getAdminDetails($admin_id) {
 
         $data = array();
-        $res = $this->db->select("user_name,email,password,user_type,user_status,date,language,currency")
+        $res = $this->db->select("user_name,email,password,tran_password,user_type,user_status,date,language,currency")
                 ->from("user")
-                ->where("user_type", 'admin')
+                ->where("mlm_user_id", $admin_id)
                 ->limit(1)
                 ->get();
         foreach ($res->result_array() as $row) {
@@ -171,13 +182,13 @@ class Reset_model extends CI_Model {
     function getUserData($user_id) {
 
         $data = array();
-        $res = $this->db->select("*")
+        $res = $this->db->select("first_name,last_name,address_1,city,zip_code,state_id,country_id,user_dp,date_of_joining,gender,phone_number")
                 ->from("user_details")
                 ->where("mlm_user_id", $user_id)
                 ->limit(1)
                 ->get();
         foreach ($res->result_array() as $row) {
-            $data[] = $row;
+            $data = $row;
         }
         return $data;
     }

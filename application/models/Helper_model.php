@@ -333,23 +333,20 @@ class Helper_model extends CI_Model {
     }
 
     public function addBalance($user_id, $amount) {
-        $this->db->set('balance_amount', 'ROUND(balance_amount +' . $amount . ',8)', FALSE);
-        $this->db->set('total_amount', 'ROUND(total_amount +' . $amount . ',8)', FALSE);
-        $this->db->where('mlm_user_id', $user_id);
-        $this->db->limit(1);
-        $res = $this->db->update('user_balance');
+        return $this->db->set('balance_amount', 'ROUND(balance_amount +' . $amount . ',8)', FALSE)
+                ->set('total_amount', 'ROUND(total_amount +' . $amount . ',8)', FALSE)
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->update('user_balance');
 
-        return $res;
     }
 
     public function deductBalance($user_id, $amount) {
-        $this->db->set('balance_amount', 'ROUND(balance_amount -' . $amount . ',8)', FALSE);
-        $this->db->set('released_amount', 'ROUND(released_amount +' . $amount . ',8)', FALSE);
-        $this->db->where('mlm_user_id', $user_id);
-        $this->db->limit(1);
-        $res = $this->db->update('user_balance');
-
-        return $res;
+        return $this->db->set('balance_amount', 'ROUND(balance_amount -' . $amount . ',8)', FALSE)
+                ->set('released_amount', 'ROUND(released_amount +' . $amount . ',8)', FALSE)
+                ->where('mlm_user_id', $user_id)
+                ->limit(1)
+                ->update('user_balance');
     }
     
     
