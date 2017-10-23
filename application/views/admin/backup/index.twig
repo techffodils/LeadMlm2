@@ -3,17 +3,17 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Backup <span class="text-bold"></span></h4>
+                <h4 class="panel-title">{{lang('system_backup')}} <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -30,17 +30,17 @@
                             <ul id="myTab3" class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a href="#backup_tab1" data-toggle="tab">
-                                        <i class="fa fa-gears"> </i>Backup Settings 
+                                        <i class="fa fa-gears"> </i>{{lang('backup_settings')}} 
                                     </a>
                                 </li>
                                 <li class="{{tab2}}">
                                     <a href="#backup_tab2" data-toggle="tab">
-                                        <i class="fa fa-fire"> </i> DataBase Backup
+                                        <i class="fa fa-fire"> </i>{{lang('db_backup')}}
                                     </a>
                                 </li>
                                 <li class="{{tab3}}">
                                     <a href="#backup_tab3" data-toggle="tab">
-                                        <i class="fa fa-database"> </i> Databases
+                                        <i class="fa fa-database"> </i>{{lang('databases')}}
                                     </a>
                                 </li>
 
@@ -49,7 +49,7 @@
                                 <div class="tab-pane {{tab1}}" id="backup_tab1">
                                     <div id="accordion" class="panel-group accordion accordion-custom accordion-teal">
 
-                                        <h3 class="margin-bottom-15">Backup Settings</h3>
+                                        <h3 class="margin-bottom-15">{{lang('backup_settings')}}</h3>
 
                                         <br>
                                         {{ form_open('', ' id="add_field_form" name="add_field_form"')|raw }}
@@ -59,19 +59,19 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Backup File Type
+                                                    {{lang('backup_type')}}
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select name="backup_type" id="backup_type" class="form-control field_type" >
-                                                        <option value="">Select Backup Type</option>
-                                                        <option value="sql" {% if backup_type=="sql" %} selected {% endif %}>Sql</option>
-                                                        <option value="zip" {% if backup_type=="zip" %} selected {% endif %}>Zip</option>
+                                                        <option value="">{{lang('select_backup_type')}}</option>
+                                                        <option value="sql" {% if backup_type=="sql" %} selected {% endif %}>{{lang('sql')}}</option>
+                                                        <option value="zip" {% if backup_type=="zip" %} selected {% endif %}>{{lang('zip')}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Deletion Period (Days)
+                                                    {{lang('dletion_period')}}
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" type="number" name="backup_deletion_period" id="backup_deletion_period" value="{{ backup_deletion_period }}"> 
@@ -86,7 +86,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <button type="submit" class="btn btn-primary" value="db_settings" name="db_settings">
-                                                        Update <i class="fa fa-arrow-circle-right"></i>
+                                                        {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="tab-pane {{tab2}}" id="backup_tab2">
                                     <div id="accordion2" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15"> DataBase Backup</h3>
+                                        <h3 class="margin-bottom-15"> {{lang('db_backup')}}</h3>
                                         <br>
                                         <div class="form-horizontal">
                                             <div class="alert alert-block alert-warning fade in">
@@ -105,15 +105,13 @@
                                                 </button>
                                                 <h4 class="alert-heading"><i class="fa fa-exclamation"></i> Notice!</h4>
                                                 <p>
-                                                    Click Backup Button For backup Current Database or Select the Third tab to View the Existing Backups
+                                                    {{lang('backup_msg')}}
+
                                                 </p>
                                                 <p>
                                                     <a href="javascript:generate_backup()" class="btn btn-yellow tab-pane">
-                                                        Backup
+                                                        {{lang('backup')}}
                                                     </a>
-                                                    {#<a href="javascript:generate_backup()" class="btn btn-light-grey">
-                                                        Backup
-                                                    </a>#}
                                                 </p>
                                             </div>
                                         </div>
@@ -121,18 +119,16 @@
                                 </div>
                                 <div class="tab-pane {{tab3}}" id="backup_tab3">
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Databases</h3>
+                                        <h3 class="margin-bottom-15">{{lang('databases')}}</h3>
                                         <br>
                                         <div class="form-horizontal">
                                             <table class="table table-bordered table-hover" id="sample-table-1">
                                                 <thead>
                                                     <tr>
-                                                        <th>Download Link</th>
-                                                        <th>Done By</th>
-                                                        <th>Date</th>
-                                                        <th>Filename</th>
-                                                            {#                                                        <th>Full Path</th>                                                       #}
-                                                    </tr>
+                                                        <th>{{lang('download_link')}}</th>
+                                                        <th>{{lang('done_by')}}</th>
+                                                        <th>{{lang('date')}}</th>
+                                                        <th>{{lang('file_name')}}</th>                                                            
                                                 </thead>
                                                 <tbody>
                                                     {% for bp in backups %}
@@ -160,6 +156,8 @@
         </div>
     </div>
 </div>
+{% include('admin/layout/footer.twig')%}
+
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/backup.js"></script>
@@ -169,4 +167,3 @@
         valBackup();
     });
 </script>
-{% include('admin/layout/footer.twig')%}
