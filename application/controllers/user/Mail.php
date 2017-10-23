@@ -19,7 +19,7 @@ class Mail extends Base_Controller {
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
         $this->setData('header', $title);
 
-       
+
         if ($this->input->post('checkbox') && $this->input->post('delete')) {
             $post_data = $this->input->post();
             $count = count($post_data['checkbox']);
@@ -30,7 +30,7 @@ class Mail extends Base_Controller {
                 }
             }
         }
-         $user_id = $this->main->get_usersession('mlm_user_id');
+        $user_id = $this->main->get_usersession('mlm_user_id');
         $all_mails = $this->mail_model->getAllMails($user_id, 'inbox');
         $unread_mail = $this->mail_model->getCountUnReadMail($user_id, 'inbox');
 
@@ -60,7 +60,7 @@ class Mail extends Base_Controller {
             $post_data['catagories'] = 'inbox';
             $post_data['date'] = date("Y-m-d h:i:s");
             $post_data['read_status'] = 'unread';
-           // print_r($post_data);die;
+            // print_r($post_data);die;
             if ($user_id) {
                 $this->mail_model->insertMailData($post_data);
             } else {
@@ -108,6 +108,7 @@ class Mail extends Base_Controller {
 
         $user_id = $this->main->get_usersession('mlm_user_id');
         if ($id) {
+            $this->mail_model->changeReadStatus($id,$user_id,'read');
             $mail_details = $this->mail_model->getMailDetails($user_id, $id, 'inbox');
         }
 
@@ -122,7 +123,7 @@ class Mail extends Base_Controller {
         $title = "Sent Items";
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
         $this->setData('header', $title);
-        
+
         if ($this->input->post('checkbox') && $this->input->post('delete')) {
             $post_data = $this->input->post();
             $count = count($post_data['checkbox']);
@@ -132,8 +133,8 @@ class Mail extends Base_Controller {
                     $this->mail_model->changeStatusDelete($id);
                 }
             }
-        }       
-        
+        }
+
         $user_id = $this->main->get_usersession('mlm_user_id');
         $all_mails = $this->mail_model->getAllSentMails($user_id, 'inbox');
         $unread_mail = $this->mail_model->getCountUnReadMail($user_id, 'inbox');
@@ -150,7 +151,7 @@ class Mail extends Base_Controller {
         $title = "Draft Items";
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
         $this->setData('header', $title);
-        
+
         if ($this->input->post('checkbox') && $this->input->post('delete')) {
             $post_data = $this->input->post();
             $count = count($post_data['checkbox']);
@@ -179,7 +180,7 @@ class Mail extends Base_Controller {
         $title = "Stared Items";
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
         $this->setData('header', $title);
-        
+
         if ($this->input->post('checkbox') && $this->input->post('delete')) {
             $post_data = $this->input->post();
             $count = count($post_data['checkbox']);
@@ -208,7 +209,7 @@ class Mail extends Base_Controller {
         $title = "Spam Items";
         $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
         $this->setData('header', $title);
-        
+
         if ($this->input->post('checkbox') && $this->input->post('delete')) {
             $post_data = $this->input->post();
             $count = count($post_data['checkbox']);
@@ -252,28 +253,37 @@ class Mail extends Base_Controller {
         $this->setData('unread_mail', $unread_mail);
         $this->loadView();
     }
-    
-    function set_stared($id,$catagories) { 
+
+    function set_stared() {
+        $id = $this->input->get('id');
         $user_id = $this->main->get_usersession('mlm_user_id');
         $this->mail_model->changestared($id, $user_id, 'yes');
-        $this->loadPage('', "mail/".$catagories);        
+        echo 'yes';
+        exit;
     }
-    function unset_stared($id) {        
+
+    function unset_stared() {
+        $id = $this->input->get('id');
         $user_id = $this->main->get_usersession('mlm_user_id');
         $this->mail_model->changestared($id, $user_id, 'no');
-         $this->loadPage('', "mail/stared");        
+        echo 'yes';
+        exit;
     }
-    function set_spam($id,$catagories) {
+
+    function set_spam() {
+        $id = $this->input->get('id');
         $user_id = $this->main->get_usersession('mlm_user_id');
         $this->mail_model->changespam($id, $user_id, 'yes');
-        $this->loadPage('', "mail/".$catagories);
-        
+        echo 'yes';
+        exit;
     }
-    function unset_spam($id) {
+
+    function unset_spam() {
+        $id = $this->input->get('id');
         $user_id = $this->main->get_usersession('mlm_user_id');
         $this->mail_model->changespam($id, $user_id, 'no');
-        $this->loadPage('', "mail/spam");
-        
+        echo 'yes';
+        exit;
     }
 
 }
