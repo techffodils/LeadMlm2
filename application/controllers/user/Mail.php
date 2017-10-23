@@ -9,10 +9,6 @@ require_once 'Base_Controller.php';
 
 class Mail extends Base_Controller {
 
-    /**
-     * @Author Techffodils
-     * @Date 2017-10-9
-     */
     function inbox() {
 
         $title = "Mail Inbox";
