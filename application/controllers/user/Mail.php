@@ -7,6 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 require_once 'Base_Controller.php';
 
+    /**
+     * @Author Techffodils
+     * @Date 2017-10-9
+     */
+
 class Mail extends Base_Controller {
 
     function inbox() {
