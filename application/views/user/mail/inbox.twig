@@ -105,16 +105,17 @@
                                         <table class="table table-hover table-striped">
                                             <tbody>
                                                 {% for mail in all_mails %}
-                                                    <tr>
+                                                    <tr id="star_{{mail.id}}">
                                                         <td><input value="{{mail.id}}"  name="checkbox[]" type="checkbox"></td>
-                                                        <td class="mailbox-star"><i onchange="staredMail()" class="fa fa-star-o text-yellow"></i></a></td>
+
+                                                        <td class="mailbox-star"><a href="#"><i value="1" onclick="stared('{{mail.id}}')"  class="fa fa-star-o text-yellow"></i></a></td>
                                                         <td class="mailbox-name">{% if mail.read_status=='unread'%} <b>{% endif %}<a href="user/mail/read/{{mail.id}}">{{ mail.from_username }}</a>{% if mail.read_status=='unread'%} </b>{% endif %}</td>
                                                         <td class="mailbox-subject"><b>{{ mail.show_subject }}</b> - {{ mail.show_content }}</td>
                                                         <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
                                                         <td class="mailbox-date">{{ mail.date }}</td>
-                                                        <td><a href="user/mail/set_spam/{{mail.id}}/inbox"> <i class="fa fa-check-square-o" aria-hidden="true">Spam</i></a>
+                                                        <td> <i value="1" onclick="spam({{mail.id}})" class="fa fa-check-square-o" aria-hidden="true" style="color: #bb8344 ">Spam</i>
                                                     </tr>
-                                                   {% endfor %}
+                                                {% endfor %}
 
                                             </tbody>
                                         </table>
@@ -139,37 +140,68 @@
 <script src="assets/js/mail_validation.js"></script>
 
 <script>
-    $(function () {
-            $(".checkbox-toggle").click(function () {
-                var clicks = $(this).data('clicks');
-                if (clicks) {
-                    //Uncheck all checkboxes
-                    $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
-                    $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-                } else {
-                    //Check all checkboxes
-                    $(".mailbox-messages input[type='checkbox']").iCheck("check");
-                    $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-                }
-                $(this).data("clicks", !clicks);
-            });
-            $(".mailbox-star").click(function (e) {
-                e.preventDefault();
-                //detect type
-                var $this = $(this).find("a > i");
-                var glyph = $this.hasClass("glyphicon");
-                var fa = $this.hasClass("fa");
-                //Switch states
-                if (glyph) {
-                    $this.toggleClass("glyphicon-star");
-                    $this.toggleClass("glyphicon-star-empty");
-                }
-                if (fa) {
-                    $this.toggleClass("fa-star");
-                    $this.toggleClass("fa-star-o");
-                }
-            });
+                                                            $(function () {
+                                                                $(".checkbox-toggle").click(function () {
+                                                                    var clicks = $(this).data('clicks');
+                                                                    if (clicks) {
+                                                                        //Uncheck all checkboxes
+                                                                        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+                                                                        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+                                                                    } else {
+                                                                        //Check all checkboxes
+                                                                        $(".mailbox-messages input[type='checkbox']").iCheck("check");
+                                                                        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+                                                                    }
+                                                                    $(this).data("clicks", !clicks);
+                                                                });
+                                                                $(".mailbox-star").click(function (e) {
+                                                                    e.preventDefault();
+                                                                    //detect type
+                                                                    var $this = $(this).find("a > i");
+
+                                                                    var glyph = $this.hasClass("glyphicon");
+                                                                    var fa = $this.hasClass("fa");
+                                                                    // alert(glyph);
+                                                                    // alert(fa);
+
+                                                                    if (glyph) {
+                                                                        $this.toggleClass("glyphicon-star");
+                                                                        $this.toggleClass("glyphicon-star-empty");
+                                                                    }
+                                                                    if (fa) {
+
+                                                                        $this.toggleClass("fa-star");
+                                                                        $this.toggleClass("fa-star-o");
+
+                                                                    }
+                                                                });
+                                                            });
+</script>
+<script>
+    function stared(id) {
+        $.ajax({
+            url: "user/mail/set_stared",
+            data: {id: id},
+            success: function (result) {
+                var x = document.getElementById("star_" + id);
+                x.style.display = "none";
+            }
         });
+
+    }
+</script>
+<script>
+    function spam(id) {
+        $.ajax({
+            url: "user/mail/set_spam",
+            data: {id: id},
+            success: function (result) {
+                var x = document.getElementById("star_" + id);
+                x.style.display = "none";
+            }
+        });
+
+    }
 </script>
 
 <style>
