@@ -12,7 +12,6 @@ function index(){
 
 	$title = lang('home');
 	$this->setData('title', $title);
-	$this->setHeaderData(array('page_title'=>$title,'page_sub_title'=>$title,'page_header'=>$title,'page_header_small'=>$title));
 	$this->loadView();
 }
 
