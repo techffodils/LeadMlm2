@@ -24,26 +24,26 @@
                 </div>
                 <div class="panel-body">
                     <hr>
-                    
+
                     {%include('admin/layout/notification.twig')%}
 
                     <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
-{% else %}
-    {% include('layout/header.twig')%}
-    <div class="row">
-        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-            <div class="logo">
-                <img src="assets/images/logo.png">
-            </div>
-            <!-- start: LOGIN BOX -->
-            <div class="box-login">
-                <h3>{{ lang('sign_in_to_ur_account') }}</h3>
-                <p>
-                    {{ lang('single_step_registration') }}
-                </p>
-                
-                {%include('admin/layout/notification.twig')%}
-{% endif %}
+                    {% else %}
+                        {% include('layout/header.twig')%}
+                        <div class="row">
+                            <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+                                <div class="logo">
+                                    <img src="assets/images/logo.png">
+                                </div>
+                                <!-- start: LOGIN BOX -->
+                                <div class="box-login">
+                                    <h3>{{ lang('sign_in_to_ur_account') }}</h3>
+                                    <p>
+                                        {{ lang('single_step_registration') }}
+                                    </p>
+
+                                    {%include('admin/layout/notification.twig')%}
+                                {% endif %}
 
                                 {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
                                 <div class="errorHandler alert alert-danger no-display">
@@ -52,7 +52,7 @@
                                 <fieldset>
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponsor_name') }}">
+                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
                                             <i class="fa fa-user-plus"></i> 
                                         </span>
 
@@ -128,144 +128,22 @@
                                 {{ form_close()|raw }}                   
 
 
-{% if loggeg_user %}
-                    </div>
+                                {% if loggeg_user %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                    
                 </div>
-            </div>
-        </div>                                    
-    </div>
-    {% include('admin/layout/footer.twig')%}
-{% else %}                
+                {% include('admin/layout/footer.twig')%}
+            {% else %}                
             </div>
         </div>
     </div>
     {% include('layout/footer.twig')%}
 {% endif %}
-
+<script src="assets/js/single_step_register.js"></script>
 <script>
     jQuery(document).ready(function () {
-        //valSingleStep();
+        valSingleStep();
     });
-
-
-    $.validator.addMethod("validUsername", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_username",
-            data: {username: $("#username").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Username Not Available");
-
-    $.validator.addMethod("validSponsor", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_sponsor",
-            data: {username: $("#sponser_name").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Invalid Sponsorname");
-
-    $.validator.addMethod("valiEmail", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/valid_email",
-            data: {email: $("#email").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Email Not Available");
-
-    var valSingleStep = function () {
-        var form = $('#single_step_form');
-        var errorHandler2 = $('.errorHandler', form);
-        var successHandler2 = $('.successHandler', form);
-        form.validate({
-            errorElement: "span", // contain the error msg in a small tag
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                } else if (element.hasClass("ckeditor")) {
-                    error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter(element)// for other inputs, just perform default behavior
-                }
-            },
-            ignore: "",
-            rules: {
-                sponser_name: {
-                    validSponsor: true,
-                    required: true
-                },
-                username: {
-                    validUsername: true,
-                    minlength: 4,
-                    required: true,
-                },
-                email: {
-                    valiEmail: true,
-                    required: true,
-                    email: true
-                },
-                password: {
-                    minlength: 6,
-                    required: true
-                },
-                confirm_password: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#password"
-                },
-                first_name: {
-                    required: true,
-                    minlength: 2,
-                }, agree: {
-                    required: true
-                }
-            },
-            messages: {
-                pair_bonus: "Please enter Pair Bonus",
-                referal_bonus: "Please enter Referal Bonus"
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit
-                successHandler2.hide();
-                errorHandler2.show();
-            },
-            highlight: function (element) {
-                $(element).closest('.help-block').removeClass('valid');// display OK icon
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
-            },
-            success: function (label, element) {
-                label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-            },
-            submitHandler: function (form) {
-                successHandler2.show();
-                errorHandler2.hide();
-                // submit form//$('#form2').submit();
-
-                form.submit();
-
-            }
-        });
-    };
-
 </script>
