@@ -16,8 +16,7 @@ class Home extends Base_Controller{
 	*/
 	function index(){
 		$title="Home";
-		$this->setData('title',$title);
-		
+		$this->setData('title',$title);		
 		$this->loadView();
 	}
 }
