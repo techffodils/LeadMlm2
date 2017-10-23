@@ -253,9 +253,8 @@ class Base_model extends CI_Model {
 
 			$res = $this->db->select('id,name,link')
 				->limit(1)
-				->where('link',$path)
+				->like('link', $path, 'before')
 				->get('menus');
-
 			if($res->num_rows() > 0){
 				$bread_crumb['page_title'] = $res->row()->id;
 				$bread_crumb['page_header'] = ($res->row()->id == 1)?'':$res->row()->id;
