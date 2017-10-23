@@ -47,7 +47,6 @@ class Member extends Base_Controller {
             }
         }
 
-
         $this->setData('tab1', $tab1);
         $this->setData('tab2', $tab2);
         $this->setData('tab3', $tab3);
