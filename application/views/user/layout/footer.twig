@@ -13,7 +13,7 @@
 			<footer class="inner">
 				<div class="footer-inner">
 					<div class="pull-left">
-						2017 &copy; leadMLM by TechFFodils.
+						2017 &copy; <a href="//www.leadmlmsoftware.com">Lead MLM</a>
 					</div>
 					<div class="pull-right">
 						<span class="go-top"><i class="fa fa-chevron-up"></i></span>
@@ -445,9 +445,19 @@
 		<script>
 			jQuery(document).ready(function() {
 				Main.init();
-				SVExamples.init();
 			});
+			
 		</script>
-	</body>
+		{% if MULTI_LANG_STATUS == 0 %}
+			{% if GOOGLE_TRANSLATOR == 1 %}
+				<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+				<script type="text/javascript">
+					function googleTranslateElementInit() {
+					  new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
+					}
+				</script>
+			{% endif %}
+		{% endif %}
+</body>
 	<!-- end: BODY -->
 </html>
