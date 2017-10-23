@@ -91,20 +91,21 @@ class Register extends Base_Controller {
     public function validate_registration($type) {
         $this->session->set_userdata($type . '_post', $this->input->post());
 
-        $this->form_validation->set_rules('sponser_name', 'sponser_name', 'required|callback_validate_sponsor|trim');
-        $this->form_validation->set_rules('username', 'username', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|valid_email|callback_valid_email');
-        $this->form_validation->set_rules('password', 'password', 'trim|required|matches[confirm_password]|min_length[6]');
-        $this->form_validation->set_rules('confirm_password', 'confirm_password', 'trim|required|min_length[6]');
-        $this->form_validation->set_rules('first_name', 'first_name', 'required');
-        $this->form_validation->set_rules('agree', 'agree', 'required');
+        $this->form_validation->set_rules('sponser_name', lang('sponser_name'), 'required|callback_validate_sponsor|trim');
+        $this->form_validation->set_rules('username', lang('username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('email', lang('email'), 'required|valid_email|callback_valid_email');
+        $this->form_validation->set_rules('password', lang('password'), 'trim|required|matches[confirm_password]|min_length[6]');
+        $this->form_validation->set_rules('confirm_password', lang('confirm_password'), 'trim|required|min_length[6]');
+        $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
+        $this->form_validation->set_rules('agree', lang('agree'), 'required');
         if ($type == "multiple_step") {
-            $this->form_validation->set_rules('phone_number', 'phone_number', 'required|numeric|greater_than[0]');
-            $this->form_validation->set_rules('gender', 'gender', 'required');
-            $this->form_validation->set_rules('address', 'address', 'required');
-            $this->form_validation->set_rules('country', 'country', 'required');
-            $this->form_validation->set_rules('zip_code', 'zip_code', 'numeric|greater_than[0]');
+            $this->form_validation->set_rules('phone_number', lang('phone_number'), 'required|numeric|greater_than[0]');
+            $this->form_validation->set_rules('gender', lang('gender'), 'required');
+            $this->form_validation->set_rules('address', lang('address'), 'required');
+            $this->form_validation->set_rules('country', lang('country'), 'required');
+            $this->form_validation->set_rules('zip_code', lang('zip_code'), 'numeric|greater_than[0]');
         }
+        
         $this->form_validation->set_error_delimiters('<li>', '</li>');
         $validation = $this->form_validation->run();
         return $validation;
