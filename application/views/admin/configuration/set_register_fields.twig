@@ -6,9 +6,9 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     {% if edit_status %}
-                        Update Register Field
+                        {{lang('update_reg_field')}}
                     {% else %}
-                        Add Register Field
+                        {{lang('add_reg_field')}}
                     {% endif %}
 
                     <span class="text-bold"></span></h4>
@@ -18,10 +18,24 @@
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -40,7 +54,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">
-                                Field Name <span class="symbol required"></span>
+                                {{lang('field_name')}} <span class="symbol required"></span>
                             </label>
                             <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
                             {% if error.field_name is defined %}<code> {{ error.field_name}}</code> {% endif %}
@@ -48,16 +62,16 @@
 
                         <div class="form-group">
                             <label class="control-label">
-                                Required <span class="symbol required"></span>
+                                {{lang('required_status')}} <span class="symbol required"></span>
                             </label>
                             <div>
                                 <label class="radio-inline">
                                     <input type="radio" checked="checked" class="grey" value="1" name="required_status" id="required_status">
-                                    Yes
+                                    {{lang('yes')}}
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" {% if post_data.required_status==0 %} checked="checked" {% endif %} class="grey" value="0" name="required_status"  id="required_status">
-                                    No
+                                    {{lang('no')}}
                                 </label>
                                 {% if error.required_status is defined %}<code> {{ error.required_status}}</code> {% endif %}
                             </div>
@@ -69,13 +83,13 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Placement <span class="symbol required"></span>
+                                        {{lang('register_step')}} <span class="symbol required"></span>
                                     </label>
                                     <select name="register_step" id="register_step" class="form-control" >
-                                        <option value="">Select Placement</option>
-                                        <option value="step-1" {% if post_data.register_step=="step-1" %} selected {% endif %}>Step-1</option>
-                                        <option value="step-2" {% if post_data.register_step=="step-2" %} selected {% endif %}>Step-2</option>
-                                        <option value="step-3" {% if post_data.register_step=="step-3" %} selected {% endif %}>Step-3</option>                                            
+                                        <option value="">{{lang('select_register_step')}}</option>
+                                        <option value="step-1" {% if post_data.register_step=="step-1" %} selected {% endif %}>{{lang('step')}}-1</option>
+                                        <option value="step-2" {% if post_data.register_step=="step-2" %} selected {% endif %}>{{lang('step')}}-2</option>
+                                        <option value="step-3" {% if post_data.register_step=="step-3" %} selected {% endif %}>{{lang('step')}}-3</option>                                            
                                     </select>
                                     {% if error.register_step is defined %}<code> {{ error.register_step}}</code> {% endif %}
                                 </div>
@@ -83,7 +97,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Sort Order <span class="symbol required"></span>
+                                        {{lang('order')}} <span class="symbol required"></span>
                                     </label>
                                     <input class="form-control" type="number" name="order" id="order" value="{{ post_data.order }}" placeholder="Sort Order">
                                     {% if error.order is defined %}<code> {{ error.order}}</code> {% endif %}
@@ -93,30 +107,30 @@
 
                         <div class="form-group">
                             <label class="control-label">
-                                Unique <span class="symbol required"></span>
+                                {{lang('unique_status')}} <span class="symbol required"></span>
                             </label>
                             <div>
                                 <label class="radio-inline">
                                     <input type="radio" checked="checked" class="grey" value="1" name="unique_status" id="unique_status">
-                                    Yes
+                                    {{lang('yes')}}
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" class="grey" value="0" {% if post_data.unique_status==0 %} checked="checked" {% endif %} name="unique_status"  id="unique_status">
-                                    Yes
+                                    {{lang('no')}}
                                 </label>
                                 {% if error.unique_status is defined %}<code> {{ error.unique_status}}</code> {% endif %}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label">
-                                Data Type <span class="symbol required"></span>
+                                {{lang('data_types')}} <span class="symbol required"></span>
                             </label>
                             <select name="data_types" id="data_types" class="form-control" >
-                                <option value="">Select Data Type</option>
-                                <option value="int" {% if post_data.data_types=="int" %} selected {% endif %}>Int</option>
-                                <option value="double" {% if post_data.data_types=="double" %} selected {% endif %}>Double</option>
-                                <option value="varchar" {% if post_data.data_types=="varchar" %} selected {% endif %}>Varchar</option>    
-                                <option value="text" {% if post_data.data_types=="text" %} selected {% endif %}>Text</option>
+                                <option value="">{{lang('select_data_types')}}</option>
+                                <option value="int" {% if post_data.data_types=="int" %} selected {% endif %}>{{lang('int')}}</option>
+                                <option value="double" {% if post_data.data_types=="double" %} selected {% endif %}>{{lang('double')}}</option>
+                                <option value="varchar" {% if post_data.data_types=="varchar" %} selected {% endif %}>{{lang('varchar')}}</option>    
+                                <option value="text" {% if post_data.data_types=="text" %} selected {% endif %}>{{lang('text')}}</option>
                             </select>
                             {% if error.data_types is defined %}<code> {{ error.data_types}}</code> {% endif %}
                         </div>
@@ -127,15 +141,15 @@
 
                         <div class="form-group" id="max_size_div">
                             <label class="control-label">
-                                Data Type Max Size
+                                {{lang('data_type_max_size')}}
                             </label>
-                            <input type="number" placeholder="Data Type Max Size" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
+                            <input type="number" placeholder="{{lang('data_type_max_size')}}" class="form-control" id="data_type_max_size" name="data_type_max_size" value="{{ post_data.data_type_max_size }}">
                             {% if error.data_type_max_size is defined %}<code> {{ error.data_type_max_size}}</code> {% endif %}
                         </div>
 
                         <div class="form-group">
                             <label class="control-label">
-                                Default Value 
+                                {{lang('default_value')}}
                             </label>
                             <input type="text" placeholder="Insert your Default Value" class="form-control" id="default_value" name="default_value" value="{{ post_data.default_value }}" >
                             {% if error.default_value is defined %}<code> {{ error.default_value}}</code> {% endif %}
@@ -143,14 +157,14 @@
 
                         <div class="form-group">
                             <label class="control-label">
-                                Field Type <span class="symbol required"></span>
+                                {{lang('field_type')}} <span class="symbol required"></span>
                             </label>
                             <select name="field_type" id="field_type" class="form-control field_type" >
-                                <option value="">Select Field Type</option>
-                                <option value="text" {% if post_data.field_type=="text" %} selected {% endif %}>Text</option>
-                                <option value="radio" {% if post_data.field_type=="radio" %} selected {% endif %}>Radio</option>
-                                <option value="select_box" {% if post_data.field_type=="select_box" %} selected {% endif %}>Select Box</option>    
-                                <option value="text_area" {% if post_data.field_type=="text_area" %} selected {% endif %}>Text Area</option>
+                                <option value="">{{lang('select_field_type')}}</option>
+                                <option value="text" {% if post_data.field_type=="text" %} selected {% endif %}>{{lang('text')}}</option>
+                                <option value="radio" {% if post_data.field_type=="radio" %} selected {% endif %}>{{lang('radio')}}</option>
+                                <option value="select_box" {% if post_data.field_type=="select_box" %} selected {% endif %}>{{lang('select_box')}}</option>    
+                                <option value="text_area" {% if post_data.field_type=="text_area" %} selected {% endif %}>{{lang('text_area')}}</option>
                             </select>
                             {% if error.field_type is defined %}<code> {{ error.field_type}}</code> {% endif %}
                         </div>
@@ -160,7 +174,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Value 1 <span class="symbol required"></span>
+                                            {{lang('radio_value1')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required  type="text" name="radio_value1" id="radio_value1" value="{{ post_data.radio_value1 }}" placeholder="Value 1">
                                         {% if error.radio_value1 is defined %}<code> {{ error.radio_value1}}</code> {% endif %}
@@ -169,7 +183,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Value 2 <span class="symbol required"></span>
+                                            {{lang('radio_value2')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="radio_value2" id="radio_value2" value="{{ post_data.radio_value2 }}" placeholder="Value 2">
                                         {% if error.radio_value2 is defined %}<code> {{ error.radio_value2}}</code> {% endif %}
@@ -183,7 +197,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Option 1 <span class="symbol required"></span>
+                                            {{lang('select_option1')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option1" id="select_option1" placeholder="Option 1" value="{{ post_data.select_option1 }}">
                                         {% if error.select_option1 is defined %}<code> {{ error.select_option1}}</code> {% endif %}
@@ -192,7 +206,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Option 2 <span class="symbol required"></span>
+                                            {{lang('select_option2')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option2" id="select_option2" placeholder="Option 2" value="{{ post_data.select_option2 }}">
                                         {% if error.select_option2 is defined %}<code> {{ error.select_option2}}</code> {% endif %}
@@ -203,7 +217,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Option 3 <span class="symbol required"></span>
+                                            {{lang('select_option3')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option3" id="select_option3" placeholder="Option 3" value="{{ post_data.select_option3 }}">
                                         {% if error.select_option3 is defined %}<code> {{ error.select_option3}}</code> {% endif %}
@@ -212,7 +226,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Option 4 <span class="symbol required"></span>
+                                            {{lang('select_option4')}} <span class="symbol required"></span>
                                         </label>
                                         <input class="form-control" required type="text" name="select_option4" id="select_option4" placeholder="Option 4" value="{{ post_data.select_option4 }}">
                                         {% if error.select_option4 is defined %}<code> {{ error.select_option4}}</code> {% endif %}
@@ -238,13 +252,13 @@
                         </div>#}
                         <div class="col-md-2">
                             <button type="submit"class="btn btn-primary" name="update_field" id="update_field" value="Update">
-                                Update <i class="fa fa-arrow-circle-right"></i>
+                                {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                             </button>
                         </div>
                     {% else %}
                         <div class="col-md-2">
                             <button type="submit"class="btn btn-primary" name="add_new" id="add_new" value="Add New">
-                                Add New <i class="fa fa-arrow-circle-right"></i>
+                                {{lang('add_new')}} <i class="fa fa-arrow-circle-right"></i>
                             </button>
                         </div>
                     {% endif %}
@@ -264,17 +278,31 @@
         <div class="col-md-12">
             <div class="panel panel-white">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Register Fields <span class="text-bold"></span></h4>
+                    <h4 class="panel-title">{{lang('register_fields')}}<span class="text-bold"></span></h4>
                     <div class="panel-tools">
                         <div class="dropdown">
                             <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                                 <i class="fa fa-cog"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                                <li>
+                                    <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                                </li>
+                                <li>
+                                    <a class="panel-refresh" href="#">
+                                        <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                        <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-expand" href="#">
+                                        <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <a class="btn btn-xs btn-link panel-close" href="#">
@@ -290,14 +318,14 @@
                         <table class="table table-bordered table-hover" id="sample-table-1">
                             <thead>
                                 <tr>                                    
-                                    <th>Field Name</th>
-                                    <th>Status</th>
-                                    <th>Required</th>
-                                    <th>Unique</th>
-                                    <th>Placement</th>
-                                    <th>Order</th>
-                                    <th>Default Value</th>
-                                    <th>Action</th>
+                                    <th>{{lang('field_name')}}</th>
+                                    <th>{{lang('status')}}</th>
+                                    <th>{{lang('required')}}</th>
+                                    <th>{{lang('unique')}}</th>
+                                    <th>{{lang('placement')}}</th>
+                                    <th>{{lang('order')}}</th>
+                                    <th>{{lang('default_value')}}</th>
+                                    <th>{{lang('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -308,16 +336,16 @@
                                         <td>{{ fld.status }}</td>
                                         <td>
                                             {% if fld.required_status %} 
-                                                Yes
+                                                {{lang('yes')}}
                                             {% else %}
-                                                No 
+                                                {{lang('no')}}
                                             {% endif %}
                                         </td>
                                         <td>
                                             {% if fld.unique_status %} 
-                                                Yes
+                                                {{lang('yes')}}
                                             {% else %}
-                                                No 
+                                                {{lang('no')}}
                                             {% endif %}
                                         </td>
                                         <td>{{ fld.register_step }}</td>
@@ -325,33 +353,22 @@
                                         <td>{{ fld.default_value }}</td>
                                         <td>
                                             {% if fld.editable_status %} 
-                                                <a href="javascript:edit_field({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                                <a href="javascript:edit_field({{ fld.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="{{lang('edit')}}"><i class="fa fa-edit"></i></a>
                                                     {% if fld.status=='active' %} 
-                                                    <a href="javascript:inactivate_field({{ fld.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                                    <a href="javascript:inactivate_field({{ fld.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="{{lang('inactivate')}}"><i class="fa fa-times fa fa-white"></i></a>
                                                     {% else %}
-                                                    <a href="javascript:activate_field({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
+                                                    <a href="javascript:activate_field({{ fld.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="{{lang('activate')}}"><i class="glyphicon glyphicon-ok-sign"></i></a>
                                                     {% endif %}
-                                                <a href="javascript:delete_field({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
+                                                <a href="javascript:delete_field({{ fld.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="{{lang('delete')}}"><i class="fa fa-trash fa fa-white"></i></a>
                                                 {% else %}
-                                                No access
+                                                {{lang('no_access')}}
                                             {% endif %}
-
-
-
                                         </td>
-
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-
-
-
                     </div>
-
-
-
-
                 </div>
             </div>                                    
         </div>
@@ -366,80 +383,4 @@
         SVExamples.init();
         validate_add_field();
     });
-
-    var validate_add_field = function () {
-        var form = $('#add_field_form');
-        var errorHandler2 = $('.errorHandler', form);
-        var successHandler2 = $('.successHandler', form);
-        form.validate({
-            errorElement: "span", // contain the error msg in a small tag
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                } else if (element.hasClass("ckeditor")) {
-                    error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter(element)// for other inputs, just perform default behavior
-                }
-            },
-            ignore: ':hidden',
-            rules: {
-                field_name: {
-                    required: true,
-                    minlength: 3
-                },
-                required_status: {
-                    required: true
-                },
-                register_step: {
-                    required: true
-                },
-                order: {
-                    required: true
-                },
-                unique_status: {
-                    required: true
-                },
-                data_types: {
-                    required: true
-                },
-                data_type_max_size: {
-                    required: true
-                },
-                field_type: {
-                    required: true
-                },
-            },
-            messages: {
-                field_name: "Please enter Field Name"
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit
-                successHandler2.hide();
-                errorHandler2.show();
-            },
-            highlight: function (element) {
-                $(element).closest('.help-block').removeClass('valid');// display OK icon
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
-            },
-            success: function (label, element) {
-                label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-            },
-            submitHandler: function (form) {
-                successHandler2.show();
-                errorHandler2.hide();
-
-                form.submit();
-
-            }
-        });
-    };
-
 </script>

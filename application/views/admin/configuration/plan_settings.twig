@@ -3,17 +3,31 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Plan Settings <span class="text-bold"></span></h4>
+                <h4 class="panel-title">{{lang('plan_settings')}} <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -30,29 +44,29 @@
                             <ul id="myTab3" class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a href="#plan_tab1" data-toggle="tab">
-                                        <i class="fa fa-credit-card"> </i>Payment Methods 
+                                        <i class="fa fa-credit-card"> </i>{{lang('payment_methods')}}  
                                     </a>
                                 </li>
                                 <li class="{{tab2}}">
                                     <a href="#plan_tab2" data-toggle="tab">
-                                        <i class="fa fa-money"> </i> Bonuses
+                                        <i class="fa fa-money"> </i> {{lang('bonuses')}}
                                     </a>
                                 </li>
                                 <li class="{{tab3}}">
                                     <a href="#plan_tab3" data-toggle="tab">
-                                        <i class="fa fa-user"> </i> Username Settings
+                                        <i class="fa fa-user"> </i> {{lang('username_settings')}}
                                     </a>
                                 </li>
 
                                 <li class="{{tab4}}">
                                     <a href="#plan_tab4" data-toggle="tab">
-                                        <i class="fa fa-bars"> </i> Registration Model
+                                        <i class="fa fa-bars"> </i> {{lang('registration_model')}} 
                                     </a>
                                 </li>
                                 {% if mlm_plan == "MATRIX" %} 
                                     <li class="{{tab5}}">
                                         <a href="#plan_tab5" data-toggle="tab">
-                                            <i class="fa fa-arrows"> </i> Depth & Width
+                                            <i class="fa fa-arrows"> </i>{{lang('depth_width')}}  
                                         </a>
                                     </li>
                                 {% endif %}
@@ -60,8 +74,7 @@
                                 {% if mlm_plan == "BINARY" %} 
                                     <li class="{{tab6}}">
                                         <a href="#plan_tab6" data-toggle="tab">
-                                            <i class="fa fa-balance-scale"> </i> User Position
-                                        </a>
+                                            <i class="fa fa-balance-scale"> </i> {{lang('user_position')}}                            </a>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -69,20 +82,20 @@
                                 <div class="tab-pane {{tab1}}" id="plan_tab1" style="padding: 65px;">
                                     <div id="accordion" class="panel-group accordion accordion-custom accordion-teal">
 
-                                        <h3 class="margin-bottom-5">Payment Methods </h3>
+                                        <h3 class="margin-bottom-5">{{lang('payment_methods')}} </h3>
                                         <br>
                                         <div class="form-horizontal">
                                             {% for pm in payment_method %}
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        {{ pm.code }}
+                                                        {{ lang(pm.code) }}
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <label class="switch">
                                                             <input type="checkbox" {% if pm.status == "active" %} checked {% endif %} id="togBtn" onchange='changePaymentStatus("{{ pm.code }}", this)'>
                                                             <div class="slider round">
-                                                                <span class="on">ON</span>
-                                                                <span class="off">OFF</span>
+                                                                <span class="on">{{lang('on')}}</span>
+                                                                <span class="off">{{lang('off')}}</span>
                                                             </div>
                                                         </label>
                                                     </div>
@@ -93,7 +106,7 @@
                                 </div>
                                 <div class="tab-pane {{tab2}}" id="plan_tab2" style="padding: 65px;">
                                     <div id="accordion2" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15"> Bonuses</h3>
+                                        <h3 class="margin-bottom-15"> {{lang('bonuses')}}</h3>
                                         <br>
 
                                         {{ form_open('', ' id="bonus_form" name="bonus_form"')|raw }}
@@ -104,7 +117,7 @@
                                             {% if mlm_plan == "BINARY" %} 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Pairing Bonus <span class="symbol required"></span>
+                                                        {{lang('pairing_bonus')}} <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="0" type="number" name="pair_bonus" id="pair_bonus" value="{{ pair_bonus }}">
@@ -113,7 +126,7 @@
                                             {% endif %}
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Referal Bonus <span class="symbol required"></span>
+                                                    {{lang('referal_bonus')}}<span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" type="number" name="referal_bonus" id="referal_bonus" value="{{ referal_bonus }}">
@@ -129,7 +142,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <button type="submit"class="btn btn-primary" value="bonus_settings" name="bonus_settings">
-                                                        Update <i class="fa fa-arrow-circle-right"></i>
+                                                        {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -142,7 +155,7 @@
                                 </div>
                                 <div class="tab-pane {{tab3}}" id="plan_tab3" style="padding: 65px;">
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Username Settings</h3>
+                                        <h3 class="margin-bottom-15">{{lang('username_settings')}}</h3>
                                         <br>
                                         {{ form_open('', ' id="username_form" name="username_form"')|raw }}
                                         <div class="form-horizontal">                                            
@@ -151,19 +164,19 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Username Type <span class="symbol required"></span>
+                                                    {{lang('username_type')}}<span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select name="username_type" id="username_type" class="form-control field_type" >
-                                                        <option value="">Select Username Type</option>
-                                                        <option value="statis" {% if username_type=="statis" %} selected {% endif %}>Static</option>
-                                                        <option value="dynamic" {% if username_type=="dynamic" %} selected {% endif %}>Dynamic</option>
+                                                        <option value="">{{lang('select_username_type')}}</option>
+                                                        <option value="statis" {% if username_type=="statis" %} selected {% endif %}>{{lang('static')}}</option>
+                                                        <option value="dynamic" {% if username_type=="dynamic" %} selected {% endif %}>{{lang('dynamic')}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Username Prefix
+                                                    {{lang('username_prefix')}}
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" type="text" name="username_prefix" id="username_prefix" maxlength="4" value="{{ username_prefix }}">
@@ -172,7 +185,7 @@
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Username Size <span class="symbol required"></span>
+                                                    {{lang('username_size')}}<span class="symbol required"></span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control" min="5" max="15" type="number" name="username_size" id="username_size" value="{{ username_size }}">
@@ -188,7 +201,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <button type="submit"class="btn btn-primary" value="username_settings" name="username_settings">
-                                                        Update <i class="fa fa-arrow-circle-right"></i>
+                                                        {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -199,19 +212,18 @@
 
                                 <div class="tab-pane {{tab4}}" id="plan_tab4" style="padding: 65px;">
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Registration Model</h3>
+                                        <h3 class="margin-bottom-15">{{lang('registration_model')}}</h3>
                                         <br>
                                         <div class="form-horizontal">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Form Type
-                                                </label>
+                                                    {{lang('form_type')}}                                               </label>
                                                 <div class="col-sm-4">
                                                     <label class="switch">
                                                         <input type="checkbox" {% if register_form_type == "single" %} checked {% endif %} id="togBtn" onchange='changeRegisterForm(this)'>
                                                         <div class="slider round">
-                                                            <span class="on">Single</span>
-                                                            <span class="off">Multiple</span>
+                                                            <span class="on">{{lang('single')}}  </span>
+                                                            <span class="off">{{lang('multiple')}}  </span>
                                                         </div>
                                                     </label>
                                                 </div>
@@ -220,14 +232,14 @@
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Field Configuration
+                                                    {{lang('field_configuration')}}
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <label class="switch">
                                                         <input type="checkbox" {% if register_field_configuration == "active" %} checked {% endif %} id="togBtn" onchange='changeFieldConfigStatus(this)'>
                                                         <div class="slider round">
-                                                            <span class="on">ON</span>
-                                                            <span class="off">OFF</span>
+                                                            <span class="on">{{lang('on')}}</span>
+                                                            <span class="off">{{lang('off')}}</span>
                                                         </div>
                                                     </label>
                                                 </div>
@@ -239,7 +251,7 @@
                                 {% if mlm_plan == "MATRIX" %} 
                                     <div class="tab-pane {{tab5}}" id="plan_tab5" style="padding: 65px;">
                                         <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                            <h3 class="margin-bottom-15">Depth & Width</h3>
+                                            <h3 class="margin-bottom-15">{{lang('depth_width')}}</h3>
                                             <br>
 
                                             {{ form_open('', ' id="depth_width_form" name="depth_width_form"')|raw }}
@@ -249,7 +261,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Depth <span class="symbol required"></span>
+                                                        {{lang('depth')}} <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="1" max="10" type="number" name="matrix_depth" id="matrix_depth" value="{{ matrix_depth }}">
@@ -258,7 +270,7 @@
 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Width <span class="symbol required"></span>
+                                                        {{lang('width')}} <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control" min="1" max="10" type="number" name="matrix_width" id="matrix_width" value="{{ matrix_width }}">
@@ -274,7 +286,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <button type="submit"class="btn btn-primary" value="matrix_settings" name="matrix_settings">
-                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                            {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -290,7 +302,7 @@
                                 {% if mlm_plan == "BINARY" %} 
                                     <div class="tab-pane {{tab6}}" id="plan_tab6" style="padding: 65px;">
                                         <div id="accordion6" class="panel-group accordion accordion-custom accordion-teal">
-                                            <h3 class="margin-bottom-15">User Position</h3>
+                                            <h3 class="margin-bottom-15">{{lang('user_position')}}</h3>
                                             <br>
 
                                             {{ form_open('', ' id="user_position_form" name="user_position_form"')|raw }}
@@ -300,15 +312,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Leg <span class="symbol required"></span>
+                                                        {{lang('leg')}} <span class="symbol required"></span>
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <select name="register_leg" id="register_leg" class="form-control field_type" >
-                                                            <option value="">Select Leg</option>
-                                                            <option value="dynamic" {% if register_leg=="dynamic" %} selected {% endif %}>Dynamic</option>
-                                                            <option value="balanced" {% if register_leg=="balanced" %} selected {% endif %}>Balanced</option>
-                                                            <option value="left" {% if register_leg=="left" %} selected {% endif %}>Left</option>
-                                                            <option value="right" {% if register_leg=="right" %} selected {% endif %}>Right</option>
+                                                            <option value="">{{lang('select_leg')}}</option>
+                                                            <option value="dynamic" {% if register_leg=="dynamic" %} selected {% endif %}>{{lang('dynamic')}}</option>
+                                                            <option value="balanced" {% if register_leg=="balanced" %} selected {% endif %}>{{lang('balanced')}}</option>
+                                                            <option value="left" {% if register_leg=="left" %} selected {% endif %}>{{lang('left')}}</option>
+                                                            <option value="right" {% if register_leg=="right" %} selected {% endif %}>{{lang('right')}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -319,7 +331,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <button type="submit"class="btn btn-primary" value="leg_settings" name="leg_settings">
-                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                            {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -343,11 +355,11 @@
 <link rel="stylesheet" href="assets/css/multiple_options.css">
 <script src="assets/js/plan_settings.js"></script>
 <script>
-                                                            $(document).ready(function () {
-                                                                valBonusSettings();
-                                                                valUsernameSettings();
-                                                                valLegSettings();
-                                                                valMatrixSettings();
-                                                            });
+    $(document).ready(function () {
+        valBonusSettings();
+        valUsernameSettings();
+        valLegSettings();
+        valMatrixSettings();
+    });
 </script>
 {% include('admin/layout/footer.twig')%}

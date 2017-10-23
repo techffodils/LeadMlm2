@@ -1,8 +1,98 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$lang['new_field_added'] = 'New Field Created Successfully';
+$lang['new_field_creation_failed'] = 'New Field Creation Failed';
+$lang['field_activated'] = 'Field Activated';
+$lang['field_activation_failed'] = 'Field Activation Failed';
+$lang['field_inactivated'] = 'Field Inactivated';
+$lang['field_inactivation_failed'] = 'Field Inactivation Failed';
+$lang['field_deleted'] = 'Field Deleted';
+$lang['field_deletion_failed'] = 'Field Deletion Failed';
+$lang['invalid_action'] = 'Invalid Action';
+$lang['this_cant_edit'] = 'This Field Can not be Edited';
+$lang['field_updated_successfully'] = 'Field Updated Successfully';
+$lang['field_updation_failed'] = 'Field Updation Failed';
 
+$lang['field_name'] = 'Field Name';
+$lang['required_status'] = 'Required Status';
+$lang['register_step'] = 'Register Step';
+$lang['select_register_step'] = 'Select Register Step';
+$lang['order'] = 'Order';
+$lang['unique_status'] = 'Unique Status';
+$lang['data_types'] = 'Data Types';
+$lang['select_data_types'] = 'Select Data Types';
+$lang['data_type_max_size'] = 'Data Type Max Size';
+$lang['field_type'] = 'Field Type';
+$lang['radio_value1'] = 'Value 1';
+$lang['radio_value2'] = 'Value 2';
+$lang['select_option1'] = 'Option 1';
+$lang['select_option2'] = 'Option 2';
+$lang['select_option3'] = 'Option 3';
+$lang['select_option4'] = 'Option 4';
+
+$lang['plan_settings'] = 'Plan Settings';
+$lang['payment_methods'] = 'Payment Methods';
+$lang['bonuses'] = 'Bonuses';
+$lang['username_settings'] = 'Username Settings';
+$lang['registration_model'] = 'Registration Model';
+$lang['depth_width'] = ' Depth & Width';
+$lang['user_position'] = 'User Position';
+$lang['on'] = 'On';
+$lang['off'] = 'Off';
+$lang['free_registration'] = 'Free Registration';
+$lang['bank_transfer'] = 'Bank Transfer';
+$lang['ewallet'] = 'E-Wallet';
+$lang['epin'] = 'E-Pin';
+$lang['depth'] = 'Depth';
+$lang['width'] = 'Width';
+
+$lang['pairing_bonus'] = 'Pairing Bonus';
+$lang['referal_bonus'] = 'Referal Bonus';
+$lang['update'] = 'Update';
+$lang['username_type'] = 'Username Type';
+$lang['select_username_type'] = 'Select Username Type';
+$lang['dynamic'] = 'Dynamic';
+$lang['static'] = 'Static';
+$lang['username_prefix'] = 'Username Prefix';
+$lang['username_size'] = 'Username Size';
+$lang['form_type'] = 'Form Type';
+$lang['single'] = 'Single';
+$lang['multiple'] = 'Multiple';
+$lang['field_configuration'] = 'Field Configuration';
+$lang['leg'] = 'Leg';
+$lang['select_leg'] = 'Select Leg';
+$lang['balanced'] = 'Balanced';
+$lang['left'] = 'Left';
+$lang['right'] = 'Right';
+
+$lang['lang_currency'] = 'Languages & Currencies';
+$lang['available_langs'] = 'AVAILABLE LANGUAGES';
+$lang['available_currs'] = 'AVAILABLE CURRENCIES';
+$lang['default'] = 'Default';
+$lang['add_reg_field'] = 'Add Register Field';
+$lang['update_reg_field'] = 'Update Register Field';
+
+$lang['int'] = 'Int';
+$lang['double'] = 'Double';
+$lang['varchar'] = 'Varchar';
+$lang['text'] = 'Text';
+$lang['default_value'] = 'Default Value';
+$lang['radio'] = 'Radio';
+$lang['select_box'] = 'Select Box';
+$lang['text_area'] = 'Text Area';
+$lang['add_new'] = 'Add New';
+
+$lang['register_fields'] = 'Register Fields';
+$lang['field_name'] = 'Field Name';
+$lang['status'] = 'Status';
+$lang['required'] = 'Required';
+$lang['unique'] = 'Unique';
+$lang['placement'] = 'Placement';
+$lang['action'] = 'Action';
+$lang['yes'] = 'Yes';
+$lang['no'] = 'No';
+$lang['delete'] = 'Delete';
+$lang['edit'] = 'Edit';
+$lang['inactivate'] = 'Inactivate';
+$lang['no_access'] = 'No access';
+$lang['activate'] = 'Activate';
