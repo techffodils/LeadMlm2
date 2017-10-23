@@ -27,6 +27,10 @@ class Employee extends Base_Controller {
 
         $page = $this->CURRENT_CLASS . '/' . $this->CURRENT_METHOD;
 
+        $get_all_details = $this->employee_model->getAllRegisteredEmployee();
+
+
+
         if ($this->input->post() && $this->validate_employee_enroll()) {
 
             $post_arr = $this->input->post(NULL, TRUE);
@@ -44,6 +48,8 @@ class Employee extends Base_Controller {
         } else {
             $this->setData('error', $this->form_validation->error_array());
         }
+
+        $this->setData('details', $get_all_details);
 
         $this->loadView();
     }
@@ -80,9 +86,77 @@ class Employee extends Base_Controller {
         $flag = true;
         $result = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
         if ($result) {
-            $flag = false;
+            $flag = TRUE;
         }
         return $flag;
+    }
+
+    /**
+     * 
+     * 
+     * For Edit Option 
+     * @author Techffodils
+     * @date 2017-10-23
+     * 
+     */
+    function edit_form() {
+        $title = lang('edit_employee_form');
+        $id = $this->uri->segment(4);
+        $edit_single_data = $this->employee_model->getSelectedUserData($id);
+        if ($this->input->post() && $this->validate_employee_enroll()) {
+            $post_arr = $this->input->post(NULL, TRUE);
+            $post_arr['id'] = $id;
+            $post_arr['user_id'] = $this->LOG_USER_ID;
+            $result = $this->employee_model->updateEmployeeDetails($post_arr);
+            if ($result) {
+                $msg = lang('successfully_update_employee_details');
+                $this->loadPage($msg, 'employee/employee_register');
+            } else {
+                $msg = lang('error_while_update_employee_deials');
+                $this->loadPage($msg, 'employee/employee_edit/' . $id);
+            }
+        } else {
+            $this->setData('error', $this->form_validation->error_array());
+        }
+        $this->setData('edit_details', $edit_single_data);
+        $this->loadView();
+    }
+
+    /**
+     * 
+     * For Delete Option 
+     * @author Techffodils
+     * @date 2017-10-23
+     */
+    function delete_form() {
+        $id = $this->uri->segment(4);
+        $result = $this->employee_model->deleteEmployee($id);
+        if ($result) {
+            $msg = lang('employee_deleted_successfully');
+            $this->loadPage($msg, 'employee/employee_register');
+        } else {
+            $msg = lang('error_while_delete_an_employee');
+            $this->loadPage($msg, 'employee/employee_register', false);
+        }
+    }
+
+    /**
+     * For activate Employee
+     * @author Techffodils
+     * @date 2017-10-23
+     * 
+     * 
+     */
+    function activate_employee() {
+        $activate_id = $this->uri->segment(4);
+        $result = $this->employee_model->editEmployee($activate_id);
+        if ($result) {
+            $msg = lang('employee_activated_successfully');
+            $this->loadPage($msg, 'employee/employee_register');
+        } else {
+            $msg = lang('error_while_activate_an_employee');
+            $this->loadPage($msg, 'employee/employee_register', false);
+        }
     }
 
 }
