@@ -125,13 +125,12 @@
                                                     <tr>
                                                         <td><input value="{{mail.id}}"  name="checkbox[]" type="checkbox"></td>
 
-                                                        <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
                                                         <td class="mailbox-name"><a href="user/mail/read/{{mail.id}}">{{ mail.from_username }}</a></td>
                                                         <td class="mailbox-subject"><b>{{ mail.show_subject }}</b> - {{ mail.show_content }}
                                                         </td>
                                                         <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
                                                         <td class="mailbox-date">{{ mail.date }}</td>
-                                                   <td><a href="user/mail/unset_spam/{{mail.id}}"> <i class="fa fa-check-square-o" aria-hidden="true">Notspam</i></a>
+                                                        <td> <i onclick="spam({{mail.id}})" class="fa fa-check-square-o" aria-hidden="true" style="color: #bb8344 ">Spam</i>
                                                     </tr>
                                                     {#                                                       <li>{{ user.username|e }}</li>#}
                                                 {% endfor %}
