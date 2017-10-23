@@ -47,6 +47,29 @@ $lang['menu_name_42']='Site Info';
 $lang['menu_name_43']='Mail Content';
 $lang['menu_name_50']='Enroll Employee';
 
+$lang['collapse']='Collapse';
+$lang['refresh']='Refresh';
+$lang['config']='Configurations';
+$lang['full_screen']='Fullscreen';
+
+$lang['sign_in_to_ur_account']='Sign in to your account';
+$lang['form_error_msg']='You have some form errors. Please check below.';
+
+
+
+$lang['single_step_registration']='Single Step Registration';
+
+$lang['sponsor_name']='Sponsor Name';
+$lang['username']='Username';
+$lang['email']='E-Mail';
+$lang['password']='Password';
+$lang['confirm_password']='Confirm Password';
+$lang['first_name']='First Name';
+$lang['agree_to_the_terms_of_service']='I agree to the Terms of Service and Privacy Policy';
+$lang['register']='Register';
+
+
+
 
 
 	

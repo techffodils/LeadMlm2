@@ -21,9 +21,9 @@ class Register extends Base_Controller {
             $user_details['register_type'] = 'single_step';
             $res = $this->register_model->addUser($user_details['register_type'], $user_details);
             if ($res) {
-                $this->loadPage('User Registered Successfully', 'register/single_step', True);
+                $this->loadPage('User Registered Successfully', 'register/single_step');
             } else {
-                $this->loadPage('Failed To Register', 'register/single_step', FALSE);
+                $this->loadPage('Failed To Register', 'register/single_step', 'danger');
             }
         }
         $register_data=array();

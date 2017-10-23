@@ -4,17 +4,17 @@
         <div class="col-md-12">
             <div class="panel panel-white">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Single Step Registration <span class="text-bold"></span></h4>
+                    <h4 class="panel-title">{{ lang('single_step_registration') }} <span class="text-bold"></span></h4>
                     <div class="panel-tools">
                         <div class="dropdown">
                             <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                                 <i class="fa fa-cog"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                             </ul>
                         </div>
                         <a class="btn btn-xs btn-link panel-close" href="#">
@@ -24,6 +24,8 @@
                 </div>
                 <div class="panel-body">
                     <hr>
+                    
+                    {%include('admin/layout/notification.twig')%}
 
                     <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
 {% else %}
@@ -35,20 +37,22 @@
             </div>
             <!-- start: LOGIN BOX -->
             <div class="box-login">
-                <h3>Sign in to your account</h3>
+                <h3>{{ lang('sign_in_to_ur_account') }}</h3>
                 <p>
-                    Single Step Registration
+                    {{ lang('single_step_registration') }}
                 </p>
+                
+                {%include('admin/layout/notification.twig')%}
 {% endif %}
 
                                 {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
                                 <div class="errorHandler alert alert-danger no-display">
-                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                    <i class="fa fa-remove-sign"></i>{{ lang('form_error_msg') }}
                                 </div>
                                 <fieldset>
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="Sponser Name">
+                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponsor_name') }}">
                                             <i class="fa fa-user-plus"></i> 
                                         </span>
 
@@ -56,7 +60,7 @@
                                     </div>
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="Username">
+                                            <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
                                             <i class="fa fa-user"></i> 
                                         </span>
 
@@ -65,7 +69,7 @@
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="Email">
+                                            <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="{{ lang('email') }}">
                                             <i class="fa fa-envelope"></i> 
                                         </span>
 
@@ -74,7 +78,7 @@
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="{{ lang('password') }}">
                                             <i class="fa fa-lock"></i>
                                         </span>
 
@@ -82,7 +86,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <span class="input-icon">
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ lang('confirm_password') }}">
                                             <i class="fa fa-lock"></i> 
                                         </span>
 
@@ -92,7 +96,7 @@
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="First Name">
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="{{ lang('first_name') }}">
                                             <i class="fa fa-text-width"></i> 
                                         </span>
 
@@ -104,7 +108,7 @@
                                         <div>
                                             <label for="agree" class="checkbox-inline">
                                                 <input type="checkbox" class="grey agree" id="agree" name="agree">
-                                                I agree to the Terms of Service and Privacy Policy
+                                                {{ lang('agree_to_the_terms_of_service') }}
                                             </label>
                                         </div>
                                         {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
@@ -116,7 +120,7 @@
                                     </label>
                                     <div class="col-sm-4">
                                         <button type="submit"class="btn btn-primary" value="add_user" name="add_user">
-                                            Register <i class="fa fa-arrow-circle-right"></i>
+                                            {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -140,8 +144,7 @@
 
 <script>
     jQuery(document).ready(function () {
-        //SVExamples.init();
-        valSingleStep();
+        //valSingleStep();
     });
 
 

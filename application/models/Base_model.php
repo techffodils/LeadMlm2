@@ -119,11 +119,13 @@ class Base_model extends CI_Model {
 
 		$script_array = array();
 		$query = $this->db->select("id")
-		->where("link",$currenturl)
+		//->where("link",$currenturl)
+		->like('link',$currenturl,'before')
 		->limit(1)
-		->get("menus");
+		->get('menus');
 		
 		if($query->num_rows() >0 ){
+
 			$script_array = $this->script_model->loadScript($query->row()->id);
 		}
 
