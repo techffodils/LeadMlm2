@@ -48,8 +48,6 @@ $lang['menu_name_43'] = 'Mail Content';
 $lang['menu_name_50'] = 'Enroll Employee';
 //Menu Ends
 
-
-
 $lang['collapse'] = 'Collapse';
 $lang['refresh'] = 'Refresh';
 $lang['config'] = 'Configurations';
@@ -72,6 +70,107 @@ $lang['address'] = 'Address';
 $lang['country'] = 'Country';
 $lang['zip_code'] = 'Zip Code';
 
-$lang['register'] = 'Register';
-$lang['register'] = 'Register';
-$lang['register'] = 'Register';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['mm'] = 'MM';
+$lang['Expiration(MM/YYYY)'] = 'Expiration(MM/YYYY)';
+$lang['cvc'] = 'CVC';
+$lang['card_no'] = 'Card Number';
+$lang['card_holder'] = 'Card Holder Name';
+
+$lang['city'] = 'City';
+$lang['select_a_state'] = 'Select a state';
+$lang['State'] = 'State';
+$lang['Country'] = 'Country';
+$lang['select_a_country'] = 'Select a country';
+$lang['address'] = 'Address';
+$lang['Male'] = 'Male';
+$lang['Female'] = 'Female';
+$lang['last_name'] = 'last_name';
+
+$lang['multiple_step_registration'] = 'Multiple Step Registration';
+
+$lang['personal_info'] = 'Personal Information';
+$lang['sponsor_info'] = 'Sponsor Information';
+$lang['payment_options'] = 'Payment Options';
+$lang['billing_info'] = 'Billing Information';
+
+$lang['step-1'] = 'Step-1';
+$lang['step-2'] = 'Step-2';
+$lang['step-3'] = 'Step-3';
+$lang['step-4'] = 'Step-4';
+
+$lang['register_success'] = 'User Registered Successfully';
+$lang['register_failed'] = 'Failed To Register';
+$lang['advanced_registration'] = 'Advanced Registration';
+
+
+
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+$lang['next'] = 'Next';
+$lang['back'] = 'Back';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
