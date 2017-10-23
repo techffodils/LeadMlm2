@@ -90,6 +90,8 @@ class CI_Main {
 		return (isset($this->flash_data[$key]) ? $this->flash_data[$key] : null);
 	}
 
+
+
 	function set_flashdata($key, $value){
 
 		$this->ci->session->set_flashdata($key, $value);
