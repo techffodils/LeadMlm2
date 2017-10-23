@@ -222,10 +222,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="settings">
-							
-
-					   <div id="style_selector">
+					<div class="tab-pane" id="settings">
+						
+			  	    <div id="style_selector">
 						<div id="style_selector_container">
 							<div class="pageslide-title">
 								Style Selector
@@ -236,7 +235,8 @@
 							<div class="input-box">
 								<div class="input">
 									<select name="layout" class="form-control">
-										<option value="default">Wide</option><option value="boxed">Boxed</option>
+										<option value="default"  >Wide</option>
+										<option value="boxed" >Boxed</option>
 									</select>
 								</div>
 							</div>
@@ -246,35 +246,75 @@
 							<div class="input-box">
 								<div class="input">
 									<select name="header" class="form-control">
-										<option value="fixed">Fixed</option><option value="default">Default</option>
+										<option value="fixed" >Fixed</option>
+										<option value="default" >Default</option>
 									</select>
 								</div>
 							</div>
-							<div class="box-title">
+							<!-- <div class="box-title">
 								Choose Your Sidebar Style
 							</div>
 							<div class="input-box">
 								<div class="input">
 									<select name="sidebar" class="form-control">
-										<option value="fixed">Fixed</option><option value="default">Default</option>
+										<option value="fixed" >Fixed</option>
+										<option value="default" >Default</option>
 									</select>
 								</div>
-							</div>
+							</div> -->
 							<div class="box-title">
 								Choose Your Footer Style
 							</div>
 							<div class="input-box">
 								<div class="input">
 									<select name="footer" class="form-control">
-										<option value="default">Default</option><option value="fixed">Fixed</option>
+										<option value="default" >Default</option>
+										<option value="fixed" >Fixed</option>
+									</select>
+								</div>
+							</div>
+
+
+                           <!-- <div class="box-title">
+								Choose Your Layout Style
+							</div>
+							<div class="input-box">
+								<div class="input">
+									<select name="layout" class="form-control">
+										<option value="default" {% if THEME.layout != 'layout-boxed' %} selected="selected"	 {% endif %} >Wide</option>
+										<option value="boxed" {% if THEME.layout == 'layout-boxed' %} selected="selected" {% endif %}>Boxed</option>
 									</select>
 								</div>
 							</div>
 							<div class="box-title">
+								Choose Your Header Style
+							</div>
+							<div class="input-box">
+								<div class="input">
+									<select name="header" class="form-control">
+										<option value="fixed" {% if THEME.header == 'header-fixed' %} selected ='selected' {% endif %}>Fixed</option>
+										<option value="default" {% if THEME.header == 'header-default' %} selected ='selected' {% endif %}>Default</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="box-title">
+								Choose Your Footer Style
+							</div>
+							<div class="input-box">
+								<div class="input">
+									<select name="footer" class="form-control">
+										<option value="default" {% if THEME.footer == 'footer-default' %} selected ='selected' {% endif %}>Default</option>
+										<option value="fixed" {% if THEME.footer == 'footer-fixed' %} selected ='selected' {% endif %}>Fixed</option>
+									</select>
+								</div>
+							</div> -->
+
+							<div class="box-title">
 								10 Predefined Color Schemes
 							</div>
 							<div class="images icons-color">
-								<a href="javascript:;" id="default"><img src="assets/images/color-1.png" alt="" class="active"></a>
+								<a href="javascript:;" id="default"><img src="assets/images/color-1.png" alt="" ></a>
 								<a href="javascript:;" id="style2"><img src="assets/images/color-2.png" alt=""></a>
 								<a href="javascript:;" id="style3"><img src="assets/images/color-3.png" alt=""></a>
 								<a href="javascript:;" id="style4"><img src="assets/images/color-4.png" alt=""></a>
@@ -301,7 +341,7 @@
 								<!--<a href="javascript:;" class="clear_style">
 									Clear Styles
 								</a>-->
-								<a  class="save_style">
+								<a  class="save_style box-title">
 									Save Styles
 								</a>
 							</div>

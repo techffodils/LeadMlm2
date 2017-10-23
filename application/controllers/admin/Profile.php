@@ -7,8 +7,9 @@ require_once 'Base_Controller.php';
 class Profile extends Base_Controller {
 
     function index() {
-        $user_id = $this->LOG_USER_ID;
-
+        $logged_user_id = $this->LOG_USER_ID;
+        
+        $user_id=$logged_user_id;
         if ($this->input->post('prof_update') && $this->validate_profile_update()) {
             $post = $this->input->post();
             $res = $this->profile_model->updateUserProfile($user_id, $post);
@@ -60,10 +61,14 @@ class Profile extends Base_Controller {
         
 
         $user_details = $this->profile_model->getUserDetails($user_id);
-        
+        $def_cov=array("cover1.jpg", "cover2.jpg", "cover3.jpg","cover4.jpg", "cover5.jpg", "cover6.jpg");
+        $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg", "dp6.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
+        
         $this->setData('user_dps', $user_files['dp']);
+        $this->setData('def_dp', $def_dp);
         $this->setData('user_cov', $user_files['co']);
+        $this->setData('def_cov', $def_cov);
         $this->setData('user_details', $user_details);
         $this->setData('profile_error', $this->form_validation->error_array());
         $this->loadView();
@@ -103,5 +108,28 @@ class Profile extends Base_Controller {
         }
         echo 'no';exit;
     }
+    
+    function set_def_cover(){
+        if($this->input->get('id')){
+            $user_id = $this->LOG_USER_ID;
+            $res=$this->profile_model->setCover($user_id,$this->input->get('id'));
+            if($res){
+                echo 'yes';exit;
+            }
+        }
+        echo 'no';exit;
+    }
+    
+    function set_def_dp(){
+        if($this->input->get('id')){
+            $user_id = $this->LOG_USER_ID;
+            $res=$this->profile_model->setDp($user_id,$this->input->get('id'));
+            if($res){
+                echo 'yes';exit;
+            }
+        }
+        echo 'no';exit;
+    }
+    
 
 }

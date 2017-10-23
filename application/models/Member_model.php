@@ -47,7 +47,7 @@ class Member_model extends CI_Model {
             $json[] = $row['user_name'];
         }
 
-        return $json;
+        return json_encode($json);
     }
     
     function activateInactivateUser($user_id, $status) {

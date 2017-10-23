@@ -37,7 +37,7 @@
 						<div class="toolbar row">
 							<div class="col-sm-6 hidden-xs">
 								<div class="page-header">
-									<h1>{{pages['page_title']}}<small></small></h1>
+									<h1>{{ lang('menu_name_' ~ BREADCRUMBS.page_title )}}</h1><small></small>
 								</div>
 							</div>
 							<div class="col-sm-6 col-xs-12">
@@ -161,7 +161,69 @@
 												</li>
 											</ul>
 										</li>
-										
+										<!-- <li class="dropdown">
+											<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+												<span class="messages-count badge badge-default hide">3</span> <i class="fa fa-envelope"></i> MESSAGES
+											</a>
+											<ul class="dropdown-menu dropdown-light dropdown-messages">
+												<li>
+													<span class="dropdown-header"> You have 9 messages</span>
+												</li>
+												<li>
+													<div class="drop-down-wrapper ps-container">
+														<ul>
+															<li class="unread">
+																<a href="javascript:;" class="unread">
+																	<div class="clearfix">
+																		<div class="thread-image">
+																			<img src="./assets/images/avatar-2.jpg" alt="">
+																		</div>
+																		<div class="thread-content">
+																			<span class="author">Nicole Bell</span>
+																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																			<span class="time"> Just Now</span>
+																		</div>
+																	</div>
+																</a>
+															</li>
+															<li>
+																<a href="javascript:;" class="unread">
+																	<div class="clearfix">
+																		<div class="thread-image">
+																			<img src="./assets/images/avatar-3.jpg" alt="">
+																		</div>
+																		<div class="thread-content">
+																			<span class="author">Steven Thompson</span>
+																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																			<span class="time">8 hrs</span>
+																		</div>
+																	</div>
+																</a>
+															</li>
+															<li>
+																<a href="javascript:;">
+																	<div class="clearfix">
+																		<div class="thread-image">
+																			<img src="./assets/images/avatar-5.jpg" alt="">
+																		</div>
+																		<div class="thread-content">
+																			<span class="author">Kenneth Ross</span>
+																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																			<span class="time">14 hrs</span>
+																		</div>
+																	</div>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</li>
+												<li class="view-all">
+													<a href="pages_messages.html">
+														See All
+													</a>
+												</li>
+											</ul>
+										</li> -->	
 									</ul>
 									<!-- end: TOP NAVIGATION MENU -->
 								</div>
@@ -174,21 +236,21 @@
 							<div class="col-md-12">
 								<ol class="breadcrumb">
 									<li>
-										<a href="{{BASE_URL}}{{pages['page_header']}}">
-											{{pages['page_header']}}
+										<a href="{{BASE_URL}}">
+											{{lang('menu_name_1')}}
 										</a>
 									</li>
-                                                                         {% if(pages['page_sub_header']!='') %}
-									<li class="active">
-										{{pages['page_sub_header']}}
-									</li>
-                                                                        {% endif %}
+                                    {% if BREADCRUMBS.page_header is not null %}
+										<li class="active">
+											<a href="{{BREADCRUMBS.page_header_link}}">
+												{{lang('menu_name_' ~ BREADCRUMBS.page_header)}}
+											</a>
+										</li>
+                                    {% endif %}
 								</ol>
 							</div>
 						</div>
 						<!-- end: BREADCRUMB -->
-						
-						
 						<!-- start: MAIN CONTENT -->
 						
 						

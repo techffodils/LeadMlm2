@@ -1,6 +1,4 @@
-
-
-			<!-- start: TOPBAR -->
+		<!-- start: TOPBAR -->
 			<header class="topbar navbar navbar-inverse navbar-fixed-top inner">
 				<!-- start: TOPBAR CONTAINER -->
 				<div class="container">
@@ -9,7 +7,7 @@
 							<i class="fa fa-bars"></i>
 						</a>
 						<!-- start: LOGO -->
-						<a class="navbar-brand" href="home">
+						<a class="navbar-brand" href="javascript:;">
 							<img src="assets/images/logo.png" alt="Rapido"/>
 						</a>
 						<!-- end: LOGO -->
@@ -18,38 +16,18 @@
 						<!-- start: TOP NAVIGATION MENU -->
 						<ul class="nav navbar-right">
 
-
-<!-- start: CURRENCY -->
-							<li class="dropdown current-user">
-								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;" title="Change System Currency">
-
-								  <i class="fa fa-usd"></i>
-								  <!-- <img src="assets/images/avatar-1-small.jpg" class="img-circle" alt="">-->
-								  <span class="username hidden-xs">USD</span> <i class="fa fa-caret-down hidden-xs "></i>
-								</a>
-								<ul class="dropdown-menu dropdown-dark">
-
-									{% for CURRENCY  in  MLM_CURRENCY_LIST  %}
-										<li>
-											<a href="">
-												<i class="fa {{CURRENCY.icon}}"></i> - {{CURRENCY.currency_name}}
-											</a>
-										</li>
-									{% endfor %}
-									
-								</ul>
-							</li>
-<!-- end: CURRENCY  -->
-<!-- start: LANGUAGE -->
+							{% if MULTI_LANG_STATUS %}
+							<!-- start: LANGUAGE -->
 							<li class="dropdown current-user">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;"  title="Change System Language">
-								  <img src="assets/images/flags-iso/shiny/24/IN.png" class="img-circle" alt="">
-								  <span class="username hidden-xs">English</span> <i class="fa fa-caret-down hidden-xs "></i>
+								  <img src="assets/images/flags-iso/shiny/24/{{MLM_LANG_FLAG}}" class="img-circle" alt="">
+								  <span class="username hidden-xs">{{MLM_LANG_NAME}}</span> <i class="fa fa-caret-down hidden-xs "></i>
 								</a>
-								<ul class="dropdown-menu dropdown-dark">
+								
+								<ul class="dropdown-menu dropdown-dark" >
 									{% for LANGUAGE  in  MLM_LANG_LIST  %}
-										<li>
-											<a href="">
+										<li onclick="switchLanguage('{{LANGUAGE.lang_code}}');">
+											<a href="javascript:;">
 												{{LANGUAGE.lang_name}} 
 												<!-- <img src="assets/images/flags-iso/flat/16/IN.png" class="pull-right"> -->
 											</a>
@@ -57,33 +35,72 @@
 									{% endfor %}
 								</ul>
 							</li>
-<!-- end: LANGUAGE  -->
+							<!-- end: LANGUAGE  -->
+
+							{% elseif GOOGLE_TRANSLATOR %}
+
+							 <li class="hidden-xs">
+								<a  href="javascript:;"  title="Google Translate"  class="dropdown-toggle">
+									<span id="google_translate_element"> </span>
+								</a>
+							</li> 
+
+							{% endif %} 
+
+
+							{% if MULTI_CURRENCY_STATUS %}
+							<!-- start: CURRENCY -->
+							<li class="dropdown current-user">
+								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;" title="Change System Currency">
+
+								  <i class="fa {{MLM_CURRENCY_ICON}}"></i>
+								  <span class="username hidden-xs">{{MLM_CURRENCY_CODE}}</span> <i class="fa fa-caret-down hidden-xs "></i>
+								</a>
+
+								
+								<ul class="dropdown-menu dropdown-dark">
+
+									{% for CURRENCY  in  MLM_CURRENCY_LIST  %}
+										<li onclick="switchCurrency('{{CURRENCY.currency_code}}');">
+											<a href="javascript:;">
+												<i class="fa {{CURRENCY.icon}}"></i> - {{CURRENCY.currency_name}}
+											</a>
+										</li>
+									{% endfor %}
+									
+								</ul>
+								
+							</li>
+							<!-- end: CURRENCY  -->
+							{% endif %}
+
+
 
 							<!-- start: USER DROPDOWN -->
-							<li class="dropdown current-user">
+							<li class="dropdown current-user ">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:;">
-									<img src="assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Peter Clark</span> <i class="fa fa-caret-down "></i>
+									<img src="assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">{{LOG_USER_NAME}} </span> <i class="fa fa-caret-down  hidden-xs"></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
-										<a href="pages_user_profile.html">
-											My Profile
+										<a href="{{LOG_USER_TYPE}}/profile">
+											Profile
 										</a>
 									</li>
 									<li>
-										<a href="login_lock_screen.html">
+										<a href="lockscreen">
 											Lock Screen
 										</a>
 									</li>
 									<li>
-										<a href="login_login.html">
+										<a href="login/logout">
 											Log Out
 										</a>
 									</li>
 								</ul>
 							</li>
 							<!-- end: USER DROPDOWN -->
-							<li class="right-menu-toggle">
+							<li class="right-menu-toggle  hidden-xs">
 								<a href="javascript:;" class="sb-toggle-right">
 									<i class="fa fa-globe toggle-icon"></i> <i class="fa fa-caret-right"></i> 
 								</a>
