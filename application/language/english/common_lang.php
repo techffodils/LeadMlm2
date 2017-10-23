@@ -1,7 +1,6 @@
 <?php
 
 //Menu Start
-$lang['home'] = 'Test';
 $lang['menu_name_1'] = 'Dashboard';
 $lang['menu_name_2'] = 'Tree';
 $lang['menu_name_3'] = 'Register';
@@ -109,39 +108,7 @@ $lang['change'] = 'Change';
 $lang['update'] = 'Update';
 
 $lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
+
 
 
 
