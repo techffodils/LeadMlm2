@@ -2,11 +2,8 @@
 
 class Base_model extends CI_Model {
 
-	public $BREAD_CRUMBS;
 	public function __construct() {
 		parent::__construct();
-		$this->BREAD_CRUMBS=array();
-		$this->main->load_model();
 	}
 
 
@@ -16,7 +13,9 @@ class Base_model extends CI_Model {
 		$url_id = $this->getUrlId($currenturl);
 
 		if($user_type == 'employee'){
+
 			//employee permission check
+
 		}else{
 			$side_menu = $this->getMenuArray($user_type,$url_id);
 		}
@@ -40,6 +39,7 @@ class Base_model extends CI_Model {
 			$sub_menu =($row['link'] == '#')?$this->getSubMenu($row['id'],$user_type,$url_id):null;  
 
 			if( $row['link'] != '#' ||   $sub_menu ){
+				$menu_array[$i]['id']  =  $row['id']; 
 				$menu_array[$i]['name']  =  $row['name']; 
 				$menu_array[$i]['link']  =  ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
 				$menu_array[$i]['icon']  =  $row['icon'];   
@@ -73,6 +73,7 @@ class Base_model extends CI_Model {
 			
 			if( $row['link'] != '#' ||   $sub_menu ){
 				$menu_array[$i]['name']  =  $row['name']; 
+				$menu_array[$i]['id']  =  $row['id']; 
 				$menu_array[$i]['link']  = ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
 				$menu_array[$i]['icon']  =  $row['icon'];   
 				$menu_array[$i]['sub_menu']  =  $sub_menu;   
@@ -99,6 +100,7 @@ class Base_model extends CI_Model {
 
 		foreach ($res->result_array() as $row) {
 
+			$menu_array[$i]['id']  =  $row['id'];
 			$menu_array[$i]['name']  =  $row['name']; 
 			$menu_array[$i]['link']  = $user_type.'/'. $row['link'];
 			$menu_array[$i]['icon']  =  $row['icon'];   
@@ -235,37 +237,32 @@ class Base_model extends CI_Model {
 		return $theme;
 	}
 
-	function getBreadCrubms($user_type){
-		$menu=$this->db->select("id, name,link, icon, order,lock,target,root_id")
-		->where("status",1)
-		->where("root_id",'#')
-		->where($user_type.'_permission',1)
-		->order_by("order")
-		->get("menus");
+	function getBreadCrumbs(){
 
-		$pages=array();
-		$i=$current_path=0;
-		foreach($menu->result_array() as $row){
+			$bread_crumb = array(
+								'page_title'=>'',
+								'page_sub_title'=>'',
+								'page_header'=>'',
+								'page_header_link'=>'',
+							  );
 
-			//spit the row link and then First one  controller and second one method so changed to page title
-			if($this->main->get_method()!='index'){
-				$current_path=$this->main->get_controller().'/'.$this->main->get_method();
-			}else{
-				$current_path=$this->main->get_controller();
+			$path = $this->CURRENT_CLASS;
+			if($this->CURRENT_METHOD != 'index' ){
+				$path = $this->CURRENT_CLASS.'/'.$this->CURRENT_METHOD;
 			}
 
-			if($current_path==$row['link']){
+			$res = $this->db->select('id,name,link')
+				->limit(1)
+				->where('link',$path)
+				->get('menus');
 
-				if($row['root_id'] == '#'){
-					$this->BREAD_CRUMBS['page_title']=$row['name'];
-				}
-				$this->BREAD_CRUMBS['page_sub_title']=strtolower($row['name']);
-				$this->BREAD_CRUMBS['page_header']=$row['name'];
-				$this->BREAD_CRUMBS['page_sub_header']=$this->getSubTitle($row['id']);
-			}
-			$i++;
-		}
-		return $this->BREAD_CRUMBS;
+			if($res->num_rows() > 0){
+				$bread_crumb['page_title'] = $res->row()->id;
+				$bread_crumb['page_header'] = ($res->row()->id == 1)?'':$res->row()->id;
+				$bread_crumb['page_header_link'] = $res->row()->link;
+			}		
+			
+		return $bread_crumb;
 	}
 
 
@@ -314,7 +311,7 @@ function getRootMenus($root_id,$url_ids)
 }
 
 
-function getSubTitle($root_id)
+/*function getSubTitle($root_id)
 {
 	$name='';
 	$variable=$this->db->select('name')->from('menus')->where('root_id',$root_id)->get();
@@ -323,7 +320,7 @@ function getSubTitle($root_id)
 	}
 	return $name;
 
-}
+}*/
 
 
 function getSiteInfo()
@@ -341,7 +338,7 @@ function getSiteInfo()
 function checkMenuPermitted($user_type,$currenturl)
 {
 
-	$status = false;
+	$status = true;
 	$res = $this->db->select('status')
 					->where('link',$currenturl)
 					->where($user_type.'_permission',1)
@@ -370,6 +367,78 @@ function checkMenuLocked($user_type,$currenturl)
 
 	return $lock;
 }
+
+
+
+	public function currencyDetailsFromCode($currency_code){
+
+		$data = array();
+		$query = $this->db->select("id,currency_code,currency_name,symbol_left,symbol_right,currency_ratio,icon")
+		->where("currency_code",$currency_code)
+		->limit(1)
+		->get("currencies");
+
+		if($query->num_rows() >0 ){
+			foreach ($query->result_array() as $row) {
+				$data = $row;
+			}
+		}
+
+		return $data;
+
+	}
+
+	public function changeUserCurrency($user_id,$currency_id){
+
+		$res = $this->db->set("currency",$currency_id)
+		->where("mlm_user_id",$user_id)
+		->limit(1)
+		->update("user");
+		return $res;
+	}
+
+
+
+	public function langDetailsFromCode($lang_code){
+
+		$data = array();
+		$query = $this->db->select("id,lang_code,lang_name,lang_eng_name,lang_flag")
+		->where("lang_code",$lang_code)
+		->limit(1)
+		->get("languages");
+
+		if($query->num_rows() >0 ){
+			foreach ($query->result_array() as $row) {
+				$data = $row;
+			}
+		}
+
+		return $data;
+
+	}
+
+	public function changeUserLanguage($user_id,$lang_id){
+
+		$res = $this->db->set("language",$lang_id)
+		->where("mlm_user_id",$user_id)
+		->limit(1)
+		->update("user");
+		return $res;
+	}
+
+
+	
+	public function themeChange($data,$user_id) {
+
+		$res=$this->db->set('color_scheama',$data["skinClass"])
+		->set('layout',$data["layoutBoxed"])
+		->set('header',$data["headerDefault"])
+		->set('footer',$data["footerDefault"])
+		->where('user_id',$user_id)
+		->update('theme_settings');
+
+		return $res;
+	}
 }
 
 ?>

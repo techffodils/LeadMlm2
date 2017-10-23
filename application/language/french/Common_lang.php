@@ -1,3 +1,30 @@
 <?php 
 
-$lang['home']='Test French';
+$lang['home']='Test';
+$lang['home']='Test';
+$lang['menu_name_1']='Dashboard';
+$lang['menu_name_2']='Dashboard';
+$lang['menu_name_3']='Dashboard';
+$lang['menu_name_4']='Dashboard';
+$lang['menu_name_5']='Dashboard';
+$lang['menu_name_6']='Dashboard';
+$lang['menu_name_7']='Dashboard';
+$lang['menu_name_8']='Dashboard';
+$lang['menu_name_9']='Dashboard';
+$lang['menu_name_10']='Dashboard';
+$lang['menu_name_11']='Dashboard';
+$lang['menu_name_12']='Dashboard';
+$lang['menu_name_13']='Dashboard';
+$lang['menu_name_14']='Dashboard';
+$lang['menu_name_15']='Dashboard';
+$lang['menu_name_16']='Dashboard';
+$lang['menu_name_17']='Dashboard';
+$lang['menu_name_18']='Dashboard';
+$lang['menu_name_19']='Dashboard';
+$lang['menu_name_20']='Dashboard';
+$lang['menu_name_21']='Dashboard';
+$lang['menu_name_22']='Dashboard';
+$lang['menu_name_23']='Dashboard';
+$lang['menu_name_24']='Dashboard';
+$lang['menu_name_25']='Dashboard';
+$lang['menu_name_26']='Dashboard';

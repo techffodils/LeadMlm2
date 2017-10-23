@@ -27,6 +27,9 @@
 	<body class="{{THEME.body_class}}">
 
 		<div class="main-wrapper">
+
+		  <input type = "hidden" name = "LOG_USER_TYPE" id="LOG_USER_TYPE" value="{{LOG_USER_TYPE}}"/>
+
 		{%include('admin/layout/top_bar.twig')%}
 		{%include('admin/layout/menu.twig')%}
 		{%include('admin/layout/page_right.twig')%}

@@ -148,6 +148,9 @@ class Reset_model extends CI_Model {
         $this->dbvars->BLOCK_REGISTER =0;
         $this->dbvars->MAINTENANCE_MODE =0;
 
+        $this->GOOGLE_TRANSLATOR =0;
+
+
         return 1;
     }
 

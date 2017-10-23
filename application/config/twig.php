@@ -9,3 +9,4 @@
  
 $config['template_dir'] = APPPATH.'views';
 $config['cache_dir'] = APPPATH.'cache';
+//$config['twig.functions'] = array("lang","floor","base_url"); DHC

@@ -19,6 +19,8 @@ Class Core_Base_Controller extends CI_Controller {
 	public $MLM_LANG_ENG_NAME = null;
 	public $MLM_LANG_LIST = array();
 
+	public $GOOGLE_TRANSLATOR = false;
+
 	public $MLM_CURRENCY_VALUE = null;
 	public $MLM_CURRENCY_NAME = null;
 	public $MLM_CURRENCY_CODE = null;
@@ -50,12 +52,9 @@ Class Core_Base_Controller extends CI_Controller {
 				$this->setCurrencyDetails();
 				$this->setTheme();
 				$this->setMenus();
-				$this->getBreadCrubms();
+				$this->getBreadCrumbs();
 				$this->loadLanguage();  //auto load lang files
-			}
-
-			$this->checkLoginStatus();
-
+		}
 	}
 
 function setPublicVariables() {
@@ -80,6 +79,7 @@ function setPublicVariables() {
 	$this->MLM_CURRENCY_LEFT =  $this->dbvars->DEFAULT_SYMBOL_LEFT;
 	$this->MLM_CURRENCY_RIGHT =  $this->dbvars->DEFAULT_SYMBOL_RIGHT;
 	$this->MLM_CURRENCY_ICON =  $this->dbvars->DEFAULT_CURRENCY_ICON;
+	$this->GOOGLE_TRANSLATOR =$this->dbvars->GOOGLE_TRANSLATOR;
 
 	return 1;
 }
@@ -106,6 +106,8 @@ function loadPublicVariables() {
 	$this->setData('MLM_CURRENCY_LEFT',  $this->MLM_CURRENCY_LEFT);
 	$this->setData('MLM_CURRENCY_RIGHT',  $this->MLM_CURRENCY_RIGHT);
 	$this->setData('MLM_CURRENCY_ICON',  $this->MLM_CURRENCY_ICON);
+	$this->setData('GOOGLE_TRANSLATOR',  $this->GOOGLE_TRANSLATOR);
+
 
 	return 1;
 }
@@ -191,19 +193,23 @@ function setCurrencyDetails() {
 
 	if ($user_id) {
 
+
+
 		if ($this->MULTI_CURRENCY_STATUS) {
 
 			if ($this->session->userdata("mlm_data_currency")) {
 
 				$mlm_currency = $this->session->userdata("mlm_data_currency");
 
-				$this->DEFAULT_CURRENCY_VALUE = $mlm_currency['currency_ratio'];
-				$this->MULTI_CURRENCY_NAME = $mlm_currency['currency_name'];
-				$this->DEFAULT_CURRENCY_CODE =  $mlm_currency['currency_code'];
-				$this->DEFAULT_SYMBOL_LEFT =  $mlm_currency['symbol_left'];
-				$this->DEFAULT_SYMBOL_RIGHT =  $mlm_currency['symbol_right'];
-				$this->DEFAULT_CURRENCY_ICON =  $mlm_currency['icon'];
+				$this->MLM_CURRENCY_VALUE = $mlm_currency['currency_ratio'];
+				$this->MLM_CURRENCY_NAME = $mlm_currency['currency_name'];
+				$this->MLM_CURRENCY_CODE =  $mlm_currency['currency_code'];
+				$this->MLM_CURRENCY_LEFT =  $mlm_currency['symbol_left'];
+				$this->MLM_CURRENCY_RIGHT =  $mlm_currency['symbol_right'];
+				$this->MLM_CURRENCY_ICON =  $mlm_currency['icon'];
 				$this->MLM_CURRENCY_LIST =  $mlm_currency['currency_list'];
+
+
 
 			}else{
 
@@ -214,12 +220,12 @@ function setCurrencyDetails() {
 				$mlm_currency = $this->base_model->getCurrencyDetails($user_id);//load from global
 				$currency_list = $this->base_model->getAllCurrency();
 
-				$this->DEFAULT_CURRENCY_VALUE = $mlm_currency['currency_ratio'];
-				$this->MULTI_CURRENCY_NAME = $mlm_currency['currency_name'];
-				$this->DEFAULT_CURRENCY_CODE =  $mlm_currency['currency_code'];
-				$this->DEFAULT_SYMBOL_LEFT = $mlm_currency['symbol_left'];
-				$this->DEFAULT_SYMBOL_RIGHT =  $mlm_currency['symbol_right'];
-				$this->DEFAULT_CURRENCY_ICON =  $mlm_currency['icon'];
+				$this->MLM_CURRENCY_VALUE = $mlm_currency['currency_ratio'];
+				$this->MLM_CURRENCY_NAME = $mlm_currency['currency_name'];
+				$this->MLM_CURRENCY_CODE =  $mlm_currency['currency_code'];
+				$this->MLM_CURRENCY_LEFT = $mlm_currency['symbol_left'];
+				$this->MLM_CURRENCY_RIGHT =  $mlm_currency['symbol_right'];
+				$this->MLM_CURRENCY_ICON =  $mlm_currency['icon'];
 				$this->MLM_CURRENCY_LIST =  $currency_list;
 
 				$currency_data['currency_ratio'] = $mlm_currency['currency_ratio'];
@@ -235,12 +241,12 @@ function setCurrencyDetails() {
 
 	}
 
-	$this->setData('MLM_CURRENCY_VALUE',  $this->DEFAULT_CURRENCY_VALUE);
-	$this->setData('MLM_CURRENCY_NAME',  $this->MULTI_CURRENCY_NAME);
-	$this->setData('MLM_CURRENCY_CODE',  $this->DEFAULT_CURRENCY_CODE);
-	$this->setData('MLM_CURRENCY_LEFT',  $this->DEFAULT_SYMBOL_LEFT);
-	$this->setData('MLM_CURRENCY_RIGHT',  $this->DEFAULT_SYMBOL_RIGHT);
-	$this->setData('MLM_CURRENCY_ICON',  $this->DEFAULT_CURRENCY_ICON);
+	$this->setData('MLM_CURRENCY_VALUE',  $this->MLM_CURRENCY_VALUE);
+	$this->setData('MLM_CURRENCY_NAME',  $this->MLM_CURRENCY_NAME);
+	$this->setData('MLM_CURRENCY_CODE',  $this->MLM_CURRENCY_CODE);
+	$this->setData('MLM_CURRENCY_LEFT',  $this->MLM_CURRENCY_LEFT);
+	$this->setData('MLM_CURRENCY_RIGHT',  $this->MLM_CURRENCY_RIGHT);
+	$this->setData('MLM_CURRENCY_ICON',  $this->MLM_CURRENCY_ICON);
 	$this->setData('MLM_CURRENCY_LIST',  $this->MLM_CURRENCY_LIST);
 
 	}
@@ -399,32 +405,10 @@ function setScript() {
 }
 
 
-function checkLoginStatus(){
+function getBreadCrumbs() {  
 
-	if($this->LOG_STATUS){
-
-		if (!in_array($this->CURRENT_CLASS, NO_LOGIN_PAGES)) {
-
-			$currenturl = $this->main->get_currentheadurl();
-			$menu_status=$this->base_model->checkMenuPermitted($this->LOG_USER_TYPE,$currenturl);
-
-			if(!$menu_status){
-				$this->loadPage('', 'login', true);
-			}
-		} 
-	}else{
-
-		if ($this->CURRENT_CLASS != "login") {
-			$this->loadPage('', 'login', true);
-		}
-	}
-}
-
-
-function getBreadCrubms() {//check
-
-	$pages = $this->base_model->getBreadCrubms($this->LOG_USER_TYPE);        
-	$this->setData('PAGES', $pages);
+	$data = $this->base_model->getBreadCrumbs();        
+	$this->setData('BREADCRUMBS', $data);
 	return 1;
 }
 
