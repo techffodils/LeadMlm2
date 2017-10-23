@@ -24,26 +24,26 @@
                 </div>
                 <div class="panel-body">
                     <hr>
-                    
+
                     {%include('admin/layout/notification.twig')%}
 
                     <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
-{% else %}
-    {% include('layout/header.twig')%}
-    <div class="row">
-        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-            <div class="logo">
-                <img src="assets/images/logo.png">
-            </div>
-            <!-- start: LOGIN BOX -->
-            <div class="box-login">
-                <h3>{{ lang('sign_in_to_ur_account') }}</h3>
-                <p>
-                    {{ lang('single_step_registration') }}
-                </p>
-                
-                {%include('admin/layout/notification.twig')%}
-{% endif %}
+                    {% else %}
+                        {% include('layout/header.twig')%}
+                        <div class="row">
+                            <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+                                <div class="logo">
+                                    <img src="assets/images/logo.png">
+                                </div>
+                                <!-- start: LOGIN BOX -->
+                                <div class="box-login">
+                                    <h3>{{ lang('sign_in_to_ur_account') }}</h3>
+                                    <p>
+                                        {{ lang('single_step_registration') }}
+                                    </p>
+
+                                    {%include('admin/layout/notification.twig')%}
+                                {% endif %}
 
                                 {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
                                 <div class="errorHandler alert alert-danger no-display">
@@ -52,7 +52,7 @@
                                 <fieldset>
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponsor_name') }}">
+                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
                                             <i class="fa fa-user-plus"></i> 
                                         </span>
 
@@ -128,14 +128,14 @@
                                 {{ form_close()|raw }}                   
 
 
-{% if loggeg_user %}
-                    </div>
+                                {% if loggeg_user %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                    
                 </div>
-            </div>
-        </div>                                    
-    </div>
-    {% include('admin/layout/footer.twig')%}
-{% else %}                
+                {% include('admin/layout/footer.twig')%}
+            {% else %}                
             </div>
         </div>
     </div>
@@ -144,7 +144,7 @@
 
 <script>
     jQuery(document).ready(function () {
-        //valSingleStep();
+        valSingleStep();
     });
 
 
