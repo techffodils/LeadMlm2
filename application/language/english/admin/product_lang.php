@@ -1,8 +1,41 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+$lang['product_added_successfully'] = 'Product Added Successfully';
+$lang['product_adding_failed'] = 'Failed To Product';
+$lang['product_deleted'] = 'Product Deleted';
+$lang['product_deletion_failed'] = 'Failed To Delete';
+$lang['product_activation_failed'] = 'Failed To Activate';
+$lang['product_activated'] = 'Product Activated';
+$lang['product_inactivated'] = 'Product Inactivated';
+$lang['product_inactivation_failed'] = 'Failed To Inactivate';
+$lang['invalid_action'] = 'Invalid Action ';
+$lang['product_updation_canceled'] = 'Product Updation Canceled';
+$lang['product_updation_failed'] = 'Failed To Update';
+$lang['product_updated_successfully'] = 'Product Updated Successfully';
+$lang['product_name'] = 'Product Name';
+$lang['product_amount'] = 'Product Amount';
+$lang['product_pv'] = 'Product PV';
+$lang['product_code'] = 'Product Code';
+$lang['product_type'] = 'Product Type';
+$lang['update_product'] = 'Update Product';
+$lang['add_product'] = 'Add Product';
+$lang['recurring_type'] = 'Recurring Type';
+$lang['select_recurring_type'] = 'Select Tecurring Type';
+$lang['repurchase'] = 'Repurchase';
+$lang['register'] = 'Register';
+$lang['product_image'] = 'Product Image';
+$lang['remove'] = 'Remove';
+$lang['select_image'] = 'Select Image';
+$lang['change'] = 'Change';
+$lang['add'] = 'Add';
+$lang['update'] = 'Update';
+$lang['added_products'] = 'Added Products';
+$lang['status'] = 'Status';
+$lang['slno'] = 'Slno';
+$lang['action'] = 'Action';
+$lang['active'] = 'Active';
+$lang['inactive'] = 'Inactive';
+$lang['delete'] = 'Delete';
+$lang['edit'] = 'Edit';
+$lang['inactivate'] = 'Inactivate';
+$lang['activate'] = 'Activate';

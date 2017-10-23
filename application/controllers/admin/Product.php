@@ -42,9 +42,9 @@ class Product extends Base_Controller {
             if ($res) {
                 $this->session->unset_userdata('product_post_data');
                 $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_added', $post);
-                $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
+                $this->loadPage(lang('product_added_successfully'), 'product/product_management');
             } else {
-                $this->loadPage('Failed To Add', 'product/product_management', False);
+                $this->loadPage(lang('product_adding_failed'), 'product/product_management', 'danger');
             }
         }
 
@@ -58,35 +58,35 @@ class Product extends Base_Controller {
                 if ($res) {
                     $data['product_id'] = $product_id;
                     $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_deleted', $data);
-                    $this->loadPage('Product Deleted Successfully', 'product/product_management', TRUE);
+                    $this->loadPage(lang('product_deleted'), 'product/product_management');
                 } else {
-                    $this->loadPage('Failed To Delete', 'product/product_management', False);
+                    $this->loadPage(lang('product_deletion_failed'), 'product/product_management', 'danger');
                 }
             } elseif ($action == "activate") {
                 $res = $this->product_model->changeProductStatus($product_id, 1);
                 if ($res) {
                     $data['product_id'] = $product_id;
                     $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_activate', $data);
-                    $this->loadPage('Product Deleted Successfully', 'product/product_management', TRUE);
+                    $this->loadPage(lang('product_activated'), 'product/product_management');
                 } else {
-                    $this->loadPage('Failed To Delete', 'product/product_management', False);
+                    $this->loadPage(lang('product_activation_failed'), 'product/product_management', 'danger');
                 }
             } elseif ($action == "inactivate") {
                 $res = $this->product_model->changeProductStatus($product_id, 0);
                 if ($res) {
                     $data['product_id'] = $product_id;
                     $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_inactivate', $data);
-                    $this->loadPage('Product Deleted Successfully', 'product/product_management', TRUE);
+                    $this->loadPage(lang('product_inactivated'), 'product/product_management');
                 } else {
-                    $this->loadPage('Failed To Delete', 'product/product_management', False);
+                    $this->loadPage(lang('product_inactivation_failed'), 'product/product_management', False);
                 }
             } else {
-                $this->loadPage('Invalid Action', 'product/product_management', False);
+                $this->loadPage(lang('invalid_action'), 'product/product_management', 'danger');
             }
         }
 
         if ($this->input->post('cancel_product')) {
-            $this->loadPage('Product Update Canceled', 'product/product_management', TRUE);
+            $this->loadPage(lang('product_updation_canceled'), 'product/product_management', TRUE);
         }
 
         if ($this->input->post('update_product') && $this->validate_add_product()) {
@@ -129,9 +129,9 @@ class Product extends Base_Controller {
             if ($res) {
                 $this->session->unset_userdata('product_post_data');
                 $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_updated', $post);
-                $this->loadPage('Product Added Successfully', 'product/product_management', TRUE);
+                $this->loadPage(lang('product_updated_successfully'), 'product/product_management');
             } else {
-                $this->loadPage('Failed To Add', 'product/product_management', False);
+                $this->loadPage(lang('product_updation_failed'), 'product/product_management', 'danger');
             }
         }
 
@@ -146,18 +146,15 @@ class Product extends Base_Controller {
 
     function validate_add_product() {
         $this->session->set_userdata('product_post_data', $this->input->post());
-        $this->form_validation->set_rules('product_name', 'product_name', 'required');
-        $this->form_validation->set_rules('product_amount', 'product_amount', 'required|numeric|greater_than[0]');
-        $this->form_validation->set_rules('product_pv', 'product_pv', 'required|numeric|greater_than[0]');
-        $this->form_validation->set_rules('product_code', 'product_code', 'required');
-        $this->form_validation->set_rules('product_type', 'product_type', 'required');
+        $this->form_validation->set_rules('product_name', lang('product_name'), 'required');
+        $this->form_validation->set_rules('product_amount', lang('product_amount'), 'required|numeric|greater_than[0]');
+        $this->form_validation->set_rules('product_pv', lang('product_pv'), 'required|numeric|greater_than[0]');
+        $this->form_validation->set_rules('product_code', lang('product_code'), 'required');
+        $this->form_validation->set_rules('product_type', lang('product_type'), 'required');
         $this->form_validation->set_error_delimiters('<li>', '</li>');
         $validation = $this->form_validation->run();
         return $validation;
     }
 
-    function test() {
-        $this->loadView();
-    }
 
 }
