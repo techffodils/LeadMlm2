@@ -11,10 +11,24 @@
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -28,12 +42,12 @@
                     <div class="fb-profile">
                         <div class="show-image">
                             <img align="left" class="fb-image-lg" src="assets/images/users/{{ user_details.user_cover }}"/>                    
-                            <button class="update btn btn-link" data-toggle="modal" data-target="#myModal">Edit <i class="fa fa-pencil fa-fw"></i></button>
+                            <button class="update btn btn-link" data-toggle="modal" data-target="#myModal">{{ lang('edit')}} <i class="fa fa-pencil fa-fw"></i></button>
                         </div>
 
                         <div class="show-image2">
                             <img align="left" class="fb-image-profile thumbnail" src="assets/images/users/{{ user_details.user_dp }}"/>
-                            <button class="update2 btn btn-link" data-toggle="modal" data-target="#myModal2">Edit <i class="fa fa-pencil fa-fw"></i></button>
+                            <button class="update2 btn btn-link" data-toggle="modal" data-target="#myModal2">{{ lang('edit')}} <i class="fa fa-pencil fa-fw"></i></button>
                         </div>
 
 
@@ -48,7 +62,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Change Cover Pic</h4>
+                                <h4 class="modal-title">{{ lang('change_cover_pic')}}</h4>
                             </div>
                             <div class="modal-body">
 
@@ -56,18 +70,18 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active">
                                             <a data-toggle="tab" href="#cover_tab1">
-                                                Add New
+                                                {{ lang('add_new')}}
                                             </a>
                                         </li>
                                         <li>
                                             <a data-toggle="tab" href="#cover_tab2">
-                                                Photos Of You
+                                                {{ lang('photos_of_u')}}
                                             </a>
                                         </li>  
 
                                         <li>
                                             <a data-toggle="tab" href="#cover_tab3">
-                                                Default Covers
+                                                {{ lang('default_covers')}}
                                             </a>
                                         </li>
 
@@ -77,11 +91,11 @@
                                             {{ form_open_multipart('', ' id="cover_form" name="cover_form"')|raw }}
                                             <div class="form-horizontal">         
                                                 <div class="errorHandler alert alert-danger no-display">
-                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                    <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
                                                 </div>                                    
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Select Image
+                                                        {{ lang('select_image')}}
                                                     </label>
                                                     <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
                                                         <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_cover }}" alt="">
@@ -89,12 +103,12 @@
                                                         <div class="fileupload-preview fileupload-exists thumbnail"></div>
                                                         <div class="user-edit-image-buttons">
                                                             <span class="btn btn-azure btn-file">
-                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
-                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> {{ lang('select_image')}}</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> {{ lang('change')}}</span>
                                                                 <input type="file" id="cover_pic" name="cover_pic"/>
                                                             </span>
                                                             <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                                                <i class="fa fa-times"></i> Remove
+                                                                <i class="fa fa-times"></i> {{ lang('remove')}}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -105,7 +119,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <button type="submit" class="btn btn-primary" value="cover_update" name="cover_update">
-                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                            {{ lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -120,8 +134,9 @@
                                                         <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setCover({{ uco.id }});">
-                                                            Set This Cover
+                                                            {{ lang('set_this_cover')}}
                                                         </button>
+                                                        <br>
                                                     </div>
 
 
@@ -138,8 +153,9 @@
                                                         <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ df }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setDefCover('{{ df }}');">
-                                                            Set This Cover
+                                                            {{ lang('set_this_cover')}}
                                                         </button>
+                                                        <br>
                                                     </div>
 
 
@@ -163,7 +179,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Change Profile Pic</h4>
+                                <h4 class="modal-title">{{ lang('change_pro_pic')}}</h4>
                             </div>
                             <div class="modal-body">
 
@@ -171,18 +187,18 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active">
                                             <a data-toggle="tab" href="#dp_tab1">
-                                                Add New
+                                                {{lang('add_new')}}
                                             </a>
                                         </li>
                                         <li>
                                             <a data-toggle="tab" href="#dp_tab2">
-                                                Photos Of You
+                                                {{lang('photos_of_u')}}
                                             </a>
                                         </li>   
 
                                         <li>
                                             <a data-toggle="tab" href="#dp_tab3">
-                                                Defualt Photos
+                                                {{lang('def_photos')}}
                                             </a>
                                         </li> 
                                     </ul>
@@ -191,11 +207,11 @@
                                             {{ form_open_multipart('', ' id="dp_form" name="dp_form"')|raw }}
                                             <div class="form-horizontal">         
                                                 <div class="errorHandler alert alert-danger no-display">
-                                                    <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                                    <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
                                                 </div>                                    
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
-                                                        Select Image
+                                                        {{lang('select_image')}}
                                                     </label>
                                                     <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
                                                         <div class="fileupload-new thumbnail"><img src="assets/images/users/{{ user_details.user_dp }}" alt="">
@@ -203,12 +219,12 @@
                                                         <div class="fileupload-preview fileupload-exists thumbnail"></div>
                                                         <div class="user-edit-image-buttons">
                                                             <span class="btn btn-azure btn-file">
-                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span>
-                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                                                <span class="fileupload-new"><i class="fa fa-picture"></i> {{lang('select_image')}}</span>
+                                                                <span class="fileupload-exists"><i class="fa fa-picture"></i> {{lang('change')}}</span>
                                                                 <input type="file" id="prof_pic" name="prof_pic"/>
                                                             </span>
                                                             <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                                                <i class="fa fa-times"></i> Remove
+                                                                <i class="fa fa-times"></i> {{lang('remove')}}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -219,7 +235,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <button type="submit" class="btn btn-primary" value="dp_update" name="dp_update">
-                                                            Update <i class="fa fa-arrow-circle-right"></i>
+                                                            {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -234,7 +250,7 @@
                                                         <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ udp.file }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setCover({{ udp.id }});">
-                                                            Set This Picture
+                                                            {{lang('set_this_pic')}}
                                                         </button>
                                                     </div>
                                                 {% endfor %}   
@@ -249,7 +265,7 @@
                                                         <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ dd }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setDefualtDp('{{ dd }}');">
-                                                            Set This Picture
+                                                            {{lang('set_this_pic')}}
                                                         </button>
                                                     </div>
                                                 {% endfor %}   
@@ -272,16 +288,16 @@
                             <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Contact Information</th>
+                                        <th colspan="3">{{lang('contact_info')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>E-mail:</td>
+                                        <td>{{lang('email')}}:</td>
                                         <td>{{ user_details.email }}</td>                                        
                                     </tr>
                                     <tr>
-                                        <td>Phone:</td>
+                                        <td>{{lang('phone_number')}}:</td>
                                         <td>{{ user_details.phone_number }}</td>
                                     </tr>                                    
                                 </tbody>
@@ -289,33 +305,33 @@
                             <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
-                                        <th colspan="3">General information</th>
+                                        <th colspan="3">{{lang('general_info')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Joining Date</td>
+                                        <td>{{lang('joining_date')}}</td>
                                         <td>{{ user_details.date }}</td>
                                     </tr>
 
                                     {% if user_details.sponsor_name %}
                                         <tr>
-                                            <td>Sponsor Name</td>
+                                            <td>{{ lang('sponser_name')}}</td>
                                             <td>{{ user_details.sponsor_name }}</td>
                                         </tr>
                                     {% endif %}
                                     {% if user_details.rank_name %}
                                         <tr>
-                                            <td>Rank</td>
+                                            <td>{{ lang('rank')}}</td>
                                             <td>{{ user_details.rank_name }}</td>
                                         </tr>
                                     {% endif %}
                                     <tr>
-                                        <td>Transaction Password</td>
+                                        <td>{{ lang('tran_pass')}}</td>
                                         <td>{{ user_details.tran_password }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Replication Link</td>
+                                        <td>{{ lang('replica_link')}}</td>
                                         <td>{{ user_details.replica_link }}</td>
                                     </tr>
                                 </tbody>
@@ -326,25 +342,25 @@
                         {{ form_open('', 'id="profile_update_form" name="profile_update_form"')|raw }}
                         <div class="row">
                             <div class="center">
-                                <b>Edit Your Profile</b>
+                                <b>{{lang('edit_ur_profile')}}</b>
                                 <hr>
                             </div>
                             <div class="col-md-12">
                                 <div class="errorHandler alert alert-danger no-display">
-                                    <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                                    <i class="fa fa-times-sign"></i> {{ lang('form_error_msg') }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">
-                                        First Name <span class="symbol required"></span>
+                                        {{lang('first_name')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.first_name }}" placeholder="Insert your First Name" class="form-control" id="firstname" name="firstname">
                                     {% if profile_error.firstname is defined %}<code> {{ profile_error.firstname}} </code> {% endif %} 
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Last Name <span class="symbol required"></span>
+                                        {{lang('last_name')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.last_name }}" placeholder="Insert your Last Name" class="form-control" id="lastname" name="lastname">
                                     {% if profile_error.lastname is defined %}<code> {{ profile_error.lastname}} </code> {% endif %} 
@@ -352,7 +368,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        phone_number <span class="symbol required"></span>
+                                        {{lang('phone_number')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.phone_number }}" placeholder="Insert your Mobile No" class="form-control" id="phone_number" name="phone_number">
                                     {% if profile_error.phone_number is defined %}<code> {{ profile_error.phone_number}} </code> {% endif %} 
@@ -360,7 +376,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Date of Birth <span class="symbol required"></span>
+                                        {{lang('dob')}} <span class="symbol required"></span>
                                     </label>
                                     <div class="input-group">
                                         <input type="text" value="{{ user_details.date_of_birth }}" id="dob" name="dob" class="form-control input-mask-date">
@@ -373,16 +389,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Gender <span class="symbol required"></span>
+                                        {{lang('gender')}} <span class="symbol required"></span>
                                     </label>
                                     <div>
                                         <label class="radio-inline">
                                             <input type="radio" class="grey" value="f" {% if user_details.gender=='f' %} checked {% endif %} name="gender" id="gender">
-                                            Female
+                                            {{lang('female')}}
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" class="grey" value="m" {% if user_details.gender=='m' %} checked {% endif %} name="gender"  id="gender">
-                                            Male
+                                            {{lang('male')}}
                                         </label>
                                     </div>
                                     {% if profile_error.gender is defined %}<code> {{ profile_error.gender}} </code> {% endif %} 
@@ -391,7 +407,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Address <span class="symbol required"></span>
+                                        {{lang('address')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.address_1 }}" placeholder="Insert your Address" class="form-control" id="address" name="address">
                                     {% if profile_error.address is defined %}<code> {{ profile_error.address}} </code> {% endif %} 
@@ -399,10 +415,10 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Country <span class="symbol required"></span>
+                                        {{lang('country')}} <span class="symbol required"></span>
                                     </label>
                                     <select name="country" id="country" class="form-control" >
-                                        <option value="">Select Country</option>
+                                        <option value="">{{lang('select_a_country')}}</option>
                                         <option value="1" {% if user_details.country=="1" %} selected {% endif %}>Country 1</option>
                                         <option value="1" {% if user_details.country=="2" %} selected {% endif %}>Country 2</option>                                            
                                     </select>
@@ -411,10 +427,10 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        State <span class="symbol required"></span>
+                                        {{lang('state')}} <span class="symbol required"></span>
                                     </label>
                                     <select name="state" id="state" class="form-control" >
-                                        <option value="">Select State</option>
+                                        <option value="">{{lang('select_a_state')}}</option>
                                         <option value="1" {% if user_details.state=="1" %} selected {% endif %}>State 1</option>
                                         <option value="1" {% if user_details.state=="2" %} selected {% endif %}>State 2</option>                                            
                                     </select>
@@ -423,7 +439,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        City <span class="symbol required"></span>
+                                        {{lang('city')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.city }}" placeholder="Insert your City" class="form-control" id="city" name="city">
                                     {% if profile_error.city is defined %}<code> {{ profile_error.city}} </code> {% endif %} 
@@ -431,7 +447,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label">
-                                        Zip Code <span class="symbol required"></span>
+                                        {{lang('zip_code')}} <span class="symbol required"></span>
                                     </label>
                                     <input type="text" value="{{ user_details.zipcode }}" placeholder="Insert your Zip Code" class="form-control" id="zipcode" name="zipcode">
                                     {% if profile_error.zipcode is defined %}<code> {{ profile_error.zipcode}} </code> {% endif %} 
@@ -443,7 +459,7 @@
                             </div>
                             <div class="col-md-4">
                                 <button type="submit"class="btn btn-primary" value="prof_update" name="prof_update">
-                                    Update <i class="fa fa-arrow-circle-right"></i>
+                                    {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             </div>
                         </div>
@@ -455,123 +471,19 @@
     </div>
 </div>
 {% include('admin/layout/footer.twig')%}
+
 <link rel="stylesheet" href="assets/plugins/datepicker/css/datepicker.css">
-<style>
-    div.show-image {
-        position: relative;
-        margin:5px;
-    }
-    div.show-image:hover img{
-        opacity:0.75;
-    }
-    div.show-image:hover button {
-        display: block;
-    }
-    div.show-image button {
-        position:absolute;
-        display:none;
-    }
-    div.show-image button.update {
-        top:0;
-        left:0;
-    }
-
-
-
-    div.show-image2 {
-        position: relative;
-        margin:5px;
-    }
-    div.show-image2:hover img{
-        //opacity:0.5;
-    }
-    div.show-image2:hover button {
-        display: block;
-    }
-    div.show-image2 button {
-        position:absolute;
-        display:none;
-    }
-    div.show-image2 button.update2 {
-        top:120px;
-        left:45px;
-    }
-
-
-
-
-    .fb-profile img.fb-image-lg{
-        z-index: 0;
-        width: 100%;  
-        height:200px;
-        margin-bottom: 10px;
-    }
-
-    .fb-image-profile
-    {
-        margin: -90px 10px 0px 50px;
-        z-index: 9;
-        width: 22%; 
-    }
-
-    @media (max-width:768px)
-    {
-
-        .fb-profile-text>h1{
-            font-weight: 700;
-            font-size:16px;
-        }
-
-        .fb-image-profile
-        {
-            margin: -45px 10px 0px 25px;
-            z-index: 9;
-            width: 20%; 
-        }
-    }
-</style>
-
-
-
+<link rel="stylesheet" href="assets/css/profile_update.css">
 <script src="assets/plugins/jquery-inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
 <script src="assets/plugins/autosize/jquery.autosize.min.js"></script>
 <script src="assets/plugins/select2/select2.min.js"></script>
 <script src="assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
 <script src="assets/js/form-elements.js"></script>
-
+<script src="assets/js/profile_update.js"></script>
 <script>
-                                                            $(document).ready(function () {
-                                                                FormElements.init();
-                                                            });
-
-                                                            function setCover(id) {
-                                                                $.ajax({url: "admin/profile/reset_user_file",
-                                                                    data: {id: id},
-                                                                    async: false,
-                                                                    success: function (msg) {
-                                                                        location.reload();
-                                                                    }
-                                                                });
-                                                            }
-
-                                                            function setDefCover(id) {
-                                                                $.ajax({url: "admin/profile/set_def_cover",
-                                                                    data: {id: id},
-                                                                    async: false,
-                                                                    success: function (msg) {
-                                                                        location.reload();
-                                                                    }
-                                                                });
-                                                            }
-                                                            
-                                                            function setDefualtDp(id) {
-                                                                $.ajax({url: "admin/profile/set_def_dp",
-                                                                    data: {id: id},
-                                                                    async: false,
-                                                                    success: function (msg) {
-                                                                        location.reload();
-                                                                    }
-                                                                });
-                                                            }
-                                                            
+    $(document).ready(function () {
+        FormElements.init();
+    });    
 </script>
+
+

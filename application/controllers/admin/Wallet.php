@@ -18,9 +18,9 @@ class Wallet extends Base_Controller {
             if ($res) {
                 $this->helper_model->insertWalletDetails($user_id, 'credit', $amount, $wallet_type);
                 $this->helper_model->insertActivity($logged_user, 'add_fund_to_user', $post);
-                $this->loadPage('Fund Added Successfully', 'wallet/fund_transfer', TRUE);
+                $this->loadPage(lang('fund_added_successfully'), 'wallet/fund_transfer');
             } else {
-                $this->loadPage('Fund Addition Failed', 'wallet/fund_transfer', FALSE);
+                $this->loadPage(lang('fund_add_failed'), 'wallet/fund_transfer', 'danger');
             }
         }
 
@@ -34,12 +34,12 @@ class Wallet extends Base_Controller {
                 if ($res) {
                     $this->helper_model->insertWalletDetails($user_id, 'debit', $amount, $wallet_type);
                     $this->helper_model->insertActivity($logged_user, 'deduct_fund_from_user', $post);
-                    $this->loadPage('Fund Deducted Successfully', 'wallet/fund_transfer', TRUE);
+                    $this->loadPage(lang('fund_deducted_successfully'), 'wallet/fund_transfer', TRUE);
                 } else {
-                    $this->loadPage('Fund Deduction Failed', 'wallet/fund_transfer', FALSE);
+                    $this->loadPage(lang('fund_deducted_failed'), 'wallet/fund_transfer', FALSE);
                 }
             } else {
-                $this->loadPage('Insufficient Balance', 'wallet/fund_transfer', FALSE);
+                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', FALSE);
             }
         }
 
@@ -55,12 +55,12 @@ class Wallet extends Base_Controller {
                     $this->helper_model->insertWalletDetails($from_user, 'debit', $amount, $wallet_type, $to_user);
                     $this->helper_model->insertWalletDetails($to_user, 'credit', $amount, $wallet_type, $from_user);
                     $this->helper_model->insertActivity($logged_user, 'deduct_fund_from_user', $post);
-                    $this->loadPage('Fund Transfered Successfully', 'wallet/fund_transfer', TRUE);
+                    $this->loadPage(lang('fund_transfered_successfully'), 'wallet/fund_transfer', TRUE);
                 } else {
-                    $this->loadPage('Fund Transfer Failed', 'wallet/fund_transfer', FALSE);
+                    $this->loadPage(lang('fund_transfered_failed'), 'wallet/fund_transfer', FALSE);
                 }
             } else {
-                $this->loadPage('Insufficient Balance', 'wallet/fund_transfer', FALSE);
+                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', FALSE);
             }
         }
 
@@ -80,25 +80,25 @@ class Wallet extends Base_Controller {
 
     function validate_add_fund() {
         $this->session->set_userdata('active_fund_tab', 'tab1');
-        $this->form_validation->set_rules('username_add', 'username_add', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('amount_add', 'amount_add', 'required|greater_than[0]');
+        $this->form_validation->set_rules('username_add', lang('username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('amount_add', lang('amount'), 'required|greater_than[0]');
         $validation = $this->form_validation->run();
         return $validation;
     }
 
     function validate_ded_fund() {
         $this->session->set_userdata('active_fund_tab', 'tab2');
-        $this->form_validation->set_rules('username_ded', 'username_ded', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('amount_ded', 'amount_ded', 'required|greater_than[0]');
+        $this->form_validation->set_rules('username_ded', lang('username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('amount_ded',  lang('amount'), 'required|greater_than[0]');
         $validation = $this->form_validation->run();
         return $validation;
     }
 
     function validate_transfer() {
         $this->session->set_userdata('active_fund_tab', 'tab3');
-        $this->form_validation->set_rules('from_username', 'from_username', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('to_username', 'to_username', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('amount_trans', 'amount_trans', 'required|greater_than[0]');
+        $this->form_validation->set_rules('from_username',  lang('from_username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('to_username',  lang('to_username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('amount_trans',  lang('amount'), 'required|greater_than[0]');
         $validation = $this->form_validation->run();
         return $validation;
     }
@@ -108,7 +108,7 @@ class Wallet extends Base_Controller {
         if ($this->helper_model->userNameToID($username)) {
             $flag = true;
         }
-        $this->form_validation->set_message('validate_username', 'Please enter a valid Username.');
+        $this->form_validation->set_message('validate_username', lang('enter_a_valid_username'));
         return $flag;
     }
 

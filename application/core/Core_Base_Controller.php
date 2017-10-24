@@ -333,6 +333,7 @@ function checkSession() {
 function loadPage($msg, $page, $message_type = false) {
 
 	$flash_message= array('message' => $msg, 'type' => $message_type);
+
 	$this->main->set_flashdata('flash_msg_arr', $flash_message);
 
 	$path = '';
@@ -371,7 +372,9 @@ function loadPage($msg, $page, $message_type = false) {
 
 
 function setFlashMessage() { 
+	
 	$flash_msg_arr = $this->main->get_flashdata('flash_msg_arr');
+
 	if ($flash_msg_arr) {
 		$this->setData("FLASH_MESSAGE_DETAILS", $flash_msg_arr['message']);
 		$this->setData("FLASH_MESSAGE_TYPE", $flash_msg_arr['type']);

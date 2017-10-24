@@ -47,12 +47,12 @@
                                 <div class="box-body no-padding">
                                     <ul class="nav nav-pills nav-stacked">
                                         <li><a href="user/mail/inbox"><i class="fa fa-inbox"></i> Inbox
-                                                <span class="label label-primary pull-right">12</span></a></li>
+                                                {% if unread_mail > 0 %}<span class="label label-primary pull-right">{{unread_mail}}</span>{% endif %}
+                                                </a></li>
                                         <li><a href="user/mail/sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
                                         <li><a href="user/mail/draft"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                                        <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a>
-                                        </li>
-                                        <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                                        
+                                        <li><a href="user/mail/trash"><i class="fa fa-trash-o"></i> Trash</a></li>
                                     </ul>
                                 </div>
                                 <!-- /.box-body -->
@@ -69,8 +69,8 @@
                                 </div>
                                 <div class="box-body no-padding">
                                     <ul class="nav nav-pills nav-stacked">
-                                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Stared</a></li>
-                                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> Spam</a></li>
+                                        <li><a href="user/mail/stared"><i class="fa fa-circle-o text-yellow"></i> Stared</a></li>
+                                        <li><a href="user/mail/spam"><i class="fa fa-circle-o text-red"></i> Spam</a></li>
                                     </ul>
                                 </div>
                                 <!-- /.box-body -->
@@ -111,9 +111,8 @@
 
                                        <button type="submit" name="forward" value="1" class="btn btn-default"><i class="fa fa-share"></i> Forward</button>
                                     </div>
-                                    <button type="button" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
-                                    <button type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
-                                </div>
+                                    <button value="1" type="submt" name="delete" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
+                                 </div>
                                 <!-- /.box-footer -->
                             </div>
                             <!-- /. box -->

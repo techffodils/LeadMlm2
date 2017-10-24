@@ -16,14 +16,14 @@ class Epin extends Base_Controller {
                 if ($res) {
                     $activity['request_id'] = $request_id;
                     $this->helper_model->insertActivity($user_id, 'pin_requested_canceled', $activity);
-                    $this->loadPage('Request Canceled', 'epin/epin_management', TRUE);
+                    $this->loadPage(lang('request_canceled'), 'epin/epin_management');
                 } else {
-                    $this->loadPage('Failed To Cancel', 'epin/epin_management', FALSE);
+                    $this->loadPage(lang('canceletion_failed'), 'epin/epin_management', 'danger');
                 }
             } elseif ($expiry_date && $action == 'confirm') {
                 $d = DateTime::createFromFormat('Y-m-d', $expiry_date);
                 if (!$this->helper_model->validateDate($expiry_date) || strtotime(date("Y-m-d H:i:s") < strtotime($expiry_date))) {
-                    $this->loadPage('Invalid Expiry Date', 'epin/epin_management', FALSE);
+                    $this->loadPage(lang('invalid_expiry_date'), 'epin/epin_management', 'danger');
                 }
                 $data = $this->epin_model->getRequestData($request_id);
                 if ($data) {
@@ -34,15 +34,15 @@ class Epin extends Base_Controller {
                             $this->helper_model->insertWalletDetails($data['user_id'],'debit',$data['pin_amount']*$data['pin_count'],'pin_purchased');
                             $this->epin_model->updateRequestStatus($request_id, 'confirmed');
                             $this->helper_model->insertActivity($user_id, 'pin_requested_confirmed', $data);
-                            $this->loadPage('Request Confirmed', 'epin/epin_management', TRUE);
+                            $this->loadPage($lang('request_confirmed'), 'epin/epin_management');
                         } else {
-                            $this->loadPage('Failed To Confirm', 'epin/epin_management', FALSE);
+                            $this->loadPage(lang('failed_to_confirm'), 'epin/epin_management', 'danger');
                         }
                     }else{
-                        $this->loadPage('Insufficient Balance', 'epin/epin_management', FALSE);
+                        $this->loadPage(lang('insuff_balance'), 'epin/epin_management', 'danger');
                     }
                 } else {
-                    $this->loadPage('Invalid Request', 'epin/epin_management', FALSE);
+                    $this->loadPage(lang('invalid_request'), 'epin/epin_management', 'danger');
                 }
             }
         }
@@ -52,9 +52,9 @@ class Epin extends Base_Controller {
             $res = $this->epin_model->addPinToUser($post);
             if ($res) {
                 $this->helper_model->insertActivity($user_id, 'pin_added', $post);
-                $this->loadPage('Pin Added Successfully', 'epin/epin_management', TRUE);
+                $this->loadPage(lang('pin_added_successfully'), 'epin/epin_management', TRUE);
             } else {
-                $this->loadPage('Failed To Add', 'epin/epin_management', FALSE);
+                $this->loadPage(lang('failed_to_add'), 'epin/epin_management', FALSE);
             }
         }
         $active_tab = '';
@@ -80,10 +80,10 @@ class Epin extends Base_Controller {
 
     function validate_add_pin() {
         $this->session->set_userdata('active_pin_tab', 'tab1');
-        $this->form_validation->set_rules('username', 'username', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('pin_amount', 'pin_amount', 'required|greater_than[0]');
-        $this->form_validation->set_rules('pin_count', 'pin_count', 'required|greater_than[0]');
-        $this->form_validation->set_rules('expiry_date', 'expiry_date', 'required|callback_validate_date');
+        $this->form_validation->set_rules('username', lang('username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('pin_amount', lang('pin_amount'), 'required|greater_than[0]');
+        $this->form_validation->set_rules('pin_count', lang('pin_count'), 'required|greater_than[0]');
+        $this->form_validation->set_rules('expiry_date', lang('expiry_date'), 'required|callback_validate_date');
 
         $validation = $this->form_validation->run();
         return $validation;
@@ -94,7 +94,7 @@ class Epin extends Base_Controller {
         if ($this->helper_model->userNameToID($username)) {
             $flag = true;
         }
-        $this->form_validation->set_message('validate_username', 'Please enter a valid Username.');
+        $this->form_validation->set_message('validate_username', lang('validate_username'));
         return $flag;
     }
 
@@ -105,7 +105,7 @@ class Epin extends Base_Controller {
         if ($endDate >= $startDate)
             return True;
         else {
-            $this->form_validation->set_message('validate_date', '%s should be greater than Today.');
+            $this->form_validation->set_message('validate_date', lang('should_be_greate than today'));
             return False;
         }
     }

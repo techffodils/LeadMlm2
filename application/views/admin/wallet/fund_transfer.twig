@@ -3,17 +3,31 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Fund Management <span class="text-bold"></span></h4>
+                <h4 class="panel-title">{{lang('fund_management')}} <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -27,24 +41,24 @@
 
                 <div class="panel panel-white panel-tabs">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Fund Management <span class="text-bold">Tabs</span></h4>
+                        <h4 class="panel-title">{{lang('fund_management')}} <span class="text-bold">{{lang('tabs')}}</span></h4>
                     </div>
                     <div class="panel-body">
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a data-toggle="tab" href="#epin_tab1">
-                                        Add Fund
+                                        {{lang('add_fund')}}
                                     </a>
                                 </li>
                                 <li  class="{{tab2}}">
                                     <a data-toggle="tab" href="#epin_tab2">
-                                        Deduct Fund
+                                        {{lang('deduct_fund')}}
                                     </a>
                                 </li>
                                 <li  class="{{tab3}}">
                                     <a data-toggle="tab" href="#epin_tab3">
-                                        Transfer Fund
+                                        {{lang('transfer_fund')}}
                                     </a>
                                 </li>                                
                             </ul>
@@ -54,11 +68,11 @@
                                     {{ form_open('', ' id="add_fund_form" name="add_fund_form"')|raw }}
                                     <div class="form-horizontal">
                                         <div class="errorHandler alert alert-danger no-display">
-                                            <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                            <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Username <span class="symbol required"></span>
+                                                {{lang('username')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="text" name="username_add" id="username_add">
@@ -68,7 +82,7 @@
 
                                         <div class="form-group" id="user_balance_add_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
-                                                User Balance
+                                                {{lang('user_balance')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input readonly class="form-control" type="text" id="user_balance_add">                                                
@@ -77,7 +91,7 @@
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Amount <span class="symbol required"></span>
+                                                {{lang('amount')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="number" name="amount_add" id="amount_add">
@@ -92,7 +106,7 @@
                                             </label>
                                             <div class="col-sm-4">
                                                 <button type="submit"class="btn btn-primary" value="add_button" name="add_button">
-                                                    Add <i class="fa fa-arrow-circle-right"></i>
+                                                    {{lang('add')}} <i class="fa fa-arrow-circle-right"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -104,11 +118,11 @@
                                     {{ form_open('', ' id="ded_fund_form" name="ded_fund_form"')|raw }}
                                     <div class="form-horizontal"> 
                                         <div class="errorHandler alert alert-danger no-display">
-                                            <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                            <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Username <span class="symbol required"></span>
+                                                {{lang('username')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="text" name="username_ded" id="username_ded">
@@ -118,7 +132,7 @@
 
                                         <div class="form-group" id="user_balance_ded_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
-                                                User Balance
+                                                {{lang('user_balance')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input readonly class="form-control" type="text" id="user_balance_ded">                                                
@@ -127,7 +141,7 @@
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Amount <span class="symbol required"></span>
+                                                {{lang('amount')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="number" name="amount_ded" id="amount_ded">
@@ -142,7 +156,7 @@
                                             </label>
                                             <div class="col-sm-4">
                                                 <button type="submit"class="btn btn-primary" value="ded_button" name="ded_button">
-                                                    Deduct <i class="fa fa-arrow-circle-right"></i>
+                                                    {{lang('deduct')}} <i class="fa fa-arrow-circle-right"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -154,11 +168,11 @@
                                     {{ form_open('', ' id="transfer_fund_form" name="transfer_fund_form"')|raw }}
                                     <div class="form-horizontal">  
                                         <div class="errorHandler alert alert-danger no-display">
-                                            <i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+                                            <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                From Username <span class="symbol required"></span>
+                                                {{lang('from_username')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="text" name="from_username" id="from_username">
@@ -168,7 +182,7 @@
 
                                         <div class="form-group" id="from_user_balance_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
-                                                User Balance
+                                                {{lang('user_balance')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input readonly class="form-control" type="text" id="from_user_balance">                                                
@@ -178,7 +192,7 @@
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                To Username <span class="symbol required"></span>
+                                                {{lang('to_username')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="text" name="to_username" id="to_username">
@@ -188,7 +202,7 @@
 
                                         <div class="form-group" id="to_user_balance_div" style="display:none;">
                                             <label class="col-sm-3 control-label">
-                                                User Balance
+                                                {{lang('user_balance')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input readonly class="form-control" type="text" id="to_user_balance">                                                
@@ -199,7 +213,7 @@
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Amount <span class="symbol required"></span>
+                                                {{lang('amount')}} <span class="symbol required"></span>
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="number" name="amount_trans" id="amount_trans">
@@ -214,7 +228,7 @@
                                             </label>
                                             <div class="col-sm-4">
                                                 <button type="submit"class="btn btn-primary" value="trans_button" name="trans_button">
-                                                    Transfer <i class="fa fa-arrow-circle-right"></i>
+                                                    {{lang('transfer')}} <i class="fa fa-arrow-circle-right"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -236,313 +250,11 @@
 {% include('admin/layout/footer.twig')%}
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
+<script src="assets/js/fund_transfer.js"></script>
 <script>
     jQuery(document).ready(function () {
         validate_add_fund();
         validate_ded_fund();
         validate_trans_fund();
     });
-
-    $("#username_add").blur(function () {
-        $.ajax({url: "admin/wallet/get_user_balance",
-            data: {username: $("#username_add").val()},
-            async: false,
-            success: function (msg) {
-                if (msg >= 0) {
-                    $("#user_balance_add_div").show();
-                    $("#user_balance_add").val(msg);
-                } else {
-                    $("#user_balance_add_div").hide();
-                    $("#user_balance_add").val('0');
-                }
-            }
-        });
-    });
-
-
-    $("#username_ded").blur(function () {
-        $.ajax({url: "admin/wallet/get_user_balance",
-            data: {username: $("#username_ded").val()},
-            async: false,
-            success: function (msg) {
-                if (msg >= 0) {
-                    $("#user_balance_ded_div").show();
-                    $("#user_balance_ded").val(msg);
-                } else {
-                    $("#user_balance_ded_div").hide();
-                    $("#user_balance_ded").val('0');
-                }
-            }
-        });
-    });
-
-
-    $("#from_username").blur(function () {
-        $.ajax({url: "admin/wallet/get_user_balance",
-            data: {username: $("#from_username").val()},
-            async: false,
-            success: function (msg) {
-                if (msg >= 0) {
-                    $("#from_user_balance_div").show();
-                    $("#from_user_balance").val(msg);
-                } else {
-                    $("#from_user_balance_div").hide();
-                    $("#from_user_balance").val('0');
-                }
-            }
-        });
-    });
-
-
-    $("#to_username").blur(function () {
-        $.ajax({url: "admin/wallet/get_user_balance",
-            data: {username: $("#to_username").val()},
-            async: false,
-            success: function (msg) {
-                if (msg >= 0) {
-                    $("#to_user_balance_div").show();
-                    $("#to_user_balance").val(msg);
-                } else {
-                    $("#to_user_balance_div").hide();
-                    $("#to_user_balance").val('0');
-                }
-            }
-        });
-    });
-
-
-
-    $.validator.addMethod("validUsername1", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_sponsor",
-            data: {username: $("#username_add").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Invalid Username");
-
-    $.validator.addMethod("validUsername2", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_sponsor",
-            data: {username: $("#username_ded").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Invalid Username");
-
-    $.validator.addMethod("validUsername3", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_sponsor",
-            data: {username: $("#from_username").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Invalid Username");
-
-    $.validator.addMethod("validUsername4", function () {
-        var isSuccess = false;
-        $.ajax({url: "register/validate_sponsor",
-            data: {username: $("#to_username").val()},
-            async: false,
-            success:
-                    function (msg) {
-                        isSuccess = msg === "yes" ? true : false
-                    }
-        });
-        return isSuccess;
-    }, "Sorry, Invalid Username");
-
-    var validate_add_fund = function () {
-        var form = $('#add_fund_form');
-        var errorHandler2 = $('.errorHandler', form);
-        var successHandler2 = $('.successHandler', form);
-        form.validate({
-            errorElement: "span", // contain the error msg in a small tag
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                } else if (element.hasClass("ckeditor")) {
-                    error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                }
-            },
-            ignore: ':hidden',
-            rules: {
-                username_add: {
-                    validUsername1: true,
-                    required: true,
-                    minlength: 3
-                },
-                amount_add: {
-                    required: true,
-                    number: true,
-                    min: 1
-                }
-            },
-            messages: {
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit
-                successHandler2.hide();
-                errorHandler2.show();
-            },
-            highlight: function (element) {
-                $(element).closest('.help-block').removeClass('valid');// display OK icon
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
-            },
-            success: function (label, element) {
-                label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-            },
-            submitHandler: function (form) {
-                successHandler2.show();
-                errorHandler2.hide();
-
-                form.submit();
-
-            }
-        });
-    };
-
-    var validate_ded_fund = function () {
-        var form = $('#ded_fund_form');
-        var errorHandler2 = $('.errorHandler', form);
-        var successHandler2 = $('.successHandler', form);
-        form.validate({
-            errorElement: "span", // contain the error msg in a small tag
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                } else if (element.hasClass("ckeditor")) {
-                    error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                }
-            },
-            ignore: ':hidden',
-            rules: {
-                username_ded: {
-                    validUsername2: true,
-                    required: true,
-                    minlength: 3
-                },
-                amount_ded: {
-                    required: true,
-                    number: true,
-                    min: 1
-                }
-            },
-            messages: {
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit
-                successHandler2.hide();
-                errorHandler2.show();
-            },
-            highlight: function (element) {
-                $(element).closest('.help-block').removeClass('valid');// display OK icon
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
-            },
-            success: function (label, element) {
-                label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-            },
-            submitHandler: function (form) {
-                successHandler2.show();
-                errorHandler2.hide();
-
-                form.submit();
-
-            }
-        });
-    };
-
-    var validate_trans_fund = function () {
-        var form = $('#transfer_fund_form');
-        var errorHandler2 = $('.errorHandler', form);
-        var successHandler2 = $('.successHandler', form);
-        form.validate({
-            errorElement: "span", // contain the error msg in a small tag
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                } else if (element.hasClass("ckeditor")) {
-                    error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                }
-            },
-            ignore: ':hidden',
-            rules: {
-                from_username: {
-                    validUsername3: true,
-                    required: true,
-                    minlength: 3
-                },
-                to_username: {
-                    validUsername4: true,
-                    required: true,
-                    minlength: 3
-                },
-                amount_trans: {
-                    required: true,
-                    number: true,
-                    min: 1
-                }
-            },
-            messages: {
-            },
-            invalidHandler: function (event, validator) { //display error alert on form submit
-                successHandler2.hide();
-                errorHandler2.show();
-            },
-            highlight: function (element) {
-                $(element).closest('.help-block').removeClass('valid');// display OK icon
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
-            },
-            unhighlight: function (element) { // revert the change done by hightlight
-                $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
-            },
-            success: function (label, element) {
-                label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-            },
-            submitHandler: function (form) {
-                successHandler2.show();
-                errorHandler2.hide();
-
-                form.submit();
-
-            }
-        });
-    };
 </script>

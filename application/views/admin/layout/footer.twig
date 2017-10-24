@@ -445,29 +445,19 @@
 		<script>
 			jQuery(document).ready(function() {
 				Main.init();
-
-
-				/*var el = $("body");
-		        el.block({
-		            overlayCSS: {
-		                backgroundColor: '#fff'
-		            },
-		            message: '<i class="fa fa-spinner fa-spin"></i>',
-		            css: {
-		                border: 'none',
-		                color: '#333',
-		                background: 'none'
-		            }
-		        });
-		        window.setTimeout(function() {
-		            el.unblock();
-		        }, 1000);*/
-		        // e.preventDefault();
-				// SVExamples.init();
 			});
 			
 		</script>
-		
-	</body>
+		{% if MULTI_LANG_STATUS == 0 %}
+			{% if GOOGLE_TRANSLATOR == 1 %}
+				<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+				<script type="text/javascript">
+					function googleTranslateElementInit() {
+					  new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
+					}
+				</script>
+			{% endif %}
+		{% endif %}
+</body>
 	<!-- end: BODY -->
 </html>
