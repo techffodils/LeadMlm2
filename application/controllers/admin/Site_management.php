@@ -77,17 +77,16 @@ class Site_management extends Base_Controller {
             $result = $this->site_management_model->updateSiteInformation($company_name, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
             if ($result) {
 
-                $site_info= array(
-
-                    'company_name' =>$company_name,
-                    'company_logo' =>$logo_name,
-                    'company_fav_icon' =>$fav_icon,
+                $site_info = array(
+                    'company_name' => $company_name,
+                    'company_logo' => $logo_name,
+                    'company_fav_icon' => $fav_icon,
                     'company_address' => $company_address,
-                    'company_email' =>$company_email,
-                    'company_phone' =>$company_phone
+                    'company_email' => $company_email,
+                    'company_phone' => $company_phone
                 );
-                
-                $this->session->set_userdata('mlm_site_info',$site_info);
+
+                $this->session->set_userdata('mlm_site_info', $site_info);
 
                 $data = serialize($this->input->post());
                 $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'Site Information Updated', $data);
@@ -130,35 +129,29 @@ class Site_management extends Base_Controller {
         $title = "Mail Content Management";
         $this->setData('title', $title . "|" . $this->main->get_controller() . "::");
 
-        $avail_lang = $this->site_management_model->getAllLangauage();
+        $avail_lang = $this->site_management_model->getAllLangauage('registration');
+        $password_rest = $this->site_management_model->getAllLangauage('password_reset');
         $subject = $content = $lang_id = '';
         $array_arr = $details = array();
         $i = 0;
-        foreach ($avail_lang as $row) {
-            $mail_content_detials = $this->site_management_model->getAllMailContentDetails($row['lang_id']);
-            foreach ($mail_content_detials as $row) {
-                array_push($array_arr, $row);
-            }
-            $i++;
-        }
-       
         $default_lang = 'en';
 
         if ($this->input->post()) {
             $result = '';
             $post_arr = $this->input->post(NULL, TRUE);
             foreach ($avail_lang as $row) {
+
                 if (!empty($post_arr['content' . '_' . $row['lang_code']]) && $post_arr['subject' . '_' . $row['lang_code']] != '') {
                     $content = $post_arr['content' . '_' . $row['lang_code']];
                     $subject = $post_arr['subject' . '_' . $row['lang_code']];
                     $lang_id = $post_arr['lang_id'];
 
-                    $result = $this->site_management_model->insertMailContent($content, $subject, $lang_id);
+                    $result = $this->site_management_model->insertMailContent($content, $subject, $lang_id, 'registration');
                 }
             }
             if ($result) {
                 $msg = "Successfully Inserted Mail content";
-                $this->loadPage($msg, 'site_management/mail_content_management', TRUE);
+                $this->loadPage($msg, 'site_management/mail_content_management');
             } else {
                 $msg = "Filed to Insert Mail content";
                 $this->loadPage($msg, 'site_management/mail_content_management', FALSE);
@@ -174,8 +167,7 @@ class Site_management extends Base_Controller {
         $this->setData('page_title', "Password Recovery Content");
         $this->setData('title', "MailContent");
         $this->setData('data', $avail_lang);
-        $this->setData('key', $array_arr);
-
+        $this->setData('password_reset', $password_rest);
 
         $this->loadView();
     }
@@ -195,8 +187,7 @@ class Site_management extends Base_Controller {
                 $this->form_validation->set_rules('subject_' . $row['lang_code'], 'Subject', 'trim|required|strip_tags');
                 $this->form_validation->set_error_delimiters("<div style='color:#b94a48;'>", "</div>");
                 $validation_status = $this->form_validation->run();
-//                    print_r($validation_status);
-//                    die;
+
                 return $validation_status;
                 //}
             }
