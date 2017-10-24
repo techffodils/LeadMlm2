@@ -15,9 +15,9 @@ class Profile extends Base_Controller {
             $res = $this->profile_model->updateUserProfile($user_id, $post);
             if ($res) {
                 $this->helper_model->insertActivity($user_id, 'profile_updated', $post);
-                $this->loadPage('Profile Updated Successfully', 'profile/index', TRUE);
+                $this->loadPage(lang('profile_updated'), 'profile/index');
             } else {
-                $this->loadPage('Profile Updation Failed', 'profile/index', False);
+                $this->loadPage('profile_updation_failed', 'profile/index', 'danger');
             }
         }
 
@@ -32,11 +32,11 @@ class Profile extends Base_Controller {
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prof_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage('Profile Pic Updation Failed', 'profile/index', FALSE);
+                $this->loadPage($lang('failed_to_update_dp'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 $this->profile_model->updateUserPic($user_id,$data);
-                $this->loadPage('Profile Pic Updated', 'profile/index', TRUE);
+                $this->loadPage($lang('profile_pic_updated'), 'profile/index');
             }
         }
         
@@ -51,11 +51,11 @@ class Profile extends Base_Controller {
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('cover_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage('Profile Pic Updation Failed', 'profile/index', FALSE);
+                $this->loadPage($lang('failed_to_update_cover'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 $this->profile_model->updateUserCover($user_id,$data);
-                $this->loadPage('Profile Pic Updated', 'profile/index', TRUE);
+                $this->loadPage($lang('cover_pic_updated'), 'profile/index');
             }
         }
         
@@ -75,12 +75,12 @@ class Profile extends Base_Controller {
     }
 
     function validate_profile_update() {
-        $this->form_validation->set_rules('firstname', 'firstname', 'required');
-        $this->form_validation->set_rules('phone_number', 'pin_amount', 'required|greater_than[0]');
-        $this->form_validation->set_rules('gender', 'gender', 'required');
-        $this->form_validation->set_rules('address', 'address', 'required');
-        $this->form_validation->set_rules('country', 'country', 'required');
-        $this->form_validation->set_rules('dob', 'dob', 'required|callback_validate_dob');
+        $this->form_validation->set_rules('firstname', lang('first_name'), 'required');
+        $this->form_validation->set_rules('phone_number', lang('phone_number'), 'required|greater_than[0]');
+        $this->form_validation->set_rules('gender', lang('gender'), 'required');
+        $this->form_validation->set_rules('address', lang('address'), 'required');
+        $this->form_validation->set_rules('country', lang('country'), 'required');
+        $this->form_validation->set_rules('dob', lang('dob'), 'required|callback_validate_dob');
 
         $validation = $this->form_validation->run();
         return $validation;
@@ -93,7 +93,7 @@ class Profile extends Base_Controller {
             if (checkdate($test_arr[0], $test_arr[1], $test_arr[2])) {
                 $flag = TRUE;
             } else {
-                $this->form_validation->set_message('validate_username', 'Please enter a valid Date Of Birth.');
+                $this->form_validation->set_message('validate_dob', lang('enter_a_valid_dob'));
             }
         }
         return $flag;

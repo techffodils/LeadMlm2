@@ -1,7 +1,6 @@
 <?php
 
 //Menu Start
-$lang['home'] = 'Test';
 $lang['menu_name_1'] = 'Dashboard';
 $lang['menu_name_2'] = 'Tree';
 $lang['menu_name_3'] = 'Register';
@@ -86,7 +85,7 @@ $lang['select_a_country'] = 'Select a country';
 $lang['address'] = 'Address';
 $lang['Male'] = 'Male';
 $lang['Female'] = 'Female';
-$lang['last_name'] = 'last_name';
+$lang['last_name'] = 'Last Name';
 
 $lang['multiple_step_registration'] = 'Multiple Step Registration';
 
@@ -104,45 +103,12 @@ $lang['register_success'] = 'User Registered Successfully';
 $lang['register_failed'] = 'Failed To Register';
 $lang['advanced_registration'] = 'Advanced Registration';
 
+$lang['remove'] = 'Remove';
+$lang['change'] = 'Change';
+$lang['update'] = 'Update';
 
+$lang['next'] = 'Next';
 
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
-$lang['next'] = 'Next';
-$lang['back'] = 'Back';
 
 
 
