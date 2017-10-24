@@ -19,7 +19,7 @@ class Backup extends Base_Controller {
         $this->setData('backup_type', $backup_type);
         $this->setData('backup_deletion_period', $backup_deletion_period);
         $this->setData('backups', $backups);
-        $this->setData('title',lang('menu_name_40'));
+        $this->setData('title',lang('menu_name_41'));
         $this->loadView();
     }
 
