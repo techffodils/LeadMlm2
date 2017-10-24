@@ -78,7 +78,7 @@ class Product extends Base_Controller {
                     $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_inactivate', $data);
                     $this->loadPage(lang('product_inactivated'), 'product/product_management');
                 } else {
-                    $this->loadPage(lang('product_inactivation_failed'), 'product/product_management', False);
+                    $this->loadPage(lang('product_inactivation_failed'), 'product/product_management', 'danger');
                 }
             } else {
                 $this->loadPage(lang('invalid_action'), 'product/product_management', 'danger');
@@ -86,7 +86,7 @@ class Product extends Base_Controller {
         }
 
         if ($this->input->post('cancel_product')) {
-            $this->loadPage(lang('product_updation_canceled'), 'product/product_management', TRUE);
+            $this->loadPage(lang('product_updation_canceled'), 'product/product_management');
         }
 
         if ($this->input->post('update_product') && $this->validate_add_product()) {

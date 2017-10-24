@@ -52,9 +52,9 @@ class Epin extends Base_Controller {
             $res = $this->epin_model->addPinToUser($post);
             if ($res) {
                 $this->helper_model->insertActivity($user_id, 'pin_added', $post);
-                $this->loadPage(lang('pin_added_successfully'), 'epin/epin_management', TRUE);
+                $this->loadPage(lang('pin_added_successfully'), 'epin/epin_management');
             } else {
-                $this->loadPage(lang('failed_to_add'), 'epin/epin_management', FALSE);
+                $this->loadPage(lang('failed_to_add'), 'epin/epin_management', 'danger');
             }
         }
         $active_tab = '';

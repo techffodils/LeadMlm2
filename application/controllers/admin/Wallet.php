@@ -34,12 +34,12 @@ class Wallet extends Base_Controller {
                 if ($res) {
                     $this->helper_model->insertWalletDetails($user_id, 'debit', $amount, $wallet_type);
                     $this->helper_model->insertActivity($logged_user, 'deduct_fund_from_user', $post);
-                    $this->loadPage(lang('fund_deducted_successfully'), 'wallet/fund_transfer', TRUE);
+                    $this->loadPage(lang('fund_deducted_successfully'), 'wallet/fund_transfer');
                 } else {
-                    $this->loadPage(lang('fund_deducted_failed'), 'wallet/fund_transfer', FALSE);
+                    $this->loadPage(lang('fund_deducted_failed'), 'wallet/fund_transfer', 'danger');
                 }
             } else {
-                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', FALSE);
+                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', 'danger');
             }
         }
 
@@ -57,10 +57,10 @@ class Wallet extends Base_Controller {
                     $this->helper_model->insertActivity($logged_user, 'deduct_fund_from_user', $post);
                     $this->loadPage(lang('fund_transfered_successfully'), 'wallet/fund_transfer', TRUE);
                 } else {
-                    $this->loadPage(lang('fund_transfered_failed'), 'wallet/fund_transfer', FALSE);
+                    $this->loadPage(lang('fund_transfered_failed'), 'wallet/fund_transfer', 'danger');
                 }
             } else {
-                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', FALSE);
+                $this->loadPage(lang('insufficient_balance'), 'wallet/fund_transfer', 'danger');
             }
         }
 
