@@ -7,9 +7,9 @@
                 <h4 class="panel-title">
 
                     {% if edit_flag %} 
-                        Update Product
+                        {{lang('update_product')}}
                     {% else %}
-                        Add Product
+                        {{lang('add_product')}} 
                     {% endif %}
                     <span class="text-bold"></span></h4>
                 <div class="panel-tools">
@@ -18,10 +18,24 @@
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -38,50 +52,50 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Name<span class="symbol required"></span>
+                            {{lang('product_name')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="product_name" id="product_name" placeholder='enter your product name' value="{{ product.product_name }}">
+                            <input class="form-control" type="text" name="product_name" id="product_name" placeholder="{{lang('product_name')}}" value="{{ product.product_name }}">
                             {% if error.product_name is defined %}<code> {{ error.product_name}}</code> {% endif %}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Amount<span class="symbol required"></span>
+                            {{lang('product_amount')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="product_amount" id="product_amount" placeholder='enter your product amount' value="{{ product.product_amount }}">
+                            <input class="form-control" type="text" name="product_amount" id="product_amount" placeholder="{{lang('product_amount')}}" value="{{ product.product_amount }}">
                             {% if error.product_amount is defined %}<code> {{ error.product_amount}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Value<span class="symbol required"></span>
+                            {{lang('product_pv')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="product_pv" id="product_pv" placeholder='enter your product pv' value="{{ product.product_pv }}">
+                            <input class="form-control" type="text" name="product_pv" id="product_pv" placeholder="{{lang('product_pv')}}" value="{{ product.product_pv }}">
                             {% if error.product_pv is defined %}<code> {{ error.product_pv}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Code<span class="symbol required"></span>
+                            {{lang('product_code')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="product_code" id="product_code"  placeholder='enter your product code' value="{{ product.product_code }}">
+                            <input class="form-control" type="text" name="product_code" id="product_code"  placeholder="{{lang('product_code')}}" value="{{ product.product_code }}">
                             {% if error.product_code is defined %}<code> {{ error.product_code}}</code> {% endif %}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Recurring Mode
+                            {{lang('recurring_type')}}
                         </label>
                         <div class="col-sm-4">
                             <select name="recurring_type" id="recurring_type" class="form-control" >
-                                <option value="">Select Recurring Mode</option>
-                                <option value="monthly" {% if product.recurring_type=="monthly" %} selected {% endif %}>Monthly</option>
-                                <option value="yearly" {% if product.recurring_type=="yearly" %} selected {% endif %}>Yearly</option>                                            
+                                <option value="">{{lang('select_recurring_type')}}</option>
+                                <option value="monthly" {% if product.recurring_type=="monthly" %} selected {% endif %}>{{lang('monthly')}}</option>
+                                <option value="yearly" {% if product.recurring_type=="yearly" %} selected {% endif %}>{{lang('yearly')}}</option>                                            
                             </select>
                             {% if error.recurring_type is defined %}<code> {{ error.recurring_type}}</code> {% endif %}
                         </div>
@@ -89,13 +103,13 @@
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Type<span class="symbol required"></span>
+                            {{lang('product_type')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
                             <select name="product_type" id="product_type" class="form-control" >
                                 <option value="">Select Product Mode</option>
-                                <option value="register" {% if product.product_type=="register" %} selected {% endif %}>Register</option>
-                                <option value="repurchase" {% if product.product_type=="repurchase" %} selected {% endif %}>Repurchase</option>                                            
+                                <option value="register" {% if product.product_type=="register" %} selected {% endif %}>{{lang('register')}}</option>
+                                <option value="repurchase" {% if product.product_type=="repurchase" %} selected {% endif %}>{{lang('repurchase')}}</option>                                            
                                 <option value="both" {% if product.product_type=="both" %} selected {% endif %}>Both</option>                                            
                             </select>
                             {% if error.product_type is defined %}<code> {{ error.product_type}}</code> {% endif %}
@@ -107,7 +121,7 @@
 
                             <div class="form-group" id="file_div_{{imgs.id}}">
                                 <label class="col-sm-3 control-label">     
-                                    Product Image
+                                    {{lang('product_image')}}
                                 </label>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="product_delete_status_{{imgs.id}}" id="product_delete_status_{{imgs.id}}" value="0" />
@@ -115,7 +129,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <div onclick="changeValue({{imgs.id}}, 1)">
-                                        <img src="assets/images/delete.png" alt="Smiley face" height="15" width="15"> Remove
+                                        <img src="assets/images/delete.png" alt="Smiley face" height="15" width="15"> {{lang('remove')}}
                                     </div>
                                 </div>
                             </div>
@@ -128,24 +142,24 @@
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Product Image
+                            {{lang('product_image')}}
                         </label>
                         <div class="fileupload fileupload-new col-sm-3" data-provides="fileupload">
                             <div class="fileupload-new thumbnail"><img src="assets/images/products/our-products.png" alt="">
                             </div>
                             <div class="fileupload-preview fileupload-exists thumbnail"></div>
                             <div class="user-edit-image-buttons">
-                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> {{lang('select_image')}}</span><span class="fileupload-exists"><i class="fa fa-picture"></i> {{lang('change')}}</span>
                                     <input type="file" id="images" name="images[]"/>
                                 </span>
                                 <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                    <i class="fa fa-times"></i> Remove
+                                    <i class="fa fa-times"></i> {{lang('remove')}}
                                 </a>
                             </div>
                         </div>
 
                         <div class="col-sm-2" id="more_upload">
-                            <span class="btn btn-success fileinput-button" data-placement="top" data-original-title="Add"> 
+                            <span class="btn btn-success fileinput-button" data-placement="top" data-original-title="{{lang('add')}}"> 
                                 <i class="glyphicon glyphicon-plus"></i> 
                             </span>
                         </div>
@@ -165,15 +179,12 @@
                         <div class="col-sm-4">
                             {% if edit_flag %} 
                                 <input type="hidden" value="{{ product_id }}" name="edited_id" id="edited_id" />
-                                {#<button type="submit"class="btn btn-primary" value="cancel_product" name="cancel_product">
-                                    Cancel <i class="fa fa-arrow-circle-right"></i>
-                                </button>#}
                                 <button type="submit"class="btn btn-primary" value="update_product" name="update_product">
-                                    Update <i class="fa fa-arrow-circle-right"></i>
+                                    {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             {% else %}
                                 <button type="submit"class="btn btn-primary" value="add_product" name="add_product">
-                                    Add <i class="fa fa-arrow-circle-right"></i>
+                                    {{lang('add')}} <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             {% endif %}
 
@@ -192,7 +203,7 @@
             <div class="panel panel-white">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Added Products
+                        {{lang('added_products')}}
 
                         <span class="text-bold"></span></h4>
                     <div class="panel-tools">
@@ -201,10 +212,24 @@
                                 <i class="fa fa-cog"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                                <li>
+                                    <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                                </li>
+                                <li>
+                                    <a class="panel-refresh" href="#">
+                                        <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                        <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-expand" href="#">
+                                        <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <a class="btn btn-xs btn-link panel-close" href="#">
@@ -218,15 +243,15 @@
                         <table class="table table-bordered table-hover" id="sample-table-1">
                             <thead>
                                 <tr>
-                                    <th>SlNo</th>
-                                    <th>Product Name</th>
-                                    <th>Status</th>
-                                    <th>Product Code</th>
-                                    <th>Amount</th>
-                                    <th>PV</th>
-                                    <th>Recurring</th>
-                                    <th>Type</th>
-                                    <th>Action</th>                                
+                                    <th>{{ lang('slno') }}</th>
+                                    <th>{{ lang('product_name') }}</th>
+                                    <th>{{ lang('status') }}</th>
+                                    <th>{{ lang('product_code') }}</th>
+                                    <th>{{ lang('product_amount') }}</th>
+                                    <th>{{ lang('product_pv') }}</th>
+                                    <th>{{ lang('recurring_type') }}</th>
+                                    <th>{{ lang('product_type') }}</th>
+                                    <th>{{ lang('action') }}</th>                                
                                 </tr>
                             </thead>
                             <tbody>
@@ -237,9 +262,9 @@
                                         <td>{{ pro.product_name }}</td>
                                         <td>
                                             {% if pro.status %} 
-                                                Active
+                                                {{ lang('active') }}
                                             {% else %}
-                                                Inactive 
+                                                {{ lang('inactive') }}
                                             {% endif %}
                                         </td>
                                         <td>{{ pro.product_code }}</td>
@@ -248,13 +273,13 @@
                                         <td>{{ pro.recurring_type }}</td>
                                         <td>{{ pro.product_type }}</td>
                                         <td>
-                                            <a href="javascript:edit_prod({{ pro.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:edit_prod({{ pro.id }})" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="{{ lang('edit') }}"><i class="fa fa-edit"></i></a>
                                                 {% if pro.status=='1' %} 
-                                                <a href="javascript:inactivate_prod({{ pro.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="Inactivate"><i class="fa fa-times fa fa-white"></i></a>
+                                                <a href="javascript:inactivate_prod({{ pro.id }})" class="btn btn-xs btn-yellow tooltips" data-placement="top" data-original-title="{{ lang('inactivate') }}"><i class="fa fa-times fa fa-white"></i></a>
                                                 {% else %}
-                                                <a href="javascript:activate_prod({{ pro.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Activate"><i class="glyphicon glyphicon-ok-sign"></i></a>
+                                                <a href="javascript:activate_prod({{ pro.id }})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="{{ lang('activate') }}"><i class="glyphicon glyphicon-ok-sign"></i></a>
                                                 {% endif %}
-                                            <a href="javascript:delete_prod({{ pro.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash fa fa-white"></i></a>
+                                            <a href="javascript:delete_prod({{ pro.id }})" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="{{ lang('delete') }}"><i class="fa fa-trash fa fa-white"></i></a>
                                             {% else %}
                                             No access
 
@@ -264,101 +289,21 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-
-
-
                     </div>
                 </div>
             </div>                                    
         </div>
     </div>
 {% endif %}
+{% include('admin/layout/footer.twig')%}
+
+
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="assets/js/product_management.js"></script>
 <script>
                                         $(document).ready(function () {
-                                            $('#more_upload').click(function (e) {
-                                                $('#file_div').append('<div class="form-group"><label class="col-sm-3 control-label">Product Image</label><div class="fileupload fileupload-new col-sm-3" data-provides="fileupload"><div class="fileupload-new thumbnail"><img src="assets/images/products/our-products.png" alt=""></div><div class="fileupload-preview fileupload-exists thumbnail"></div><div class="user-edit-image-buttons"><span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span><input type="file" id="images" name="images[]"/></span><a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload"><i class="fa fa-times"></i> Remove</a></div></div></div>');
-                                            });
                                             validate_product_management();
                                         });
-
-                                        function changeValue(input_field, value) {
-                                            var field = '#product_delete_status_' + input_field;
-                                            $(field).val(1);
-
-                                            var field_div = '#file_div_' + input_field;
-                                            $(field_div).hide();
-                                        }
-
-
-                                        var validate_product_management = function () {
-                                            var form = $('#add_product_form');
-                                            var errorHandler2 = $('.errorHandler', form);
-                                            var successHandler2 = $('.successHandler', form);
-                                            form.validate({
-                                                errorElement: "span", // contain the error msg in a small tag
-                                                errorClass: 'help-block',
-                                                errorPlacement: function (error, element) { // render error placement for each input type
-                                                    if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
-                                                        error.insertAfter($(element).closest('.form-group').children('div').children().last());
-                                                    } else if (element.hasClass("ckeditor")) {
-                                                        error.appendTo($(element).closest('.form-group'));
-                                                    } else {
-                                                        error.insertAfter(element)// for other inputs, just perform default behavior
-                                                    }
-                                                },
-                                                ignore: ':hidden',
-                                                rules: {
-                                                    product_name: {
-                                                        required: true,
-                                                        minlength: 3
-                                                    },
-                                                    product_amount: {
-                                                        required: true
-                                                    },
-                                                    product_pv: {
-                                                        required: true
-                                                    },
-                                                    product_code: {
-                                                        required: true,
-                                                        minlength: 3
-                                                    },
-                                                    product_type: {
-                                                        required: true
-                                                    }
-                                                },
-                                                messages: {
-                                                    product_name: "Please enter Product Name"
-                                                },
-                                                invalidHandler: function (event, validator) { //display error alert on form submit
-                                                    successHandler2.hide();
-                                                    errorHandler2.show();
-                                                },
-                                                highlight: function (element) {
-                                                    $(element).closest('.help-block').removeClass('valid');// display OK icon
-                                                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                                                    // add the Bootstrap error class to the control group
-                                                },
-                                                unhighlight: function (element) { // revert the change done by hightlight
-                                                    $(element).closest('.form-group').removeClass('has-error');
-                                                    // set error class to the control group
-                                                },
-                                                success: function (label, element) {
-                                                    label.addClass('help-block valid');
-                                                    // mark the current input as valid and display OK icon
-                                                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
-                                                },
-                                                submitHandler: function (form) {
-                                                    successHandler2.show();
-                                                    errorHandler2.hide();
-
-                                                    form.submit();
-
-                                                }
-                                            });
-                                        };
-
 </script>
-{% include('admin/layout/footer.twig')%}
+

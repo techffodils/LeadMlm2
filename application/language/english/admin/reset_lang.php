@@ -1,8 +1,8 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$lang['cleanup_msg'] = "Click The Clean button For Wipe Out Your Entire System, There is no Undo. This Option Only Available Before the System is Live :) .";
+$lang['warning'] = 'Warning!';
+$lang['reset_ur_system'] = 'Reset Your System';
+$lang['clean'] = 'Clean';
+
 

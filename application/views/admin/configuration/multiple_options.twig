@@ -5,7 +5,7 @@
         <div class="panel panel-white">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    Languages & Currencies
+                    {{lang('lang_currency')}}
 
                     <span class="text-bold"></span></h4>
                 <div class="panel-tools">
@@ -14,10 +14,24 @@
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -32,7 +46,7 @@
                         <div class="form-horizontal">
                             <div class="form-group">
                                     <label class="col-sm-7 control-label">
-                                        <h6 align="left">AVAILABLE LANGUAGES</h6><br>
+                                        <h6 align="left">{{lang('available_langs')}}</h6><br>
                                     </label>
                             </div>
                             
@@ -45,8 +59,8 @@
                                         <label class="switch">
                                             <input type="checkbox" {% if l.status == "1" %} checked {% endif %} id="togBtn" onchange='changeLanguageStatus("{{ l.id }}", this)'>
                                             <div class="slider round">
-                                                <span class="on">ON</span>
-                                                <span class="off">OFF</span>
+                                                <span class="on">{{lang('on')}}</span>
+                                                <span class="off">{{lang('off')}}</span>
                                             </div>
                                         </label>
                                     </div>
@@ -60,7 +74,7 @@
                         <div class="form-horizontal">
                             <div class="form-group">
                                     <label class="col-sm-7 control-label">
-                                        <b><h6 align="left">AVAILABLE CURRENCIES</h6></b><br> 
+                                        <b><h6 align="left">{{lang('available_currs')}}</h6></b><br> 
                                     </label>
                             </div>
                             {% for c in curns %}
@@ -70,7 +84,7 @@
                                         {% if c.code != default_currency %} 
                                             (1 <i class="fa {{ default_currency_symbol }}"></i> = {{ c.currency_ratio }} <i class="fa {{ c.icon }}"></i> )
                                         {% else %}
-                                            (Default)
+                                            ({{lang('default')}})
                                         {% endif %}
                                         
                                     </label>
@@ -78,8 +92,8 @@
                                         <label class="switch">
                                             <input type="checkbox" {% if c.status == "1" %} checked {% endif %} id="togBtn" onchange='changeCurrencyStatus("{{ c.id }}", this)'>
                                             <div class="slider round">
-                                                <span class="on">ON</span>
-                                                <span class="off">OFF</span>
+                                                <span class="on">{{lang('on')}}</span>
+                                                <span class="off">{{lang('Off')}}</span>
                                             </div>
                                         </label>
                                     </div>
