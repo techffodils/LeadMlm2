@@ -16,7 +16,7 @@
 				</div>
 				<div class="inline-block">
 					<h5 class="no-margin"> Welcome </h5>
-					<h4 class="no-margin"> Peter Clark </h4>
+					<h4 class="no-margin"> {{LOG_USER_NAME}} </h4>
 <!-- for top slider
 	<a class="btn user-options sb_toggle">
 	<i class="fa fa-cog"></i> 
@@ -29,8 +29,10 @@
 <ul class="main-navigation-menu">
 
 	{% for MENU  in USER_MENU %}
+
 	<li  {% if  MENU.selected == 'selected' %} class="active open" {% endif %} >
-		<a href="{{ MENU.link }}""><i class="fa {{ MENU.icon }}"  target="{{ MENU.target }}"></i> <span class="{{ MENU.name }}"> {{ MENU.name }} </span>
+		<a href="{{ MENU.link }}""><i class="fa {{ MENU.icon }}"  target="{{ MENU.target }}"></i> 
+			<span class=''> {{ lang('menu_name_' ~ MENU.id) }}  </span>
 			{% if  MENU.sub_menu  is not null %}
 			<i class="icon-arrow"></i>
 			{% endif %}  
@@ -41,7 +43,7 @@
 			{% for SUB_MENU  in  MENU.sub_menu  %}
 			<li {% if  SUB_MENU.selected == 'selected' %} class="active open" {% endif %}>
 				<a href="{{ SUB_MENU.link }}"  target="{{ SUB_MENU.target }}"><!--<i class="fa {{ SUB_MENU.icon }}"></i>-->
-					<span class="{{ SUB_MENU.name }}"> {{ SUB_MENU.name }} </span>
+					<span class=""> {{ lang('menu_name_' ~  SUB_MENU.id) }}  </span>
 					{% if  SUB_MENU.sub_menu  is not null %}
 					<i class="icon-arrow"></i>
 					{% endif %}  
@@ -52,7 +54,7 @@
 					<li {% if  SUB_SUB_MENU.selected == 'selected' %} class="active open" {% endif %}>
 						<a href="{{ SUB_SUB_MENU.link }}"  target="{{ SUB_SUB_MENU.target }}">
 							<!--<i class="fa {{ SUB_MENU.icon }}"></i>-->
-							{{ SUB_SUB_MENU.name }}
+							{{ lang('menu_name_' ~  SUB_SUB_MENU.id) }} 
 						</a>
 					</li>
 					{% endfor %}

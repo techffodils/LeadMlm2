@@ -122,6 +122,7 @@ class Twig {
 	 */
 	public function ci_function_init() 
 	{
+		
 		$this->_twig_env->addFunction('base_url', new Twig_Function_Function('base_url'));
 		$this->_twig_env->addFunction('site_url', new Twig_Function_Function('site_url'));
 		$this->_twig_env->addFunction('current_url', new Twig_Function_Function('current_url'));
@@ -149,6 +150,7 @@ class Twig {
 		$this->_twig_env->addFunction('set_checkbox', new Twig_Function_Function('set_checkbox'));
 		$this->_twig_env->addFunction('set_radio', new Twig_Function_Function('set_radio'));
 		$this->_twig_env->addFunction('form_open_multipart', new Twig_Function_Function('form_open_multipart'));
+		$this->_twig_env->addFunction('lang', new Twig_Function_Function('lang'));
 	}
 }
 /* End of file Twig.php */

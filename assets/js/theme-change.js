@@ -1,7 +1,12 @@
 jQuery(document).ready(function() {
+
+    var LOG_USER_TYPE = $('#LOG_USER_TYPE').val();
+    LOG_USER_TYPE =(LOG_USER_TYPE == 'employee') ? 'admin' : LOG_USER_TYPE;
+
     $('.save_style').on('click', function() {
 
-       // var espressoSetting ;
+           // var espressoSetting ;
+           
             if ($body.hasClass('layout-boxed')) {
               var esplayoutBoxed = 'layout-boxed';
             } else {
@@ -28,7 +33,7 @@ jQuery(document).ready(function() {
             var el = $('#style_selector_container');
             $.ajax({
                 type: 'POST',
-                url: 'admin/home/changeThemeSettings',
+                url: LOG_USER_TYPE + '/home/changeThemeSettings',
                 data: {result:JSON.stringify(person)},
 
                 beforeSend: function() {
