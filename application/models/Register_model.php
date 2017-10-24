@@ -35,11 +35,12 @@ class Register_model extends CI_Model {
         $sponsor_id=$this->helper_model->userNameToID($user_details['sponser_name']);
         $father_id=$this->helper_model->userNameToID($user_details['sponser_name']);
         $password=hash("sha256", $user_details['password']);
+        $transaction_pass=$this->generateRandomString();
         $position='';
         $res=$this->db->set('user_name ', $user_details['username'])
                 ->set('email', $user_details['email'])
                 ->set('password ', $password)
-                ->set('tran_password','qweqwe')
+                ->set('tran_password',$transaction_pass)
                 ->set('user_type', 'user')
                 ->set('father_id ', $father_id)
                 ->set('sponsor_id', $sponsor_id)
@@ -54,16 +55,16 @@ class Register_model extends CI_Model {
         return false;
     }
     
+    public function generateRandomString() {
+        $pin = $this->load->helper('string');
+        return random_string('alnum', 8);
+    }
+    
     public function insertUserDetails($user_id,$user_details) {
-        $res=$this->db->set('mlm_user_id ', $user_id)
+        return $this->db->set('mlm_user_id ', $user_id)
                 ->set('first_name', $user_details['first_name'])
                 ->set('date_of_joining', $user_details['date_of_joining'])
                 ->insert('user_details');
-
-        if ($res) {
-            return $this->db->insert_id();
-        }
-        return false;
     }
     
     public function updateUserDetails($user_id,$user_details) {
