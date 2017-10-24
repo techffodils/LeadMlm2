@@ -66,7 +66,7 @@ class Profile extends Base_Controller {
         $user_files = $this->profile_model->getUserFiles($user_id);
 
 
-        if ($this->input->post('dp_crop')) {
+        if ($this->input->post('dp_crop')) {//addClass('jcrop-keymgr')
             $new_file = 'dp_' . time() . '.jpg';
             $post = $this->input->post();
             $width = $post['w'];
