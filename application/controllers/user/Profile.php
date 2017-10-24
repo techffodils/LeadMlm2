@@ -17,7 +17,7 @@ class Profile extends Base_Controller {
                 $this->helper_model->insertActivity($user_id, 'profile_updated', $post);
                 $this->loadPage(lang('profile_updated'), 'profile/index');
             } else {
-                $this->loadPage('profile_updation_failed', 'profile/index', 'danger');
+                $this->loadPage(lang('profile_updation_failed'), 'profile/index', 'danger');
             }
         }
 
@@ -32,11 +32,11 @@ class Profile extends Base_Controller {
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prof_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage($lang('failed_to_update_dp'), 'profile/index', 'danger');
+                $this->loadPage(lang('failed_to_update_dp'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 $this->profile_model->updateUserPic($user_id,$data);
-                $this->loadPage($lang('profile_pic_updated'), 'profile/index');
+                $this->loadPage(lang('profile_pic_updated'), 'profile/index');
             }
         }
         
@@ -51,11 +51,11 @@ class Profile extends Base_Controller {
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('cover_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage($lang('failed_to_update_cover'), 'profile/index', 'danger');
+                $this->loadPage(lang('failed_to_update_cover'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 $this->profile_model->updateUserCover($user_id,$data);
-                $this->loadPage($lang('cover_pic_updated'), 'profile/index');
+                $this->loadPage(lang('cover_pic_updated'), 'profile/index');
             }
         }
         
