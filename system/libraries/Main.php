@@ -86,8 +86,6 @@ class CI_Main {
 
 	function get_flashdata($key){
 
-		print_r($this->ci->session->flashdata());die();
-		
 		$this->flash_data =  $this->ci->session->flashdata($key);
 		return (isset($this->flash_data[$key]) ? $this->flash_data[$key] : null);
 	}
