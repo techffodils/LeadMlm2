@@ -65,13 +65,47 @@ class Profile extends Base_Controller {
         $def_dp = array("dp1.jpg", "dp2.jpg", "dp3.jpg", "dp4.jpg", "dp5.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
 
+
+        if ($this->input->post('dp_crop')) {
+            $new_file = 'dp_' . time() . '.jpg';
+            $post = $this->input->post();
+            $width = $post['w'];
+            $height = $post['h'];
+            $x_axis = $post['x1'];
+            $y_axis = $post['y1'];
+            if($width>=0 && $height>=0 && $x_axis>=0 && $y_axis>=0) {
+                $this->load->library('image_lib');
+                $config = array(
+                    'source_image' => "assets/images/users/" . $user_details['user_dp'],
+                    'maintain_ratio' => FALSE,
+                    'width' => $width,
+                    'height' => $height,
+                    'x_axis' => $x_axis,
+                    'y_axis' => $y_axis,
+                    'new_image' => $new_file
+                );
+
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $res = $this->image_lib->crop();
+                if (!$this->image_lib->display_errors()) {
+                    if ($this->profile_model->setDp($user_id, $new_file)) {
+                        $this->profile_model->insertUserPictureHistory($user_id,$new_file,'user_dp');
+                        $this->loadPage(lang('dp_cropped'), 'profile/index');
+                    }
+                }
+            }
+            $this->loadPage(lang('dp_cropped_failed'), 'profile/index', 'danger');
+        }
+
+
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);
         $this->setData('user_cov', $user_files['co']);
         $this->setData('def_cov', $def_cov);
         $this->setData('user_details', $user_details);
         $this->setData('profile_error', $this->form_validation->error_array());
-        $this->setData('title',lang('profile'));
+        $this->setData('title', lang('profile'));
         $this->loadView();
     }
 
@@ -136,6 +170,46 @@ class Profile extends Base_Controller {
         }
         echo 'no';
         exit;
+    }
+
+    function show_image() {
+        //$upload_path="/var/www/html/WC/";
+        $this->load->library('image_lib');
+        $config = array(
+            'source_image' => "/var/www/html/WC/sago.jpg",
+            'maintain_ratio' => FALSE,
+            'width' => 396,
+            'height' => 175,
+            'x_axis' => 97,
+            'y_axis' => 119,
+            'new_image' => 'test.jpg'
+        );
+
+        $this->image_lib->clear();
+        $this->image_lib->initialize($config);
+        $this->image_lib->crop();
+
+        echo $this->image_lib->display_errors();
+
+
+        die('///////////');
+
+        $this->load->library('image_lib');
+
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/var/www/html/WC/sago.jpg';
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 5;
+        $config['height'] = 5;
+
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
+        echo $this->image_lib->display_errors();
+
+        echo 1111;
+        die();
     }
 
 }
