@@ -3,17 +3,31 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">E-Pin Management <span class="text-bold"></span></h4>
+                <h4 class="panel-title">{{lang('epin_management')}} <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li>
+                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a>
+                            </li>
+                            <li>
+                                <a class="panel-refresh" href="#">
+                                    <i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-config" href="#panel-config" data-toggle="modal">
+                                    <i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-expand" href="#">
+                                    <i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -25,29 +39,29 @@
                 <hr>
                 <div class="panel panel-white panel-tabs">
                     <div class="panel-heading">
-                        <h4 class="panel-title">E-Pin <span class="text-bold">Tabs</span></h4>
+                        <h4 class="panel-title">{{lang('epin')}} <span class="text-bold">{{lang('tabs')}}</span></h4>
                     </div>
                     <div class="panel-body">
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
                                 <li class="active">
                                     <a data-toggle="tab" href="#epin_tab1">
-                                        Request Pins
+                                        {{lang('request_pin')}}
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#epin_tab2">
-                                        Previous Requests <span class="badge badge-danger">{{ pin_request|length }}</span>
+                                        {{lang('previous_requests')}} <span class="badge badge-danger">{{ pin_request|length }}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#epin_tab3">
-                                        Active Pins <span class="badge badge-danger">{{ active_pin|length }}</span>
+                                        {{lang('active_pins')}} <span class="badge badge-danger">{{ active_pin|length }}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#epin_tab4">
-                                        Used Pins <span class="badge badge-danger">{{ used_pin|length }}</span>
+                                        {{lang('used_pins')}} <span class="badge badge-danger">{{ used_pin|length }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -61,7 +75,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Pin Amount
+                                                {{lang('pin_amount')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="number" name="pin_amount" id="pin_amount">
@@ -73,7 +87,7 @@
 
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">
-                                                Pin Count
+                                               {{lang('pin_count')}}
                                             </label>
                                             <div class="col-sm-3">
                                                 <input class="form-control" type="number" name="pin_count" id="pin_count">
@@ -88,7 +102,7 @@
                                             </label>
                                             <div class="col-sm-4">
                                                 <button type="submit"class="btn btn-primary" value="add_request" name="add_request">
-                                                    Update <i class="fa fa-arrow-circle-right"></i>
+                                                    {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -100,13 +114,14 @@
                                     {% if pin_request|length %}
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover" id="sample-table-1">
+                                                
                                                 <thead>
                                                     <tr>                                    
-                                                        <th>SlNo</th>
-                                                        <th>Pin Amount</th>
-                                                        <th>Pin Count</th>
-                                                        <th>Requested Date</th>   
-                                                        <th>Status</th>
+                                                        <th>{{lang('slno')}}</th>
+                                                        <th>{{lang('pin_amount')}}</th>
+                                                        <th>{{lang('pin_count')}}</th>
+                                                        <th>{{lang('requested_date')}}</th>   
+                                                        <th>{{lang('status')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -124,7 +139,7 @@
                                             </table>
                                         </div>
                                     {% else %}
-                                        <h4 align="center">No Data</h4>
+                                        <h4 align="center">{{lang('no_pin_request')}}</h4>
                                     {% endif%}     
                                 </div>
                                 <div id="epin_tab3" class="tab-pane fade">
@@ -132,13 +147,14 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover" id="sample-table-1">
                                                 <thead>
-                                                    <tr>                                    
-                                                        <th>SlNo</th>
-                                                        <th>Pin Number</th>
-                                                        <th>Pin Amount</th>
-                                                        <th>Balance Amount</th>
-                                                        <th>Allocate Date</th>
-                                                        <th>Expiry Date</th>
+                                                    <tr>   
+                                                        <th>{{lang('slno')}}</th>
+                                                        <th>{{lang('pin_number')}}</th>
+                                                        <th>{{lang('pin_amount')}}</th>
+                                                        <th>{{lang('pin_balance')}}</th>
+                                                        <th>{{lang('allocate_date')}}</th>
+                                                        <th>{{lang('expiry_date')}}</th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -157,7 +173,7 @@
                                             </table>
                                         </div>
                                     {% else %}
-                                        <h4 align="center">No Data</h4>
+                                        <h4 align="center">{{lang('no_active_pin')}}</h4>
                                     {% endif%}   
                                 </div>
                                 <div id="epin_tab4" class="tab-pane fade">
@@ -165,13 +181,15 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover" id="sample-table-1">
                                                 <thead>
-                                                    <tr>                                    
-                                                        <th>SlNo</th>
-                                                        <th>Pin Number</th>
-                                                        <th>Pin Amount</th>
-                                                        <th>Balance Amount</th>
-                                                        <th>Used For</th>
-                                                        <th>Used By</th>
+                                                    <tr> 
+                                                        <th>{{lang('slno')}}</th>
+                                                        <th>{{lang('pin_number')}}</th>
+                                                        <th>{{lang('pin_amount')}}</th>
+                                                        <th>{{lang('pin_balance')}}</th>
+                                                        <th>{{lang('used_for')}}</th>
+                                                        <th>{{lang('used_by')}}</th>
+                                                        
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -190,7 +208,7 @@
                                             </table>
                                         </div>
                                     {% else %}
-                                        <h4 align="center">No Data</h4>
+                                        <h4 align="center">{{lang('no_used_pin')}}</h4>
                                     {% endif%} 
                                 </div>
                             </div>
@@ -207,7 +225,7 @@
     jQuery(document).ready(function () {
         validate_add_request();
     });
-    var validate_add_request = function () {       
+    var validate_add_request = function () {
         var form = $('#pin_request_form');
         var errorHandler2 = $('.errorHandler', form);
         var successHandler2 = $('.successHandler', form);

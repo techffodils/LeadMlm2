@@ -1,8 +1,57 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$lang['fund_transfered'] = 'Fund Transfered Successfully';
+$lang['to_username'] = 'To Username';
+$lang['amount_trans'] = 'Amount';
+$lang['transaction_password'] = 'Transaction Password';
+$lang['enter_a_valid_username'] = 'Enter a valid Username';
+$lang['transaction_password_mismatch'] = 'Invalid Transaction Password';
+$lang['fund_transfer'] = 'Fund Transfer';                
+$lang['user_balance'] = 'User Balance';
+$lang['transfer'] = 'Transfer';
 
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';
+$lang['update'] = 'Update';
+$lang['slno'] = 'SlNo';

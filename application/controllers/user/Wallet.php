@@ -21,12 +21,12 @@ class Wallet extends Base_Controller {
                     $this->helper_model->insertWalletDetails($from_user, 'debit', $amount, $wallet_type, $to_user);
                     $this->helper_model->insertWalletDetails($to_user, 'credit', $amount, $wallet_type, $from_user);
                     $this->helper_model->insertActivity($logged_user, 'deduct_fund_from_user', $post);
-                    $this->loadPage('Fund Transfered Successfully', 'wallet/fund_transfer', TRUE);
+                    $this->loadPage(lang('fund_transfered'), 'wallet/fund_transfer');
                 } else {
-                    $this->loadPage('Fund Transfer Failed', 'wallet/fund_transfer', FALSE);
+                    $this->loadPage('Fund Transfer Failed', 'wallet/fund_transfer','danger');
                 }
             } else {
-                $this->loadPage('Insufficient Balance', 'wallet/fund_transfer', FALSE);
+                $this->loadPage('Insufficient Balance', 'wallet/fund_transfer', 'danger');
             }
         }
         $this->setData('user_balance', $user_balance);
@@ -36,9 +36,9 @@ class Wallet extends Base_Controller {
 
     function validate_transfer() {
         $this->session->set_userdata('active_fund_tab', 'tab3');
-        $this->form_validation->set_rules('to_username', 'to_username', 'required|callback_validate_username|trim');
-        $this->form_validation->set_rules('amount_trans', 'amount_trans', 'required|greater_than[0]');
-        $this->form_validation->set_rules('transaction_password', 'transaction_password', 'required|callback_check_tran_password');
+        $this->form_validation->set_rules('to_username', lang('to_username'), 'required|callback_validate_username|trim');
+        $this->form_validation->set_rules('amount_trans', lang('amount_trans'), 'required|greater_than[0]');
+        $this->form_validation->set_rules('transaction_password', lang('transaction_password'), 'required|callback_check_tran_password');
         $validation = $this->form_validation->run();
         return $validation;
     }
@@ -48,7 +48,7 @@ class Wallet extends Base_Controller {
         if ($this->helper_model->userNameToID($username)) {
             $flag = true;
         }
-        $this->form_validation->set_message('validate_username', 'Please enter a valid Username.');
+        $this->form_validation->set_message('validate_username',  lang('enter_a_valid_username'));
         return $flag;
     }
 
@@ -59,7 +59,7 @@ class Wallet extends Base_Controller {
         if ($password == $tran_pass) {
             $flag = true;
         }
-        $this->form_validation->set_message('check_tran_password', 'Transaction Password Mismatch');
+        $this->form_validation->set_message('check_tran_password', lang('transaction_password_mismatch'));
         return $flag;
     }
 

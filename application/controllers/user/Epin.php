@@ -23,9 +23,9 @@ class Epin extends Base_Controller {
             $res = $this->epin_model->addPinRequest($post);
             if ($res) {
                 $this->helper_model->insertActivity($user_id, 'pin_requested', $post);
-                $this->loadPage('Pin Request Successfully', 'epin/epin_management', TRUE);
+                $this->loadPage(lang('pin_requested'), 'epin/epin_management');
             } else {
-                $this->loadPage('Failed To Request', 'epin/epin_management', FALSE);
+                $this->loadPage(lang('pin_request_failed'), 'epin/epin_management', 'danger');
             }
         }
         $pin_request = $this->epin_model->getAllPinRequests($user_id);
@@ -39,8 +39,8 @@ class Epin extends Base_Controller {
     }
 
     function validate_add_request() {
-        $this->form_validation->set_rules('pin_amount', 'pin_amount', 'required|greater_than[0]');
-        $this->form_validation->set_rules('pin_count', 'pin_count', 'required|greater_than[0]');
+        $this->form_validation->set_rules('pin_amount', lang('pin_amount'), 'required|greater_than[0]');
+        $this->form_validation->set_rules('pin_count', lang('pin_count'), 'required|greater_than[0]');
 
         $validation = $this->form_validation->run();
         return $validation;
