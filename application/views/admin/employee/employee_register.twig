@@ -49,11 +49,8 @@
                 </div>
                 <div class="panel-body">
                     <h2><i class="fa fa-pencil-square"></i>{{page_header}}</h2>
-                    <p>
-
-                    </p>
                     <hr>
-                    {{form_open('','methd="post" name="employee_enroll" id="employee_enroll"')|raw}}
+                    {{form_open_multipart('','methd="post" name="employee_enroll" id="employee_enroll"')|raw}}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display">
@@ -63,209 +60,231 @@
                                 <i class="fa fa-ok"></i> Your form validation is successful!
                             </div>
                         </div>
-                        <div class="employee_enroll">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Username <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
-                                        <input type="text" class="form-control" name="user_name" id="user_name">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('user_name')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
+                                    <input type="text" class="form-control" name="user_name" id="user_name">
 
 
-                                    </div>
-                                    {% if error.user_name is defined %}<code> {{ error.user_name}}</code> {% endif %}
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Password <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
-                                        <input type="password" class="form-control" name="password" id="password">
-
-                                    </div>
-                                    {% if error.password is defined %}<code> {{ error.password}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Confirm Password <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
-                                        <input type="password" class="form-control" id="password_again" name="password_again">
-
-                                    </div>
-                                    {% if error.password_again is defined %}<code> {{ error.password_again}}</code> {% endif %}
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        First Name <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-navicon"></i> </span>
-                                        <input type="text" placeholder="Insert your First Name" class="form-control" id="firstname" name="firstname">
-
-                                    </div>
-                                    {% if error.firstname is defined %}<code> {{ error.firstname}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Last Name <span class="symbol"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-navicon"></i> </span>
-                                        <input type="text" placeholder="Insert your Last Name" class="form-control" id="lastname" name="lastname">
-
-                                    </div>
-                                    {% if error.lastname is defined %}<code> {{ error.lastname}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Address <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-anchor"></i> </span>
-                                        <textarea type="text" placeholder="Text Field" class="form-control" id="address" name="address"></textarea>
-
-                                    </div>
-                                    {% if error.address is defined %}<code> {{ error.address}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Email Address <span class="symbol required"></span>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-envelope"></i> </span>
-                                        <input type="email" placeholder="Text Field" class="form-control" id="email" name="email">
-
-                                    </div>
-                                    {% if error.email is defined %}<code> {{ error.email}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-field-mask-2">
-                                        Phone <small class="text-warning">(999) 999-9999</small>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-phone"></i> </span>
-                                        <input type="text" id="form-field-mask-2" class="form-control input-mask-phone" id="phone" name="phone">
-
-                                    </div>
-                                    {% if error.phone is defined %}<code> {{ error.phone}}</code> {% endif %}
-                                </div>
-
+                                {% if error.user_name is defined %}<code> {{ error.user_name}}</code> {% endif %}
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group connected-group">
-                                    <label class="control-label">
-                                        Date of Birth <span class="symbol required"></span>
-                                    </label>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <select name="day" id="day" class="form-control" >
-                                                <option value="">DD</option>
-                                                <option value="01">1</option>
-                                                {% for dd in range(1, 31) %}
-                                                    <option value="{{dd}}">{{dd}}</option>
-                                                {% endfor %}
-                                            </select>
-                                            {% if error.day is defined %}<code> {{ error.day}}</code> {% endif %}
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select name="month" id="month" class="form-control" >
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('password')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                    <input type="password" class="form-control" name="password" id="password">
 
-                                                <option value="">MM</option>
-                                                {% for j in range(1, 12) %}
-                                                    <option value="{{j}}">{{j}}</option>
-                                                {% endfor %}
-                                            </select>
-                                            {% if error.month is defined %}<code> {{ error.month}}</code> {% endif %}
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <select type="text" placeholder="YYYY" id="year" name="year" class="form-control">
-                                                {% set minYear = "now"|date("Y")-90 %}
-                                                {% set maxYear = "now +80 years"|date("Y") %}
-                                                <option value="">YYYY</option>
-                                                {% for year in minYear..maxYear %}
-                                                    <option value="{{ year }}">{{ year }}</option>
-                                                    {% set year = year + 1 %}
-                                                {% endfor %}
-                                            </select>
-                                            {% if error.year is defined %}<code> {{ error.year}}</code> {% endif %}
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="form-group input-group">
-                                    <label class="control-label">
-                                        Gender <span class="symbol"></span>
-                                    </label>
+                                {% if error.password is defined %}<code> {{ error.password}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('confirm_password')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                    <input type="password" class="form-control" id="password_again" name="password_again">
+
+                                </div>
+                                {% if error.password_again is defined %}<code> {{ error.password_again}}</code> {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    {{lang('image_upload')}}
+                                </label>
+                                <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
+                                    <div class="fileupload-new thumbnail"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA?text=no+image" alt="">
+                                    </div>
+                                    <div class="fileupload-preview fileupload-exists thumbnail" style="line-height: 10px;"></div>
                                     <div>
-                                        <label class="radio-inline">
-                                            <input type="radio" class="gray" value="F" name="gender" id="gender_female">
-                                            Female
-
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" class="gray" value="M" name="gender"  id="gender_male">
-
-                                            Male
-                                        </label>
-
-                                    </div>
-                                    {% if error.gender is defined %}<code> {{ error.gender}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Country <span class="symbol required"></label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-refresh"></i> </span>
-                                        <input type="text" name="country" id="country" class="form-control">
-
-                                    </div>
-                                    {% if error.country is defined %}<code> {{ error.country}}</code> {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        State <span class=""></label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"> <i class="fa fa-wrench"></i> </span>
-                                        <input type="text" name="state" id="state" class="form-control">
-
+                                        <span class="btn btn-light-grey btn-file"><span class="fileupload-new"><i class="fa fa-picture-o"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture-o"></i> Change</span>
+                                            <input type="file" name="user_photo" id='user_photo'>
+                                        </span>
+                                        <a href="#" class="btn fileupload-exists btn-light-grey" data-dismiss="fileupload">
+                                            <i class="fa fa-times"></i> Remove
+                                        </a>
                                     </div>
                                 </div>
+                                <div class="alert alert-warning">
+                                    <span class="label label-warning">NOTE!</span>
+                                    <span> Image preview only works in IE10+, FF3.6+, Chrome6.0+ and Opera11.1+. In older browsers and Safari, the filename is shown instead. </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('first_name')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-navicon"></i> </span>
+                                    <input type="text" placeholder="Insert your First Name" class="form-control" id="firstname" name="firstname">
+
+                                </div>
+                                {% if error.firstname is defined %}<code> {{ error.firstname}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('last_name')}} <span class="symbol"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-navicon"></i> </span>
+                                    <input type="text" placeholder="Insert your Last Name" class="form-control" id="lastname" name="lastname">
+
+                                </div>
+                                {% if error.lastname is defined %}<code> {{ error.lastname}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('address')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-anchor"></i> </span>
+                                    <textarea type="text" placeholder="Text Field" class="form-control" id="address" name="address"></textarea>
+
+                                </div>
+                                {% if error.address is defined %}<code> {{ error.address}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('email')}} <span class="symbol required"></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-envelope"></i> </span>
+                                    <input type="email" placeholder="Text Field" class="form-control" id="email" name="email">
+
+                                </div>
+                                {% if error.email is defined %}<code> {{ error.email}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">
+                                    {{lang('phone')}} <small class="text-warning"></small>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-phone"></i> </span>
+                                    <input type="text" class="form-control input-mask-phone" id="phone" name="phone">
+
+                                </div>
+                                {% if error.phone is defined %}<code> {{ error.phone}}</code> {% endif %}
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group connected-group">
+                                <label class="control-label">
+                                    {{lang('date_of_birth')}} <span class="symbol required"></span>
+                                </label>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                                Zip Code <span class="symbol required"></span>
-                                            </label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"> <i class="fa fa-eraser"></i> </span>
-                                                <input class="form-control" type="text" name="zipcode" id="zipcode">
-
-                                            </div>
-                                            {% if error.zipcode is defined %}<code> {{ error.zipcode}}</code> {% endif %}
-                                        </div>
+                                    <div class="col-md-3">
+                                        <select name="day" id="day" class="form-control" >
+                                            <option value="">DD</option>
+                                            <option value="01">1</option>
+                                            {% for dd in range(1, 31) %}
+                                                <option value="{{dd}}">{{dd}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if error.day is defined %}<code> {{ error.day}}</code> {% endif %}
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                                City <span class=""></span>
-                                            </label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"> <i class="fa fa-empire"></i> </span>
-                                                <input class="form-control tooltips" type="text" data-original-title="We'll display it when you write reviews" data-rel="tooltip"  title="" data-placement="top" name="city" id="city">
+                                    <div class="col-md-3">
+                                        <select name="month" id="month" class="form-control" >
 
-                                            </div>
-                                            {% if error.city is defined %}<code> {{ error.city}}</code> {% endif %}
+                                            <option value="">MM</option>
+                                            {% for j in range(1, 12) %}
+                                                <option value="{{j}}">{{j}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if error.month is defined %}<code> {{ error.month}}</code> {% endif %}
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <select type="text" placeholder="YYYY" id="year" name="year" class="form-control">
+                                            {% set minYear = "now"|date("Y")-90 %}
+                                            {% set maxYear = "now +80 years"|date("Y") %}
+                                            <option value="">YYYY</option>
+                                            {% for year in minYear..maxYear %}
+                                                <option value="{{ year }}">{{ year }}</option>
+                                                {% set year = year + 1 %}
+                                            {% endfor %}
+                                        </select>
+                                        {% if error.year is defined %}<code> {{ error.year}}</code> {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group input-group">
+                                <label class="control-label">
+                                    {{lang('gender')}} <span class="symbol"></span>
+                                </label>
+                                <div>
+                                    <label class="radio-inline">
+                                        <input type="radio" class="gray" value="F" name="gender" id="gender_female">
+                                        {{lang('female')}}
+
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" class="gray" value="M" name="gender"  id="gender_male">
+                                        {{lang('male')}}
+                                    </label>
+
+                                </div>
+                                {% if error.gender is defined %}<code> {{ error.gender}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('country')}} <span class="symbol required"></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-refresh"></i> </span>
+                                    <input type="text" name="country" id="country" class="form-control">
+
+                                </div>
+                                {% if error.country is defined %}<code> {{ error.country}}</code> {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('state')}} <span class=""></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-wrench"></i> </span>
+                                    <input type="text" name="state" id="state" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            {{lang('city')}} <span class=""></span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> <i class="fa fa-empire"></i> </span>
+                                            <input class="form-control tooltips" type="text" data-original-title="We'll display it when you write reviews" data-rel="tooltip"  title="" data-placement="top" name="city" id="city">
+
                                         </div>
+                                        {% if error.city is defined %}<code> {{ error.city}}</code> {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            {{lang('zipcode')}}<span class="symbol required"></span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> <i class="fa fa-eraser"></i> </span>
+                                            <input class="form-control" type="text" name="zipcode" id="zipcode">
+
+                                        </div>
+                                        {% if error.zipcode is defined %}<code> {{ error.zipcode}}</code> {% endif %}
                                     </div>
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
 
@@ -287,11 +306,134 @@
             <!-- end: FORM VALIDATION 1 PANEL -->
         </div>
     </div>
+
+    {%  if details is not empty %}
+        <div class="row">
+            <div class="col-md-12">
+
+                <!-- start: RESPONSIVE TABLE PANEL -->
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <i class="fa fa-external-link-square"></i>
+                        Responsive Table
+                        <div class="panel-tools">										
+                            <div class="dropdown">
+                                <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                                    <li>
+                                        <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a>
+                                    </li>
+                                    <li>
+                                        <a class="panel-refresh" href="#"> <i class="fa fa-refresh"></i> <span>Refresh</span> </a>
+                                    </li>
+                                    <li>
+                                        <a class="panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> <span>Configurations</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="panel-expand" href="#"> <i class="fa fa-expand"></i> <span>Fullscreen</span></a>
+                                    </li>										
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="sample-table-1">
+                                <thead>
+                                    <tr>
+                                        <th class="center">{{lang('sl_no')}}</th>
+                                        <th>{{lang('user_name')}}</th>
+                                        <th>{{lang('user_photo')}}</th>
+                                        <th>{{lang('full_name')}}</th>
+                                        <th>{{lang('email')}}</th>
+                                        <th>{{lang('phone')}}</th>
+                                        <th>{{lang('address')}}</th>
+                                        <th>{{lang('action')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% for item in details %}
+                                            <td>{{loop.index}}</td>
+                                            <td>{{item.user_name}}</td>
+                                            <td class="center"><img src="assets/images/employees/{{item.user_photo}}" width="50" height="50" alt="image"></td>
+                                            <td>{{item.first_name}}{{item.last_name}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{item.phone}}</td>
+                                            <td>{{item.address}}</td>
+                                            <td class="center">
+                                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                    <a href="admin/employee/edit_form/{{item.id}}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                                    <a href="javascript:activate_employee({{item.id}})" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Share"><i class="fa fa-share"></i></a>
+                                                    <a href="admin/employee/delete_form/{{item.id}}" class="btn btn-xs btn-red tooltips" data-placement="top" data-original-title="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                                </div>
+                                                <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-green dropdown-toggle btn-sm" data-toggle="dropdown" href="#">
+                                                            <i class="fa fa-cog"></i> <span class="caret"></span>
+                                                        </a>
+                                                        <ul role="menu" class="dropdown-menu pull-right dropdown-dark">
+                                                            <li>
+                                                                <a role="menuitem" tabindex="-1" href="#">
+                                                                    <i class="fa fa-edit"></i> Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a role="menuitem" tabindex="-1" href="#">
+                                                                    <i class="fa fa-share"></i> Share
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a role="menuitem" tabindex="-1" href="#">
+                                                                    <i class="fa fa-times"></i> Remove
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}          
     <script src="assets/js/employee_enroll.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            Main.init();
             EnrollEmployee.init();
         });
+        function activate_employee(id)
+        {
+            var title = "Are you sure?";
+            var msg = "New change applicable only new registrations"
+            swal({
+                title: title,
+                text: msg,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, Activate it!",
+                cancelButtonText: "No, Cancel pls!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            document.location.href = 'admin/employee/activate_employee/' + id;
+                        } else {
+                            swal("Cancelled", "Your Product is safe :)", "error");
+                        }
+                    });
+
+            e.preventDefault();
+        }
     </script>
     {% include 'admin/layout/footer.twig' %}
