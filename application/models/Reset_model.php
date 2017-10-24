@@ -124,7 +124,7 @@ class Reset_model extends CI_Model {
         $this->dbvars->LANG_FLAG = 'IN.png';
         $this->dbvars->LANG_ID= 1;
         $this->dbvars->LANG_NAME = 'English';
-        $this->dbvars->LANG_COD 'en';
+        $this->dbvars->LANG_COD ='en';
 
         $this->dbvars->TABLE_PREFIX = 'mlm_';
 
