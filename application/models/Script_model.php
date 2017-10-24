@@ -23,8 +23,10 @@ class Script_model extends CI_Model {
             case 6:
                 $script[0]['type'] = 'js';
                 $script[0]['file'] = 'employee_enroll.js';
+
                 $script[1]['type'] = 'js';
                 $script[1]['file'] = 'plugins/jquery.maskedinput/src/jquery.maskedinput.js';
+                
                 break;
 //            case 29:
 //                $script[0]['type'] = 'js';

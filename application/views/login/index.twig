@@ -6,7 +6,7 @@
 				</div>
 				<!-- start: LOGIN BOX -->
 				<div class="box-login">
-					<h3>Sign in to your account</h3>
+					<h3>Sign in</h3>
 					<p>
 						Please enter your name and password to log in.
 					</p>
@@ -29,13 +29,19 @@
 									</a> </span>
 							</div>
 							<div class="form-actions">
-								<label for="remember" class="checkbox-inline">
-									<input type="checkbox" class="grey remember" id="remember" name="remember">
-									Keep me signed in
-								</label>
-								<button type="submit" class="btn btn-green pull-right">
-									Login <i class="fa fa-arrow-circle-right"></i>
-								</button>
+								<div class="col-sm-8">
+									<label for="remember" class="checkbox-inline">
+										<input type="checkbox" class="grey remember" id="remember" name="remember">
+										<small>Keep me signed in</small>
+									</label>
+								
+									<div class="g-recaptcha" data-sitekey="6LdOgjUUAAAAAMBypkm_-E69Z7fehRqQ5dH4UWW_"></div>
+								</div>
+								<div class="col-sm-4">
+									<button type="submit" class="btn btn-green" style="position: relative;right: 10!important;bottom: 10!important;">
+										Login <i class="fa fa-arrow-circle-right"></i>
+									</button>
+								</div>
 							</div>
 							<div class="new-account">
 								Don't have an account yet?
@@ -44,6 +50,7 @@
 								</a>
 							</div>
 						</fieldset>
+
 					{{form_close()|raw}}
 					<!-- start: COPYRIGHT -->
 					<div class="copyright">
@@ -53,5 +60,20 @@
 				</div>				
 			</div>
 		</div>
-        
+<style>
+
+	.g-recaptcha{
+		-webkit-transform: scale(0.75);
+		-moz-transform: scale(0.75);
+		-ms-transform: scale(0.75);
+		-o-transform: scale(0.75);
+		transform: scale(0.75);
+		-webkit-transform-origin: 0 0;
+		-moz-transform-origin: 0 0;
+		-ms-transform-origin: 0 0;
+		-o-transform-origin: 0 0;
+		transform-origin: 0 0;
+	}
+
+</style>
 {% include('layout/footer.twig')%}
