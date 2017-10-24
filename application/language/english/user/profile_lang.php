@@ -27,7 +27,7 @@ $lang['replica_link'] = 'Replication Link';
    
 $lang['edit_ur_profile'] = 'Edit Your Profile';
 
-$lang['dob'] = 'Date of Birth';
+$lang['dob'] = 'Date of Birth (mm/dd/yyyy)';
 $lang['enter_a_valid_dob'] = 'Please enter a valid Date Of Birth.';
 $lang['male'] = 'Male';
 $lang['female'] = 'Female';

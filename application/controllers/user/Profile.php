@@ -62,13 +62,9 @@ class Profile extends Base_Controller {
 
         $user_details = $this->profile_model->getUserDetails($user_id);
         $def_cov=array("cover1.jpg", "cover2.jpg", "cover3.jpg","cover4.jpg", "cover5.jpg", "cover6.jpg");
-        $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg", "dp6.jpg");
+        $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
         
-//        $this->phptojs->put([
-//                'foo' => 'bar',
-//                'age' => 29
-//            ]);
         
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);
@@ -80,7 +76,7 @@ class Profile extends Base_Controller {
     }
 
     function validate_profile_update() {
-        $this->form_validation->set_rules('firstname', lang('first_name'), 'required');
+        $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
         $this->form_validation->set_rules('phone_number', lang('phone_number'), 'required|greater_than[0]');
         $this->form_validation->set_rules('gender', lang('gender'), 'required');
         $this->form_validation->set_rules('address', lang('address'), 'required');

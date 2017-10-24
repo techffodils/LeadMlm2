@@ -48,9 +48,8 @@ var ValidateUserProfile = function () {
             },
             ignore: ':hidden',
             rules: {
-                firstname: {
-                    required: true,
-                    minlength: 3
+                first_name: {
+                    required: true
                 },
                 phone_number: {
                     required: true,
@@ -70,11 +69,7 @@ var ValidateUserProfile = function () {
                     required:true
                 }
             },
-            messages: {
-                firstname:{
-                    required: '',
-                    minlength: 3
-                }
+            messages: {                
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
                 successHandler2.hide();

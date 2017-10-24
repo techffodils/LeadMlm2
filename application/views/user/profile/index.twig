@@ -355,15 +355,15 @@
                                     <label class="control-label">
                                         {{lang('first_name')}} <span class="symbol required"></span>
                                     </label>
-                                    <input type="text" value="{{ user_details.first_name }}" placeholder="Insert your First Name" class="form-control" id="firstname" name="firstname">
-                                    {% if profile_error.firstname is defined %}<code> {{ profile_error.firstname}} </code> {% endif %} 
+                                    <input type="text" value="{{ user_details.first_name }}" placeholder="Insert your First Name" class="form-control" id="first_name" name="first_name">
+                                    {% if profile_error.first_name is defined %}<code> {{ profile_error.first_name}} </code> {% endif %} 
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">
                                         {{lang('last_name')}} <span class="symbol required"></span>
                                     </label>
-                                    <input type="text" value="{{ user_details.last_name }}" placeholder="Insert your Last Name" class="form-control" id="lastname" name="lastname">
-                                    {% if profile_error.lastname is defined %}<code> {{ profile_error.lastname}} </code> {% endif %} 
+                                    <input type="text" value="{{ user_details.last_name }}" placeholder="Insert your Last Name" class="form-control" id="last_name" name="last_name">
+                                    {% if profile_error.last_name is defined %}<code> {{ profile_error.last_name}} </code> {% endif %} 
                                 </div>
 
                                 <div class="form-group">
@@ -474,20 +474,20 @@
 
 <link rel="stylesheet" href="assets/plugins/datepicker/css/datepicker.css">
 <link rel="stylesheet" href="assets/css/profile_update.css">
+
 <script src="assets/plugins/jquery-inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
 <script src="assets/plugins/autosize/jquery.autosize.min.js"></script>
 <script src="assets/plugins/select2/select2.min.js"></script>
 <script src="assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
 <script src="assets/js/form-elements.js"></script>
 <script src="assets/js/user_profile_update.js"></script>
+
 <script>
     $(document).ready(function () {
-        {#var a="{{lang('first_name_is_required')}}";
-        alert(a); #} 
         ValidateUserProfile.init();
-        //FormElements.init();        
-         
-    });    
+        FormElements.init();
+
+    });
 </script>
 
 

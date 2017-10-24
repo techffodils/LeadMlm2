@@ -36,8 +36,8 @@ class Profile_model extends CI_Model {
     }
 
     function updateUserProfile($user_id, $post) {
-        return $this->db->set('first_name ', $post['firstname'])
-                        ->set('last_name ', $post['lastname'])
+        return $this->db->set('first_name ', $post['first_name'])
+                        ->set('last_name ', $post['last_name'])
                         ->set('address_1 ', $post['address'])
                         ->set('city ', $post['city'])
                         ->set('zip_code ', $post['zipcode'])
