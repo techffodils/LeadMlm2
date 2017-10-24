@@ -31,6 +31,7 @@ class Wallet extends Base_Controller {
         }
         $this->setData('user_balance', $user_balance);
         $this->setData('error', $this->form_validation->error_array());
+        $this->setData('title',lang('fund_transfer'));	
         $this->loadView();
     }
 
