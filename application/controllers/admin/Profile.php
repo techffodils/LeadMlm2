@@ -8,8 +8,8 @@ class Profile extends Base_Controller {
 
     function index() {
         $logged_user_id = $this->LOG_USER_ID;
-        
-        $user_id=$logged_user_id;
+
+        $user_id = $logged_user_id;
         if ($this->input->post('prof_update') && $this->validate_profile_update()) {
             $post = $this->input->post();
             $res = $this->profile_model->updateUserProfile($user_id, $post);
@@ -27,44 +27,44 @@ class Profile extends Base_Controller {
             $config['max_size'] = 10000;
             $config['max_width'] = 2048;
             $config['max_height'] = 2048;
-            $new_name = 'dp_'.time();
+            $new_name = 'dp_' . time();
             $config['file_name'] = $new_name;
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prof_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage($lang('failed_to_update_dp'), 'profile/index', 'danger');
+                $this->loadPage(lang('failed_to_update_dp'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
-                $this->profile_model->updateUserPic($user_id,$data);
-                $this->loadPage($lang('profile_pic_updated'), 'profile/index');
+                $this->profile_model->updateUserPic($user_id, $data);
+                $this->loadPage(lang('profile_pic_updated'), 'profile/index');
             }
         }
-        
+
         if ($this->input->post('cover_update')) {
             $config['upload_path'] = FCPATH . 'assets/images/users/';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = 10000;
             $config['max_width'] = 2048;
             $config['max_height'] = 2048;
-            $new_name = 'dp_'.time();
+            $new_name = 'dp_' . time();
             $config['file_name'] = $new_name;
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('cover_pic')) {
                 $error = array('error' => $this->upload->display_errors());
-                $this->loadPage($lang('failed_to_update_cover'), 'profile/index', 'danger');
+                $this->loadPage(lang('failed_to_update_cover'), 'profile/index', 'danger');
             } else {
                 $data = array('upload_data' => $this->upload->data());
-                $this->profile_model->updateUserCover($user_id,$data);
-                $this->loadPage($lang('cover_pic_updated'), 'profile/index');
+                $this->profile_model->updateUserCover($user_id, $data);
+                $this->loadPage(lang('cover_pic_updated'), 'profile/index');
             }
         }
-        
+
 
         $user_details = $this->profile_model->getUserDetails($user_id);
-        $def_cov=array("cover1.jpg", "cover2.jpg", "cover3.jpg","cover4.jpg", "cover5.jpg", "cover6.jpg");
-        $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg", "dp6.jpg");
+        $def_cov = array("cover1.jpg", "cover2.jpg", "cover3.jpg", "cover4.jpg", "cover5.jpg", "cover6.jpg");
+        $def_dp = array("dp1.jpg", "dp2.jpg", "dp3.jpg", "dp4.jpg", "dp5.jpg", "dp6.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
-        
+
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);
         $this->setData('user_cov', $user_files['co']);
@@ -98,38 +98,69 @@ class Profile extends Base_Controller {
         }
         return $flag;
     }
-    
-    function reset_user_file(){
-        if($this->input->get('id')){
-            $res=$this->profile_model->resetUserFile($this->input->get('id'));
-            if($res){
-                echo 'yes';exit;
+
+    function reset_user_file() {
+        if ($this->input->get('id')) {
+            $res = $this->profile_model->resetUserFile($this->input->get('id'));
+            if ($res) {
+                echo 'yes';
+                exit;
             }
         }
-        echo 'no';exit;
+        echo 'no';
+        exit;
     }
-    
-    function set_def_cover(){
-        if($this->input->get('id')){
+
+    function set_def_cover() {
+        if ($this->input->get('id')) {
             $user_id = $this->LOG_USER_ID;
-            $res=$this->profile_model->setCover($user_id,$this->input->get('id'));
-            if($res){
-                echo 'yes';exit;
+            $res = $this->profile_model->setCover($user_id, $this->input->get('id'));
+            if ($res) {
+                echo 'yes';
+                exit;
             }
         }
-        echo 'no';exit;
+        echo 'no';
+        exit;
     }
-    
-    function set_def_dp(){
-        if($this->input->get('id')){
+
+    function set_def_dp() {
+        if ($this->input->get('id')) {
             $user_id = $this->LOG_USER_ID;
-            $res=$this->profile_model->setDp($user_id,$this->input->get('id'));
-            if($res){
-                echo 'yes';exit;
+            $res = $this->profile_model->setDp($user_id, $this->input->get('id'));
+            if ($res) {
+                echo 'yes';
+                exit;
             }
         }
-        echo 'no';exit;
+        echo 'no';
+        exit;
     }
-    
+
+    function text_local() {//https://control.textlocal.in/settings/apikeys/
+        // Account details
+        $apiKey = urlencode('KiHHnK2i8Hc-Pd01P3gZ8Qx1IDQeeuYKhDbs2qvt9y');
+
+        // Message details
+        $numbers = array(919744298805);
+        $sender = urlencode('TXTLCL');
+        $message = rawurlencode('This is your message');
+
+        $numbers = implode(',', $numbers);
+
+        // Prepare data for POST request
+        $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+
+        // Send the POST request with cURL
+        $ch = curl_init('https://api.textlocal.in/send/');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // Process your response here
+        echo $response;
+    }
 
 }
