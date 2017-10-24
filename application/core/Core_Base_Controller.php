@@ -36,7 +36,8 @@ Class Core_Base_Controller extends CI_Controller {
 	public $COMPANY_EMAIL = null;
 	public $COMPANY_PHONE = null;
 
-
+	public $CAPTCHA_STATUS = null;
+	
 	function __construct() {
 
 		parent::__construct();
@@ -80,6 +81,7 @@ function setPublicVariables() {
 	$this->MLM_CURRENCY_RIGHT =  $this->dbvars->DEFAULT_SYMBOL_RIGHT;
 	$this->MLM_CURRENCY_ICON =  $this->dbvars->DEFAULT_CURRENCY_ICON;
 	$this->GOOGLE_TRANSLATOR =$this->dbvars->GOOGLE_TRANSLATOR;
+	$this->CAPTCHA_STATUS =$this->dbvars->CAPTCHA_STATUS;
 
 	return 1;
 }
@@ -107,6 +109,7 @@ function loadPublicVariables() {
 	$this->setData('MLM_CURRENCY_RIGHT',  $this->MLM_CURRENCY_RIGHT);
 	$this->setData('MLM_CURRENCY_ICON',  $this->MLM_CURRENCY_ICON);
 	$this->setData('GOOGLE_TRANSLATOR',  $this->GOOGLE_TRANSLATOR);
+	$this->setData('CAPTCHA_STATUS',  $this->CAPTCHA_STATUS);
 
 
 	return 1;
