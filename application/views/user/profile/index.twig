@@ -482,7 +482,11 @@
 <script src="assets/js/user_profile_update.js"></script>
 <script>
     $(document).ready(function () {
-        FormElements.init();
+        {#var a="{{lang('first_name_is_required')}}";
+        alert(a); #} 
+        ValidateUserProfile.init();
+        //FormElements.init();        
+         
     });    
 </script>
 

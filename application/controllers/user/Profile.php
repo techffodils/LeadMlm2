@@ -65,6 +65,11 @@ class Profile extends Base_Controller {
         $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg", "dp6.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
         
+//        $this->phptojs->put([
+//                'foo' => 'bar',
+//                'age' => 29
+//            ]);
+        
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);
         $this->setData('user_cov', $user_files['co']);
