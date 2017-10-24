@@ -108,16 +108,24 @@ class Profile_model extends CI_Model {
                 ->get();
         foreach ($res->result() as $row) {
             if ($row->file_type == "user_cover") {
-                $flag = $this->db->set('user_cover ', $row->file_name)
-                        ->where('mlm_user_id ', $row->mlm_user_id)
-                        ->update('user_details');
+                $flag=$this->setCover($row->mlm_user_id,$row->file_name);                
             } elseif ($row->file_type == "user_dp") {
-                $flag = $this->db->set('user_dp ', $row->file_name)
-                        ->where('mlm_user_id ', $row->mlm_user_id)
-                        ->update('user_details');
+                $flag=$this->setDp($row->mlm_user_id,$row->file_name); 
             }
         }
         return $flag;
+    }
+
+    public function setCover($mlm_user_id,$file_name) {
+        return $this->db->set('user_cover ', $file_name)
+        ->where('mlm_user_id ', $mlm_user_id)
+        ->update('user_details');
+    }
+    
+    public function setDp($mlm_user_id,$file_name) {
+        return $this->db->set('user_dp ', $file_name)
+        ->where('mlm_user_id ', $mlm_user_id)
+        ->update('user_details');
     }
 
 }
