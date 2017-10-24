@@ -29,6 +29,7 @@ $lang['edit_ur_profile'] = 'Edit Your Profile';
 
 $lang['dob'] = 'Date of Birth';
 $lang['enter_a_valid_dob'] = 'Please enter a valid Date Of Birth.';
-$lang['next'] = 'Next';
+$lang['male'] = 'Male';
+$lang['female'] = 'Female';
 
 
