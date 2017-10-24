@@ -96,3 +96,4 @@ $lang['edit'] = 'Edit';
 $lang['inactivate'] = 'Inactivate';
 $lang['no_access'] = 'No access';
 $lang['activate'] = 'Activate';
+$lang['updation_canceled'] = 'Updation Canceled';
