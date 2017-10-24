@@ -39,3 +39,5 @@ $lang['delete'] = 'Delete';
 $lang['edit'] = 'Edit';
 $lang['inactivate'] = 'Inactivate';
 $lang['activate'] = 'Activate';
+$lang['monthly'] = 'Monthly';
+$lang['yearly'] = 'Yearly';
