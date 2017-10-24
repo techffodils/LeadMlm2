@@ -34,7 +34,7 @@ class Backup extends Base_Controller {
     function db_backup() {
         $res = $this->backup_model->dbBackup();
         if ($res) {
-            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'db_backup_created');
+            $this->helper_model->insertActivity($this->LOG_USER_ID, 'db_backup_created');
             $data['response'] = 'yes';
             $data['done_by'] = 'Admin';
             $data['date'] = date("Y-m-d H:i:s");
@@ -64,7 +64,7 @@ class Backup extends Base_Controller {
             $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD = $post['backup_deletion_period'];
             $backup_type = $this->dbvars->BACKUP_TYPE = $post['backup_type'];
 
-            if ($this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'db_backup_settings_changed', $post)) {
+            if ($this->helper_model->insertActivity($this->LOG_USER_ID, 'db_backup_settings_changed', $post)) {
                 $this->backup_model->deleteOlderBackup($backup_deletion_period);
                 echo 'yes';exit;
             }

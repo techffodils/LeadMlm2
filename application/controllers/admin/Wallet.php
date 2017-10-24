@@ -6,7 +6,7 @@ require_once 'Base_Controller.php';
 class Wallet extends Base_Controller {
 
     function fund_transfer() {
-        $logged_user = $this->main->get_usersession('mlm_user_id');
+        $logged_user = $this->LOG_USER_ID;
         $tab1 = 'active';
         $tab2 = $tab3 = '';
         if ($this->input->post('add_button') && $this->validate_add_fund()) {

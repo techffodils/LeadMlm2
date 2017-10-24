@@ -6,7 +6,7 @@ require_once 'Base_Controller.php';
 class Wallet extends Base_Controller {
 
     function fund_transfer() {
-        $logged_user = $this->main->get_usersession('mlm_user_id');
+        $logged_user = $this->LOG_USER_ID;
         $user_balance = $this->helper_model->getUserBalance($logged_user);
 
         if ($this->input->post('trans_button') && $this->validate_transfer()) {
@@ -29,6 +29,10 @@ class Wallet extends Base_Controller {
                 $this->loadPage('Insufficient Balance', 'wallet/fund_transfer', 'danger');
             }
         }
+        
+        $transfers=$this->wallet_model->getUserWalletTransferDetails($logged_user);
+        
+        $this->setData('transfers', $transfers);
         $this->setData('user_balance', $user_balance);
         $this->setData('error', $this->form_validation->error_array());
         $this->setData('title',lang('fund_transfer'));	
@@ -54,7 +58,7 @@ class Wallet extends Base_Controller {
     }
 
     function check_tran_password($password) {
-        $logged_user = $this->main->get_usersession('mlm_user_id');
+        $logged_user = $this->LOG_USER_ID;
         $tran_pass = $this->helper_model->getTransactionPassword($logged_user);
         $flag = false;
         if ($password == $tran_pass) {
@@ -67,7 +71,7 @@ class Wallet extends Base_Controller {
     function validate_tran_password() {
         if ($this->input->get('transaction_password')) {
             $transaction_password = $this->input->get('transaction_password');
-            $logged_user = $this->main->get_usersession('mlm_user_id');
+            $logged_user = $this->LOG_USER_ID;
             $tran_pass = $this->helper_model->getTransactionPassword($logged_user);
             
             if ($transaction_password==$tran_pass) {

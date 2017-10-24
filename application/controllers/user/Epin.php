@@ -16,7 +16,7 @@ class Epin extends Base_Controller {
     }
 
     function epin_management() {
-        $user_id = $this->main->get_usersession('mlm_user_id');
+        $user_id = $this->LOG_USER_ID;
         if ($this->input->post('add_request') && $this->validate_add_request()) {
             $post = $this->input->post();
             $post['user_id'] = $user_id;

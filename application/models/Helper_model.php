@@ -58,7 +58,7 @@ class Helper_model extends CI_Model {
     public function getUserFullName($user_id) {
         $user_full_name = 'NA';
         $query = $this->db->select('first_name,last_name ')
-                ->where('mlm_user_d ', $user_id)
+                ->where('mlm_user_id', $user_id)
                 ->limit(1)
                 ->get('user_details');
         foreach ($query->result() as $val) {

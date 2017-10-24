@@ -109,6 +109,11 @@ $lang['change'] = 'Change';
 $lang['update'] = 'Update';
 
 $lang['profile'] = 'Profile';
+$lang['credited_by_admin'] = 'Fund Credited By Admin';
+$lang['debited_by_admin'] = 'Fund Debited By Admin';
+
+
+
 
 
 

@@ -8,7 +8,7 @@ class Epin extends Base_Controller {
     function epin_management($action = '', $request_id = '', $expiry_date = '') {
         $tab1 = 'active';
         $tab2 = $tab3 = $tab4 = '';
-        $user_id = $this->main->get_usersession('mlm_user_id');
+        $user_id = $this->LOG_USER_ID;
         if ($action && $request_id) {
             $this->session->set_userdata('active_pin_tab', 'tab2');
             if ($action == 'cancel') {

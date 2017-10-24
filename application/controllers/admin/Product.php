@@ -41,7 +41,7 @@ class Product extends Base_Controller {
             $res = $this->product_model->addProduct($post, $upload_data);
             if ($res) {
                 $this->session->unset_userdata('product_post_data');
-                $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_added', $post);
+                $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_added', $post);
                 $this->loadPage(lang('product_added_successfully'), 'product/product_management');
             } else {
                 $this->loadPage(lang('product_adding_failed'), 'product/product_management', 'danger');
@@ -57,7 +57,7 @@ class Product extends Base_Controller {
                 $res = $this->product_model->deleteProduct($product_id);
                 if ($res) {
                     $data['product_id'] = $product_id;
-                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_deleted', $data);
+                    $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_deleted', $data);
                     $this->loadPage(lang('product_deleted'), 'product/product_management');
                 } else {
                     $this->loadPage(lang('product_deletion_failed'), 'product/product_management', 'danger');
@@ -66,7 +66,7 @@ class Product extends Base_Controller {
                 $res = $this->product_model->changeProductStatus($product_id, 1);
                 if ($res) {
                     $data['product_id'] = $product_id;
-                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_activate', $data);
+                    $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_activate', $data);
                     $this->loadPage(lang('product_activated'), 'product/product_management');
                 } else {
                     $this->loadPage(lang('product_activation_failed'), 'product/product_management', 'danger');
@@ -75,7 +75,7 @@ class Product extends Base_Controller {
                 $res = $this->product_model->changeProductStatus($product_id, 0);
                 if ($res) {
                     $data['product_id'] = $product_id;
-                    $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_inactivate', $data);
+                    $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_inactivate', $data);
                     $this->loadPage(lang('product_inactivated'), 'product/product_management');
                 } else {
                     $this->loadPage(lang('product_inactivation_failed'), 'product/product_management', False);
@@ -128,7 +128,7 @@ class Product extends Base_Controller {
             $res = $this->product_model->updateProduct($post, $upload_data);
             if ($res) {
                 $this->session->unset_userdata('product_post_data');
-                $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'product_updated', $post);
+                $this->helper_model->insertActivity($this->LOG_USER_ID, 'product_updated', $post);
                 $this->loadPage(lang('product_updated_successfully'), 'product/product_management');
             } else {
                 $this->loadPage(lang('product_updation_failed'), 'product/product_management', 'danger');

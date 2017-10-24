@@ -6,7 +6,7 @@ require_once 'admin/Base_Controller.php';
 class Register extends Base_Controller {
 
     public function single_step() {
-        $loggeg_user=$this->main->get_usersession('mlm_user_id');
+        $loggeg_user=$this->LOG_USER_ID;
         if ($this->input->post('add_user') && $this->validate_registration('single_step')) {
             $user_details = $this->input->post();
             $user_details['date_of_joining'] = date('Y-m-d H:i:s');
