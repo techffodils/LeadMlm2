@@ -27,9 +27,27 @@ class Employee extends Base_Controller {
 
         $page = $this->CURRENT_CLASS . '/' . $this->CURRENT_METHOD;
 
+        $get_all_details = $this->employee_model->getAllRegisteredEmployee();
+
+
         if ($this->input->post() && $this->validate_employee_enroll()) {
 
             $post_arr = $this->input->post(NULL, TRUE);
+            if ($_FILES['user_photo']['error'] == 0) {
+                $config['upload_path'] = FCPATH . 'assets/images/employees/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['file_name'] = $_FILES['user_photo']['name'];
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('user_photo')) {
+                    $uploadData = $this->upload->data();
+                    $post_arr['photo'] = $uploadData['file_name'];
+                } else {
+                    $post_arr['photo'] = '';
+                }
+            }
 
             $post_arr['user_id'] = $this->LOG_USER_ID;
             $result = $this->employee_model->enrollEmployee($post_arr);
@@ -44,6 +62,9 @@ class Employee extends Base_Controller {
         } else {
             $this->setData('error', $this->form_validation->error_array());
         }
+
+        $this->setData('details', $get_all_details);
+        $this->setData('page_header', $title);
 
         $this->loadView();
     }
@@ -80,9 +101,166 @@ class Employee extends Base_Controller {
         $flag = true;
         $result = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
         if ($result) {
-            $flag = false;
+            $flag = TRUE;
         }
         return $flag;
+    }
+
+    /**
+     * 
+     * 
+     * For Edit Option 
+     * @author Techffodils
+     * @date 2017-10-23
+     * 
+     */
+    function edit_form() {
+        $title = lang('edit_employee_form');
+        $id = $this->uri->segment(4);
+        $edit_single_data = $this->employee_model->getSelectedUserData($id);
+        if ($this->input->post() && $this->update_form_validation()) {
+            $post_arr = $this->input->post(NULL, TRUE);
+            $post_arr['id'] = $id;
+            $post_arr['user_id'] = $this->LOG_USER_ID;
+            if ($_FILES['user_photo']['error'] == 0) {
+                $config['upload_path'] = FCPATH . 'assets/images/employees';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['file_name'] = $_FILES['user_photo']['name'];
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('user_photo')) {
+                    $uploadData = $this->upload->data();
+                    $post_arr['photo'] = $uploadData['file_name'];
+                } else {
+                    $post_arr['photo'] = '';
+                }
+            } else {
+                $post_arr['photo'] = $edit_single_data['user_photo'];
+            }
+
+            $result = $this->employee_model->updateEmployeeDetails($post_arr);
+            if ($result) {
+                $msg = lang('successfully_update_employee_details');
+                $this->loadPage($msg, 'employee/employee_register');
+            } else {
+                $msg = lang('error_while_update_employee_deials');
+                $this->loadPage($msg, 'employee/employee_edit/' . $id);
+            }
+        } else {
+            $this->setData('error', $this->form_validation->error_array());
+        }
+        $this->setData('edit_details', $edit_single_data);
+        $this->loadView();
+    }
+
+    /**
+     * 
+     * For Delete Option 
+     * @author Techffodils
+     * @date 2017-10-23
+     */
+    function delete_form() {
+        $id = $this->uri->segment(4);
+        $result = $this->employee_model->deleteEmployee($id);
+        if ($result) {
+            $msg = lang('employee_deleted_successfully');
+            $this->loadPage($msg, 'employee/employee_register');
+        } else {
+            $msg = lang('error_while_delete_an_employee');
+            $this->loadPage($msg, 'employee/employee_register', false);
+        }
+    }
+
+    /**
+     * For activate Employee
+     * @author Techffodils
+     * @date 2017-10-23
+     * 
+     * 
+     */
+    function activate_employee() {
+        $activate_id = $this->uri->segment(4);
+        $result = $this->employee_model->editEmployee($activate_id);
+        if ($result) {
+            $msg = lang('employee_activated_successfully');
+            $this->loadPage($msg, 'employee/employee_register');
+        } else {
+            $msg = lang('error_while_activate_an_employee');
+            $this->loadPage($msg, 'employee/employee_register', false);
+        }
+    }
+
+    /**
+     * 
+     * @author Techffodils
+     * @date 2017-10-23
+     * for form validation for update
+     * 
+     * 
+     */
+    function update_form_validation() {
+        $this->input->post(NULL, TRUE);
+        $this->form_validation->set_rules('firstname', lang('first_name'), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('lastname', lang('last_name'), 'trim|alpha_numeric_spaces');
+        $this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
+        $this->form_validation->set_rules('address', lang('address'), 'trim|required|alpha_dash');
+        $this->form_validation->set_rules('phone', lang('phone'), 'trim|required|numeric');
+        $this->form_validation->set_rules('gender', lang('gender'), 'trim|required');
+        $this->form_validation->set_rules('month', lang('month'), 'trim|required');
+        $this->form_validation->set_rules('day', lang('day'), 'trim|required');
+        $this->form_validation->set_rules('year', lang('year'), 'trim|required');
+        $this->form_validation->set_rules('country', lang('country'), 'trim|required');
+        $this->form_validation->set_rules('zipcode', lang('zipcode'), 'trim|required');
+        $validation_result = $this->form_validation->run();
+
+        return $validation_result;
+    }
+
+    /**
+     * 
+     * For Set Employee Permission
+     * 
+     * @date 2017-10-23
+     * 
+     * @author Tcehffofils <techffodils@gmail.com>
+     * 
+     */
+    function menu_permission() {
+        $title = lang('set_employee_permission');
+        $this->setData('title', $title);
+        $flag = FALSE;
+        if ($this->input->post('employee_submit') && $this->validate_employee()) {
+            $user_name = $this->input->post('user_name');
+
+            if ($this->employee_model->checkIsUserNameExistsOrNot($user_name)) {
+                $flag = TRUE;
+            }
+        }
+
+        $this->setData('page_header', $title);
+        $this->setData('flag', $flag);
+
+        $this->loadView();
+    }
+
+    function validate_employee($user_name) {
+        $flag = FALSE;
+        if ($this->employee_model->checkIsUserNameExistsOrNot($user_name)) {
+            $flag = TRUE;
+        }
+        return $flag;
+    }
+
+    /**
+     * for get dynamic username selection
+     */
+    function employee_username() {
+        $string = $this->input->post('query');
+        $details = $this->employee_model->getAllActiveEmployeeList($string);
+        echo $details;
+        exit();
     }
 
 }

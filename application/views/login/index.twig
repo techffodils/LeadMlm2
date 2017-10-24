@@ -35,12 +35,16 @@
 										<small>Keep me signed in</small>
 									</label>
 								
-									<div class="g-recaptcha" data-sitekey="6LdOgjUUAAAAAMBypkm_-E69Z7fehRqQ5dH4UWW_"></div>
+									 <div class="g-recaptcha" data-sitekey="6LdOgjUUAAAAAMBypkm_-E69Z7fehRqQ5dH4UWW_">
+									 	
+									 </div>
 								</div>
 								<div class="col-sm-4">
-									<button type="submit" class="btn btn-green" style="position: relative;right: 10!important;bottom: 10!important;">
-										Login <i class="fa fa-arrow-circle-right"></i>
-									</button>
+									<div  class="" >
+										<button type="submit" class="btn btn-green" >
+											Login <i class="fa fa-arrow-circle-right"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 							<div class="new-account">
@@ -54,7 +58,7 @@
 					{{form_close()|raw}}
 					<!-- start: COPYRIGHT -->
 					<div class="copyright">
-						2017 &copy; by Lead MLM 1.0.
+						{{ "now"|date("Y") }} &copy; by Lead MLM 1.0.
 					</div>
 					<!-- end: COPYRIGHT -->
 				</div>				
@@ -73,6 +77,12 @@
 		-ms-transform-origin: 0 0;
 		-o-transform-origin: 0 0;
 		transform-origin: 0 0;
+	}
+
+	.center {
+	   position: absolute;
+	   left: 50%!important;
+	   top: 50%!important; 
 	}
 
 </style>
