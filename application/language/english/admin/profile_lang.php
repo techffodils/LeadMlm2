@@ -31,4 +31,6 @@ $lang['dob'] = 'Date of Birth';
 $lang['enter_a_valid_dob'] = 'Please enter a valid Date Of Birth.';
 $lang['next'] = 'Next';
 
-
+$lang['crop'] = 'Crop';
+$lang['dp_cropped'] = 'Profile Pic Cropped Successfully';
+$lang['dp_cropped_failed'] = 'Profile Pic Cropping Failed';
