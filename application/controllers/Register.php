@@ -33,6 +33,7 @@ class Register extends Base_Controller {
         $this->setData('register_data', $register_data);
         $this->setData('register_error', $this->form_validation->error_array());
         $this->setData('loggeg_user', $loggeg_user);
+        $this->setData('title',lang('register'));	
         $this->loadView();
     }
 
@@ -59,6 +60,7 @@ class Register extends Base_Controller {
 
         $this->setData('register_data', $register_data);
         $this->setData('register_error', $this->form_validation->error_array());
+        $this->setData('title',lang('register'));
         $this->loadView();
     }
 
@@ -85,6 +87,7 @@ class Register extends Base_Controller {
         $this->setData('fields', $fields);
         $this->setData('register_data', $register_data);
         $this->setData('register_error', $this->form_validation->error_array());
+        $this->setData('title',lang('register'));
         $this->loadView();
     }
 

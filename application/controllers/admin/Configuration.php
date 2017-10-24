@@ -114,6 +114,9 @@ class Configuration extends Base_Controller {
         $this->setData('post_data', $post_data);
         $this->setData('edit_status', $edit_status);
         $this->setData('edited_field', $field_id);
+        
+        $this->setData('title',lang('register_fields'));
+        
         $this->loadView();
     }
 
@@ -198,37 +201,6 @@ class Configuration extends Base_Controller {
 
         $mlm_plan = $this->dbvars->MLM_PLAN;
 
-//        if ($this->input->post('bonus_settings') && $this->validate_bonus_settings($mlm_plan)) {
-//            $this->session->set_userdata('plan_active_tab', 'tab2');
-//            $post = $this->input->post();
-//            if ($this->dbvars->MLM_PLAN == "BINARY")
-//                $this->dbvars->PAIR_BONUS = $post['pair_bonus'];
-//            $this->dbvars->REFEAL_BONUS = $post['referal_bonus'];
-//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-//            $this->loadPage('Bonus Settings Changed', 'configuration/plan_settings', TRUE);
-//        }elseif ($this->input->post('username_settings') && $this->validate_username_settings()) {
-//            $this->session->set_userdata('plan_active_tab', 'tab3');
-//            $post = $this->input->post();
-//            $this->dbvars->USERNAME_TYPE = $post['username_type'];
-//            $this->dbvars->USERNAME_PREFIX = $post['username_prefix'];
-//            $this->dbvars->USERNAME_SIZE = $post['username_size'];
-//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-//            $this->loadPage('Username Settings Changed', 'configuration/plan_settings', TRUE);
-//        } elseif ($this->input->post('matrix_settings') && $this->validate_matrix_settings()) {
-//            $this->session->set_userdata('plan_active_tab', 'tab5');
-//            $post = $this->input->post();
-//            $this->dbvars->MATRIX_WIDTH = $post['matrix_width'];
-//            $this->dbvars->MATRIX_DEPTH = $post['matrix_depth'];
-//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-//            $this->loadPage('Depth & Width Changed', 'configuration/plan_settings', TRUE);
-//        } elseif ($this->input->post('leg_settings') && $this->validate_leg_settings()) {
-//            $this->session->set_userdata('plan_active_tab', 'tab6');
-//            $post = $this->input->post();
-//            $this->dbvars->REGISTER_LEG = $post['register_leg'];
-//            $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'plan_settings_changed', $post);
-//            $this->loadPage('User Position Changed', 'configuration/plan_settings', TRUE);
-//        }
-
         $payment_method = $this->configuration_model->getAllPaymentMethods();
 
         $pair_bonus = $this->dbvars->PAIR_BONUS;
@@ -262,6 +234,7 @@ class Configuration extends Base_Controller {
         $this->setData('tab5', $tab5);
         $this->setData('tab6', $tab6);
         $this->setData($this->session->userdata('plan_active_tab'), 'active');
+        $this->setData('title',lang('plan_settings'));
         $this->loadView();
     }
 
@@ -327,42 +300,6 @@ class Configuration extends Base_Controller {
         exit;
     }
 
-//    function validate_bonus_settings($mlm_plan) {
-//        $this->form_validation->set_rules('referal_bonus', lang('referal_bonus'), 'required|is_natural');
-//        if ($mlm_plan == "BINARY") {
-//            $this->form_validation->set_rules('pair_bonus', lang('pair_bonus'), 'required|is_natural');
-//        }
-//        $this->form_validation->set_error_delimiters('<li>', '</li>');
-//        $validation = $this->form_validation->run();
-//        return $validation;
-//    }
-
-//    function validate_username_settings() {
-//        $this->form_validation->set_rules('username_type', lang('username_type'), 'required');
-//        $this->form_validation->set_rules('username_prefix', lang('username_prefix'), 'max_length[4]');
-//        $this->form_validation->set_rules('username_size', lang('username_size'), 'required|is_natural|numeric|greater_than[4]|less_than[16]');
-//
-//        $this->form_validation->set_error_delimiters('<li>', '</li>');
-//        $validation = $this->form_validation->run();
-//        return $validation;
-//    }
-
-//    function validate_matrix_settings() {
-//        $this->form_validation->set_rules('matrix_width', 'matrix_width', 'required|is_natural|numeric|greater_than[0]');
-//        $this->form_validation->set_rules('matrix_depth', 'matrix_depth', 'required|is_natural|numeric|greater_than[0]');
-//
-//        $this->form_validation->set_error_delimiters('<li>', '</li>');
-//        $validation = $this->form_validation->run();
-//        return $validation;
-//    }
-
-//    function validate_leg_settings() {
-//        $this->form_validation->set_rules('register_leg', 'register_leg', 'required');
-//        $this->form_validation->set_error_delimiters('<li>', '</li>');
-//        $validation = $this->form_validation->run();
-//        return $validation;
-//    }
-
     function change_payment_status() {
         $this->session->set_userdata('plan_active_tab', 'tab1');
         $payment_code = $this->input->get('payment_code');
@@ -419,6 +356,7 @@ class Configuration extends Base_Controller {
         $this->setData('default_currency_symbol', $default_currency_symbol);
         $this->setData('langs', $langs);
         $this->setData('curns', $curns);
+        $this->setData('title',lang('lang_currency'));
         $this->loadView();
     }
 

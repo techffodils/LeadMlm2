@@ -30,7 +30,7 @@ $lang['select_option2'] = 'Option 2';
 $lang['select_option3'] = 'Option 3';
 $lang['select_option4'] = 'Option 4';
 
-$lang['plan_settings'] = 'Plan Settings';
+$lang['plan_settings'] = 'Plan Configuration';
 $lang['payment_methods'] = 'Payment Methods';
 $lang['bonuses'] = 'Bonuses';
 $lang['username_settings'] = 'Username Settings';

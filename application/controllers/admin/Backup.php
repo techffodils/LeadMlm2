@@ -9,18 +9,6 @@ class Backup extends Base_Controller {
     function index() {
         $backup_type = $this->dbvars->BACKUP_TYPE;
         $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD;
-//        if ($this->input->post('db_settings') && $this->validate_db_settings()) {
-//            $post = $this->input->post();
-//            $backup_deletion_period = $this->dbvars->BACKUP_DELETION_PERIOD = $post['backup_deletion_period'];
-//            $backup_type = $this->dbvars->BACKUP_TYPE = $post['backup_type'];
-//
-//            if ($this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'db_backup_settings_changed', $post)) {
-//                $this->backup_model->deleteOlderBackup($backup_deletion_period);
-//                $this->loadPage('Database Settings Changed', 'backup', TRUE);
-//            } else {
-//                $this->loadPage('Failed To Update', 'backup', False);
-//            }
-//        }
         $backups = $this->backup_model->getLastBackups();
 
         $tab1 = 'active';
@@ -31,6 +19,7 @@ class Backup extends Base_Controller {
         $this->setData('backup_type', $backup_type);
         $this->setData('backup_deletion_period', $backup_deletion_period);
         $this->setData('backups', $backups);
+        $this->setData('title',lang('menu_name_40'));
         $this->loadView();
     }
 

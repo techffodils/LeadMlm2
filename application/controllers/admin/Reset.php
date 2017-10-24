@@ -6,6 +6,7 @@ require_once 'Base_Controller.php';
 class Reset extends Base_Controller {
 
     public function clean() {
+        $this->setData('title',lang('menu_name_40'));
         $this->loadView();
     }
     

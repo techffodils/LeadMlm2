@@ -141,6 +141,7 @@ class Product extends Base_Controller {
         $this->setData('edit_flag', $edit_flag);
         $this->setData('product', $product);
         $this->setData('all_products', $all_products);
+        $this->setData('title',lang('menu_name_21'));
         $this->loadView();
     }
 

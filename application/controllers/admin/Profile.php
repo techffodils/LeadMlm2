@@ -71,6 +71,7 @@ class Profile extends Base_Controller {
         $this->setData('def_cov', $def_cov);
         $this->setData('user_details', $user_details);
         $this->setData('profile_error', $this->form_validation->error_array());
+        $this->setData('title',lang('profile'));
         $this->loadView();
     }
 

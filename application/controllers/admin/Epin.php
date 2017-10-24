@@ -74,7 +74,7 @@ class Epin extends Base_Controller {
         $this->setData($active_tab, 'active');
         $this->setData('pin_request', $pin_request);
         $this->setData('pin_error', $this->form_validation->error_array());
-
+        $this->setData('title',lang('epin_management'));
         $this->loadView();
     }
 

@@ -75,6 +75,7 @@ class Wallet extends Base_Controller {
         $this->setData('tab3', $tab3);
         $this->setData($active_tab, 'active');
         $this->setData('error', $this->form_validation->error_array());
+        $this->setData('title',lang('fund_management'));
         $this->loadView();
     }
 

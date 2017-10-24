@@ -23,9 +23,3 @@ $lang['add'] = 'Add';
 $lang['amount'] = 'Amount';
 $lang['deduct'] = 'Deduct';
 $lang['transfer'] = 'Transfer';
-
-
-$lang['next'] = 'Next';
-$lang['next'] = 'Next';
-$lang['next'] = 'Next';
-$lang['next'] = 'Next';

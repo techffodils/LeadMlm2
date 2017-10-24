@@ -108,7 +108,7 @@ $lang['remove'] = 'Remove';
 $lang['change'] = 'Change';
 $lang['update'] = 'Update';
 
-$lang['next'] = 'Next';
+$lang['profile'] = 'Profile';
 
 
 
