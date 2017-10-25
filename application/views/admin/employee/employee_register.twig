@@ -354,8 +354,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        {% for item in details %}
+
+                                    {% for item in details %}
+                                        <tr>
                                             <td>{{loop.index}}</td>
                                             <td>{{item.user_name}}</td>
                                             <td class="center"><img src="assets/images/employees/{{item.user_photo}}" width="50" height="50" alt="image"></td>
@@ -394,8 +395,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        {% endfor %}
-                                    </tr>
+                                        </tr>
+                                    {% endfor %}
+
                                 </tbody>
                             </table>
                         </div>
@@ -409,9 +411,11 @@
     <script type="text/javascript">
         $(document).ready(function () {
             EnrollEmployee.init();
+
         });
         function activate_employee(id)
         {
+
             var title = "Are you sure?";
             var msg = "New change applicable only new registrations"
             swal({
