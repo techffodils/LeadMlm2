@@ -5,16 +5,15 @@
  */
 
 var EnrollEmployee = function () {
-    "use strict";
+
     var runRegisterValidator = function () {
-      
         var form3 = $('#employee_enroll');
         var errorHandler3 = $('.errorHandler', form3);
         form3.validate({
             errorElement: "span", // contain the error msg in a small tag
             errorClass: 'help-block',
             errorPlacement: function (error, element) { // render error placement for each input type
-                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
+                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") {// for chosen elements, need to insert the error after the chosen container
                     error.insertAfter($(element).closest('.input-group').children('div').children().last());
                 } else if (element.hasClass("ckeditor")) {
                     error.insertAfter($(element).closest('.input-group'));
@@ -94,10 +93,37 @@ var EnrollEmployee = function () {
             }
         });
     };
+
     return {
         //main function to initiate template pages
         init: function () {
             runRegisterValidator();
+
         }
     };
 }();
+function activate_employee(id)
+{
+    var title = "Are you sure?";
+    var msg = "New change applicable only new registrations"
+    swal({
+        title: title,
+        text: msg,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, Activate it!",
+        cancelButtonText: "No, Cancel pls!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+            function (isConfirm) {
+                if (isConfirm) {
+                    document.location.href = 'admin/employee/activate_employee/' + id;
+                } else {
+                    swal("Cancelled", "Your Product is safe :)", "error");
+                }
+            });
+
+    e.preventDefault();
+}
