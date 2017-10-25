@@ -1,7 +1,7 @@
 var FormWizard = function () {
     "use strict";
     var wizardContent = $('#wizard');
-    var wizardForm = $('#multiple_step_form');
+    var wizardForm = $('#form');
     var numberOfSteps = $('.swMain > ul > li').length;
     var initWizard = function () {
         // function to initiate Wizard Form
