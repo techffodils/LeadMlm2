@@ -249,6 +249,7 @@ class Base_model extends CI_Model {
 							  );
 
 			$path = $this->CURRENT_CLASS;
+
 			if($this->CURRENT_METHOD != 'index' ){
 				$path = $this->CURRENT_CLASS.'/'.$this->CURRENT_METHOD;
 			}
@@ -257,12 +258,14 @@ class Base_model extends CI_Model {
 				->limit(1)
 				->like('link', $path, 'before')
 				->get('menus');
+
 			if($res->num_rows() > 0){
+
 				$bread_crumb['page_title'] = $res->row()->id;
 				$bread_crumb['page_header'] = ($res->row()->id == 1)?'':$res->row()->id;
 				$bread_crumb['page_header_link'] = $res->row()->link;
 			}		
-			
+
 		return $bread_crumb;
 	}
 
