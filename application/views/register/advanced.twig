@@ -74,27 +74,27 @@
                     {% for fld in fields['step-1'] %}
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+                                {{ lang(fld.field_name) }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
                             </label>
                             <div class="col-sm-7">
 
                                 {% if fld.field_type=='radio' %}
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value1}}
+                                        {{ lang(fld.radio_value1)}}
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value2}}
+                                        {{lang(fld.radio_value2)}}
                                     </label>                                    
                                 {% elseif fld.field_type=='select_box' %}
 
                                     <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
-                                        <option value="">Select a {{ fld.field_name }}</option>
-                                        <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
-                                        <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
-                                        <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
-                                        <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                                        <option value="">{{lang('select_a')}}  {{ lang(fld.field_name) }}</option>
+                                        {% for selec in fld.select_box_values %}
+                                            <option value="{{selec.id}}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %} >{{selec.name}}</option>
+                                        {% endfor %}
+
                                     </select>       
                                 {% elseif fld.field_type=='text_area' %}
                                     <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
@@ -135,27 +135,27 @@
                     {% for fld in fields['step-2'] %}
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+                                {{ lang(fld.field_name) }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
                             </label>
                             <div class="col-sm-7">
 
                                 {% if fld.field_type=='radio' %}
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value1}}
+                                        {{ lang(fld.radio_value1)}}
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value2}}
+                                        {{lang(fld.radio_value2)}}
                                     </label>                                    
                                 {% elseif fld.field_type=='select_box' %}
 
                                     <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
-                                        <option value="">Select a {{ fld.field_name }}</option>
-                                        <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
-                                        <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
-                                        <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
-                                        <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                                        <option value="">{{lang('select_a')}}  {{ lang(fld.field_name) }}</option>
+                                        {% for selec in fld.select_box_values %}
+                                            <option value="{{selec.id}}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %} >{{selec.name}}</option>
+                                        {% endfor %}
+
                                     </select>       
                                 {% elseif fld.field_type=='text_area' %}
                                     <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
@@ -174,7 +174,7 @@
                                 {% if register_error[fld.field_name] is defined %}<code> {{ register_error[fld.field_name] }} </code> {% endif %}
                             </div>
                         </div>
-                    {% endfor %}                       
+                    {% endfor %}                      
 
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-offset-3">
@@ -195,27 +195,27 @@
                     {% for fld in fields['step-3'] %}
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                {{ fld.field_name }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+                                {{ lang(fld.field_name) }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
                             </label>
                             <div class="col-sm-7">
 
                                 {% if fld.field_type=='radio' %}
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value1}}"  {% if register_data[fld.field_name]==fld.radio_value1 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value1}}
+                                        {{ lang(fld.radio_value1)}}
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" id="{{ fld.field_name }}" name="{{ fld.field_name }}" value="{{fld.radio_value2}}"  {% if register_data[fld.field_name]==fld.radio_value2 %} checked {% endif %} class="grey" {% if fld.required_status %} required {% endif %} >
-                                        {{fld.radio_value2}}
+                                        {{lang(fld.radio_value2)}}
                                     </label>                                    
                                 {% elseif fld.field_type=='select_box' %}
 
                                     <select class="form-control" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
-                                        <option value="">Select a {{ fld.field_name }}</option>
-                                        <option value="{{ fld.select_option1 }}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %}>{{ fld.select_option1 }}</option>
-                                        <option value="{{ fld.select_option2 }}" {% if register_data[fld.field_name] == fld.select_option2 %} selected {% endif %}>{{ fld.select_option2 }}</option>
-                                        <option value="{{ fld.select_option3 }}" {% if register_data[fld.field_name] == fld.select_option3 %} selected {% endif %}>{{ fld.select_option3 }}</option>
-                                        <option value="{{ fld.select_option4 }}" {% if register_data[fld.field_name] == fld.select_option4 %} selected {% endif %}>{{ fld.select_option4 }}</option>
+                                        <option value="">{{lang('select_a')}}  {{ lang(fld.field_name) }}</option>
+                                        {% for selec in fld.select_box_values %}
+                                            <option value="{{selec.id}}" {% if register_data[fld.field_name] == fld.select_option1 %} selected {% endif %} >{{selec.name}}</option>
+                                        {% endfor %}
+
                                     </select>       
                                 {% elseif fld.field_type=='text_area' %}
                                     <textarea id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %}>
@@ -234,7 +234,7 @@
                                 {% if register_error[fld.field_name] is defined %}<code> {{ register_error[fld.field_name] }} </code> {% endif %}
                             </div>
                         </div>
-                    {% endfor %}                        
+                    {% endfor %}                       
 
 
                     <div class="form-group">

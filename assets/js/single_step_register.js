@@ -83,6 +83,10 @@ $.validator.addMethod("validUsername", function () {
                     minlength: 2,
                 }, agree: {
                     required: true
+                },register_leg:{
+                    required: true
+                },country:{
+                    required: true
                 }
             },
             messages: {

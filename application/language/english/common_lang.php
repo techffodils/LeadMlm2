@@ -173,7 +173,7 @@ $lang['email'] = 'E-Mail';
 $lang['password'] = 'Password';
 $lang['confirm_password'] = 'Confirm Password';
 $lang['first_name'] = 'First Name';
-$lang['agree_to_the_terms_of_service'] = 'I agree to the Terms of Service and Privacy Policy';
+$lang['agree_to_the_terms_of_service'] = $lang['agree'] ='I agree to the Terms of Service and Privacy Policy';
 $lang['register'] = 'Register';
 $lang['agree'] = 'Agree';
 $lang['phone_number'] = 'Phone Number';
@@ -187,17 +187,17 @@ $lang['back'] = 'Back';
 $lang['mm'] = 'MM';
 $lang['Expiration(MM/YYYY)'] = 'Expiration(MM/YYYY)';
 $lang['cvc'] = 'CVC';
-$lang['card_no'] = 'Card Number';
-$lang['card_holder'] = 'Card Holder Name';
+$lang['card_number'] = 'Card Number';
+$lang['card_name'] = 'Card Holder Name';
 
 $lang['city'] = 'City';
 $lang['select_a_state'] = 'Select a state';
-$lang['State'] = 'State';
+$lang['state'] = 'State';
 $lang['Country'] = 'Country';
 $lang['select_a_country'] = 'Select a country';
 $lang['address'] = 'Address';
-$lang['Male'] = 'Male';
-$lang['Female'] = 'Female';
+$lang['Male'] =$lang['m'] =  'Male';
+$lang['Female'] =$lang['f'] = 'Female';
 $lang['last_name'] = 'Last Name';
 
 $lang['multiple_step_registration'] = 'Multiple Step Registration';
@@ -225,8 +225,14 @@ $lang['credited_by_admin'] = 'Fund Credited By Admin';
 $lang['debited_by_admin'] = 'Fund Debited By Admin';
 $lang['transfer_by_user'] = 'Fund Transfered';
 
-
-
+$lang['left'] = 'Left';
+$lang['right'] = 'Right';
+$lang['register_leg'] = 'Register Leg';
+$lang['select_a_register_leg'] = ' Select Register Leg';
+$lang['select_a_country'] = ' Select A Country';
+$lang['country'] = 'Country';
+$lang['select_a'] = 'Select A';
+$lang['register_leg '] = 'Register Leg ';
 
 
 

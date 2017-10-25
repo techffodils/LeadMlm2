@@ -96,6 +96,8 @@ var FormWizard = function () {
                 sponser_name: {
                     validSponsor:true,
                     required: true
+                },register_leg:{
+                    required: true
                 },
                 username: {
                     validUsername: true,

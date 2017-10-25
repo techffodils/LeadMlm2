@@ -6,22 +6,22 @@
                 <div class="panel-heading">
                     <h4 class="panel-title"><span class="text-bold">{{ lang('single_step_registration') }} </span></h4>
                     <div class="panel-tools">
-                    <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
-                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
-                        </ul>
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
+                            <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
-                </div>
                 </div>
                 <div class="panel-body">
                     <hr>
 
-                    
+
 
                     <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
                     {% else %}
@@ -37,7 +37,7 @@
                                     <p>
                                         {{ lang('single_step_registration') }}
                                     </p>
-                                    
+
                                 {% endif %}
 
                                 {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}
@@ -53,6 +53,24 @@
 
                                         {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
                                     </div>
+
+                                    {% if leg_status %}
+                                        <div class="form-group">
+                                            <span class="input-icon">
+                                                <select class="form-control" id="register_leg" name="register_leg">
+                                                    <option value="">{{ lang('select_a_register_leg')}}</option>
+                                                    <option value="L" {% if register_data.register_leg=='L' %} selected {% endif %}>{{lang('left')}}</option>
+                                                    <option value="R" {% if register_data.register_leg=='R' %} selected {% endif %}>{{lang('right')}}</option>
+
+                                                </select>
+                                            </span>                                                   
+
+                                            {% if register_error.register_leg is defined %}<code> {{ register_error.register_leg}} </code> {% endif %} 
+                                        </div>
+
+                                    {% endif %}
+
+                                    {% if username_type=="static" %}
                                     <div class="form-group">
                                         <span class="input-icon">
                                             <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
@@ -61,6 +79,7 @@
 
                                         {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
                                     </div>
+                                    {% endif %}
 
                                     <div class="form-group">
                                         <span class="input-icon">
@@ -97,6 +116,38 @@
 
                                         {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
                                     </div>
+
+
+
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <select class="form-control" id="country" name="country">
+                                                <option value="">{{ lang('select_a_country')}}</option>
+                                                {% for cntrs in countries %}
+                                                    <option value="{{cntrs.id}}" {% if register_data.country==cntrs.id %} selected {% endif %}>{{cntrs.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </span>                                                   
+
+                                        {% if register_error.country is defined %}<code> {{ register_error.country}} </code> {% endif %} 
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <select class="form-control" id="state" name="state">
+                                                <option value="">{{ lang('select_a_state')}}</option>
+                                                {% for sts in states %}
+                                                    <option value="{{sts.id}}" {% if register_data.state==sts.id %} selected {% endif %}>{{sts.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </span>                                                   
+
+                                        {% if register_error.state is defined %}<code> {{ register_error.state}} </code> {% endif %} 
+                                    </div>
+
+
+
 
 
                                     <div class="form-group">

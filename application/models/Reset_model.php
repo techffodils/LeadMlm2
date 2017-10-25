@@ -138,7 +138,7 @@ class Reset_model extends CI_Model {
         $this->dbvars->REGISTER_FORM_TYPE = 'multiple';
         $this->dbvars->REGISTER_FIELD_CONFIGURATION = '0'; //1
 
-        $this->dbvars->REGISTER_LEG = 'dynamic'; //balanced,left,right
+        $this->dbvars->REGISTER_LEG = 'static'; //balanced,left,right
         $this->dbvars->USERNAME_TYPE = 'static'; //dynamic
         $this->dbvars->USERNAME_PREFIX = 'lead';
         $this->dbvars->USERNAME_SIZE = 10;
