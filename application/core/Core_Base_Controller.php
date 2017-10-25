@@ -273,6 +273,7 @@ function setData($key, $value) {
 
 function loadLanguage() {
 	$this->lang->load('common');
+        $this->lang->load('validation');
 	if (!in_array($this->CURRENT_CLASS , NO_LANGUAGE_PAGES))
 	{
 		$this->lang->load( $this->LOG_USER_TYPE.'/'.$this->CURRENT_CLASS);
