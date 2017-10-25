@@ -7,27 +7,18 @@
         <div class="panel panel-white">
             <div class="panel-heading">
                 <h4 class="panel-title">{{title}} <span class="text-bold">Tabs</span></h4>
-                <div class="panel-tools">										
+                <div class="panel-tools">
                     <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
-                            <i class="fa fa-cog"></i>
-                        </a>
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li>
-                                <a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a>
-                            </li>
-                            <li>
-                                <a class="panel-refresh" href="#"> <i class="fa fa-refresh"></i> <span>Refresh</span> </a>
-                            </li>
-                            <li>
-                                <a class="panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> <span>Configurations</span></a>
-                            </li>
-                            <li>
-                                <a class="panel-expand" href="#"> <i class="fa fa-expand"></i> <span>Fullscreen</span></a>
-                            </li>										
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#"> <i class="fa fa-times"></i> </a>
+                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
+
                 </div>
             </div>
             <div class="panel-body">
@@ -37,17 +28,17 @@
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active">
                                     <a href="#myTab_example1" data-toggle="tab">
-                                        <i class="green fa fa-user-plus"></i> Registration Content
+                                        <i class="green fa fa-user-plus"></i>  {{lang('registration_content')}}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#myTab_example2" data-toggle="tab">
-                                        <i class="green fa fa-unlock"></i> Password Recovery
+                                        <i class="green fa fa-unlock"></i> {{lang('password_recovery')}}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#myTab_example3" data-toggle="tab">
-                                        <i class="green fa fa-bank"></i> Payout Content
+                                        <i class="green fa fa-bank"></i> {{lang('payout_content')}}
                                     </a>
                                 </li>
                             </ul>
@@ -155,9 +146,10 @@
                                                         <ul class="nav nav-tabs">
                                                             {% set i=1 %}
                                                             {% set status='' %}
-                                                            {% for detail in password_reset  %}
+                                                            {% for detail in password_reset %}
 
                                                                 <input type='hidden' name='lang_code'id='lang_code' value='{{detail.lang_id}}'>
+
                                                                 {% if detail.lang_code==default_lang %}
                                                                     {% set status='active' %}
 
@@ -176,11 +168,13 @@
 
                                                         <div class="tab-content">
                                                             {% for datas in password_reset %}
+
                                                                 {% if datas.lang_code==default_lang %}
                                                                     {% set active='active' %}
                                                                 {% else %}
-                                                                    {% set active=''%}
+                                                                    {% set active='active'%}
                                                                 {%  endif %}
+
                                                                 <div id="panel_tab_example_{{datas.lang_code}}" class="tab-pane fade in {{active}}">
                                                                     {{form_open("","method='post' name='mail_content_form' id='mail_content_form'")|raw}}
                                                                     <input type="hidden" name="lang_id" id="lang_id" value="{{datas.lang_id}}"/>
