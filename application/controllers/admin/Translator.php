@@ -7,7 +7,14 @@ require_once 'Base_Controller.php';
 
 class Translator extends Base_Controller {
 
-    function index() {//https://github.com/statickidz/php-google-translate-free
+    function index() {
+        /*
+         * URL: https://github.com/statickidz/php-google-translate-free
+         * Run these is terminal
+         * sudo apt-get install php7.0-dom php7.0-mbstring
+         * composer require statickidz/php-google-translate-free
+         * 
+         */
         $source = 'en';
         $target = 'es';
         $text = 'Good Morning';
