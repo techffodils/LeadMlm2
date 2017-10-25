@@ -35,3 +35,6 @@ $lang['image_upload'] = "Image Upload";
 $lang['enroll_employee'] = "Update Employee";
 $lang['submit'] = "Submit";
 $lang['set_employee_permission'] = "Employee Menu Permission";
+$lang['remove'] = 'Remove';
+$lang['select_image'] = 'Select Image';
+$lang['chamge'] = 'Change';
