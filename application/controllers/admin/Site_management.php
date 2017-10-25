@@ -194,4 +194,49 @@ class Site_management extends Base_Controller {
         }
     }
 
+    /**
+     * 
+     * For Mail Settings
+     * @author techffodils
+     * @date 2017-10-25
+     * 
+     */
+    function mail_settings() {
+        $title = lang('mail_configuration');
+        $this->setData('title', $title);
+
+        if ($this->input->post() && $this->validate_mail_settings()) {
+            $post_arr = $this->input->post(NULL, TRUE);
+            if ($this->LOG_USER_TYPE == 'admin' || $this->LOG_USER_TYPE == 'emloyee') {
+                $post_arr['user_id'] = $this->LOG_USER_ID;
+            }
+
+            $result = $this->site_management_model->insertMailContenetDetails($post_arr);
+            if ($result) {
+                $msg = lang('successfully_insert_mail_content');
+                $this->loadPage($msg, 'site_management/mail_settings');
+            } else {
+                $msg = lang('error_while_inserting_mail_settings', danger);
+                $this->loadPage($msg, 'site_management/mail_settings');
+            }
+        } else {
+
+            $this->setData('error', $this->form_validation->error_array());
+        }
+
+        $this->setData('page_title', $title);
+
+        $this->loadView();
+    }
+
+    function validate_mail_settings() {
+        $this->form_validation->set_rules('mail_engine', lang('mail_engine'), 'required');
+        $this->form_validation->set_rules('host_name', lang('smtp_hostname'), 'required');
+        $this->form_validation->set_rules('smtp_username', lang('smtp_username'), 'required|alpha_dash');
+        $this->form_validation->set_rules('smtp_password', lang('smtp_password'), 'required');
+
+        $form_result = $this->form_validation->run();
+        return $form_result;
+    }
+
 }

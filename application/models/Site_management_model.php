@@ -44,7 +44,7 @@ class Site_management_model extends CI_Model {
     }
 
     /**
-     * For Lanaguage Content settings
+     * For Langauage Content settings
      * @author Techffodils
      * @date 2017-10-18
      * 
@@ -119,6 +119,39 @@ class Site_management_model extends CI_Model {
             $lang_code = $row->lang_code;
         }
         return $lang_code;
+    }
+
+    function insertMailContenetDetails($post_arr) {
+        $flag = '';
+        if ($this->checkMailEnginealreadyExitsOrNot($post_arr['mail_engine'])) {
+
+            $result_status = $this->db->set('host_name', $post_arr['host_name'])
+                    ->set('smtp_username', $post_arr['smtp_username'])
+                    ->set('smtp_password', $post_arr['smtp_password'])
+                    ->set('smtp_port', $post_arr['smtp_port'])
+                    ->where('mail_engine', $post_arr['mail_engine'])
+                    ->update('mail_settings');
+            $flag = TRUE;
+        } else {
+            $result = $this->db->set('host_name', $post_arr['host_name'])->set('smtp_username', $post_arr['smtp_username'])->set('smtp_password', $post_arr['smtp_password'])
+                            ->set('smtp_port', $post_arr['smtp_port'])->set('mail_engine', $post_arr['mail_engine'])->insert('mail_settings');
+            $flag = TRUE;
+        }
+        if ($flag) {
+            $this->helper_model->insertActivity($post_arr['user_id'], 'Mail setting', serialize($post_arr));
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    function checkMailEnginealreadyExitsOrNot($mail_engine) {
+        $count_result = $this->db->select('count(*)')->from('mail_settings')->where('mail_engine', $mail_engine)->count_all_results();
+        if ($count_result > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }

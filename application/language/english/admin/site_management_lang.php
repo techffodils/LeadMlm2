@@ -19,4 +19,14 @@ $lang['change'] = 'Change';
 $lang['registration_content'] = 'Registration Content';
 $lang['password_recovery'] = 'Password Recovery Content';
 $lang['payout_content'] = 'Payout Content';
+$lang['form_error_msg'] = 'You have some form errors. Please check below';
+$lang['smtp_hostname'] = 'SMTP Hostname';
+$lang['smtp_username'] = 'SMTP USername';
+$lang['smtp_password'] = 'SMTP Password';
+$lang['smtp_port'] = 'SMTP Port';
+$lang['mail_engine'] = 'Mail Engine';
+$lang['mail'] = 'Mail';
+$lang['smtp'] = 'SMTP';
+$lang['submit'] = 'Submit';
+$lang['mail_configuration'] = 'Mail Configuration';
 
