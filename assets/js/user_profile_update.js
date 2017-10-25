@@ -3,7 +3,8 @@ function setCover(id) {
         data: {id: id},
         async: false,
         success: function (msg) {
-            location.reload();
+            window.location = window.location.href;
+            //location.reload();
         }
     });
 }
@@ -13,7 +14,8 @@ function setDefCover(id) {
         data: {id: id},
         async: false,
         success: function (msg) {
-            location.reload();
+            window.location = window.location.href;
+            //location.reload();
         }
     });
 }
@@ -23,7 +25,8 @@ function setDefualtDp(id) {
         data: {id: id},
         async: false,
         success: function (msg) {
-            location.reload();
+            window.location = window.location.href;
+            //location.reload();
         }
     });
 }

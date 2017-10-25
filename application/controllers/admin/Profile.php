@@ -46,7 +46,7 @@ class Profile extends Base_Controller {
             $config['max_size'] = 10000;
             $config['max_width'] = 2048;
             $config['max_height'] = 2048;
-            $new_name = 'dp_' . time();
+            $new_name = 'cover_' . time();
             $config['file_name'] = $new_name;
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('cover_pic')) {
@@ -96,6 +96,38 @@ class Profile extends Base_Controller {
                 }
             }
             $this->loadPage(lang('dp_cropped_failed'), 'profile/index', 'danger');
+        }
+        
+        if ($this->input->post('cover_crop')) {//addClass('jcrop-keymgr')
+            $new_file = 'cover_' . time(). '.jpg';
+            $post = $this->input->post();
+            $width = $post['w2'];
+            $height = $post['h2'];
+            $x_axis = $post['x11'];
+            $y_axis = $post['y11'];
+            if($width>=0 && $height>=0 && $x_axis>=0 && $y_axis>=0) {
+                $this->load->library('image_lib');
+                $config = array(
+                    'source_image' => "assets/images/users/" . $user_details['user_cover'],
+                    'maintain_ratio' => FALSE,
+                    'width' => $width,
+                    'height' => $height,
+                    'x_axis' => $x_axis,
+                    'y_axis' => $y_axis,
+                    'new_image' => $new_file
+                );
+
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $res = $this->image_lib->crop();
+                if (!$this->image_lib->display_errors()) {
+                    if ($this->profile_model->setCover($user_id, $new_file)) {
+                        $this->profile_model->insertUserPictureHistory($user_id,$new_file,'user_cover');
+                        $this->loadPage(lang('cover_cropped'), 'profile/index');
+                    }
+                }
+            }
+            $this->loadPage(lang('cover_cropped_failed'), 'profile/index', 'danger');
         }
 
 

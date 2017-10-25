@@ -67,6 +67,12 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a data-toggle="tab" href="#cover_tab4">
+                                                {{ lang('crop')}}
+                                            </a>
+                                        </li>
+
                                     </ul>
                                     <div class="tab-content">
                                         <div id="cover_tab1" class="tab-pane fade in active">
@@ -145,6 +151,54 @@
 
                                             </div>                                    
                                         </div>
+
+
+
+
+                                        <div id="cover_tab4" class="tab-pane fade">
+                                            <div class="row">
+                                                <img src="assets/images/users/{{ user_details.user_cover }}" id="target2"/>
+                                                {{ form_open_multipart('', ' id="cover_crop_form" name="cover_crop_form"')|raw }}
+
+                                                <div class="inline-labels">
+                                                    <label>
+                                                        X1
+                                                        <input type="text" size="4" id="x11" name="x11" />
+                                                    </label>
+                                                    <label>
+                                                        Y1
+                                                        <input type="text" size="4" id="y11" name="y11" />
+                                                    </label>
+                                                    <label>
+                                                        X2
+                                                        <input type="text" size="4" id="x22" name="x22" />
+                                                    </label>
+                                                    <label>
+                                                        Y2
+                                                        <input type="text" size="4" id="y22" name="y22" />
+                                                    </label>
+                                                    <label>
+                                                        W
+                                                        <input type="text" size="4" id="w2" name="w2" />
+                                                    </label>
+                                                    <label>
+                                                        H
+                                                        <input type="text" size="4" id="h2" name="h2" />
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <button type="submit" class="btn btn-primary" value="cover_crop" name="cover_crop">
+                                                        {{lang('crop')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+
+                                                {{ form_close()|raw }}
+                                            </div>                                   
+                                        </div>
+
+
+
 
 
                                     </div>
@@ -265,9 +319,9 @@
 
                                         <div id="dp_tab4" class="tab-pane fade">
                                             <div class="row">
-                                                <img src="assets/images/users/{{ user_details.user_dp }}" id="target" />
+                                                <img src="assets/images/users/{{ user_details.user_dp }}" id="target"/>
                                                 {{ form_open_multipart('', ' id="dp_crop_form" name="dp_crop_form"')|raw }}
-                                                
+
                                                 <div class="inline-labels">
                                                     <label>
                                                         X1
@@ -534,16 +588,16 @@
 <script src="assets/js/admin_profile_crop.js"></script>
 <script src="assets/plugins/Jcrop/js/jquery.Jcrop.min.js"></script>
 <script src="assets/plugins/Jcrop/js/jquery.color.js"></script>
-{#<script src="assets/js/form-image-cropping.js"></script>#}
+
 
 
 
 <script>
-                                                            $(document).ready(function () {
-                                                                ImageCropping.init();
-                                                                ValidateUserProfile.init();
-                                                                FormElements.init();
-                                                            });
+    $(document).ready(function () {
+        ImageCropping.init();
+        ValidateUserProfile.init();
+        FormElements.init();
+    });
 </script>
 
 
