@@ -139,8 +139,13 @@ class Register_model extends CI_Model {
         $new = $this->getAllNewRegFields();
         if (count($new)) {
             foreach ($new as $fld) {
-                if ($this->checkTable($fld)) {
-                    $this->db->set($fld, $user_details[$fld]);
+                if ($this->checkTable($fld['name'])) {
+                    if(isset($user_details[$fld['name']])){
+                        $val=$user_details[$fld['name']];
+                    }else{
+                        $val=$fld['default_value'];
+                    }
+                    $this->db->set($fld['name'], $val);
                 }
             }
             $this->db->where('mlm_user_id', $user_id);
@@ -162,14 +167,15 @@ class Register_model extends CI_Model {
 
     function getAllNewRegFields() {
         $data = array();
-        $query = $this->db->select("field_name")
+        $query = $this->db->select("field_name,default_value")
                 ->from("register_fields")
                 ->where("status", 'active')
                 ->where("editable_status", '1')
                 ->get();
         $i = 0;
         foreach ($query->result_array() as $row) {
-            $data[$i] = $row['field_name'];
+            $data[$i]['name'] = $row['field_name'];
+            $data[$i]['default_value'] = $row['default_value'];
             $i++;
         }
         return $data;
