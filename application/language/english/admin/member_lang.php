@@ -1,8 +1,32 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+$lang['account_settings'] = 'Account Settings';
+$lang['change_password'] = 'Change Password';
+$lang['change_user_name'] = 'Chnage User Name';
+$lang['change_transation_password'] = 'Change Transation Password';
+$lang['change_user_name'] = 'Change User Name';
+$lang['re_enter_user_name'] = 'Re-Enter  User Name';
+$lang['new_user_name'] = 'New User Name';
+$lang['change_your_username'] = 'Change Your UserName';
+$lang['change_password'] = 'Change Password';
+$lang['re_enter_password'] = 'Re-Enter  Password';
+$lang['new_password'] = 'New Password';
+$lang['change_your_password'] = 'Change Your Password';
+$lang['change_transation_password'] = 'Change Transation Password';
+$lang['re_enter_password'] = 'Re-Enter  Password';
+$lang['new_password'] = 'New Password';
+$lang['change_transation_password'] = 'Change Transation Password';
+$lang['activate_inactivate'] = 'Activate/InAcitivate User';
+$lang['Activate'] = 'Activate';
+$lang['InActivate'] = 'InActivate';
+$lang['activate_inactivate_user'] = 'Activate OR Inactivate Users';
+$lang['change_user_admin_user_name'] = 'Change UserName User/Admin';
+$lang['select_user_name'] = 'Select User Name';
+$lang['change_user_admin_password'] = 'Change User/Admin Password';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
+$lang[''] = '';
