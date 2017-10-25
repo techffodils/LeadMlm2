@@ -117,15 +117,14 @@
 
                                             <div class="row">
                                                 {% for uco in user_cov %}
-                                                    <div class="col-sm-3">
-                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
+                                                    <div class="col-sm-4">
+                                                        <img style="height:100px;width:auto;max-width:145px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setCover({{ uco.id }});">
                                                             {{ lang('set_this_cover')}}
                                                         </button>
                                                         <br>
                                                     </div>
-
 
                                                 {% endfor %}   
 
@@ -136,15 +135,14 @@
                                         <div id="cover_tab3" class="tab-pane fade">
                                             <div class="row">
                                                 {% for df in def_cov %}
-                                                    <div class="col-sm-3">
-                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ df }}" class="img-responsive" > 
+                                                    <div class="col-sm-4">
+                                                        <img style="height:100px;width:auto;max-width:145px;" src="assets/images/users/{{ df }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setDefCover('{{ df }}');">
                                                             {{ lang('set_this_cover')}}
                                                         </button>
                                                         <br>
                                                     </div>
-
 
                                                 {% endfor %}   
 
