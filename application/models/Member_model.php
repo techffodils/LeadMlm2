@@ -27,6 +27,7 @@ class Member_model extends CI_Model {
                         ->where('mlm_user_id ', $user_id)
                         ->update('user');
     }
+    
 
     function getAllUserNames($query) {
         $data = array();
@@ -89,6 +90,22 @@ class Member_model extends CI_Model {
             $user_name = $row->user_name;
         }
         return $user_name;
+    }
+    public function getUserStatus($id) {
+        $user_status = '';
+        $query = $this->db->select('user_status')
+                ->from('user')
+                ->where('mlm_user_id', $id)
+                ->get();
+        foreach ($query->result() as $row) {
+            $user_status = $row->user_status;
+        }
+        return $user_status;
+    }
+    function updateUserStatus($user_id, $status) {
+        return $this->db->set('user_status ', "$status")
+                        ->where('mlm_user_id ', $user_id)
+                        ->update('user');
     }
 
 }
