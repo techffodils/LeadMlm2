@@ -5,23 +5,19 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">
-                    <span class="text-bold">{{page_title}}</span></h4>
+                <h4 class="panel-title"><span class="text-bold">{{ page_title}} </span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
-                            <i class="fa fa-cog"></i>
-                        </a>
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#">
-                        <i class="fa fa-times"></i>
-                    </a>
+                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
+
                 </div>
             </div>
             <div class="panel-body">
@@ -31,18 +27,20 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
 
-                            Company Name<span class="symbol required"></span>
+                            {{lang('company_name')}}<span class="symbol required"></span>
                         </label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 ">
+
                             <input class="form-control" type="text" name="company_name" id="company_name" placeholder='Company name' value="{{site_info['company_name']}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
 
-                            Address<span class="symbol required"></span>
+                            {{lang('address')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
+
                             <textarea class="form-control" type="text" rows="4" cols="50" name="company_address" id="company_address" placeholder='Company Address'>{{site_info['company_address']}}
                             </textarea>
 
@@ -51,53 +49,55 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
 
-                            Company Email<span class="symbol required"></span>
+                            {{lang('company_email')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
+
                             <input class="form-control" type="email" name="company_email" id="company_email" placeholder='Company Email'value="{{site_info['company_email']}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
 
-                            Company Phone<span class="symbol required"></span>
+                            {{lang('comany_phone')}}<span class="symbol required"></span>
                         </label>
                         <div class="col-sm-4">
+
                             <input class="form-control" type="text" name="company_phone" id="company_phone" placeholder='Company Phone' value="{{site_info['company_phone']}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Logo<span class="symbol required"></span>
+                            {{lang('logo')}}<span class="symbol required"></span>
                         </label>
                         <div class="fileupload fileupload-new col-sm-4" data-provides="fileupload">
                             <div class="fileupload-new thumbnail"><img src="{{BASE_URL}}assets/images/logos/{{site_info['company_logo']}}" alt="" value="{{site_info['company_logo']}}">
                             </div>
                             <div class="fileupload-preview fileupload-exists thumbnail"></div>
                             <div class="user-edit-image-buttons">
-                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i>{{lang('select_image')}}</span><span class="fileupload-exists"><i class="fa fa-picture"></i> {{lang('change')}}</span>
                                     <input type="file" name="company_logo" id="company_logo" value="{{site_info['company_logo']}}">
                                 </span>
                                 <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                    <i class="fa fa-times"></i> Remove
+                                    <i class="fa fa-times"></i> {{lang('remove')}}
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Fav icon<span class="symbol required"></span>
+                            {{lang('fav_icon')}}<span class="symbol required"></span>
                         </label>
                         <div class="fileupload fileupload-new col-sm-4" data-provides="fileupload">
                             <div class="fileupload-new thumbnail"><img src="{{BASE_URL}}assets/images/logos/{{site_info['company_fav_icon']}}" alt="" value="{{site_info['company_fav_icon']}}">
                             </div>
                             <div class="fileupload-preview fileupload-exists thumbnail"></div>
                             <div class="user-edit-image-buttons">
-                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> Select image</span><span class="fileupload-exists"><i class="fa fa-picture"></i> Change</span>
+                                <span class="btn btn-azure btn-file"><span class="fileupload-new"><i class="fa fa-picture"></i> {{lang('select_image')}}</span><span class="fileupload-exists"><i class="fa fa-picture"></i> {{lang('change')}}</span>
                                     <input type="file" name="company_fav_icon" id="company_fav_icon" value="{{site_info['company_fav_icon']}}">
                                 </span>
                                 <a href="#" class="btn fileupload-exists btn-red" data-dismiss="fileupload">
-                                    <i class="fa fa-times"></i> Remove
+                                    <i class="fa fa-times"></i> {{lang('remove')}}
                                 </a>
                             </div>
                         </div>
@@ -107,11 +107,11 @@
 
                         </label>
                         <div class="col-sm-4">
-                           
-                                <button type="submit"class="btn btn-primary" value="update" name="update_site_info" id="update_site_info">
-                                    update <i class="fa fa-arrow-circle-right"></i>
-                                </button>
-                         
+
+                            <button type="submit"class="btn btn-primary" value="update" name="update_site_info" id="update_site_info">
+                                {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+
 
 
                         </div>
@@ -126,14 +126,10 @@
 
 
 {% include('admin/layout/footer.twig') %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        SiteManagement.init();
+    });
 
-<script type="tex/javascript">
-   $('#company_name').editable({
-                           type:  'input',
-                           pk:    1,
-                           name:  'company_name',
-                           url:   BASE_URL+'admin/site_management/save_company_name',  
-                           title: 'Enter comments'
-                        });
-    </script>
+</script>
 {# empty Twig template #}
