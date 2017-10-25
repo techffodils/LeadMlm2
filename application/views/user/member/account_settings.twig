@@ -10,22 +10,18 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title"><span class="text-bold">Account Settings </span></h4>
+                <h4 class="panel-title"><span class="text-bold">{{ lang('account_settings') }} </span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
-                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
-                            <i class="fa fa-cog"></i>
-                        </a>
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-xs btn-link panel-close" href="#">
-                        <i class="fa fa-times"></i>
-                    </a>
+                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
                 </div>
             </div>
             <div class="panel-body">
@@ -39,17 +35,17 @@
                             <ul id="myTab3" class="nav nav-tabs">
                                 <li class="{{tab1}}">
                                     <a href="#faq_example1" data-toggle="tab">
-                                        <i class="fa fa-user"></i>Change Password 
+                                        <i class="fa fa-user"></i> {{ lang('change_password') }} 
                                     </a>
                                 </li>
                                 <li class="{{tab2}}">
                                     <a href="#faq_example2" data-toggle="tab">
-                                        <i class="fa fa-lock"></i> Chnage User Name
+                                        <i class="fa fa-lock"></i> {{ lang('change_user_name') }}
                                     </a>
                                 </li>
                                 <li class="{{tab3}}">
                                     <a href="#faq_example3" data-toggle="tab">
-                                        <i class="fa fa-lock"></i> Change Transation Password
+                                        <i class="fa fa-lock"></i> {{ lang('change_transation_password') }} 
                                     </a>
                                 </li>
 
@@ -59,14 +55,14 @@
                                 <div class="tab-pane {{tab1}}" id="faq_example1">
                                     <div id="accordion" class="panel-group accordion accordion-custom accordion-teal">
 
-                                        <h3 class="margin-bottom-15">Change Your Password</h3>
+                                        <h3 class="margin-bottom-15">{{ lang('change_your_password') }}</h3>
 
                                         <br>
                                         <div class="form-horizontal">
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Current Password
+                                                    {{ lang('current_password') }}
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -79,7 +75,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    New Password
+                                                    {{ lang('new_password') }}
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -92,7 +88,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Re-Enter  Password
+                                                    {{ lang('re_enter_password') }} 
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -108,7 +104,7 @@
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <button onclick="changepassworduser()" type="button"class="btn btn-primary" value="1" name="submit_password">
-                                                        Change Password
+                                                        {{ lang('change_password') }} 
                                                     </button>
                                                 </div>
                                             </div>
@@ -117,13 +113,13 @@
                                 </div>
                                 <div class="tab-pane {{tab2}}" id="faq_example2">
                                     <div id="accordion2" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15"> Change UserName User/Admin </h3>
+                                        <h3 class="margin-bottom-15"> {{ lang('change_your_username') }} </h3>
                                         <br>
                                         <div class="form-horizontal">
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Current User Name
+                                                    {{ lang('current_user_name') }} 
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -135,7 +131,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Change User Name
+                                                    {{ lang('new_user_name') }}
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -147,7 +143,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Re-Enter  User Name
+                                                    {{ lang('re_enter_user_name') }}
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -164,7 +160,7 @@
                                                 <div class="col-sm-6">
                                                     <button onclick="changeusernameuser()" type="button"class="btn btn-primary" value="1" name="submit_password">
 
-                                                        Change User Name
+                                                        {{ lang('change_user_name') }} 
                                                     </button>
                                                 </div>
                                             </div>
@@ -176,12 +172,12 @@
                                 </div>
                                 <div class="tab-pane {{tab3}}" id="faq_example3">
                                     <div id="accordion3" class="panel-group accordion accordion-custom accordion-teal">
-                                        <h3 class="margin-bottom-15">Change Transation Password</h3>
+                                        <h3 class="margin-bottom-15">  {{ lang('change_transation_password') }} </h3>
                                         <div class="form-horizontal">
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Current Password
+                                                    {{ lang('current_password') }}
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -193,7 +189,7 @@
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    New Password
+                                                    {{ lang('new_password') }} 
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -205,7 +201,7 @@
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">
-                                                    Re-Enter  Password
+                                                    {{ lang('re_enter_password') }}  
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <span class="input-icon input-icon-right">
@@ -221,7 +217,7 @@
                                                 </label>
                                                 <div class="col-sm-6">
                                                     <button onclick="changetransationuser()" type="button"class="btn btn-primary" value="1" name="submit_password">
-                                                        Change Transation Password
+                                                        {{ lang('change_transation_password') }} 
                                                     </button>
                                                 </div>
                                             </div>
