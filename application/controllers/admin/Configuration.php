@@ -17,12 +17,12 @@ class Configuration extends Base_Controller {
                 if ($res) {
                     $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'new_registration_field_added', $post);
                     $this->session->unset_userdata('post_data');
-                    $this->loadPage('New Field Created Successfully', 'configuration/set_register_fields', True);
+                    $this->loadPage(lang('new_field_added'), 'configuration/set_register_fields');
                 } else {
-                    $this->loadPage('New Field Creation Failed', 'configuration/set_register_fields', FALSE);
+                    $this->loadPage(lang('new_field_creation_failed'), 'configuration/set_register_fields', 'danger');
                 }
             } else {
-                $this->loadPage('New Field Creation Failed', 'configuration/set_register_fields', FALSE);
+                $this->loadPage(lang('new_field_creation_failed'), 'configuration/set_register_fields', FALSE);
             }
         }
         
@@ -39,9 +39,9 @@ class Configuration extends Base_Controller {
                     if ($res) {
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_activated', $actived_field);
 
-                        $this->loadPage('', 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_activated'), 'configuration/set_register_fields');
                     } else {
-                        $this->loadPage('', 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_activation_failed'), 'configuration/set_register_fields', 'danger');
                     }
                 } elseif ($action == 'inactivate') {
                     $this->configuration_model->changeFieldStatus($field_id, 'inactive');
@@ -50,9 +50,9 @@ class Configuration extends Base_Controller {
                         $inactivated_data['id'] = $field_id;
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_inactivated', $inactivated_data);
 
-                        $this->loadPage('', 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_inactivated'), 'configuration/set_register_fields');
                     } else {
-                        $this->loadPage('', 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_inactivation_failed'), 'configuration/set_register_fields', 'danger');
                     }
                 } elseif ($action == 'delete') {
 
@@ -61,18 +61,18 @@ class Configuration extends Base_Controller {
                         $deletedted_data['id'] = $field_id;
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_deleted', $deletedted_data);
 
-                        $this->loadPage('', 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_deleted'), 'configuration/set_register_fields', True);
                     } else {
-                        $this->loadPage('', 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_deletion_failed'), 'configuration/set_register_fields', FALSE);
                     }
                 } elseif ($action == 'edit') {
                     $edit_status = TRUE;
                     $post_data = $this->configuration_model->getRegFieldDetails($field_id);
                 } else {
-                    $this->loadPage('Invalid Action', 'configuration/set_register_fields', FALSE);
+                    $this->loadPage(lang('invalid_action'), 'configuration/set_register_fields', 'danger');
                 }
             } else {
-                $this->loadPage('This Field Can not be Edited', 'configuration/set_register_fields', FALSE);
+                $this->loadPage(lang('this_cant_edit'), 'configuration/set_register_fields', 'danger');
             }
         }
 
@@ -91,21 +91,21 @@ class Configuration extends Base_Controller {
 
                         $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'registration_field_updated', $post);
 
-                        $this->loadPage('Registration Field Updated Successfully', 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_updated_successfully'), 'configuration/set_register_fields', True);
                     } else {
-                        $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', FALSE);
                     }
                 } else {
-                    $this->loadPage('Failed To Update', 'configuration/set_register_fields', FALSE);
+                    $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', FALSE);
                 }
             } else {
-                $this->loadPage('This Field Can not be Edited', 'configuration/set_register_fields', FALSE);
+                $this->loadPage(lang('this_cant_edit'), 'configuration/set_register_fields', FALSE);
             }
         }
 
 
         if ($this->input->post('update_cancel')) {//cancel updates
-            $this->loadPage('Updation Canceled', 'configuration/set_register_fields', TRUE);
+            $this->loadPage('Updation Canceled', 'configuration/set_register_fields');
         }
         $fields = $this->configuration_model->getAllRegFields();
 
@@ -119,26 +119,26 @@ class Configuration extends Base_Controller {
 
     function validate_field_addition() {
         $this->session->set_userdata('post_data', $this->input->post());
-        $this->form_validation->set_rules('field_name', 'field_name', 'required|callback_validate_field|trim');
-        $this->form_validation->set_rules('required_status', 'required_status', 'required');
-        $this->form_validation->set_rules('register_step', 'register_step', 'required');
-        $this->form_validation->set_rules('order', 'order', 'required|numeric|greater_than[0]');
-        $this->form_validation->set_rules('unique_status', 'unique_status', 'required');
-        $this->form_validation->set_rules('data_types', 'data_types', 'required');
+        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field|trim');
+        $this->form_validation->set_rules('required_status', lang('required_status'), 'required');
+        $this->form_validation->set_rules('register_step', lang('register_step'), 'required');
+        $this->form_validation->set_rules('order', lang('order'), 'required|numeric|greater_than[0]');
+        $this->form_validation->set_rules('unique_status', lang('unique_status'), 'required');
+        $this->form_validation->set_rules('data_types', lang('data_types'), 'required');
         if ($this->input->post('data_types') != 'double' && $this->input->post('data_types') != 'text') {
-            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'required|numeric|greater_than[0]');
+            $this->form_validation->set_rules('data_type_max_size', lang('data_type_max_size'), 'required|numeric|greater_than[0]');
         }
 
-        $this->form_validation->set_rules('field_type', 'field_type', 'required');
+        $this->form_validation->set_rules('field_type', lang('field_type'), 'required');
         if ($this->input->post('field_type') == 'radio') {
-            $this->form_validation->set_rules('radio_value1', 'radio_value1', 'required');
-            $this->form_validation->set_rules('radio_value2', 'radio_value2', 'required');
+            $this->form_validation->set_rules('radio_value1', lang('radio_value1'), 'required');
+            $this->form_validation->set_rules('radio_value2', lang('radio_value2'), 'required');
         }
         if ($this->input->post('field_type') == 'select_box') {
-            $this->form_validation->set_rules('select_option1', 'select_option1', 'required');
-            $this->form_validation->set_rules('select_option2', 'select_option2', 'required');
-            $this->form_validation->set_rules('select_option3', 'select_option3', 'required');
-            $this->form_validation->set_rules('select_option4', 'select_option4', 'required');
+            $this->form_validation->set_rules('select_option1', lang('select_option1'), 'required');
+            $this->form_validation->set_rules('select_option2', lang('select_option2'), 'required');
+            $this->form_validation->set_rules('select_option3', lang('select_option3'), 'required');
+            $this->form_validation->set_rules('select_option4', lang('select_option4'), 'required');
         }
         $this->form_validation->set_error_delimiters('<li>', '</li>');
         $validation = $this->form_validation->run();
@@ -146,26 +146,26 @@ class Configuration extends Base_Controller {
     }
 
     function validate_field_updation() {
-        $this->form_validation->set_rules('field_name', 'field_name', 'required|callback_validate_field_update|trim');
-        $this->form_validation->set_rules('required_status', 'required_status', 'required');
-        $this->form_validation->set_rules('register_step', 'register_step', 'required');
-        $this->form_validation->set_rules('order', 'order', 'required|is_natural|numeric|greater_than[0]');
-        $this->form_validation->set_rules('unique_status', 'unique_status', 'required');
-        $this->form_validation->set_rules('data_types', 'data_types', 'required');
+        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field_update|trim');
+        $this->form_validation->set_rules('required_status', lang('required_status'), 'required');
+        $this->form_validation->set_rules('register_step', lang('register_step'), 'required');
+        $this->form_validation->set_rules('order', lang('order'), 'required|is_natural|numeric|greater_than[0]');
+        $this->form_validation->set_rules('unique_status', lang('unique_status'), 'required');
+        $this->form_validation->set_rules('data_types', lang('data_types'), 'required');
         if ($this->input->post('data_types') != 'double' && $this->input->post('data_types') != 'text') {
-            $this->form_validation->set_rules('data_type_max_size', 'data_type_max_size', 'required|is_natural|numeric|greater_than[0]');
+            $this->form_validation->set_rules('data_type_max_size', lang('data_type_max_size'), 'required|is_natural|numeric|greater_than[0]');
         }
 
-        $this->form_validation->set_rules('field_type', 'field_type', 'required');
+        $this->form_validation->set_rules('field_type', lang('field_type'), 'required');
         if ($this->input->post('field_type') == 'radio') {
-            $this->form_validation->set_rules('radio_value1', 'radio_value1', 'required');
-            $this->form_validation->set_rules('radio_value2', 'radio_value2', 'required');
+            $this->form_validation->set_rules('radio_value1', lang('radio_value1'), 'required');
+            $this->form_validation->set_rules('radio_value2', lang('radio_value2'), 'required');
         }
         if ($this->input->post('field_type') == 'select_box') {
-            $this->form_validation->set_rules('select_option1', 'select_option1', 'required');
-            $this->form_validation->set_rules('select_option2', 'select_option2', 'required');
-            $this->form_validation->set_rules('select_option3', 'select_option3', 'required');
-            $this->form_validation->set_rules('select_option4', 'select_option4', 'required');
+            $this->form_validation->set_rules('select_option1', lang('select_option1'), 'required');
+            $this->form_validation->set_rules('select_option2', lang('select_option2'), 'required');
+            $this->form_validation->set_rules('select_option3', lang('select_option3'), 'required');
+            $this->form_validation->set_rules('select_option4', lang('select_option4'), 'required');
         }
         $this->form_validation->set_error_delimiters('<li>', '</li>');
         $validation = $this->form_validation->run();
@@ -327,41 +327,41 @@ class Configuration extends Base_Controller {
         exit;
     }
 
-    function validate_bonus_settings($mlm_plan) {
-        $this->form_validation->set_rules('referal_bonus', 'referal_bonus', 'required|is_natural');
-        if ($mlm_plan == "BINARY") {
-            $this->form_validation->set_rules('pair_bonus', 'pair_bonus', 'required|is_natural');
-        }
-        $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $validation = $this->form_validation->run();
-        return $validation;
-    }
+//    function validate_bonus_settings($mlm_plan) {
+//        $this->form_validation->set_rules('referal_bonus', lang('referal_bonus'), 'required|is_natural');
+//        if ($mlm_plan == "BINARY") {
+//            $this->form_validation->set_rules('pair_bonus', lang('pair_bonus'), 'required|is_natural');
+//        }
+//        $this->form_validation->set_error_delimiters('<li>', '</li>');
+//        $validation = $this->form_validation->run();
+//        return $validation;
+//    }
 
-    function validate_username_settings() {
-        $this->form_validation->set_rules('username_type', 'username_type', 'required');
-        $this->form_validation->set_rules('username_prefix', 'username_prefix', 'max_length[4]');
-        $this->form_validation->set_rules('username_size', 'username_size', 'required|is_natural|numeric|greater_than[4]|less_than[16]');
+//    function validate_username_settings() {
+//        $this->form_validation->set_rules('username_type', lang('username_type'), 'required');
+//        $this->form_validation->set_rules('username_prefix', lang('username_prefix'), 'max_length[4]');
+//        $this->form_validation->set_rules('username_size', lang('username_size'), 'required|is_natural|numeric|greater_than[4]|less_than[16]');
+//
+//        $this->form_validation->set_error_delimiters('<li>', '</li>');
+//        $validation = $this->form_validation->run();
+//        return $validation;
+//    }
 
-        $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $validation = $this->form_validation->run();
-        return $validation;
-    }
+//    function validate_matrix_settings() {
+//        $this->form_validation->set_rules('matrix_width', 'matrix_width', 'required|is_natural|numeric|greater_than[0]');
+//        $this->form_validation->set_rules('matrix_depth', 'matrix_depth', 'required|is_natural|numeric|greater_than[0]');
+//
+//        $this->form_validation->set_error_delimiters('<li>', '</li>');
+//        $validation = $this->form_validation->run();
+//        return $validation;
+//    }
 
-    function validate_matrix_settings() {
-        $this->form_validation->set_rules('matrix_width', 'matrix_width', 'required|is_natural|numeric|greater_than[0]');
-        $this->form_validation->set_rules('matrix_depth', 'matrix_depth', 'required|is_natural|numeric|greater_than[0]');
-
-        $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $validation = $this->form_validation->run();
-        return $validation;
-    }
-
-    function validate_leg_settings() {
-        $this->form_validation->set_rules('register_leg', 'register_leg', 'required');
-        $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $validation = $this->form_validation->run();
-        return $validation;
-    }
+//    function validate_leg_settings() {
+//        $this->form_validation->set_rules('register_leg', 'register_leg', 'required');
+//        $this->form_validation->set_error_delimiters('<li>', '</li>');
+//        $validation = $this->form_validation->run();
+//        return $validation;
+//    }
 
     function change_payment_status() {
         $this->session->set_userdata('plan_active_tab', 'tab1');

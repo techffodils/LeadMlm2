@@ -333,8 +333,7 @@ function checkSession() {
 function loadPage($msg, $page, $message_type = false) {
 
 	$flash_message= array('message' => $msg, 'type' => $message_type);
-
-	$this->main->set_flashdata('flash_msg_arr', $flash_message);
+	$this->session->set_userdata('flash_msg_arr', $flash_message);
 
 	$path = '';
 
@@ -372,12 +371,12 @@ function loadPage($msg, $page, $message_type = false) {
 
 
 function setFlashMessage() { 
-	
-	$flash_msg_arr = $this->main->get_flashdata('flash_msg_arr');
 
+	$flash_msg_arr = $this->session->userdata('flash_msg_arr');
 	if ($flash_msg_arr) {
 		$this->setData("FLASH_MESSAGE_DETAILS", $flash_msg_arr['message']);
 		$this->setData("FLASH_MESSAGE_TYPE", $flash_msg_arr['type']);
+		$this->session->unset_userdata('flash_msg_arr');
 	} else {
 		$this->setData("FLASH_MESSAGE_DETAILS", FALSE);
 		$this->setData("FLASH_MESSAGE_TYPE", FALSE);
@@ -414,10 +413,5 @@ function getBreadCrumbs() {
 	$this->setData('BREADCRUMBS', $data);
 	return 1;
 }
-
-function setHeaderData($data){//check
-	$this->setData('HEADER_DATA', $data);
-}
-
 
 }

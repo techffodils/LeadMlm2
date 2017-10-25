@@ -20,17 +20,17 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Reset Your System <span class="text-bold"></span></h4>
+                <h4 class="panel-title">{{lang('reset_ur_system')}} <span class="text-bold"></span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
                             <i class="fa fa-cog"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-light pull-right" role="menu">
-                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a></li>
-                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>Refresh</span></a></li>
-                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>Configurations</span></a></li>
-                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>Fullscreen</span></a></li>
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
                         </ul>
                     </div>
                     <a class="btn btn-xs btn-link panel-close" href="#">
@@ -44,15 +44,14 @@
                     <button data-dismiss="alert" class="close" type="button">
                         ×
                     </button>
-                    <h4 class="alert-heading"><i class="fa fa-exclamation"></i> Warning!</h4>
+                    <h4 class="alert-heading"><i class="fa fa-exclamation"></i>{{lang('warning')}}</h4>
                     <p>
-                        Click The Clean button For Wipe Out Your Entire System, 
-                        There is no Undo. This Option Only Available Before the System is Live :) .
+                        {{lang('cleanup_msg')}}
                     </p>
                     <p>
 
                         <button type="" class="btn btn-yellow" name="wipe_data" id="wipe_data">
-                            Clean <i class="fa fa-arrow-circle-right"></i>
+                            {{lang('clean')}} <i class="fa fa-arrow-circle-right"></i>
                         </button>
 
                     </p>
@@ -62,6 +61,7 @@
     </div>                                    
 </div>
 {% include('admin/layout/footer.twig')%}
+
 <link href="assets/plugins/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 <script src="assets/plugins/sweetalert/lib/sweet-alert.min.js"></script>
 <script>

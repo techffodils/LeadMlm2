@@ -24,7 +24,7 @@ class Backup extends Base_Controller {
         $backups = $this->backup_model->getLastBackups();
 
         $tab1 = 'active';
-        $tab2 = $tab3 = '';
+        $tab2 = $tab3 = '';	
         $this->setData('tab1', $tab1);
         $this->setData('tab2', $tab2);
         $this->setData('tab3', $tab3);
@@ -51,7 +51,7 @@ class Backup extends Base_Controller {
             $data['date'] = date("Y-m-d H:i:s");
             $data['file'] = $res;
             $path = "admin/backup/download_db/" . $res;
-            $data['download'] = '<a href="' . $path . '"><i class="fa fa-download fa-fw"></i>Download</a>';
+            $data['download'] = '<a href="' . $path . '"><i class="fa fa-download fa-fw"></i>"' . lang('download') . '"</a>';
 
             echo json_encode($data);
         } else {
