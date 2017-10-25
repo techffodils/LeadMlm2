@@ -122,7 +122,7 @@ class Configuration extends Base_Controller {
 
     function validate_field_addition() {
         $this->session->set_userdata('post_data', $this->input->post());
-        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field|trim');
+        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field|trim|alpha');
         $this->form_validation->set_rules('required_status', lang('required_status'), 'required');
         $this->form_validation->set_rules('register_step', lang('register_step'), 'required');
         $this->form_validation->set_rules('order', lang('order'), 'required|numeric|greater_than[0]');
@@ -149,7 +149,7 @@ class Configuration extends Base_Controller {
     }
 
     function validate_field_updation() {
-        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field_update|trim');
+        $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field_update|trim|alpha');
         $this->form_validation->set_rules('required_status', lang('required_status'), 'required');
         $this->form_validation->set_rules('register_step', lang('register_step'), 'required');
         $this->form_validation->set_rules('order', lang('order'), 'required|is_natural|numeric|greater_than[0]');

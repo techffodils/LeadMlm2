@@ -136,7 +136,9 @@ function delete_field(id)
     e.preventDefault();
 }
 
-
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z]+$/i.test(value);
+}, "Letters only please"); 
 
 var validate_add_field = function () {
         var form = $('#add_field_form');
@@ -158,7 +160,8 @@ var validate_add_field = function () {
             rules: {
                 field_name: {
                     required: true,
-                    minlength: 3
+                    minlength: 3,
+                    lettersonly: true
                 },
                 required_status: {
                     required: true
@@ -182,8 +185,7 @@ var validate_add_field = function () {
                     required: true
                 },
             },
-            messages: {
-                field_name: "Please enter Field Name"
+            messages: {                
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
                 successHandler2.hide();
