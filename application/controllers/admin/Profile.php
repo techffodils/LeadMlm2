@@ -129,8 +129,12 @@ class Profile extends Base_Controller {
             }
             $this->loadPage(lang('cover_cropped_failed'), 'profile/index', 'danger');
         }
+        $country_id=$user_details['country'];
+        $countries = $this->profile_model->getAllCountries();
+        $states = $this->profile_model->getAllStates($country_id);
 
-
+        $this->setData('countries', $countries);
+        $this->setData('states', $states);
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);
         $this->setData('user_cov', $user_files['co']);

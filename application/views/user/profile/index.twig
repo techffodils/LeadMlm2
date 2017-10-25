@@ -490,28 +490,32 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label">
-                                        {{lang('country')}} <span class="symbol required"></span>
-                                    </label>
-                                    <select name="country" id="country" class="form-control" >
-                                        <option value="">{{lang('select_a_country')}}</option>
-                                        <option value="1" {% if user_details.country=="1" %} selected {% endif %}>Country 1</option>
-                                        <option value="1" {% if user_details.country=="2" %} selected {% endif %}>Country 2</option>                                            
-                                    </select>
-                                    {% if profile_error.country is defined %}<code> {{ profile_error.country}} </code> {% endif %} 
-                                </div>
+                                <label class="control-label">
+                                    {{lang('country')}} <span class="symbol required"></span>
+                                </label>
+                                <select name="country" id="country" class="form-control" >
+                                    <option value="">{{lang('select_a_country')}}</option>
+                                    {% for cntrs in countries %}
+                                        <option value="{{cntrs.id}}" {% if user_details.country==cntrs.id %} selected {% endif %}>{{cntrs.name}}</option>
+                                    {% endfor %}
+                                    
+                                                                     
+                                </select>
+                                {% if profile_error.country is defined %}<code> {{ profile_error.country}} </code> {% endif %} 
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        {{lang('state')}} <span class="symbol required"></span>
-                                    </label>
-                                    <select name="state" id="state" class="form-control" >
-                                        <option value="">{{lang('select_a_state')}}</option>
-                                        <option value="1" {% if user_details.state=="1" %} selected {% endif %}>State 1</option>
-                                        <option value="1" {% if user_details.state=="2" %} selected {% endif %}>State 2</option>                                            
-                                    </select>
-                                    {% if profile_error.state is defined %}<code> {{ profile_error.state}} </code> {% endif %} 
-                                </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    {{lang('state')}} <span class="symbol required"></span>
+                                </label>
+                                <select name="state" id="state" class="form-control" >
+                                    <option value="">{{lang('select_a_state')}}</option>
+                                    {% for sts in states %}
+                                        <option value="{{sts.id}}" {% if user_details.state==sts.id %} selected {% endif %}>{{sts.name}}</option>
+                                    {% endfor %}                       
+                                </select>
+                                {% if profile_error.state is defined %}<code> {{ profile_error.state}} </code> {% endif %} 
+                            </div>
 
                                 <div class="form-group">
                                     <label class="control-label">
