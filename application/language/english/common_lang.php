@@ -45,6 +45,7 @@ $lang['menu_name_41'] = 'Backup';
 $lang['menu_name_42'] = 'Site Info';
 $lang['menu_name_43'] = 'Mail Content';
 $lang['menu_name_50'] = 'Enroll Employee';
+$lang['menu_name_51'] = 'Employee Menu Permission';
 //Menu Ends
 
 $lang['collapse'] = 'Collapse';
