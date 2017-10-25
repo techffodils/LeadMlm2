@@ -43,24 +43,78 @@ class Site_management_model extends CI_Model {
         return $result;
     }
 
-    
     /**
      * For Lanaguage Content settings
      * @author Techffodils
      * @date 2017-10-18
      * 
      */
-    
-    function getAllLangauage(){
-        $result=$this->db->select("id ,lang_code")
+    function getAllLangauage() {
+        $result = $this->db->select("languages.id ,lang_code,lang_name,subject,content")
+                ->join('mail_content ', 'mail_content.lang_id=languages.id', 'left')
                 ->from('languages')
-                ->where('status',1)
+                ->where('languages.status', 1)
                 ->get();
-       
-        foreach($result->result_array() as $row){
-            $data['lang_id']=$row['id'];
-            $data['lang_code']=$row['lang_code'];
+        $i = 0;
+        $data = array();
+        foreach ($result->result_array() as $row) {
+            $data[$i]['lang_id'] = $row['id'];
+            $data[$i]['lang_code'] = $row['lang_code'];
+            $data[$i]['lang_name'] = $row['lang_name'];
+            $data[$i]['subject'] = $row['subject'];
+            $data[$i]['content'] = $row['content'];
+            $i++;
         }
         return $data;
     }
+
+    function insertMailContent($content, $subject, $lang_id) {
+        if ($this->checkContentBasedOnIdAlreadyExits($lang_id)) {
+            //echo 111;die;
+            $result = $this->db->set('content', $content)->set('subject', $subject)->set('lang_id', $lang_id)->set('content_type', 'registration')->set('status', 1)->insert('mail_content');
+            return $result;
+        } else {
+
+            $data = array('content' => $content, 'subject' => $subject);
+            $result = $this->db->where('lang_id', $lang_id)->update('mail_content', $data);
+            return $result;
+        }
+    }
+
+    function checkContentBasedOnIdAlreadyExits($lang_id) {
+
+        $exists = $this->db->select("count(*)")->from('mail_content')->where('lang_id', $lang_id)->count_all_results();
+        //echo $exists;die;
+        if ($exists > 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    function getAllMailContentDetails() {
+
+        $result = $this->db->select('subject,content,lang_id')->from('mail_content')->where('status', 1)->get();
+
+        $i = 0;
+        $data = array();
+        foreach ($result->result() as $row) {
+            $index = $this->getLangcode($row->lang_id);
+            $data[$index]['subject'] = $row->subject;
+            $data[$index]['content'] = $row->content;
+            $data[$index]['lang_id'] = $row->lang_id;
+
+            $i++;
+        }
+        return $data;
+    }
+
+    function getLangcode($id) {
+        $result = $this->db->select("lang_code")->from('languages')->where('id', $id)->get();
+        foreach ($result->result() as $row) {
+            $lang_code = $row->lang_code;
+        }
+        return $lang_code;
+    }
+
 }
