@@ -195,7 +195,7 @@ $lang['select_a_state'] = 'Select a state';
 $lang['state'] = 'State';
 $lang['Country'] = 'Country';
 $lang['select_a_country'] = 'Select a country';
-$lang['address'] = 'Address';
+$lang['address'] =$lang['address_1'] = 'Address';
 $lang['Male'] =$lang['m'] =  'Male';
 $lang['Female'] =$lang['f'] = 'Female';
 $lang['last_name'] = 'Last Name';
