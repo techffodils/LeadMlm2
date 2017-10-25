@@ -33,6 +33,7 @@ class Login extends Base_Controller {
 					$msg = 'Captcha Failed';
 				}
 			}else{
+				$status = false;
 				$msg = 'Captcha Required';
 			}
 		}

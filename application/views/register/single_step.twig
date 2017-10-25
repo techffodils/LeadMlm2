@@ -21,7 +21,7 @@
                 <div class="panel-body">
                     <hr>
 
-                    {%include('admin/layout/notification.twig')%}
+                    
 
                     <div class="box-register" id="rcorners3" style="width: 50%;margin:0 auto;">
                     {% else %}
@@ -37,8 +37,7 @@
                                     <p>
                                         {{ lang('single_step_registration') }}
                                     </p>
-
-                                    {%include('admin/layout/notification.twig')%}
+                                    
                                 {% endif %}
 
                                 {{ form_open('', ' id="single_step_form" name="single_step_form"')|raw }}

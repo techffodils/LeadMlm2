@@ -22,7 +22,7 @@ class Configuration extends Base_Controller {
                     $this->loadPage(lang('new_field_creation_failed'), 'configuration/set_register_fields', 'danger');
                 }
             } else {
-                $this->loadPage(lang('new_field_creation_failed'), 'configuration/set_register_fields', FALSE);
+                $this->loadPage(lang('new_field_creation_failed'), 'configuration/set_register_fields', 'danger');
             }
         }
         
@@ -61,9 +61,9 @@ class Configuration extends Base_Controller {
                         $deletedted_data['id'] = $field_id;
                         $this->helper_model->insertActivity($this->LOG_USER_ID, 'registration_field_deleted', $deletedted_data);
 
-                        $this->loadPage(lang('field_deleted'), 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_deleted'), 'configuration/set_register_fields');
                     } else {
-                        $this->loadPage(lang('field_deletion_failed'), 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_deletion_failed'), 'configuration/set_register_fields', 'danger');
                     }
                 } elseif ($action == 'edit') {
                     $edit_status = TRUE;
@@ -91,21 +91,21 @@ class Configuration extends Base_Controller {
 
                         $this->helper_model->insertActivity($this->LOG_USER_ID, 'registration_field_updated', $post);
 
-                        $this->loadPage(lang('field_updated_successfully'), 'configuration/set_register_fields', True);
+                        $this->loadPage(lang('field_updated_successfully'), 'configuration/set_register_fields');
                     } else {
-                        $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', FALSE);
+                        $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', 'danger');
                     }
                 } else {
-                    $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', FALSE);
+                    $this->loadPage(lang('field_updation_failed'), 'configuration/set_register_fields', 'danger');
                 }
             } else {
-                $this->loadPage(lang('this_cant_edit'), 'configuration/set_register_fields', FALSE);
+                $this->loadPage(lang('this_cant_edit'), 'configuration/set_register_fields', 'danger');
             }
         }
 
 
         if ($this->input->post('update_cancel')) {//cancel updates
-            $this->loadPage('Updation Canceled', 'configuration/set_register_fields');
+            $this->loadPage(lang('updation_canceled'), 'configuration/set_register_fields');
         }
         $fields = $this->configuration_model->getAllRegFields();
 
