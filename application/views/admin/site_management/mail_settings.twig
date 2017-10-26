@@ -1,0 +1,115 @@
+{# empty Twig template #}
+
+{% include('admin/layout/header.twig') %}
+<div class="row">
+    <div class="col-sm-12">
+        <!-- start: INLINE TABS PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title text-bold">{{page_title}} <span class="text-bold"></span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                {{form_open('',"method='post' name='email_settings' id='email_settings' ")|raw}}
+                <div class="form-horizontal">
+                    <div class="errorHandler alert alert-danger no-display">
+                        <i class="fa fa-remove-sign"></i> {{ lang('form_error_msg') }}
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                            {{lang('mail_engine')}}<span class="symbol required"></span>
+                        </label>
+                        <div class="col-sm-4 ">
+
+                            <select class="form-control" type="text" name="mail_engine" id="mail_engine">
+                                <option value="mail">{{lang('mail')}}</option>
+                                <option value="smtp">{{lang('smtp')}}</option>
+                            </select>
+
+                        </div>
+                        {% if(form_error.mail_engine) %}<code>{{form_error.mail_engine}}</code>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                            {{lang('smtp_hostname')}}<span class="symbol required"></span>
+                        </label>
+                        <div class="col-sm-4 ">
+
+                            <input class="form-control" type="text" name="host_name" id="host_name" placeholder="{{lang('host_name')}}" >
+                            {% if(error.host_name) %}<code>{{error.host_name}}</code>{% endif %}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                            {{lang('smtp_username')}}<span class="symbol required"></span>
+                        </label>
+                        <div class="col-sm-4">
+
+                            <input class="form-control" type="text" name="smtp_username" id="smtp_username" placeholder="{{lang('host_username')}}"/>
+                            {% if(error.smtp_username) %}<code>{{error.smtp_username}}</code>{% endif %}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                            {{lang('smtp_password')}}<span class="symbol required"></span>
+                        </label>
+                        <div class="col-sm-4">
+
+                            <input class="form-control" type="text" name="smtp_password" id="smtp_password" placeholder="{{lang('smtp_password')}}">
+                            {% if(error.smtp_password) %}<code>{{error.smtp_password}}</code>{% endif %}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+
+                            {{lang('smtp_port')}}<span class="symbol required"></span>
+                        </label>
+                        <div class="col-sm-4">
+
+                            <input class="form-control" type="text" name="smtp_port" id="smtp_port"  value="25">
+                            {% if(error.smtp_port) %}<code>{{error.smtp_port}}</code>{% endif %}
+                        </div>
+
+                    </div>
+
+                    <div class="form-action">
+                        <div class="col-sm-4 col-sm-offset-5">
+                            <input type="submit" name="submit" id="submit" value="{{lang('submit')}}" class="btn btn-primary"> 
+                        </div>
+                    </div>
+
+                </div>
+
+                {{form_close()|raw}}
+            </div>
+        </div>
+    </div>
+</div>
+                <script src="assets/js/mail_settings.js"></script>
+{% include('admin/layout/footer.twig') %}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        MailValidation.init();
+    });
+</script>
+
