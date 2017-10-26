@@ -264,7 +264,7 @@ function loadLanguage() {
 
     if (!in_array($this->CURRENT_CLASS , NO_LANGUAGE_PAGES))
     {
-        if ($this->LOG_STATUS) {
+        if (!in_array($this->CURRENT_CLASS , COMMON_PAGES)){
             $this->lang->load($this->LOG_USER_TYPE.'/'.$this->CURRENT_CLASS);
         }else{
             $this->lang->load($this->CURRENT_CLASS);
