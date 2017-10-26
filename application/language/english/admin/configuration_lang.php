@@ -97,3 +97,6 @@ $lang['inactivate'] = 'Inactivate';
 $lang['no_access'] = 'No access';
 $lang['activate'] = 'Activate';
 $lang['updation_canceled'] = 'Updation Canceled';
+
+$lang['for_db'] = 'For Database use';
+$lang['in_english'] = 'In English';

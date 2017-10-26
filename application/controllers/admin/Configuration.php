@@ -15,6 +15,7 @@ class Configuration extends Base_Controller {
             if ($res) {
                 $res = $this->configuration_model->addNewRegistrationField($post);
                 if ($res) {
+                    $this->configuration_model->addNewLanguageField($this->LOG_USER_ID,$post['field_name'],$post['field_name_en']);
                     $this->helper_model->insertActivity($this->LOG_USER_ID, 'new_registration_field_added', $post);
                     $this->session->unset_userdata('post_data');
                     $this->loadPage(lang('new_field_added'), 'configuration/set_register_fields');
@@ -122,6 +123,7 @@ class Configuration extends Base_Controller {
 
     function validate_field_addition() {
         $this->session->set_userdata('post_data', $this->input->post());
+        $this->form_validation->set_rules('field_name_en', lang('field_name'), 'required');
         $this->form_validation->set_rules('field_name', lang('field_name'), 'required|callback_validate_field|trim|alpha');
         $this->form_validation->set_rules('required_status', lang('required_status'), 'required');
         $this->form_validation->set_rules('register_step', lang('register_step'), 'required');
