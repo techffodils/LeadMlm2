@@ -90,6 +90,7 @@ class Register_model extends CI_Model {
     public function insertUserDetails($user_id, $user_details) {
         return $this->db->set('mlm_user_id ', $user_id)
                         ->set('first_name', $user_details['first_name'])
+                        ->set('last_name', $user_details['last_name'])
                         ->set('country_id', $user_details['country'])
                         ->set('state_id', $user_details['state'])
                         ->set('date_of_joining', $user_details['date_of_joining'])
@@ -130,7 +131,7 @@ class Register_model extends CI_Model {
                 ->set('register_type', $register_type)
                 ->set('user_details ', serialize($user_details))
                 ->set('date', $user_details['date_of_joining'])
-                ->set('payment_type', $user_details['payment_type'])
+                ->set('payment_type', $user_details['payment_method'])
                 ->insert('register_history');
     }
 
@@ -293,5 +294,36 @@ class Register_model extends CI_Model {
         }
         return $data;
     }
+    
+    function getAvailablePaymentMethods() {
+        $data = array();
+        $query = $this->db->select("code,payment_method")
+                ->from("payment_methods")
+                ->where("status", 'active')
+                ->get();
+        $i = 0;
+        foreach ($query->result_array() as $row) {
+            $data[$i]['code'] = $row['code'];
+            $data[$i]['payment_method'] = $row['payment_method'];
+            $i++;
+        }
+        return $data;
+    }
+    
+    function getPaymentMethodStatus($code) {
+        $flag=FALSE;
+        $query = $this->db->select("status")
+                ->from("payment_methods")
+                ->where("code", $code)
+                ->limit(1)
+                ->get();
+        foreach ($query->result_array() as $row) {
+            if($row['status']=="active"){
+                $flag=TRUE;
+            }
+        }
+        return $flag;
+    }
+    
 
 }

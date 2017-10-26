@@ -45,7 +45,7 @@
                                     <i class="fa fa-remove-sign"></i>{{ lang('form_error_msg') }}
                                 </div>
                                 <fieldset>
-                                    <div class="form-group">
+                                    <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_sponser_name_for_joining')}}">
                                         <span class="input-icon">
                                             <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
                                             <i class="fa fa-user-plus"></i> 
@@ -55,7 +55,7 @@
                                     </div>
 
                                     {% if leg_status %}
-                                        <div class="form-group">
+                                        <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_leg_for_registration')}}">
                                             <span class="input-icon">
                                                 <select class="form-control" id="register_leg" name="register_leg">
                                                     <option value="">{{ lang('select_a_register_leg')}}</option>
@@ -71,14 +71,14 @@
                                     {% endif %}
 
                                     {% if username_type=="static" %}
-                                    <div class="form-group">
-                                        <span class="input-icon">
-                                            <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
-                                            <i class="fa fa-user"></i> 
-                                        </span>
+                                        <div class="form-group">
+                                            <span class="input-icon">
+                                                <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
+                                                <i class="fa fa-user"></i> 
+                                            </span>
 
-                                        {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
-                                    </div>
+                                            {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
+                                        </div>
                                     {% endif %}
 
                                     <div class="form-group">
@@ -117,6 +117,15 @@
                                         {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
                                     </div>
 
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ register_data.last_name }}" placeholder="{{ lang('last_name') }}">
+                                            <i class="fa fa-text-width"></i> 
+                                        </span>
+
+                                        {% if register_error.last_name is defined %}<code> {{ register_error.last_name}}</code> {% endif %} 
+                                    </div>
+
 
 
                                     <div class="form-group">
@@ -131,10 +140,10 @@
 
                                         {% if register_error.country is defined %}<code> {{ register_error.country}} </code> {% endif %} 
                                     </div>
-                                    
-                                    
+
+
                                     <div class="form-group">
-                                        <span class="input-icon">
+                                        <span class="input-icon" id="state_span">
                                             <select class="form-control" id="state" name="state">
                                                 <option value="">{{ lang('select_a_state')}}</option>
                                                 {% for sts in states %}
@@ -147,18 +156,46 @@
                                     </div>
 
 
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="privacy_policy" class="checkbox-inline">
+                                                <input type="checkbox" class="grey agree" id="privacy_policy" name="privacy_policy">                                                
+                                            </label>
+                                            <a href="#" data-toggle="modal" data-target="#privacy_modal">{{ lang('agree_to_the_privacy_policy') }}</a>
+                                        </div>
+                                        {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
+                                    </div>
 
+                                        <p><b>{{lang('register_fee')}}: {{ entry_fee }}</b></p>
+                                    
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <select class="form-control" id="payment_method" name="payment_method">
+                                                <option value="">{{ lang('select_a_payment_method')}}</option>
+                                                {% for po in payment_options %}
+                                                    <option value="{{po.code}}" {% if register_data.payment_method==po.code %} selected {% endif %}>{{lang(po.code)}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </span>                                                   
 
-
+                                        {% if register_error.payment_method is defined %}<code> {{ register_error.payment_method}} </code> {% endif %} 
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <div>
                                             <label for="agree" class="checkbox-inline">
                                                 <input type="checkbox" class="grey agree" id="agree" name="agree">
-                                                {{ lang('agree_to_the_terms_of_service') }}
                                             </label>
+                                            <a href="#" data-toggle="modal" data-target="#term_modal">{{ lang('agree_to_the_terms_and_condition') }}</a>
                                         </div>
                                         {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
                                     </div>
+
+
+
+
+
+
                                 </fieldset>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">
@@ -178,7 +215,49 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                                    
+                    </div> 
+
+
+
+                    <div id="term_modal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">{{ lang('terms_condition')}}</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    {{terms_and_condition}}
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="privacy_modal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">{{ lang('privacy_policy')}}</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    {{privacy_policy}}
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
                 {% include('admin/layout/footer.twig')%}
             {% else %}                
@@ -192,4 +271,23 @@
     jQuery(document).ready(function () {
         valSingleStep();
     });
+
+
+
+    $('#country').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+
+        $.ajax({url: "register/get_states",
+            data: {country_id: valueSelected},
+            async: false,
+            success: function (msg) {
+                $('#state_span').html(msg);
+            }
+        });
+
+    });
+
+
+
 </script>

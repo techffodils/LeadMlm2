@@ -87,6 +87,10 @@ $.validator.addMethod("validUsername", function () {
                     required: true
                 },country:{
                     required: true
+                },payment_method:{
+                    required: true
+                },privacy_policy:{
+                    required: true
                 }
             },
             messages: {

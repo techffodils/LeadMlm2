@@ -153,6 +153,8 @@ var FormWizard = function () {
                 payment: {
                     required: true,
                     minlength: 1
+                },privacy_policy:{
+                    required: true
                 }
             },
             messages: {

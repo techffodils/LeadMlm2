@@ -40,7 +40,7 @@ $lang['multiple_step_registration'] = 'Multiple Step Registration';
 $lang['personal_info'] = 'Personal Information';
 $lang['sponsor_info'] = 'Sponsor Information';
 $lang['payment_options'] = 'Payment Options';
-$lang['billing_info'] = 'Billing Information';
+$lang['billing_info'] = 'Bank Information';
 
 $lang['step-1'] = 'Step-1';
 $lang['step-2'] = 'Step-2';
@@ -59,4 +59,24 @@ $lang['select_a_country'] = ' Select A Country';
 $lang['country'] = 'Country';
 $lang['select_a'] = 'Select A';
 $lang['register_leg '] = 'Register Leg ';
+
+$lang['enter_a_leg_for_registration '] = 'Enter A Leg For Registration';
+$lang['enter_a_sponser_name_for_joining '] = 'Enter A Sponsor Name For Registration';
+$lang['agree_to_the_terms_and_condition'] = 'Agree to terms & condition';
+$lang['agree_to_the_privacy_policy'] = 'Agree to thePrivacy Policy';
+$lang['terms_condition'] = 'Terms & Condition';
+$lang['privacy_policy'] = 'Privacy Policy';
+$lang['select_a_payment_method'] = 'Select A Payment Method';
+$lang['free_registration'] = 'Free Joining';
+$lang['bank_transfer'] = 'Bank Transfer';
+$lang['ewallet'] = 'E-Wallet';
+$lang['epin'] = 'E-Pin';
+
+$lang['free_register_notification'] = 'Free Register Notification';
+$lang['bank_transfer_notification'] = 'Bank Transfer Notification';
+$lang['payment_failed'] = 'Payment Failed';
+$lang['country'] = 'Country';
+$lang['country'] = 'Country';
+$lang['country'] = 'Country';
+
 

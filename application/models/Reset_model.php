@@ -160,7 +160,8 @@ class Reset_model extends CI_Model {
         $this->dbvars->MAINTENANCE_MODE =0;
 
         $this->GOOGLE_TRANSLATOR =0;
-
+        $this->TERMS_AND_CONDITION="Terms And Condition";
+        $this->PRIVACY_POLICY="Privacy Policy";
 
         return 1;
     }
