@@ -45,9 +45,9 @@ class Translator extends Base_Controller {
                 $field = $d['field_name'];
                 $result = $trans->translate($source, $target, $text);
                 if ($result) { 
-                    $file_path = FCPATH.'application/language/' . $l['language_folder'] . '/translator_lang.php';
+                    $file_path = FCPATH.'application/language/' . $l['language_folder'] . '/common_lang.php';
                     if (file_exists($file_path)) {
-                        $result=str_replace("'",'', $result);
+                        $result=str_replace("'",'`', $result);
                         $text = "$"."lang['".$field."']='".$result."';\n";
                         if (write_file($file_path, $text,'a+')) {                            
                             $this->translator_model->updateConversionStatus($d['id']); 
