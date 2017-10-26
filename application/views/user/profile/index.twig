@@ -66,6 +66,11 @@
                                                 {{ lang('default_covers')}}
                                             </a>
                                         </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#cover_tab4">
+                                                {{ lang('crop')}}
+                                            </a>
+                                        </li>
 
                                     </ul>
                                     <div class="tab-content">
@@ -112,15 +117,14 @@
 
                                             <div class="row">
                                                 {% for uco in user_cov %}
-                                                    <div class="col-sm-3">
-                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
+                                                    <div class="col-sm-4">
+                                                        <img style="height:100px;width:auto;max-width:145px;" src="assets/images/users/{{ uco.file }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setCover({{ uco.id }});">
                                                             {{ lang('set_this_cover')}}
                                                         </button>
                                                         <br>
                                                     </div>
-
 
                                                 {% endfor %}   
 
@@ -131,8 +135,8 @@
                                         <div id="cover_tab3" class="tab-pane fade">
                                             <div class="row">
                                                 {% for df in def_cov %}
-                                                    <div class="col-sm-3">
-                                                        <img style="height:100px;width:auto;max-width:100px;" src="assets/images/users/{{ df }}" class="img-responsive" > 
+                                                    <div class="col-sm-4">
+                                                        <img style="height:100px;width:auto;max-width:145px;" src="assets/images/users/{{ df }}" class="img-responsive" > 
                                                         <br>
                                                         <button type="button" class="btn btn-blue btn-xs" onclick="setDefCover('{{ df }}');">
                                                             {{ lang('set_this_cover')}}
@@ -140,10 +144,52 @@
                                                         <br>
                                                     </div>
 
-
                                                 {% endfor %}   
 
                                             </div>                                    
+                                        </div>
+
+
+                                        <div id="cover_tab4" class="tab-pane fade">
+                                            <div class="row">
+                                                <img src="assets/images/users/{{ user_details.user_cover }}" id="target2"/>
+                                                {{ form_open_multipart('', ' id="cover_crop_form" name="cover_crop_form"')|raw }}
+
+                                                <div class="inline-labels">
+                                                    <label>
+                                                        X1
+                                                        <input type="text" size="4" id="x11" name="x11" />
+                                                    </label>
+                                                    <label>
+                                                        Y1
+                                                        <input type="text" size="4" id="y11" name="y11" />
+                                                    </label>
+                                                    <label>
+                                                        X2
+                                                        <input type="text" size="4" id="x22" name="x22" />
+                                                    </label>
+                                                    <label>
+                                                        Y2
+                                                        <input type="text" size="4" id="y22" name="y22" />
+                                                    </label>
+                                                    <label>
+                                                        W
+                                                        <input type="text" size="4" id="w2" name="w2" />
+                                                    </label>
+                                                    <label>
+                                                        H
+                                                        <input type="text" size="4" id="h2" name="h2" />
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <button type="submit" class="btn btn-primary" value="cover_crop" name="cover_crop">
+                                                        {{lang('crop')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+
+                                                {{ form_close()|raw }}
+                                            </div>                                   
                                         </div>
 
 
@@ -183,6 +229,12 @@
                                                 {{lang('def_photos')}}
                                             </a>
                                         </li> 
+                                        
+                                        <li>
+                                            <a data-toggle="tab" href="#dp_tab4">
+                                                {{ lang('crop')}}
+                                            </a>
+                                        </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div id="dp_tab1" class="tab-pane fade in active">
@@ -254,6 +306,48 @@
                                             </div>                                    
                                         </div>
 
+                                            <div id="dp_tab4" class="tab-pane fade">
+                                            <div class="row">
+                                                <img src="assets/images/users/{{ user_details.user_dp }}" id="target"/>
+                                                {{ form_open_multipart('', ' id="dp_crop_form" name="dp_crop_form"')|raw }}
+
+                                                <div class="inline-labels">
+                                                    <label>
+                                                        X1
+                                                        <input type="text" size="4" id="x1" name="x1" />
+                                                    </label>
+                                                    <label>
+                                                        Y1
+                                                        <input type="text" size="4" id="y1" name="y1" />
+                                                    </label>
+                                                    <label>
+                                                        X2
+                                                        <input type="text" size="4" id="x2" name="x2" />
+                                                    </label>
+                                                    <label>
+                                                        Y2
+                                                        <input type="text" size="4" id="y2" name="y2" />
+                                                    </label>
+                                                    <label>
+                                                        W
+                                                        <input type="text" size="4" id="w" name="w" />
+                                                    </label>
+                                                    <label>
+                                                        H
+                                                        <input type="text" size="4" id="h" name="h" />
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <button type="submit" class="btn btn-primary" value="dp_crop" name="dp_crop">
+                                                        {{lang('crop')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+
+                                                {#</form>#}
+                                                {{ form_close()|raw }}
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -478,12 +572,18 @@
 <script src="assets/js/form-elements.js"></script>
 <script src="assets/js/user_profile_update.js"></script>
 
-<script>
-    $(document).ready(function () {
-        ValidateUserProfile.init();
-        FormElements.init();
+<link rel="stylesheet" href="css/crop_admin_profile.css">
+<script src="assets/js/admin_profile_crop.js"></script>
+<script src="assets/plugins/Jcrop/js/jquery.Jcrop.min.js"></script>
+<script src="assets/plugins/Jcrop/js/jquery.color.js"></script>
 
-    });
+<script>
+        $(document).ready(function () {
+            ImageCropping.init();
+            ValidateUserProfile.init();
+            FormElements.init();
+
+        });
 </script>
 
 

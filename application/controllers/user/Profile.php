@@ -65,6 +65,70 @@ class Profile extends Base_Controller {
         $def_dp=array("dp1.jpg", "dp2.jpg", "dp3.jpg","dp4.jpg", "dp5.jpg");
         $user_files = $this->profile_model->getUserFiles($user_id);
         
+        if ($this->input->post('dp_crop')) {//addClass('jcrop-keymgr')
+            $new_file = 'dp_' . time() . '.jpg';
+            $post = $this->input->post();
+            $width = $post['w'];
+            $height = $post['h'];
+            $x_axis = $post['x1'];
+            $y_axis = $post['y1'];
+            if($width>=0 && $height>=0 && $x_axis>=0 && $y_axis>=0) {
+                $this->load->library('image_lib');
+                $config = array(
+                    'source_image' => "assets/images/users/" . $user_details['user_dp'],
+                    'maintain_ratio' => FALSE,
+                    'width' => $width,
+                    'height' => $height,
+                    'x_axis' => $x_axis,
+                    'y_axis' => $y_axis,
+                    'new_image' => $new_file
+                );
+
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $res = $this->image_lib->crop();
+                if (!$this->image_lib->display_errors()) {
+                    if ($this->profile_model->setDp($user_id, $new_file)) {
+                        $this->profile_model->insertUserPictureHistory($user_id,$new_file,'user_dp');
+                        $this->loadPage(lang('dp_cropped'), 'profile/index');
+                    }
+                }
+            }
+            $this->loadPage(lang('dp_cropped_failed'), 'profile/index', 'danger');
+        }
+        
+        if ($this->input->post('cover_crop')) {//addClass('jcrop-keymgr')
+            $new_file = 'cover_' . time(). '.jpg';
+            $post = $this->input->post();
+            $width = $post['w2'];
+            $height = $post['h2'];
+            $x_axis = $post['x11'];
+            $y_axis = $post['y11'];
+            if($width>=0 && $height>=0 && $x_axis>=0 && $y_axis>=0) {
+                $this->load->library('image_lib');
+                $config = array(
+                    'source_image' => "assets/images/users/" . $user_details['user_cover'],
+                    'maintain_ratio' => FALSE,
+                    'width' => $width,
+                    'height' => $height,
+                    'x_axis' => $x_axis,
+                    'y_axis' => $y_axis,
+                    'new_image' => $new_file
+                );
+
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config);
+                $res = $this->image_lib->crop();
+                if (!$this->image_lib->display_errors()) {
+                    if ($this->profile_model->setCover($user_id, $new_file)) {
+                        $this->profile_model->insertUserPictureHistory($user_id,$new_file,'user_cover');
+                        $this->loadPage(lang('cover_cropped'), 'profile/index');
+                    }
+                }
+            }
+            $this->loadPage(lang('cover_cropped_failed'), 'profile/index', 'danger');
+        }
+        
         
         $this->setData('user_dps', $user_files['dp']);
         $this->setData('def_dp', $def_dp);

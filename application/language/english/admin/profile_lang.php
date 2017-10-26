@@ -34,3 +34,6 @@ $lang['next'] = 'Next';
 $lang['crop'] = 'Crop';
 $lang['dp_cropped'] = 'Profile Pic Cropped Successfully';
 $lang['dp_cropped_failed'] = 'Profile Pic Cropping Failed';
+$lang['cover_cropped'] = 'Cover Pic Cropped Successfully';
+$lang['cover_cropped_failed'] = 'Cover Pic Cropping Failed';
+$lang['state'] = 'State';
