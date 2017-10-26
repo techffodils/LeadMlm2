@@ -42,11 +42,12 @@ function changeCurrencySettings(){
     $currency_code = stripslashes($this->input->post('currency_code'));
 
     $user_id = $this->LOG_USER_ID;
+    $user_type = $this->LOG_USER_TYPE;
 
     $currency_details = $this->base_model->currencyDetailsFromCode($currency_code);
 
     $mlm_currency = $this->session->userdata("mlm_data_currency");
-    $res = $this->base_model->changeUserCurrency($user_id,$currency_details['id']);
+    $res = $this->base_model->changeUserCurrency($user_id,$currency_details['id'], $user_type);
     if($res){
 
             $currency_data = $this->session->userdata("mlm_data_currency");
@@ -73,11 +74,12 @@ function changeLanguageSettings(){
     $lang_code = stripslashes($this->input->post('lang_code'));
    
     $user_id = $this->LOG_USER_ID;
+    $user_type = $this->LOG_USER_TYPE;
 
     $lang_details = $this->base_model->langDetailsFromCode($lang_code);
 
     $mlm_language = $this->session->userdata("mlm_data_language");
-    $res = $this->base_model->changeUserLanguage($user_id,$lang_details['id']);
+    $res = $this->base_model->changeUserLanguage($user_id,$lang_details['id'], $user_type);
     if($res){
 
            $lang_data = $this->session->userdata("mlm_data_language");
@@ -101,8 +103,10 @@ function changeThemeSettings(){
     
     $user_id = $this->LOG_USER_ID;
 
-    $res = $this->base_model->themeChange($data,$user_id);
+    if($this->LOG_USER_TYPE == 'employee')
+    $user_id = $this->base_model->getAdminUserId();
 
+    $res = $this->base_model->themeChange($data,$user_id);
     if($res){
 
         $theme = array(

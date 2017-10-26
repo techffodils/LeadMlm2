@@ -7,57 +7,106 @@ class Base_model extends CI_Model {
 	}
 
 
-	public function getSideMenus($user_type ,$currenturl) {
+	public function getSideMenus($user_id ,$user_type ,$currenturl) {
 
 		$side_menu = array();
 		$url_id = $this->getUrlId($currenturl);
-
-		if($user_type == 'employee'){
-
-			//employee permission check
-
-		}else{
-			$side_menu = $this->getMenuArray($user_type,$url_id);
-		}
-
+	    $side_menu = $this->getMenuArray($user_id,$user_type,$url_id);
 		return  $side_menu;
 	}
 
-	public  function getMenuArray($user_type,$url_id) {
+	public  function getMenuArray($user_id,$user_type,$url_id) {
 
-		$menu_array = array();
+		$menu_array = $permitted_menus = array();
 		$i=0;
+	
+		if($user_type == 'employee'){
+			$permitted_menus = $this->getEmployeeMenuPermission($user_id);
+		}
+		
 		$res = $this->db->select("id, name, link, icon, order, lock, target")
-		->where("status",1)
-		->where("root_id",'#')
-		->where($user_type.'_permission',1)
-		->order_by("order")
-		->get("menus");
+						->where("status",1)
+						->where("root_id",'#')
+						->where($user_type.'_permission',1)
+						->order_by("order")
+						->get("menus");
 
 		foreach ($res->result_array() as $row) {
-			
-			$sub_menu =($row['link'] == '#')?$this->getSubMenu($row['id'],$user_type,$url_id):null;  
 
-			if( $row['link'] != '#' ||   $sub_menu ){
-				$menu_array[$i]['id']  =  $row['id']; 
-				$menu_array[$i]['name']  =  $row['name']; 
-				$menu_array[$i]['link']  =  ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
-				$menu_array[$i]['icon']  =  $row['icon'];   
-				$menu_array[$i]['sub_menu']  =  $sub_menu;   
-				$menu_array[$i]['target']  =  $row['target'];
-				$menu_array[$i]['selected']  = (in_array($row['id'], $url_id))? 'selected':null;   
-				$menu_array[$i]['lock']  =  $row['lock'];   
-				
-				$i++;
+			$menu_permisson = true;
+
+			if($user_type == 'employee'){
+				$menu_permisson = in_array($row['id'],$permitted_menus);
+			}
+
+			if($menu_permisson){
+
+				$sub_menu =($row['link'] == '#')?$this->getSubMenu($row['id'],$user_type,$url_id,$permitted_menus):null;  
+
+				if( $row['link'] != '#' ||   $sub_menu ){
+					$menu_array[$i]['id']  =  $row['id']; 
+					$menu_array[$i]['name']  =  $row['name']; 
+					$menu_array[$i]['link']  =  ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
+					$menu_array[$i]['icon']  =  $row['icon'];   
+					$menu_array[$i]['sub_menu']  =  $sub_menu;   
+					$menu_array[$i]['target']  =  $row['target'];
+					$menu_array[$i]['selected']  = (in_array($row['id'], $url_id))? 'selected':null;   
+					$menu_array[$i]['lock']  =  $row['lock'];   
+					
+					$i++;
+				}
 			}
 		}
 		return $menu_array;
 	}
 
-	public function getSubMenu($menu_id,$user_type,$url_id){
+	public function getSubMenu($menu_id,$user_type,$url_id,$permitted_menus){
 
+		$menu_permisson = true;
+		$menu_array = array();
+		$i=0;
+
+		$res = $this->db->select("id, name, link, icon, order, lock, target")
+						->where("status",1)
+						->where("root_id",$menu_id)
+						->where($user_type.'_permission',1)
+						->order_by("order")
+						->get("menus");
+
+
+		foreach ($res->result_array() as $row) {
+
+
+			if($user_type == 'employee'){
+				$menu_permisson = in_array($row['id'],$permitted_menus);
+			}
+
+			if($menu_permisson){
+
+				$sub_menu =($row['link'] == '#')?$this->getSubSubMenu($row['id'],$user_type,$url_id,$permitted_menus):null;  
+				
+				if( $row['link'] != '#' ||   $sub_menu ){
+					$menu_array[$i]['name']  =  $row['name']; 
+					$menu_array[$i]['id']  =  $row['id']; 
+					$menu_array[$i]['link']  = ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
+					$menu_array[$i]['icon']  =  $row['icon'];   
+					$menu_array[$i]['sub_menu']  =  $sub_menu;   
+					$menu_array[$i]['target']  =  $row['target'];  
+					$menu_array[$i]['selected']  = (in_array($row['id'], $url_id))? 'selected':null; 
+					$menu_array[$i]['lock']  =  $row['lock'];   
+					
+					$i++;
+				}
+			}
+		}
+		return $menu_array;
+
+	}
+
+	public function getSubSubMenu($menu_id,$user_type,$url_id,$permitted_menus){
 		
-		$menu_array = null;
+		$menu_permisson = true;
+		$menu_array = array();
 		$i=0;
 		$res = $this->db->select("id, name, link, icon, order, lock, target")
 		->where("status",1)
@@ -66,50 +115,24 @@ class Base_model extends CI_Model {
 		->order_by("order")
 		->get("menus");
 
-
 		foreach ($res->result_array() as $row) {
+
+
+			if($user_type == 'employee'){
+				$menu_permisson = in_array($row['id'],$permitted_menus);
+			}
 			
-			$sub_menu =($row['link'] == '#')?$this->getSubSubMenu($row['id'],$user_type,$url_id):null;  
-			
-			if( $row['link'] != '#' ||   $sub_menu ){
+			if($menu_permisson){
+				$menu_array[$i]['id']  =  $row['id'];
 				$menu_array[$i]['name']  =  $row['name']; 
-				$menu_array[$i]['id']  =  $row['id']; 
-				$menu_array[$i]['link']  = ($row['link'] != '#')? $user_type.'/'.$row['link']  :'javascript:void(0)';
+				$menu_array[$i]['link']  = $user_type.'/'. $row['link'];
 				$menu_array[$i]['icon']  =  $row['icon'];   
-				$menu_array[$i]['sub_menu']  =  $sub_menu;   
 				$menu_array[$i]['target']  =  $row['target'];  
 				$menu_array[$i]['selected']  = (in_array($row['id'], $url_id))? 'selected':null; 
 				$menu_array[$i]['lock']  =  $row['lock'];   
-				
 				$i++;
 			}
 		}
-		return $menu_array;
-
-	}
-
-	public function getSubSubMenu($menu_id,$user_type,$url_id){
-		$menu_array = array();
-		$i=0;
-		$res = $this->db->select("id, name, link, icon, order, lock, target")
-		->where("status",1)
-		->where("root_id",$menu_id)
-		->where($user_type.'_permission',1)
-		->order_by("order")
-		->get("menus");
-
-		foreach ($res->result_array() as $row) {
-
-			$menu_array[$i]['id']  =  $row['id'];
-			$menu_array[$i]['name']  =  $row['name']; 
-			$menu_array[$i]['link']  = $user_type.'/'. $row['link'];
-			$menu_array[$i]['icon']  =  $row['icon'];   
-			$menu_array[$i]['target']  =  $row['target'];  
-			$menu_array[$i]['selected']  = (in_array($row['id'], $url_id))? 'selected':null; 
-			$menu_array[$i]['lock']  =  $row['lock'];   
-			$i++;
-		}
-		
 		return $menu_array;
 
 	}
@@ -145,14 +168,18 @@ class Base_model extends CI_Model {
 
 	}
 
-	public function getCurrencyDetails($user_id){
+	public function getCurrencyDetails($user_id,$user_type){
 		$data = array();
-		$query = $this->db->select("cu.currency_ratio,cu.currency_name,cu.currency_code,cu.symbol_left,cu.symbol_right,cu.icon")
-		->from("user as us")
-		->join("currencies as cu",'cu.id = us.currency','inner')
-		->where("us.mlm_user_id",$user_id)
-		->limit(1)
-		->get();
+		$this->db->select("cu.currency_ratio,cu.currency_name,cu.currency_code,cu.symbol_left,cu.symbol_right,cu.icon");
+		if($user_type == 'employee'){
+			$this->db->from("mlm_employee_details as us");
+		}else{
+			$this->db->from("user as us");
+		}
+		$this->db->join("currencies as cu",'cu.id = us.currency','inner');
+		$this->db->where("us.mlm_user_id",$user_id);
+		$this->db->limit(1);
+		$query = $this->db->get();
 
 		foreach ($query->result_array() as $row) {
 			$data = $row;
@@ -161,20 +188,26 @@ class Base_model extends CI_Model {
 	}
 
 
-	public function getLanguageDetails($user_id){
+	public function getLanguageDetails($user_id,$user_type){
 		$data = array();
-		$query = $this->db->select("la.lang_name,la.lang_eng_name,la.lang_code,la.lang_flag")
-		->from("user as us")
-		->join("languages as la",'la.id = us.language','inner')
-		->where("us.mlm_user_id",$user_id)
-		->limit(1)
-		->get();
+		$this->db->select("la.lang_name,la.lang_eng_name,la.lang_code,la.lang_flag");
+		if($user_type == 'employee'){
+			$this->db->from("mlm_employee_details as us");
+		}else{
+			$this->db->from("user as us");
+		}
+		$this->db->join("languages as la",'la.id = us.language','inner');
+		$this->db->where("us.mlm_user_id",$user_id);
+		$this->db->limit(1);
+		$query = $this->db->get();
 
 		foreach ($query->result_array() as $row) {
 			$data = $row;
 		}
 		return $data;
 	}
+
+
 
 	public function getAllCurrency(){
 		$data = array();
@@ -239,7 +272,7 @@ class Base_model extends CI_Model {
 		return $theme;
 	}
 
-	function getBreadCrumbs(){
+	function getBreadCrumbs($path,$method,$user_type){
 
 			$bread_crumb = array(
 								'page_title'=>'',
@@ -248,12 +281,11 @@ class Base_model extends CI_Model {
 								'page_header_link'=>'',
 							  );
 
-			$path = $this->CURRENT_CLASS;
 
-			if($this->CURRENT_METHOD != 'index' ){
-				$path = $this->CURRENT_CLASS.'/'.$this->CURRENT_METHOD;
+			if($method != 'index' ){
+				$path .= '/'.$method;
 			}
-
+			$user_type =($user_type == 'employee')? 'admin':$user_type;
 			$res = $this->db->select('id,name,link')
 				->limit(1)
 				->like('link', $path, 'before')
@@ -263,21 +295,11 @@ class Base_model extends CI_Model {
 
 				$bread_crumb['page_title'] = $res->row()->id;
 				$bread_crumb['page_header'] = ($res->row()->id == 1)?'':$res->row()->id;
-				$bread_crumb['page_header_link'] = $res->row()->link;
+				$bread_crumb['page_header_link'] = $user_type.'/'.$res->row()->link;
 			}		
 
 		return $bread_crumb;
 	}
-
-
-/**
-For getting the sub title
-
-@Author :LeadMlm
-@Date :2017-10-17
-@Name: LeadMlm
-
-*/
 
 
 function getUrlId($currenturl)
@@ -392,12 +414,17 @@ function checkMenuLocked($user_type,$currenturl)
 
 	}
 
-	public function changeUserCurrency($user_id,$currency_id){
+	public function changeUserCurrency($user_id,$currency_id,$user_type){
 
-		$res = $this->db->set("currency",$currency_id)
-		->where("mlm_user_id",$user_id)
-		->limit(1)
-		->update("user");
+		$this->db->set("currency",$currency_id);
+		$this->db->limit(1);
+		if($user_type == 'employee'){
+			$this->db->where("employee_id",$user_id);
+			$res = $this->db->update("employee_details");
+		}else{
+			$this->db->where("mlm_user_id",$user_id);
+			$res = $this->db->update("user");
+		}
 		return $res;
 	}
 
@@ -421,12 +448,17 @@ function checkMenuLocked($user_type,$currenturl)
 
 	}
 
-	public function changeUserLanguage($user_id,$lang_id){
+	public function changeUserLanguage($user_id,$lang_id,$user_type){
 
-		$res = $this->db->set("language",$lang_id)
-		->where("mlm_user_id",$user_id)
-		->limit(1)
-		->update("user");
+		$this->db->set("language",$lang_id);
+		$this->db->limit(1);
+		if($user_type == 'employee'){
+			$this->db->where("employee_id",$user_id);
+			$res = $this->db->update("employee_details");
+		}else{
+			$this->db->where("mlm_user_id",$user_id);
+			$res = $this->db->update("user");
+		}
 		return $res;
 	}
 
@@ -435,13 +467,31 @@ function checkMenuLocked($user_type,$currenturl)
 	public function themeChange($data,$user_id) {
 
 		$res=$this->db->set('color_scheama',$data["skinClass"])
-		->set('layout',$data["layoutBoxed"])
-		->set('header',$data["headerDefault"])
-		->set('footer',$data["footerDefault"])
-		->where('user_id',$user_id)
-		->update('theme_settings');
+					->set('layout',$data["layoutBoxed"])
+					->set('header',$data["headerDefault"])
+					->set('footer',$data["footerDefault"])
+					->where('user_id',$user_id)
+					->limit(1)
+					->update('theme_settings');
 
 		return $res;
+	}
+
+
+	public function getEmployeeMenuPermission($user_id){
+
+		$data = array();
+		$query = $this->db->select('modules')
+							->where('employee_id',$user_id)
+							->limit(1)
+							->get('employee_login');
+
+		if($query->num_rows() >0 ){
+			foreach ($query->result_array() as $row) {
+				$data = array_values(unserialize($row));
+			}
+		}
+		return $data;
 	}
 }
 
