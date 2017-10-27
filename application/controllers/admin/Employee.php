@@ -98,12 +98,24 @@ class Employee extends Base_Controller {
      * @date 2017-10-23
      */
     function username_exits($user_name) {
-        $flag = true;
-        $result = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
-        if ($result) {
-            $flag = TRUE;
+        $flag = FALSE;
+        if ($user_name != '') {
+            $result = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
+            if ($result) {
+                $flag = TRUE;
+            }
+            return $flag;
+        } else {
+            $user_name = $this->input->post('username');
+            $res = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
+            if ($res) {
+                echo 'yes';
+                exit();
+            } else {
+                echo 'no';
+                exit();
+            }
         }
-        return $flag;
     }
 
     /**
@@ -230,14 +242,146 @@ class Employee extends Base_Controller {
     function menu_permission() {
         $title = lang('set_employee_permission');
         $this->setData('title', $title);
-        $flag = FALSE;
-        if ($this->input->post('employee_submit') && $this->validate_employee()) {
-            $user_name = $this->input->post('user_name');
 
-            if ($this->employee_model->checkIsUserNameExistsOrNot($user_name)) {
-                $flag = TRUE;
+        $flag = $checked = FALSE;
+        $allocate_menu = array();
+        $menu = $sub_menu = $user_name = $employee_id = '';
+
+        /**
+         * For set Employee menu permission
+         */
+        if ($this->input->post('permission')) {
+            $post_arr = $this->input->post(NULL, TRUE);
+
+            $result = $this->employee_model->upDateModulePermission($post_arr);
+            if ($result) {
+                $msg = lang('successfully_set_menu_permission');
+                $this->loadPage($msg, 'employee/menu_permission');
+            } else {
+                $msg = lang('error_while_set_menu_permission');
+                $this->loadPage($msg, 'employee/menu_permission', 'danger');
             }
         }
+        /**
+         * End here
+         */
+        /**
+         * For select user select show the menu based on details
+         */
+        if ($this->input->post() && $this->validate_employee()) {
+            $user_name = $this->input->post('user_name');
+            if ($this->check_validate_employee($user_name)) {
+                $employee_id = $this->employee_model->getEmployeeId($user_name);
+                $allocate_menu = $this->employee_model->getAllUserAllocatedMenus($user_name);
+                $flag = true;
+
+                $allocate_menu_id = [];
+                if ($flag) {
+
+                    foreach ($allocate_menu as $data) {
+                        $allocate_menu_id = $data;
+                    }
+
+
+                    $employee_menu = $this->employee_model->getAllEmployeeMenus();
+                    $menu = "<table style='background:white;height:100px;' class='table table-responsive table-full-width' id='sample_1'>";
+                    foreach ($employee_menu as $row) {
+
+                        $menu_id = $row['id'];
+                        $menu_name = lang('menu_name_' . $row['id']);
+
+                        if (in_array($menu_id, $allocate_menu_id)) {
+                            foreach ($allocate_menu_id as $allocate_id) {
+                                if ($menu_id == $allocate_id) {
+
+                                    $checked = true;
+                                } else {
+                                    $checked = false;
+                                }
+                            }
+                            $menu .= "<tr style='color:#0000'>
+                                     <td>
+                                     <div class='radio-inline'>
+                                        <input checked='" . $checked . "' type='checkbox' name='" . strtolower($menu_name) . "' id='" . $menu_name . "' value='" . $menu_id . "' class='square-teal'/> 
+                                        <label for='" . $row['id'] . "'></label>
+                                           <font color ='#0000'> $menu_name </font>
+                                            </div>
+                                          </div>
+                                       </td>
+                                    <td colspan='2'></td>
+                                  </tr>";
+                        } else {
+
+
+
+                            $menu .= "<tr style='color:#0000'>
+                                       <td>
+                                        <div class='radio-inline'>
+                                             <input  type='checkbox' name='" . strtolower($menu_name) . "' id='" . $menu_name . "' value='" . $menu_id . "' class='square-teal'/> 
+                                            <label for='" . $row['id'] . "'></label>
+                                           <font color ='#0000'> $menu_name </font>
+                                         </div>
+                                      </td>
+                                    <td colspan='2'></td>
+                                  </tr>";
+                        }
+
+                        if ($row['sub_menu']) {
+                            foreach ($row['sub_menu'] as $value) {
+
+                                $sub_menu_id = $value['sub_id'];
+                                $sub_menu_name = lang('menu_name_' . $value['sub_id']);
+                                if (in_array($sub_menu_id, $allocate_menu_id)) {
+                                    foreach ($allocate_menu_id as $allocate_id) {
+                                        if ($sub_menu_id == $allocate_id) {
+                                            $checked = TRUE;
+                                        } else {
+                                            $checked = FALSE;
+                                        }
+                                    }
+                                    $menu .= "<tr tr style='color:#0000'>
+                                            <td></td>
+                                            <td>
+                                             <div class='radio-inline'>
+                                                <input checked='" . $checked . "' type='checkbox' name='" . strtolower($sub_menu_name) . "' id='" . $sub_menu_name . "' value='" . $sub_menu_id . "' class='square-teal'/> 
+                                                <label for='" . $value['sub_id'] . "'></label>
+                                                <font color ='#0000'> $sub_menu_name </font>
+                                                    </div>
+                                            </td>
+                                             <td></td>
+                                         </tr>";
+                                } else {
+
+                                    $menu .= "<tr tr style='color:#0000'>
+                                            <td></td>
+                                            <td>
+                                             <div class='radio-inline'>
+                                                <input  type='checkbox' name='" . strtolower($sub_menu_name) . "' id='" . $sub_menu_name . "' value='" . $sub_menu_id . "' class='square-teal'/> 
+                                                <label for='" . $value['sub_id'] . "'></label>
+                                                <font color ='#0000'> $sub_menu_name </font>
+                                                    </div>
+                                            </td>
+                                             <td></td>
+                                         </tr>";
+                                }
+                            }
+                        }
+                        //}
+                    }
+                    $menu .= "</table>";
+                }
+
+                $this->setData('menu', $menu);
+                $this->setData('user_name', $user_name);
+                $this->setData('employee_id', $employee_id);
+            } else {
+                $msg = lang('employee_not_found');
+                $this->loadPage($msg, 'employee/menu_permission', 'danger');
+            }
+        }
+
+
+
 
         $this->setData('page_header', $title);
         $this->setData('flag', $flag);
@@ -245,12 +389,34 @@ class Employee extends Base_Controller {
         $this->loadView();
     }
 
-    function validate_employee($user_name) {
-        $flag = FALSE;
-        if ($this->employee_model->checkIsUserNameExistsOrNot($user_name)) {
-            $flag = TRUE;
+    function validate_employee() {
+        $this->form_validation->set_rules('user_name', lang('user_name'), 'required|callback_check_validate_employee');
+        $form_result = $this->form_validation->run();
+
+        return $form_result;
+    }
+
+    function check_validate_employee($user_name) {
+
+        if ($user_name != '') {
+            $flag = false;
+            if ($this->employee_model->checkIsUserNameExistsOrNot($user_name)) {
+                $flag = true;
+            }
+            return $flag;
+        } elseif ($this->input->post('username')) {
+            $user_name = $this->input->post('username');
+            echo $user_name;
+            die;
+            $res = $this->employee_model->checkIsUserNameExistsOrNot($user_name);
+            if ($res) {
+                echo 'yes';
+                exit();
+            } else {
+                echo 'no';
+                exit();
+            }
         }
-        return $flag;
     }
 
     /**
