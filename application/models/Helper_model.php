@@ -277,7 +277,7 @@ class Helper_model extends CI_Model {
     function encode($string = '') {
         $encode_key = '';
         if ($string != '') {
-            $encrypt_string = $this->encrpt->encode($sting);
+            $encrypt_string = $this->encrypt->encode($string);
             $encode_key = urlencode(base64_encode($encrypt_string));
         }
 
