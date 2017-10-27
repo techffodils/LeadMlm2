@@ -325,5 +325,30 @@ class Register_model extends CI_Model {
         return $flag;
     }
     
+    public function checkInPending($username) {
+        $user_id = 0;
+        $query = $this->db->select('id')
+                ->where('user_name',$username)
+                ->limit(1)
+                ->get('pending_registrations');
+        foreach ($query->result() as $row) {
+            $user_id = $row->id;
+        }
+        return $user_id;
+    }
+    
+    
+    function addToPendingUser($payment_method,$register_type, $user_details, $mlm_plan, $leg_type) {
+        return $this->db->set('user_name ', $user_details['username'])
+                ->set('email', $user_details['email'])
+                ->set('payment_method', $payment_method)
+                ->set('register_type ', $register_type)
+                ->set('user_details', serialize($user_details))
+                ->set('mlm_plan', $mlm_plan)
+                ->set('leg_type', '$leg_type')
+                ->set('date', date("Y-m-d H:i:s"))
+                ->insert('pending_registrations');
+    }
+    
 
 }

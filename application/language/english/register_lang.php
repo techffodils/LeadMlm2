@@ -79,5 +79,10 @@ $lang['ewallet_notification'] = 'Entry Fee Will Deducted From the Selected User 
 $lang['epin_notification'] = 'Please Provide A Pin Number With Entry Fee';
 $lang['register_fee'] = 'Entry Fee';
 $lang['notice'] = 'Notice !';
+$lang['pending_register_failed'] = 'Failed To Add Pending Registration';
+$lang['pending_registration_msg'] = 'Successfully Added To Pending Registration,You can access your account only after admin confirmation';
+$lang['country'] = 'Country';
+
+
 
 
