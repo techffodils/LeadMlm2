@@ -38,3 +38,6 @@ $lang['set_employee_permission'] = "Employee Menu Permission";
 $lang['remove'] = 'Remove';
 $lang['select_image'] = 'Select Image';
 $lang['chamge'] = 'Change';
+$lang['successfully_set_menu_permission'] = 'Successfull set menu Permission';
+$lang['error_while_set_menu_permission'] = 'Error while set menu Permission';
+$lang['employee_not_found'] = 'Employee Not Found';
