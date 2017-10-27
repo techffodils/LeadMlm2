@@ -24,7 +24,18 @@ class Register extends Base_Controller {
             if ($username_type == 'dynamic') {
                 $user_details['username'] = $this->register_model->generateRandomUsername($username_size);
             }
-            $payment_method = $user_details['payment_method'];
+            //$payment_method = $user_details['payment_method'];
+            $payment_method = $user_details['add_user'];
+            //Action based on payment method
+            if ($payment_method == "free_registration") {
+                $payment_status = TRUE; //for testing purpose only
+            } elseif ($payment_method == "bank_transfer") {
+                die('insert pending status');
+            } elseif ($payment_method == "ewallet") {
+                die('ewallet_operation');
+            } elseif ($payment_method == "epin") {
+                die('epin_operation');
+            }
             //Action based on payment method
 
             if ($payment_method == "free_registration") {
@@ -61,11 +72,36 @@ class Register extends Base_Controller {
         $countries = $this->register_model->getAllCountries();
         $states = $this->register_model->getAllStates($country);
 
-        $payment_options = $this->register_model->getAvailablePaymentMethods();
+        //$payment_options = $this->register_model->getAvailablePaymentMethods();
 
+        $free_registration = $this->register_model->getPaymentMethodStatus('free_registration');
+        $bank_transfer = $this->register_model->getPaymentMethodStatus('bank_transfer');
+        $ewallet = $this->register_model->getPaymentMethodStatus('ewallet');
+        $epin = $this->register_model->getPaymentMethodStatus('epin');
+
+        $free_registration_tab = $bank_transfer_tab = $ewallet_tab = $epin_tab = '';
+        if ($free_registration) {
+            $free_registration_tab = "active";
+        } elseif ($bank_transfer) {
+            $bank_transfer_tab = "active";
+        } elseif ($ewallet) {
+            $ewallet_tab = "active";
+        } elseif ($epin) {
+            $epin_tab = "active";
+        }
+        $this->setData('free_registration', $free_registration);
+        $this->setData('bank_transfer', $bank_transfer);
+        $this->setData('ewallet', $ewallet);
+        $this->setData('epin', $epin);
+
+        $this->setData('free_registration_tab', $free_registration_tab);
+        $this->setData('bank_transfer_tab', $bank_transfer_tab);
+        $this->setData('ewallet_tab', $ewallet_tab);
+        $this->setData('epin_tab', $epin_tab);
+        
         $this->setData('terms_and_condition', $this->dbvars->TERMS_AND_CONDITION);
         $this->setData('privacy_policy', $this->dbvars->PRIVACY_POLICY);
-        $this->setData('payment_options', $payment_options);
+        //$this->setData('payment_options', $payment_options);
         $this->setData('entry_fee', $this->dbvars->ENTRI_FEE);
 
         $this->setData('username_type', $username_type);

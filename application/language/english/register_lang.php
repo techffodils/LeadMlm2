@@ -63,7 +63,7 @@ $lang['register_leg '] = 'Register Leg ';
 $lang['enter_a_leg_for_registration '] = 'Enter A Leg For Registration';
 $lang['enter_a_sponser_name_for_joining '] = 'Enter A Sponsor Name For Registration';
 $lang['agree_to_the_terms_and_condition'] = 'Agree to terms & condition';
-$lang['agree_to_the_privacy_policy'] = 'Agree to thePrivacy Policy';
+$lang['agree_to_the_privacy_policy'] = 'Agree to the Privacy Policy';
 $lang['terms_condition'] = 'Terms & Condition';
 $lang['privacy_policy'] = 'Privacy Policy';
 $lang['select_a_payment_method'] = 'Select A Payment Method';
@@ -72,11 +72,12 @@ $lang['bank_transfer'] = 'Bank Transfer';
 $lang['ewallet'] = 'E-Wallet';
 $lang['epin'] = 'E-Pin';
 
-$lang['free_register_notification'] = 'Free Register Notification';
-$lang['bank_transfer_notification'] = 'Bank Transfer Notification';
+$lang['free_register_notification'] = 'Free Register Is Only For Testing Purpose .Inactivate It before the system Goes LIVE';
+$lang['bank_transfer_notification'] = 'Your Account Create Only After Admin confirmation';
 $lang['payment_failed'] = 'Payment Failed';
-$lang['country'] = 'Country';
-$lang['country'] = 'Country';
-$lang['country'] = 'Country';
+$lang['ewallet_notification'] = 'Entry Fee Will Deducted From the Selected User Wallet';
+$lang['epin_notification'] = 'Please Provide A Pin Number With Entry Fee';
+$lang['register_fee'] = 'Entry Fee';
+$lang['notice'] = 'Notice !';
 
 

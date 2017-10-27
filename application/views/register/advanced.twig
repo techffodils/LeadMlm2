@@ -243,7 +243,7 @@
                                         <input type="password" class="form-control input-lg password_reset" type="password" id="{{ fld.field_name }}" name="{{ fld.field_name }}" {% if fld.required_status %} required {% endif %} >
                                         <div class="pwstrength_viewport_progress"></div>
                                     </span>
-                                        
+
                                 {% elseif fld.field_type=='confirm_password' %}
                                     <div class="input-group">
                                         <span class="input-group-addon"> <i class="fa {{ fld.icon }}"></i> </span>
@@ -416,9 +416,17 @@
                         <div class="tab-content">
                             {% if free_registration %}
                                 <div class="tab-pane fade in {{ free_registration_tab }}" id="free_registration_tab">
-                                    <p>
-                                        {{lang('free_register_notification')}}
-                                    </p>
+
+                                    <div class="alert alert-block alert-warning fade in">
+                                        <button data-dismiss="alert" class="close" type="button">
+                                            ×
+                                        </button>
+                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                        <p>
+                                            {{lang('free_register_notification')}}
+                                        </p>
+
+                                    </div>
 
                                     <div class="form-group">
                                         <div class="col-sm-2 col-sm-offset-3">
@@ -440,9 +448,17 @@
 
                             {% if bank_transfer %}
                                 <div class="tab-pane fade in {{ bank_transfer_tab }}" id="bank_transfer_tab">
-                                    <p>
-                                        {{lang('bank_transfer_notification')}}
-                                    </p>
+                                    <div class="alert alert-block alert-warning fade in">
+                                        <button data-dismiss="alert" class="close" type="button">
+                                            ×
+                                        </button>
+                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                        <p>
+                                            {{lang('bank_transfer_notification')}}
+                                        </p>
+
+
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-2 col-sm-offset-3">
                                             <button class="btn btn-light-grey back-step btn-block">
@@ -462,9 +478,17 @@
 
                             {% if ewallet %}
                                 <div class="tab-pane fade in {{ ewallet_tab }}" id="ewallet_tab">
-                                    <p>
-                                        {{lang('ewallet_notification')}}
-                                    </p>
+                                    <div class="alert alert-block alert-warning fade in">
+                                        <button data-dismiss="alert" class="close" type="button">
+                                            ×
+                                        </button>
+                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                        <p>
+                                            {{lang('ewallet_notification')}}
+                                        </p>
+
+
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-2 col-sm-offset-3">
                                             <button class="btn btn-light-grey back-step btn-block">
@@ -483,9 +507,17 @@
 
                             {% if epin %}
                                 <div class="tab-pane fade in {{ epin_tab }}" id="epin_tab">
-                                    <p>
-                                        {{lang('epin_notification')}}
-                                    </p>
+                                    <div class="alert alert-block alert-warning fade in">
+                                        <button data-dismiss="alert" class="close" type="button">
+                                            ×
+                                        </button>
+                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                        <p>
+                                            {{lang('epin_notification')}}
+                                        </p>
+
+
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-2 col-sm-offset-3">
                                             <button class="btn btn-light-grey back-step btn-block">
