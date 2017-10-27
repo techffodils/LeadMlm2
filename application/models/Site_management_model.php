@@ -28,6 +28,7 @@ class Site_management_model extends CI_Model {
             $site_data['company_fav_icon'] = $row['company_fav_icon'];
             $site_data['company_email'] = $row['company_email'];
             $site_data['company_phone'] = $row['company_phone'];
+            $site_data['admin_email'] = $row['admin_email'];
         }
         return $site_data;
     }
@@ -37,9 +38,12 @@ class Site_management_model extends CI_Model {
      * @date 2017-10-18
      * @author LeadMlmsoftware.com
      */
-    function updateSiteInformation($company_name, $company_address, $company_email, $company_phone, $logo, $fav_icon) {
-        $data_array = array('company_name' => $company_name, 'company_address' => $company_address, 'company_email' => $company_email, 'company_phone' => $company_phone, 'company_logo' => $logo, 'company_fav_icon' => $fav_icon);
+    function updateSiteInformation($company_name, $admin_email, $company_address, $company_email, $company_phone, $logo, $fav_icon) {
+        $data_array = array('company_name' => $company_name, 'admin_email' => $admin_email, 'company_address' => $company_address, 'company_email' => $company_email, 'company_phone' => $company_phone, 'company_logo' => $logo, 'company_fav_icon' => $fav_icon);
         $result = $this->db->where('id', 1)->update('site_info', $data_array);
+        if ($result) {
+            $this->db->set('email', $admin_email)->where('user_type', 'admin')->where('mlm_user_id', 1900)->update('user');
+        }
         return $result;
     }
 
