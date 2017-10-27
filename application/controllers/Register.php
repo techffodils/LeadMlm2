@@ -142,9 +142,9 @@ class Register extends Base_Controller {
             } elseif ($payment_method == "bank_transfer") {
                 $pending = $this->register_model->addToPendingUser($payment_method, 'multiple_step', $user_details, $mlm_plan, $leg_status);
                 if ($pending) {
-                    $this->loadPage(lang('pending_registration_msg'), 'register/single_step');
+                    $this->loadPage(lang('pending_registration_msg'), 'register/multiple_step');
                 } else {
-                    $this->loadPage(lang('pending_register_failed'), 'register/single_step', 'danger');
+                    $this->loadPage(lang('pending_register_failed'), 'register/multiple_step', 'danger');
                 }
                 die('insert pending status');
             } elseif ($payment_method == "ewallet") {
@@ -253,9 +253,9 @@ class Register extends Base_Controller {
             } elseif ($payment_method == "bank_transfer") {
                 $pending = $this->register_model->addToPendingUser($payment_method, 'multiple_step', $user_details, $mlm_plan, $leg_status);
                 if ($pending) {
-                    $this->loadPage(lang('pending_registration_msg'), 'register/single_step');
+                    $this->loadPage(lang('pending_registration_msg'), 'register/advanced');
                 } else {
-                    $this->loadPage(lang('pending_register_failed'), 'register/single_step', 'danger');
+                    $this->loadPage(lang('pending_register_failed'), 'register/advanced', 'danger');
                 }
                 die('insert pending status');
             } elseif ($payment_method == "ewallet") {
@@ -273,7 +273,7 @@ class Register extends Base_Controller {
                     $this->loadPage(lang('register_failed'), 'register/advanced', 'danger');
                 }
             } else {
-                $this->loadPage(lang('payment_failed'), 'register/multiple_step', 'danger');
+                $this->loadPage(lang('payment_failed'), 'register/advanced', 'danger');
             }
         }
         $register_data['sponser_name'] = $logged_username;
