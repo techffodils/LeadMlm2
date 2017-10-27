@@ -314,12 +314,15 @@ function loadView() {
 
     $user_type = ($this->LOG_USER_TYPE == 'employee')?'admin': $this->LOG_USER_TYPE;
 
+
+
     if (in_array($this->CURRENT_CLASS, COMMON_PAGES)) {
         $this->twig->display($this->CURRENT_CLASS . '/' . $this->CURRENT_METHOD . '.twig', $this->DATA_ARR);
 
     }elseif($lock_status){
         $this->twig->display($user_type .'/access_denied.twig', $this->DATA_ARR);
     }else {
+
         $this->twig->display($user_type .'/'. $this->CURRENT_CLASS . '/' . $this->CURRENT_METHOD . '.twig', $this->DATA_ARR);
     }
 }

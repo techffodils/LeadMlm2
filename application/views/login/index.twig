@@ -28,24 +28,26 @@
 										I forgot my password
 									</a> </span>
 							</div>
-							<div class="form-actions">
-								<div class="col-sm-8">
-									<label for="remember" class="checkbox-inline">
-										<input type="checkbox" class="grey remember" id="remember" name="remember">
-										<small>Keep me signed in</small>
-									</label>
-								
-									 <div class="g-recaptcha" data-sitekey="6LdOgjUUAAAAAMBypkm_-E69Z7fehRqQ5dH4UWW_">
-									 	
-									 </div>
+							{% if CAPTCHA_STATUS %}
+							<div class="form-group form-actions pull-center">
+								<div class="pull-centre" style="text-align:center;">
+									<div class="g-recaptcha pull-center" data-sitekey="6LdOgjUUAAAAAMBypkm_-E69Z7fehRqQ5dH4UWW_"></div>
 								</div>
-								<div class="col-sm-4">
-									<div  class="" >
+							</div>
+							{% endif %}
+							<div class="form-actions">
+									<div  class="col-sm-8 col-md-8" >
+										<label for="remember" class="checkbox-inline">
+											<input type="checkbox" class="grey remember" id="remember" name="remember">
+											<small>Keep me signed in</small>
+										</label>
+									
+									</div>
+									<div  class="col-sm-4  col-md-4">
 										<button type="submit" class="btn btn-green" >
 											Login <i class="fa fa-arrow-circle-right"></i>
 										</button>
 									</div>
-								</div>
 							</div>
 							<div class="new-account">
 								Don't have an account yet?
