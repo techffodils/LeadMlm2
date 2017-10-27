@@ -368,199 +368,198 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-5 col-md-4">
-                    <div class="user-left">                            
-                        <table class="table table-condensed table-hover">
-                            <thead>
-                                <tr>
-                                    <th colspan="3">{{lang('contact_info')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{lang('email')}}:</td>
-                                    <td>{{ user_details.email }}</td>                                        
-                                </tr>
-                                <tr>
-                                    <td>{{lang('phone_number')}}:</td>
-                                    <td>{{ user_details.phone_number }}</td>
-                                </tr>                                    
-                            </tbody>
-                        </table>
-                        <table class="table table-condensed table-hover">
-                            <thead>
-                                <tr>
-                                    <th colspan="3">{{lang('general_info')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{lang('joining_date')}}</td>
-                                    <td>{{ user_details.date }}</td>
-                                </tr>
-
-                                {% if user_details.sponsor_name %}
+                <hr>
+                <div class="row">
+                    <div class="col-sm-5 col-md-4">
+                        <div class="user-left">                            
+                            <table class="table table-condensed table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ lang('sponser_name')}}</td>
-                                        <td>{{ user_details.sponsor_name }}</td>
+                                        <th colspan="3">{{lang('contact_info')}}</th>
                                     </tr>
-                                {% endif %}
-                                {% if user_details.rank_name %}
+                                </thead>
+                                <tbody>
                                     <tr>
-                                        <td>{{ lang('rank')}}</td>
-                                        <td>{{ user_details.rank_name }}</td>
+                                        <td>{{lang('email')}}:</td>
+                                        <td>{{ user_details.email }}</td>                                        
                                     </tr>
-                                {% endif %}
-                                <tr>
-                                    <td>{{ lang('tran_pass')}}</td>
-                                    <td>{{ user_details.tran_password }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ lang('replica_link')}}</td>
-                                    <td>{{ user_details.replica_link }}</td>
-                                </tr>
-                            </tbody>
-                        </table>                            
+                                    <tr>
+                                        <td>{{lang('phone_number')}}:</td>
+                                        <td>{{ user_details.phone_number }}</td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">{{lang('general_info')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{lang('joining_date')}}</td>
+                                        <td>{{ user_details.date }}</td>
+                                    </tr>
+
+                                    {% if user_details.sponsor_name %}
+                                        <tr>
+                                            <td>{{ lang('sponser_name')}}</td>
+                                            <td>{{ user_details.sponsor_name }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if user_details.rank_name %}
+                                        <tr>
+                                            <td>{{ lang('rank')}}</td>
+                                            <td>{{ user_details.rank_name }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td>{{ lang('tran_pass')}}</td>
+                                        <td>{{ user_details.tran_password }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ lang('replica_link')}}</td>
+                                        <td>{{ user_details.replica_link }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                            
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-7 col-md-8">
-                    {{ form_open('', 'id="profile_update_form" name="profile_update_form"')|raw }}
-                    <div class="row">
-                        <div class="center">
-                            <b>{{lang('edit_ur_profile')}}</b>
-                            <hr>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="errorHandler alert alert-danger no-display">
-                                <i class="fa fa-times-sign"></i> {{ lang('form_error_msg') }}
+                    <div class="col-sm-7 col-md-8">
+                        {{ form_open('', 'id="profile_update_form" name="profile_update_form"')|raw }}
+                        <div class="row">
+                            <div class="center">
+                                <b>{{lang('edit_ur_profile')}}</b>
+                                <hr>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('first_name')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.first_name }}" placeholder="Insert your First Name" class="form-control" id="first_name" name="first_name">
-                                {% if profile_error.first_name is defined %}<code> {{ profile_error.first_name}} </code> {% endif %} 
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('last_name')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.last_name }}" placeholder="Insert your Last Name" class="form-control" id="last_name" name="last_name">
-                                {% if profile_error.last_name is defined %}<code> {{ profile_error.last_name}} </code> {% endif %} 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('phone_number')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.phone_number }}" placeholder="Insert your Mobile No" class="form-control" id="phone_number" name="phone_number">
-                                {% if profile_error.phone_number is defined %}<code> {{ profile_error.phone_number}} </code> {% endif %} 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('dob')}} <span class="symbol required"></span>
-                                </label>
-                                <div class="input-group">
-                                    <input type="text" value="{{ user_details.date_of_birth }}" id="dob" name="dob" class="form-control input-mask-date">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-green">
-                                            <i class="fa fa-calendar"></i>
-                                        </button> </span>
+                            <div class="col-md-12">
+                                <div class="errorHandler alert alert-danger no-display">
+                                    <i class="fa fa-times-sign"></i> {{ lang('form_error_msg') }}
                                 </div>
-                                {% if profile_error.dob is defined %}<code> {{ profile_error.dob}} </code> {% endif %} 
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('gender')}} <span class="symbol required"></span>
-                                </label>
-                                <div>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="f" {% if user_details.gender=='f' %} checked {% endif %} name="gender" id="gender">
-                                        {{lang('female')}}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('first_name')}} <span class="symbol required"></span>
                                     </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" class="grey" value="m" {% if user_details.gender=='m' %} checked {% endif %} name="gender"  id="gender">
-                                        {{lang('male')}}
-                                    </label>
+                                    <input type="text" value="{{ user_details.first_name }}" placeholder="Insert your First Name" class="form-control" id="first_name" name="first_name">
+                                    {% if profile_error.first_name is defined %}<code> {{ profile_error.first_name}} </code> {% endif %} 
                                 </div>
-                                {% if profile_error.gender is defined %}<code> {{ profile_error.gender}} </code> {% endif %} 
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('last_name')}} <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" value="{{ user_details.last_name }}" placeholder="Insert your Last Name" class="form-control" id="last_name" name="last_name">
+                                    {% if profile_error.last_name is defined %}<code> {{ profile_error.last_name}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('phone_number')}} <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" value="{{ user_details.phone_number }}" placeholder="Insert your Mobile No" class="form-control" id="phone_number" name="phone_number">
+                                    {% if profile_error.phone_number is defined %}<code> {{ profile_error.phone_number}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('dob')}} <span class="symbol required"></span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" value="{{ user_details.date_of_birth }}" id="dob" name="dob" class="form-control input-mask-date">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-green">
+                                                <i class="fa fa-calendar"></i>
+                                            </button> </span>
+                                    </div>
+                                    {% if profile_error.dob is defined %}<code> {{ profile_error.dob}} </code> {% endif %} 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('gender')}} <span class="symbol required"></span>
+                                    </label>
+                                    <div>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="grey" value="f" {% if user_details.gender=='f' %} checked {% endif %} name="gender" id="gender">
+                                            {{lang('female')}}
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="grey" value="m" {% if user_details.gender=='m' %} checked {% endif %} name="gender"  id="gender">
+                                            {{lang('male')}}
+                                        </label>
+                                    </div>
+                                    {% if profile_error.gender is defined %}<code> {{ profile_error.gender}} </code> {% endif %} 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('address')}} <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" value="{{ user_details.address_1 }}" placeholder="Insert your Address" class="form-control" id="address" name="address">
+                                    {% if profile_error.address is defined %}<code> {{ profile_error.address}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('country')}} <span class="symbol required"></span>
+                                    </label>
+                                    <select name="country" id="country" class="form-control" >
+                                        <option value="">{{lang('select_a_country')}}</option>
+                                        {% for cntrs in countries %}
+                                            <option value="{{cntrs.id}}" {% if user_details.country==cntrs.id %} selected {% endif %}>{{cntrs.name}}</option>
+                                        {% endfor %}
+
+
+                                    </select>
+                                    {% if profile_error.country is defined %}<code> {{ profile_error.country}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('state')}} <span class="symbol required"></span>
+                                    </label>
+                                    <select name="state" id="state" class="form-control" >
+                                        <option value="">{{lang('select_a_state')}}</option>
+                                        {% for sts in states %}
+                                            <option value="{{sts.id}}" {% if user_details.state==sts.id %} selected {% endif %}>{{sts.name}}</option>
+                                        {% endfor %}                       
+                                    </select>
+                                    {% if profile_error.state is defined %}<code> {{ profile_error.state}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('city')}} <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" value="{{ user_details.city }}" placeholder="Insert your City" class="form-control" id="city" name="city">
+                                    {% if profile_error.city is defined %}<code> {{ profile_error.city}} </code> {% endif %} 
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        {{lang('zip_code')}} <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" value="{{ user_details.zipcode }}" placeholder="Insert your Zip Code" class="form-control" id="zipcode" name="zipcode">
+                                    {% if profile_error.zipcode is defined %}<code> {{ profile_error.zipcode}} </code> {% endif %} 
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('address')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.address_1 }}" placeholder="Insert your Address" class="form-control" id="address" name="address">
-                                {% if profile_error.address is defined %}<code> {{ profile_error.address}} </code> {% endif %} 
+                        <div class="row">
+                            <div class="col-md-8">                                
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('country')}} <span class="symbol required"></span>
-                                </label>
-                                <select name="country" id="country" class="form-control" >
-                                    <option value="">{{lang('select_a_country')}}</option>
-                                    {% for cntrs in countries %}
-                                        <option value="{{cntrs.id}}" {% if user_details.country==cntrs.id %} selected {% endif %}>{{cntrs.name}}</option>
-                                    {% endfor %}
-                                    
-                                                                     
-                                </select>
-                                {% if profile_error.country is defined %}<code> {{ profile_error.country}} </code> {% endif %} 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('state')}} <span class="symbol required"></span>
-                                </label>
-                                <select name="state" id="state" class="form-control" >
-                                    <option value="">{{lang('select_a_state')}}</option>
-                                    {% for sts in states %}
-                                        <option value="{{sts.id}}" {% if user_details.state==sts.id %} selected {% endif %}>{{sts.name}}</option>
-                                    {% endfor %}                       
-                                </select>
-                                {% if profile_error.state is defined %}<code> {{ profile_error.state}} </code> {% endif %} 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('city')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.city }}" placeholder="Insert your City" class="form-control" id="city" name="city">
-                                {% if profile_error.city is defined %}<code> {{ profile_error.city}} </code> {% endif %} 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">
-                                    {{lang('zip_code')}} <span class="symbol required"></span>
-                                </label>
-                                <input type="text" value="{{ user_details.zipcode }}" placeholder="Insert your Zip Code" class="form-control" id="zipcode" name="zipcode">
-                                {% if profile_error.zipcode is defined %}<code> {{ profile_error.zipcode}} </code> {% endif %} 
+                            <div class="col-md-4">
+                                <button type="submit"class="btn btn-primary" value="prof_update" name="prof_update">
+                                    {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
+                                </button>
                             </div>
                         </div>
+                        {{ form_close()|raw }} 
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">                                
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit"class="btn btn-primary" value="prof_update" name="prof_update">
-                                {{lang('update')}} <i class="fa fa-arrow-circle-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                    {{ form_close()|raw }} 
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% include('admin/layout/footer.twig')%}
 
@@ -597,11 +596,11 @@
 
 
 <script>
-    $(document).ready(function () {
-        ImageCropping.init();
-        ValidateUserProfile.init();
-        FormElements.init();
-    });
+                                                            $(document).ready(function () {
+                                                                ImageCropping.init();
+                                                                ValidateUserProfile.init();
+                                                                FormElements.init();
+                                                            });
 </script>
 
 
