@@ -40,6 +40,7 @@ class Configuration_model extends CI_Model {
 
     function addNewRegistrationField($data) {
         return $this->db->set('field_name', $data['field_name'])
+                        ->set('field_name_en', $data['field_name_en'])
                         ->set('required_status', $data['required_status'])
                         ->set('unique_status', $data['unique_status'])
                         ->set('register_step', $data['register_step'])
@@ -108,6 +109,7 @@ class Configuration_model extends CI_Model {
         foreach ($res->result() as $row) {
             $data['id'] = $row->id;
             $data['field_name'] = $row->field_name;
+            $data['field_name_en'] = $row->field_name_en;
             $data['required_status'] = $row->required_status;
             $data['unique_status'] = $row->unique_status;
             $data['register_step'] = $row->register_step;
@@ -174,6 +176,7 @@ class Configuration_model extends CI_Model {
     
     function updateRegistrationField($data) {
         return $this->db->set('field_name', $data['field_name'])
+                        ->set('field_name_en', $data['field_name_en'])
                         ->set('required_status', $data['required_status'])
                         ->set('unique_status', $data['unique_status'])
                         ->set('register_step', $data['register_step'])
@@ -280,6 +283,39 @@ class Configuration_model extends CI_Model {
                         ->set('date', date("Y-m-d H:i:s"))
                         ->insert('language_conversion');
     }
-    
+       /**
+     * 
+     * 
+     * For insert images upload
+     * @author Techffodils
+     * @date 2017-10-27
+     * 
+     */
+    function insertKycDetails($data_arr) {
+        $this->db->trans_start();
+
+        $data_arr = array(
+            'bank_name' => $data_arr['bank_name'],
+            'bank_branch' => $data_arr['bank_branch'],
+            'bank_account_number' => $data_arr['bank_account_no'],
+            'bank_proof' => $data_arr['bank_proof'],
+            'bank_ifsc_code' => $data_arr['bank_ifc_code'],
+            'id_name' => $data_arr['id_name'],
+            'id_number' => $data_arr['id_number'],
+            'id_proof' => $data_arr['id_proof'],
+            'user_id' => $data_arr['user_id'],
+        );
+        $result = $this->db->insert('kyc_details', $data_arr);
+
+        if ($result) {
+            $this->helper_model->insertActivity($data_arr['user_id'], 'Upload Kyc Details', serialize($data_arr));
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
     
 }

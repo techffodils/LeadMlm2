@@ -86,7 +86,14 @@ var AdvanceWizard = function () {
                     error.insertAfter($(element).closest('.form-group').children('div').children().last());
                 } else if (element.attr("name") == "card_expiry_mm" || element.attr("name") == "card_expiry_yyyy") {
                     error.appendTo($(element).closest('.form-group').children('div'));
-                } else {
+                } else if(element.attr("name") == "password"){
+                    error.insertAfter(element);
+                } else if(element.attr("type") == "text" || element.attr("type") == "email" || element.attr("type") == "password") {
+                    error.insertAfter($(element).closest('.input-group'));
+                    // for other inputs, just perform default behavior
+                }else if(element.attr("name") == "password"){
+                    error.insertAfter(element);
+                }else {
                     error.insertAfter(element);
                     // for other inputs, just perform default behavior
                 }

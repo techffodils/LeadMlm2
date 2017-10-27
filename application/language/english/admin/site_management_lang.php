@@ -29,4 +29,8 @@ $lang['mail'] = 'Mail';
 $lang['smtp'] = 'SMTP';
 $lang['submit'] = 'Submit';
 $lang['mail_configuration'] = 'Mail Configuration';
+$lang['site_settings'] = 'Web Site Settings';
+$lang['admin_email'] = 'Admin Email';
+$lang['error_while_entring_site_settings'] = 'Error While Entering Website Setings';
+$lang['successfully_update_site_settings'] = 'Successfully Update Website Settings';
 

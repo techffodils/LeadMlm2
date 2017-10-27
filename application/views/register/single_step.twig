@@ -45,12 +45,14 @@
                                     <i class="fa fa-remove-sign"></i>{{ lang('form_error_msg') }}
                                 </div>
                                 <fieldset>
+
                                     <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_sponser_name_for_joining')}}">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
-                                            <i class="fa fa-user-plus"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-user-plus"></i> </span>
+                                                <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
+                                            </div> 
                                         </span>
-
                                         {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
                                     </div>
 
@@ -71,61 +73,67 @@
                                     {% endif %}
 
                                     {% if username_type=="static" %}
-                                        <div class="form-group">
+                                        <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_sponser_name_for_joining')}}">
                                             <span class="input-icon">
-                                                <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
-                                                <i class="fa fa-user"></i> 
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
+                                                    <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
+                                                </div> 
                                             </span>
-
                                             {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
                                         </div>
                                     {% endif %}
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="{{ lang('email') }}">
-                                            <i class="fa fa-envelope"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-envelope"></i> </span>
+                                                <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="{{ lang('email') }}">
+                                            </div> 
                                         </span>
+                                        {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %}  
+                                    </div>                                    
 
-                                        {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %} 
-                                    </div>
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="{{ lang('password') }}">
-                                            <i class="fa fa-lock"></i>
+                                            <input type="password" class="form-control input-lg password_reset" id="password" name="password" placeholder="{{ lang('password') }}">
+                                            <div class="pwstrength_viewport_progress"></div>
                                         </span>
-
                                         {% if register_error.password is defined %}<code> {{ register_error.password}}</code> {% endif %} 
                                     </div>
-                                    <div class="form-group ">
-                                        <span class="input-icon">
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ lang('confirm_password') }}">
-                                            <i class="fa fa-lock"></i> 
-                                        </span>
 
+
+                                    <div class="form-group">
+                                        <span class="input-icon">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ lang('confirm_password') }}">
+                                            </div> 
+                                        </span>
                                         {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}}</code> {% endif %} 
                                     </div>
 
-
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="{{ lang('first_name') }}">
-                                            <i class="fa fa-text-width"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="{{ lang('first_name') }}">
+                                            </div> 
                                         </span>
-
                                         {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
                                     </div>
 
+
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ register_data.last_name }}" placeholder="{{ lang('last_name') }}">
-                                            <i class="fa fa-text-width"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-text-width"></i> </span>
+                                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ register_data.last_name }}" placeholder="{{ lang('last_name') }}">
+                                            </div> 
                                         </span>
-
-                                        {% if register_error.last_name is defined %}<code> {{ register_error.last_name}}</code> {% endif %} 
+                                        {% if register_error.last_name is defined %}<code> {{ register_error.last_name}}</code> {% endif %}
                                     </div>
-
 
 
                                     <div class="form-group">
@@ -159,16 +167,16 @@
                                     <div class="form-group">
                                         <div>
                                             <label for="privacy_policy" class="checkbox-inline">
-                                                <input type="checkbox" class="grey agree" id="privacy_policy" name="privacy_policy">                                                
+                                                <input type="checkbox" class="grey agree" id="privacy_policy" name="privacy_policy" {% if register_data.agree %} checked {% endif %}>                                                
                                             </label>
                                             <a href="#" data-toggle="modal" data-target="#privacy_modal">{{ lang('agree_to_the_privacy_policy') }}</a>
                                         </div>
                                         {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
                                     </div>
 
-                                        <p><b>{{lang('register_fee')}}: {{ entry_fee }}</b></p>
-                                    
-                                    <div class="form-group">
+                                    <p><b>{{lang('register_fee')}}: {{ entry_fee }}</b></p>
+
+                                    {#<div class="form-group">
                                         <span class="input-icon">
                                             <select class="form-control" id="payment_method" name="payment_method">
                                                 <option value="">{{ lang('select_a_payment_method')}}</option>
@@ -179,8 +187,9 @@
                                         </span>                                                   
 
                                         {% if register_error.payment_method is defined %}<code> {{ register_error.payment_method}} </code> {% endif %} 
-                                    </div>
-                                    
+                                    </div>#}
+
+
                                     <div class="form-group">
                                         <div>
                                             <label for="agree" class="checkbox-inline">
@@ -191,13 +200,145 @@
                                         {% if register_error.agree is defined %}<code> {{ register_error.agree}}</code> {% endif %}
                                     </div>
 
+                                    <div class="tabbable">
+                                        <ul id="myTab" class="nav nav-tabs"> 
+                                            {% if free_registration %}
+                                                <li class="{{ free_registration_tab }}">
+                                                    <a href="#free_registration_tab" data-toggle="tab">
+                                                        <i class="green fa fa-credit-card"></i> {{lang('free_registration')}}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+                                            {% if bank_transfer %}
+                                                <li class="{{ bank_transfer_tab }}">
+                                                    <a href="#bank_transfer_tab" data-toggle="tab">
+                                                        <i class="green fa fa-credit-card"></i> {{lang('bank_transfer')}}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+                                            {% if ewallet %}
+                                                <li class="{{ ewallet_tab }}">
+                                                    <a href="#ewallet_tab" data-toggle="tab">
+                                                        <i class="green fa fa-credit-card"></i> {{lang('ewallet')}}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+
+                                            {% if epin %}
+                                                <li class="{{ epin_tab }}">
+                                                    <a href="#epin_tab" data-toggle="tab">
+                                                        <i class="green fa fa-credit-card"></i> {{lang('epin')}}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+
+                                        </ul>
+                                        <div class="tab-content">
+                                            {% if free_registration %}
+                                                <div class="tab-pane fade in {{ free_registration_tab }}" id="free_registration_tab">
+
+                                                    <div class="alert alert-block alert-warning fade in">
+                                                        <button data-dismiss="alert" class="close" type="button">
+                                                            ×
+                                                        </button>
+                                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                                        <p>
+                                                            {{lang('free_register_notification')}}
+                                                        </p>
+
+                                                    </div>
+
+
+                                                    <button type="submit"class="btn btn-primary" value="free_registration" name="add_user">
+                                                        {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if bank_transfer %}
+                                                <div class="tab-pane fade in {{ bank_transfer_tab }}" id="bank_transfer_tab">
+                                                    <div class="alert alert-block alert-warning fade in">
+                                                        <button data-dismiss="alert" class="close" type="button">
+                                                            ×
+                                                        </button>
+                                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                                        <p>
+                                                            {{lang('bank_transfer_notification')}}
+                                                        </p>
+
+                                                    </div>
+
+
+                                                    <button type="submit"class="btn btn-primary" value="bank_transfer" name="add_user">
+                                                        {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if ewallet %}
+                                                <div class="tab-pane fade in {{ ewallet_tab }}" id="ewallet_tab">
+                                                    <div class="alert alert-block alert-warning fade in">
+                                                        <button data-dismiss="alert" class="close" type="button">
+                                                            ×
+                                                        </button>
+                                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                                        <p>
+                                                            {{lang('ewallet_notification')}}
+                                                        </p>
+
+                                                    </div>
+
+                                                    <button type="submit"class="btn btn-primary" value="ewallet" name="add_user">
+                                                        {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+
+                                            {% endif %}
+
+                                            {% if epin %}
+                                                <div class="tab-pane fade in {{ epin_tab }}" id="epin_tab">
+                                                    <div class="alert alert-block alert-warning fade in">
+                                                        <button data-dismiss="alert" class="close" type="button">
+                                                            ×
+                                                        </button>
+                                                        <h4 class="alert-heading"><i class="fa fa-exclamation"></i> {{lang('notice')}}</h4>
+                                                        <p>
+                                                            {{lang('epin_notification')}}
+                                                        </p>
+
+                                                    </div>
+
+                                                    <button type="submit"class="btn btn-primary" value="epin" name="add_user">
+                                                        {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+
+
+
+
+
 
 
 
 
 
                                 </fieldset>
-                                <div class="form-group">
+                                {#<div class="form-group">
                                     <label class="col-sm-3 control-label">
 
                                     </label>
@@ -206,7 +347,7 @@
                                             {{ lang('register')}} <i class="fa fa-arrow-circle-right"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div>#}
 
                                 {{ form_close()|raw }}                   
 
@@ -267,6 +408,7 @@
     {% include('layout/footer.twig')%}
 {% endif %}
 <script src="assets/js/single_step_register.js"></script>
+<script src="assets/js/pwdchecker.js"></script>
 <script>
     jQuery(document).ready(function () {
         valSingleStep();

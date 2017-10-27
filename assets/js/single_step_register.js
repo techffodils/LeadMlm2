@@ -49,8 +49,16 @@ $.validator.addMethod("validUsername", function () {
                     error.insertAfter($(element).closest('.form-group').children('div').children().last());
                 } else if (element.hasClass("ckeditor")) {
                     error.appendTo($(element).closest('.form-group'));
-                } else {
-                    error.insertAfter(element)// for other inputs, just perform default behavior
+                }else if(element.attr("name") == "password"){
+                    error.insertAfter(element);
+                } else if(element.attr("type") == "text" || element.attr("type") == "email" || element.attr("type") == "password") {
+                    error.insertAfter($(element).closest('.input-group'));
+                    // for other inputs, just perform default behavior
+                }else if(element.attr("name") == "password"){
+                    error.insertAfter(element);
+                }else {
+                    error.insertAfter(element);
+                    // for other inputs, just perform default behavior
                 }
             },
             ignore: "",

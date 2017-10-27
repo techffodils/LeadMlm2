@@ -20,18 +20,18 @@ class Site_management extends Base_Controller {
      * 
      */
     function site_configuration() {
-        $title = "Site Management";
-        $this->setData('title', $title . '|' . $this->main->get_controller() . '::');
+        $title = lang('site_settings');
+        $this->setData('title', $title);
         $this->setData('page_title', $title);
         $site_info = $this->site_management_model->get_site_info();
 
         if ($this->input->post('update_site_info') && $this->validate_site_info()) {
             $post_arr = $this->input->post(NULL, TRUE);
-//print_r($post_arr);print_r($_FILES['company_logo']);die;
             $company_name = $post_arr['company_name'];
             $company_address = $post_arr['company_address'];
             $company_email = $post_arr['company_email'];
             $company_phone = $post_arr['company_phone'];
+            $admin_email = $post_arr['admin_email'];
 
 
             $data = array();
@@ -40,8 +40,6 @@ class Site_management extends Base_Controller {
                 $config['upload_path'] = FCPATH . 'assets/images/logos/';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['file_name'] = $_FILES['company_logo']['name'];
-//print_r($config);die;
-//Load upload library and initialize configuration
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
 
@@ -74,7 +72,7 @@ class Site_management extends Base_Controller {
             }
 
 
-            $result = $this->site_management_model->updateSiteInformation($company_name, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
+            $result = $this->site_management_model->updateSiteInformation($company_name,$admin_email, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
             if ($result) {
 
                 $site_info = array(
@@ -90,12 +88,14 @@ class Site_management extends Base_Controller {
 
                 $data = serialize($this->input->post());
                 $res = $this->helper_model->insertActivity($this->main->get_usersession('mlm_user_id'), 'Site Information Updated', $data);
-                $msg = "Successfully Updated Site Information";
-                $this->loadPage($msg, "site_management/site_configuration", TRUE);
+                $msg = lang('successfully_update_site_settings');
+                $this->loadPage($msg, "site_management/site_configuration");
             } else {
-                $msg = "Error While Updating Site Information";
-                $this->loadPage($msg, "site_management/site_configuration", FALSE);
+                $msg = lang('error_while_entring_site_settings');
+                $this->loadPage($msg, "site_management/site_configuration", 'danger');
             }
+        } else {
+            $this->setData('error', $this->form_validation->error_array());
         }
         $this->setData('site_info', $site_info);
         $this->loadView();
@@ -103,20 +103,13 @@ class Site_management extends Base_Controller {
 
     function validate_site_info() {
         $post_arr = $this->input->post();
-        $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
-        $this->form_validation->set_rules('company_address', 'Company Name', 'trim|required');
-        $this->form_validation->set_rules('company_email', 'Company Name', 'trim|required');
-        $this->form_validation->set_rules('company_phone', 'Company Name', 'trim|required');
-        /* $this->form_validation->set_rules('company_logo', 'Company Name', 'trim|required');
-          $this->form_validation->set_rules('company_fav_icon', 'Company Name', 'trim|required'); */
+        $this->form_validation->set_rules('company_name', lang('company_name'), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('company_address', lang('address'), 'trim|required');
+        $this->form_validation->set_rules('company_email', lang('company_email'), 'trim|required|valid_email');
+        $this->form_validation->set_rules('company_phone', lang('company_phone'), 'trim|required');
+        
         $result = $this->form_validation->run();
-        if ($result == FALSE) {
-            $error = validation_errors();
-            $msg = "Please Have look Form Contain Some error";
-            $this->loadPage($msg, 'site_management/site_configuration', FALSE);
-        } else {
-            return $result;
-        }
+        return $result;
     }
 
     /**
@@ -126,8 +119,8 @@ class Site_management extends Base_Controller {
      */
     function mail_content_management($lang_code = '') {
 
-        $title = "Mail Content Management";
-        $this->setData('title', $title . "|" . $this->main->get_controller() . "::");
+        $title = lang('mail_content_management');
+        $this->setData('title', $title);
 
         $avail_lang = $this->site_management_model->getAllLangauage('registration');
         $password_rest = $this->site_management_model->getAllLangauage('password_reset');
@@ -150,11 +143,11 @@ class Site_management extends Base_Controller {
                 }
             }
             if ($result) {
-                $msg = "Successfully Inserted Mail content";
+                $msg = lang('succesfully_inserted_mail_management');
                 $this->loadPage($msg, 'site_management/mail_content_management');
             } else {
-                $msg = "Filed to Insert Mail content";
-                $this->loadPage($msg, 'site_management/mail_content_management', FALSE);
+                $msg = lang('error_while_insert_mail_management');
+                $this->loadPage($msg, 'site_management/mail_content_management', 'danger');
             }
         } else {
             $error = $this->form_validation->error_array();
