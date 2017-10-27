@@ -282,7 +282,6 @@ class Employee extends Base_Controller {
                         $allocate_menu_id = $data;
                     }
 
-
                     $employee_menu = $this->employee_model->getAllEmployeeMenus();
                     $menu = "<table style='background:white;height:100px;' class='table table-responsive table-full-width' id='sample_1'>";
                     foreach ($employee_menu as $row) {
@@ -311,9 +310,6 @@ class Employee extends Base_Controller {
                                     <td colspan='2'></td>
                                   </tr>";
                         } else {
-
-
-
                             $menu .= "<tr style='color:#0000'>
                                        <td>
                                         <div class='radio-inline'>
@@ -325,10 +321,8 @@ class Employee extends Base_Controller {
                                     <td colspan='2'></td>
                                   </tr>";
                         }
-
                         if ($row['sub_menu']) {
                             foreach ($row['sub_menu'] as $value) {
-
                                 $sub_menu_id = $value['sub_id'];
                                 $sub_menu_name = lang('menu_name_' . $value['sub_id']);
                                 if (in_array($sub_menu_id, $allocate_menu_id)) {
@@ -351,7 +345,6 @@ class Employee extends Base_Controller {
                                              <td></td>
                                          </tr>";
                                 } else {
-
                                     $menu .= "<tr tr style='color:#0000'>
                                             <td></td>
                                             <td>
