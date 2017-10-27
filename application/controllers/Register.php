@@ -377,6 +377,7 @@ class Register extends Base_Controller {
         } elseif ($this->input->get('username')) {
             if (!$this->helper_model->userNameToID($this->input->get('username')) && !$this->register_model->checkInPending($this->input->get('username'))) {
                 echo 'yes';
+                exit();
             }
             echo 'no';
             exit();
@@ -386,12 +387,12 @@ class Register extends Base_Controller {
     function valid_email($email = '') {
         if ($email != '') {
             $flag = false;
-            if (!$this->helper_model->getUserIdFromEmailId($email)) {
+            if (!$this->helper_model->getUserIdFromEmailId($email)&& !$this->register_model->checkEmailInPending($email)) {
                 $flag = true;
             }
             return $flag;
         } elseif ($this->input->get('email')) {
-            if (!$this->helper_model->getUserIdFromEmailId($this->input->get('email'))) {
+            if (!$this->helper_model->getUserIdFromEmailId($this->input->get('email'))&& !$this->register_model->checkEmailInPending($this->input->get('email'))) {
                 echo 'yes';
                 exit();
             }
