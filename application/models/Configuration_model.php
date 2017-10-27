@@ -40,6 +40,7 @@ class Configuration_model extends CI_Model {
 
     function addNewRegistrationField($data) {
         return $this->db->set('field_name', $data['field_name'])
+                        ->set('field_name_en', $data['field_name_en'])
                         ->set('required_status', $data['required_status'])
                         ->set('unique_status', $data['unique_status'])
                         ->set('register_step', $data['register_step'])
@@ -108,6 +109,7 @@ class Configuration_model extends CI_Model {
         foreach ($res->result() as $row) {
             $data['id'] = $row->id;
             $data['field_name'] = $row->field_name;
+            $data['field_name_en'] = $row->field_name_en;
             $data['required_status'] = $row->required_status;
             $data['unique_status'] = $row->unique_status;
             $data['register_step'] = $row->register_step;
@@ -174,6 +176,7 @@ class Configuration_model extends CI_Model {
     
     function updateRegistrationField($data) {
         return $this->db->set('field_name', $data['field_name'])
+                        ->set('field_name_en', $data['field_name_en'])
                         ->set('required_status', $data['required_status'])
                         ->set('unique_status', $data['unique_status'])
                         ->set('register_step', $data['register_step'])

@@ -161,7 +161,7 @@ var validate_add_field = function () {
                 field_name: {
                     required: true,
                     minlength: 3,
-                    lettersonly: true
+                    //lettersonly: true
                 },
                 field_name_en: {
                     required: true
