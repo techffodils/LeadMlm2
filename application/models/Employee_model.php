@@ -13,7 +13,7 @@ class Employee_model extends CI_Model {
     }
 
     function enrollEmployee($data) {
-        // print_r($data);die;
+// print_r($data);die;
         $this->db->trans_start();
         $array = array('user_name' => $data['user_name'],
             'password' => hash("sha256", $data['password'])
@@ -194,6 +194,96 @@ class Employee_model extends CI_Model {
             $json[] = $row['user_name'];
         }
         return json_encode($json);
+    }
+
+    /**
+     * For getting All Menus & Sub menus
+     * 
+     * @author leadMlmSoftware
+     * 
+     * @date 2017-10-26
+     * 
+     * 
+     */
+    function getAllEmployeeMenus() {
+        $result = $this->db->select('id,name,link,order,lock,root_id')
+                ->from('menus')
+                ->where('root_id', '#')
+                ->where('employee_permission', 1)
+                ->where('status', 1)
+                ->get();
+        $empl_menu_arr = array();
+        $i = 0;
+        foreach ($result->result_array() as $row) {
+            $sub_menu = ($row['link'] == '#') ? $this->getSubMenus($row['id']) : NULL;
+            if ($row['link'] != '#' || $sub_menu) {
+                $empl_menu_arr[$i]['id'] = $row['id'];
+                $empl_menu_arr[$i]['name'] = $row['name'];
+                $empl_menu_arr[$i]['link'] = $row['link'];
+                $empl_menu_arr[$i]['root_id'] = $row['root_id'];
+                $empl_menu_arr[$i]['sub_menu'] = $sub_menu;
+            }
+            $i++;
+        }
+        return $empl_menu_arr;
+    }
+
+    function getSubMenus($id) {
+        $result = $this->db->select('id,name,link,order,lock,root_id')
+                ->from('menus')
+                ->where('root_id', $id)
+                ->where('employee_permission', 1)
+                ->where('status', 1)
+                ->get();
+        $empl_menu_arr = [];
+        $i = 0;
+        foreach ($result->result_array() as $row) {
+            $empl_menu_arr[$i]['sub_id'] = $row['id'];
+            $empl_menu_arr[$i]['name'] = $row['name'];
+            $empl_menu_arr[$i]['link'] = $row['link'];
+            $i++;
+        }
+        return $empl_menu_arr;
+    }
+
+    function getAllUserAllocatedMenus($user_name) {
+
+        $result = $this->db->select('modules')->from('employee_login')->like('user_name', $user_name)->where('status', 1)->get();
+        $arr = [];
+        foreach ($result->result_array() as $row) {
+            //print_r($row['modules']);die;
+            if (!empty($row['modules'])) {
+                $arr['menus'] = unserialize($row['modules']);
+            }
+        }
+        return $arr;
+    }
+
+    function getEmployeeId($user_name) {
+        $employee_id = '';
+        $employee = $this->db->select('employee_id')->from('employee_login')->like('user_name', $user_name)->get();
+        foreach ($employee->result() as $value) {
+            $employee_id = $value->employee_id;
+        }
+        return $employee_id;
+    }
+
+    function upDateModulePermission($post_arr) {
+        $user_id = $post_arr['emp_id'];
+        $length = count($post_arr);
+
+        $output = array_slice($post_arr, 1, -1);
+
+        $array = array();
+
+        foreach ($output as $value) {
+            array_push($array, $value);
+        }
+
+        $serialize = serialize($array);
+
+        $result = $this->db->set('modules', $serialize)->where('employee_id', $user_id)->update('employee_login');
+        return $result;
     }
 
 }
