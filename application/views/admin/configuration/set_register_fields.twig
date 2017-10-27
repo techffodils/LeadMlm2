@@ -36,7 +36,15 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">
-                                {{lang('field_name')}} <span class="symbol required"></span>
+                                {{lang('field_name')}} (<b>{{lang('in_english')}}</b>) <span class="symbol required"></span>
+                            </label>
+                            <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name_en" name="field_name_en" value="{{ post_data.field_name_en }}">
+                            {% if error.field_name_en is defined %}<code> {{ error.field_name_en}}</code> {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">
+                                {{lang('field_name')}} (<b>{{lang('for_db')}}</b>) <span class="symbol required"></span>
                             </label>
                             <input type="text" placeholder="Insert your Field Name" class="form-control" id="field_name" name="field_name" value="{{ post_data.field_name }}">
                             {% if error.field_name is defined %}<code> {{ error.field_name}}</code> {% endif %}

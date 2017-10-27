@@ -273,5 +273,13 @@ class Configuration_model extends CI_Model {
         return $icon;
     }
     
+    function addNewLanguageField($user_id,$field_name,$in_english) {
+        return $this->db->set('mlm_user_id', $user_id)
+                        ->set('field_name', $field_name)
+                        ->set('in_english', $in_english)
+                        ->set('date', date("Y-m-d H:i:s"))
+                        ->insert('language_conversion');
+    }
+    
     
 }

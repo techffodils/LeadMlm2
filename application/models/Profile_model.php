@@ -127,5 +127,37 @@ class Profile_model extends CI_Model {
         ->where('mlm_user_id ', $mlm_user_id)
         ->update('user_details');
     }
+    
+    
+    function getAllCountries() {
+        $data = array();
+        $query = $this->db->select("country_id,country_name")
+                ->from("countries")
+                ->where("status", '1')
+                ->get();
+        $i = 0;
+        foreach ($query->result_array() as $row) {
+            $data[$i]['name'] = $row['country_name'];
+            $data[$i]['id'] = $row['country_id'];
+            $i++;
+        }
+        return $data;
+    }
+
+    function getAllStates($country_id) {
+        $data = array();
+        $query = $this->db->select("state_id,state_name")
+                ->from("states")
+                ->where("status", '1')
+                ->where('country_id', $country_id)
+                ->get();
+        $i = 0;
+        foreach ($query->result_array() as $row) {
+            $data[$i]['name'] = $row['state_name'];
+            $data[$i]['id'] = $row['state_id'];
+            $i++;
+        }
+        return $data;
+    }
 
 }
