@@ -1,0 +1,125 @@
+{# empty Twig template #}
+
+{% include 'admin/layout/header.twig'%}
+<link rel="stylesheet" href="assets/plugins/jQuery-Tags-Input/jquery.tagsinput.css">
+<link rel="stylesheet" href="assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css">
+<link rel="stylesheet" href="assets/plugins/select2/select2.css">
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: FORM VALIDATION 1 PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="text-bold">{{page_header}}</span></h4>
+                <div class="panel-tools">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
+                        <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                            <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                            <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                            <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                            <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <hr>
+                {{form_open_multipart('','methd="post" name="employee_enroll" id="employee_enroll"')|raw}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="errorHandler alert alert-danger no-display">
+                            <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                        </div>
+                        <div class="successHandler alert alert-success no-display">
+                            <i class="fa fa-ok"></i> Your form validation is successful!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-1">
+                            {{lang('user_name')}} <span class="symbol required"></span>
+                        </label>
+                        <div class="input-group col-md-4">
+                            <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
+                            <input type="text" class="form-control typeahead" name="user_name" id="user_name">
+                        </div>
+                        {% if error.user_name is defined %}<code> {{ error.user_name}}</code> {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 col-sm-offset-4">
+                        <button class="btn btn-primary btn-block" type="submit"  name="set_employee" id="set_employee">
+                            {{lang('submit')}} <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </div>
+                {{form_close()|raw}}
+            </div>
+        </div>
+        <!-- end: FORM VALIDATION 1 PANEL -->
+    </div>
+</div>
+
+{% if(flag) %}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: FORM VALIDATION 1 PANEL -->
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><span class="text-bold">{{page_header}}  {{user_name}}</span></h4>
+                    <div class="panel-tools">
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey"><i class="fa fa-cog"></i></a>
+                            <ul class="dropdown-menu dropdown-light pull-right" role="menu">
+                                <li><a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>{{ lang('collapse') }}</span> </a></li>
+                                <li><a class="panel-refresh" href="#"><i class="fa fa-refresh"></i> <span>{{ lang('refresh') }}</span></a></li>
+                                <li><a class="panel-config" href="#panel-config" data-toggle="modal"><i class="fa fa-wrench"></i> <span>{{ lang('config') }}</span></a></li>
+                                <li><a class="panel-expand" href="#"><i class="fa fa-expand"></i> <span>{{ lang('full_screen') }}</span></a></li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-xs btn-link panel-close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{form_open('',"method='post' name='menu_permission' id='menu_permission'")|raw}}
+                    <input type="hidden" name="emp_id" id="emp_id" value="{{employee_id}}"/>
+                    <div class="table-responsive">
+                        {{menu|raw}}
+
+                    </div>
+                    <div class='form-action'>
+                        <div class='col-sm-2 col-sm-offset-2'>
+                            <button class='btn btn-primary'  type='submit' align='center' name='permission' id='permission' value="permission">
+                                {{lang('submit')}} <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {{form_close()|raw}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% include 'admin/layout/footer.twig'%}
+<script src="assets/js/typeahead.js"></script>
+<script src="assets/js/employee_enroll.js"></script>
+
+<script type='text/javascript'>
+    jQuery(document).ready(function () {
+        ValiadateEmployee.init();
+
+        $('input.typeahead').typeahead({
+            source: function (query, process) {
+                var url = "{{BASE_URL}}admin/employee/employee_username";
+                return $.get(url, {query: query}, function (data) {
+                    console.log(data);
+                    data = $.parseJSON(data);
+                    return process(data);
+                });
+            }
+        });
+    });
+</script>
