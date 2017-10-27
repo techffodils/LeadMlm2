@@ -329,6 +329,20 @@ class Register_model extends CI_Model {
         $user_id = 0;
         $query = $this->db->select('id')
                 ->where('user_name',$username)
+                ->where('status','pending')
+                ->limit(1)
+                ->get('pending_registrations');
+        foreach ($query->result() as $row) {
+            $user_id = $row->id;
+        }
+        return $user_id;
+    }
+    
+    public function checkEmailInPending($email) {
+        $user_id = 0;
+        $query = $this->db->select('id')
+                ->where('email',$email)
+                ->where('status','pending')
                 ->limit(1)
                 ->get('pending_registrations');
         foreach ($query->result() as $row) {
