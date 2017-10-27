@@ -45,12 +45,14 @@
                                     <i class="fa fa-remove-sign"></i>{{ lang('form_error_msg') }}
                                 </div>
                                 <fieldset>
+
                                     <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_sponser_name_for_joining')}}">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
-                                            <i class="fa fa-user-plus"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-user-plus"></i> </span>
+                                                <input type="text" class="form-control" name="sponser_name" id="sponser_name" value="{{ register_data.sponser_name }}" placeholder="{{ lang('sponser_name') }}">
+                                            </div> 
                                         </span>
-
                                         {% if register_error.sponser_name is defined %}<code> {{ register_error.sponser_name}} </code> {% endif %} 
                                     </div>
 
@@ -71,24 +73,27 @@
                                     {% endif %}
 
                                     {% if username_type=="static" %}
-                                        <div class="form-group">
+                                        <div class="form-group tooltips" data-placement="top" data-original-title="{{lang('enter_a_sponser_name_for_joining')}}">
                                             <span class="input-icon">
-                                                <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
-                                                <i class="fa fa-user"></i> 
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
+                                                    <input type="text" class="form-control" name="username" id="username" value="{{ register_data.username }}" placeholder="{{ lang('username') }}">
+                                                </div> 
                                             </span>
-
                                             {% if register_error.username is defined %}<code> {{ register_error.username}}</code> {% endif %} 
                                         </div>
                                     {% endif %}
 
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="{{ lang('email') }}">
-                                            <i class="fa fa-envelope"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-envelope"></i> </span>
+                                                <input type="email" class="form-control" name="email" id="email" value="{{ register_data.email }}" placeholder="{{ lang('email') }}">
+                                            </div> 
                                         </span>
-
-                                        {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %} 
-                                    </div>
+                                        {% if register_error.email is defined %}<code> {{ register_error.email}}</code> {% endif %}  
+                                    </div>                                    
+                                    
 
                                     <div class="form-group">
                                         <span class="input-icon">
@@ -99,35 +104,36 @@
                                     </div>
 
 
-
-                                    <div class="form-group ">
+                                    <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ lang('confirm_password') }}">
-                                            <i class="fa fa-lock"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ lang('confirm_password') }}">
+                                            </div> 
                                         </span>
-
                                         {% if register_error.confirm_password is defined %}<code> {{ register_error.confirm_password}}</code> {% endif %} 
                                     </div>
 
-
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="{{ lang('first_name') }}">
-                                            <i class="fa fa-text-width"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-lock"></i> </span>
+                                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ register_data.first_name }}" placeholder="{{ lang('first_name') }}">
+                                            </div> 
                                         </span>
-
                                         {% if register_error.first_name is defined %}<code> {{ register_error.first_name}}</code> {% endif %} 
                                     </div>
-
+                                    
+                                    
                                     <div class="form-group">
                                         <span class="input-icon">
-                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ register_data.last_name }}" placeholder="{{ lang('last_name') }}">
-                                            <i class="fa fa-text-width"></i> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon"> <i class="fa fa-text-width"></i> </span>
+                                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ register_data.last_name }}" placeholder="{{ lang('last_name') }}">
+                                            </div> 
                                         </span>
-
-                                        {% if register_error.last_name is defined %}<code> {{ register_error.last_name}}</code> {% endif %} 
+                                        {% if register_error.last_name is defined %}<code> {{ register_error.last_name}}</code> {% endif %}
                                     </div>
-
 
 
                                     <div class="form-group">
