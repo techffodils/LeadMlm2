@@ -204,7 +204,7 @@
                     {% for fld in fields['step-2'] %}
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                {{ lang(fld.field_name) }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+                                {{ lang(fld.field_name) }} : {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
                             </label>
                             <div class="col-sm-7">
 
@@ -283,7 +283,7 @@
                     {% for fld in fields['step-3'] %}
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                {{ lang(fld.field_name) }} {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
+                                {{ lang(fld.field_name) }} : {% if fld.required_status %} <span class="symbol required"></span> {% endif %}
                             </label>
                             <div class="col-sm-7">
 
