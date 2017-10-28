@@ -283,6 +283,39 @@ class Configuration_model extends CI_Model {
                         ->set('date', date("Y-m-d H:i:s"))
                         ->insert('language_conversion');
     }
-    
+       /**
+     * 
+     * 
+     * For insert images upload
+     * @author Techffodils
+     * @date 2017-10-27
+     * 
+     */
+    function insertKycDetails($data_arr) {
+        $this->db->trans_start();
+
+        $data_arr = array(
+            'bank_name' => $data_arr['bank_name'],
+            'bank_branch' => $data_arr['bank_branch'],
+            'bank_account_number' => $data_arr['bank_account_no'],
+            'bank_proof' => $data_arr['bank_proof'],
+            'bank_ifsc_code' => $data_arr['bank_ifc_code'],
+            'id_name' => $data_arr['id_name'],
+            'id_number' => $data_arr['id_number'],
+            'id_proof' => $data_arr['id_proof'],
+            'user_id' => $data_arr['user_id'],
+        );
+        $result = $this->db->insert('kyc_details', $data_arr);
+
+        if ($result) {
+            $this->helper_model->insertActivity($data_arr['user_id'], 'Upload Kyc Details', serialize($data_arr));
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
     
 }
