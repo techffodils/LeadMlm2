@@ -72,9 +72,8 @@ class Site_management extends Base_Controller {
             }
 
 
-            $result = $this->site_management_model->updateSiteInformation($company_name,$admin_email, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
+            $result = $this->site_management_model->updateSiteInformation($company_name, $admin_email, $company_address, $company_email, $company_phone, $logo_name, $fav_icon);
             if ($result) {
-
                 $site_info = array(
                     'company_name' => $company_name,
                     'company_logo' => $logo_name,
@@ -107,7 +106,7 @@ class Site_management extends Base_Controller {
         $this->form_validation->set_rules('company_address', lang('address'), 'trim|required');
         $this->form_validation->set_rules('company_email', lang('company_email'), 'trim|required|valid_email');
         $this->form_validation->set_rules('company_phone', lang('company_phone'), 'trim|required');
-        
+
         $result = $this->form_validation->run();
         return $result;
     }
