@@ -45,6 +45,7 @@ $lang['menu_name_42'] = 'Web Site Settings';
 $lang['menu_name_43'] = 'Mail Content';
 $lang['menu_name_50'] = 'Enroll Employee';
 $lang['menu_name_51'] = 'Employee Menu Permission';
+$lang['menu_name_52'] = 'Add Kyc Details';
 //Menu Ends
 
 //calendar
