@@ -306,7 +306,7 @@ function getUrlId($currenturl)
 {
 	$url_ids = array();
 	$variable = $this->db->select('id,root_id')
-	->where('link',$currenturl)
+	->like('link',$currenturl,'before')
 	->from('menus')
 	->limit('1')
 	->get();
@@ -366,7 +366,7 @@ function checkMenuPermitted($user_type,$currenturl)
 
 	$status = true;
 	$res = $this->db->select('status')
-					->where('link',$currenturl)
+					->like('link',$currenturl,'before')
 					->where($user_type.'_permission',1)
 					->get('menus');
 
@@ -383,7 +383,7 @@ function checkMenuLocked($user_type,$currenturl)
 
 	$lock = false;
 	$res = $this->db->select('lock')
-					->where('link',$currenturl)
+					->like('link',$currenturl,'before')
 					->where($user_type.'_permission',1)
 					->get('menus');
 
