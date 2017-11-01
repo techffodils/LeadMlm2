@@ -389,6 +389,28 @@ class Helper_model extends CI_Model {
         }
         return $tran_password;
     }
+    public function sendVerificationMail($email,$user_id,$subject){
+        $encode_id=$this->helper_model->encode($user_id);
+         
+         $from_email = "jipinu007@gamil.com"; 
+         $to_email = $email; 
+        
+         $this->email->from($from_email, 'Your Name'); 
+         $this->email->to($to_email);
+         $this->email->subject($subject); 
+         $mail_bodydetails="Please click the below link for Verifying your Email";
+         $mail_bodydetails.='<a href="'.BASE_PATH.'login/verification_email/'.$encode_id.'">Click to Verify your Email</a>';
+
+         $this->email->message($mail_bodydetails); 
+   
+         //Send mail 
+         if($this->email->send()){   
+             return true;
+         } 
+         else{
+             return false;
+         }
+    }
 
 }
 
