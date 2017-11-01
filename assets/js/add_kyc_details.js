@@ -7,7 +7,7 @@
 
 var ValidateKyc = function () {
     var runRegisterValidator = function () {
-        
+
         var form3 = $('#add_kyc_details');
         var errorHandler3 = $('.errorHandler', form3);
         form3.validate({
@@ -49,9 +49,7 @@ var ValidateKyc = function () {
                 },
                 id_proof: {
                     required: true,
-
                 },
-
             },
             highlight: function (element) {
                 $(element).closest('.help-block').removeClass('valid'); // display OK icon
@@ -83,3 +81,5 @@ var ValidateKyc = function () {
         }
     };
 }();
+
+
