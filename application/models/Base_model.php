@@ -142,7 +142,6 @@ class Base_model extends CI_Model {
 
 		$script_array = array();
 		$query = $this->db->select("id")
-		//->where("link",$currenturl)
 		->like('link',$currenturl,'before')
 		->limit(1)
 		->get('menus');

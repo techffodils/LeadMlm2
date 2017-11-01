@@ -13,13 +13,15 @@ class Helper_model extends CI_Model {
         return $this->db->set('mlm_user_id', $user_id)
                         ->set('activity', $activity)
                         ->set('ip_address', $this->getUserIP())
+                        ->set('user_agent', $this->getUserAgent())
                         ->set('date', date("Y-m-d H:i:s"))
                         ->set('data', serialize($data))
                         ->insert('activity');
     }
 
     function getUserIP() {
-        $client = @$_SERVER['HTTP_CLIENT_IP'];
+
+      /*  $client = @$_SERVER['HTTP_CLIENT_IP'];
         $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
         $remote = $_SERVER['REMOTE_ADDR'];
 
@@ -29,9 +31,35 @@ class Helper_model extends CI_Model {
             $ip = $forward;
         } else {
             $ip = $remote;
-        }
-        return $ip;
+        }*/
+
+
+     $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
     }
+
+   function getUserAgent() {
+        $user_agent = '';
+        if(isset($_SERVER['HTTP_USER_AGENT'])){
+          $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        }
+        return $user_agent;
+    }
+
 
     public function stripTagsPost($post_arr = array()) {
         $temp_arr = array();
